@@ -17,10 +17,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # timestamp
       - name: Print start time
         run: |
           echo "Workflow started at $(date)"
 
+      # code branch checkout
       - uses: actions/checkout@v3
       - name: set up JDK 11
         uses: actions/setup-java@v3
@@ -29,6 +31,7 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
+      # gradle 캐싱 작업
       - name: Cache Gradle packages
         uses: actions/cache@v2
         with:
@@ -41,7 +44,7 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-
+가
       - name: Build with Gradle
         run: ./gradlew build
 
