@@ -1,7 +1,6 @@
 name: Android CI
 
 on:
-  push:
   # main, dev, feat branch pr 올리면 아래 jobs 수행
   pull_request:
     branches:
