@@ -24,6 +24,11 @@ allprojects {
     apply plugin: 'maven-publish'
     apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
+    repositories {
+        google()
+        mavenCentral()
+    }
+
     tasks.withType(JavaCompile) {
         options.incremental = true
     }
