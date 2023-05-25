@@ -1,22 +1,20 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
 }
 
 android {
-    namespace = "com.yapp.bol.app"
+    namespace = "com.yapp.bol.presentation"
     compileSdk = 32
 
     defaultConfig {
-        applicationId = "com.yapp.bol.app"
         minSdk = 21
         targetSdk = 32
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -25,7 +23,6 @@ android {
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
-
             )
         }
         debug {
@@ -39,9 +36,14 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
 }
 
 dependencies {
+
     implementation(com.yapp.bol.KTX.CORE)
     implementation(com.yapp.bol.AndroidX.APP_COMPAT)
     implementation(com.yapp.bol.AndroidX.MATERIAL)
@@ -52,7 +54,6 @@ dependencies {
 
     implementation(project(mapOf("path" to ":data")))
     implementation(project(mapOf("path" to ":domain")))
-    implementation(project(mapOf("path" to ":presentation")))
 
     // Hilt
     implementation(com.yapp.bol.DaggerHilt.DAGGER_HILT)
