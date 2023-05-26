@@ -12,13 +12,13 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         jcenter() // Warning: this repository is going to shut down soon
-        maven { url 'https://jitpack.io' }
+        maven { url = uri("https://jitpack.io") }
     }
 }
 
 rootProject.name = "22nd-Android-Team-2-Android"
-include ':app'
-include ':domain'
-include ':data'
-include ':presentation'
+include (":app")
+include (":domain")
+include (":data")
+include (":presentation")
 

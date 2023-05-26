@@ -12,6 +12,10 @@ object Versions {
     const val HILT_VERSION = "2.44"
 }
 
+object Android {
+    const val BUILD_GRADLE = "com.android.tools.build:gradle:7.3.1"
+}
+
 object Kotlin {
     const val SDK = "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
 }
@@ -40,6 +44,7 @@ object DaggerHilt {
     const val DAGGER_HILT_COMPILER = "com.google.dagger:hilt-android-compiler:$HILT_VERSION"
     const val DAGGER_HILT_VIEW_MODEL = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
     const val DAGGER_HILT_ANDROIDX_COMPILER = "androidx.hilt:hilt-compiler:1.0.0"
+    const val DAGGER_HILT_PLUGIN = "com.google.dagger:hilt-android-gradle-plugin:2.44.1"
 }
 
 object Retrofit {
