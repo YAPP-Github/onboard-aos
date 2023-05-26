@@ -59,7 +59,6 @@ object NetworkModule {
     class AppInterceptor @Inject constructor() : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
             val newRequest = request().newBuilder()
-                // .addHeader("accept", "application/json")
                 .addHeader("Content-Type", "application/json")
                 .build()
             proceed(newRequest)
