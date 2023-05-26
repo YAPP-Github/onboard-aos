@@ -7,19 +7,19 @@
     tools:context="com.yapp.bol.presentation.view.MainActivity">
 
     <Button
-        android:id="@+id/btnKakao"
+        android:id="@+id/btn_kakao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="kakao"/>
 
     <Button
-        android:id="@+id/btnNaver"
+        android:id="@+id/btn_naver"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="naver"/>
 
     <Button
-        android:id="@+id/btnGoogle"
+        android:id="@+id/btn_google"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="google"/>
