@@ -11,7 +11,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class DataSourceImplModule {
+class DataSourceModule {
     @Provides
     @Singleton
     fun provideMockDataSource(
