@@ -54,6 +54,5 @@ dependencies {
     // Hilt
     implementation(com.yapp.bol.DaggerHilt.DAGGER_HILT)
     kapt(com.yapp.bol.DaggerHilt.DAGGER_HILT_COMPILER)
-    // implementation(com.yapp.bol.DaggerHilt.DAGGER_HILT_VIEW_MODEL)
     kapt(com.yapp.bol.DaggerHilt.DAGGER_HILT_ANDROIDX_COMPILER)
 }
