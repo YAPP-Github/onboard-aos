@@ -7,11 +7,11 @@ plugins {
 
 android {
     namespace = "com.yapp.bol.domain"
-    compileSdk = 32
+    compileSdk = com.yapp.bol.Applications.compileSdk
 
     defaultConfig {
-        minSdk = 21
-        targetSdk = 32
+        minSdk = com.yapp.bol.Applications.minSdk
+        targetSdk = com.yapp.bol.Applications.targetSdk
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -31,7 +31,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = com.yapp.bol.Applications.jvmTarget
     }
 }
 

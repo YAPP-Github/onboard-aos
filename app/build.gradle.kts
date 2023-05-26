@@ -7,14 +7,14 @@ plugins {
 
 android {
     namespace = "com.yapp.bol.app"
-    compileSdk = 32
+    compileSdk = com.yapp.bol.Applications.compileSdk
 
     defaultConfig {
         applicationId = "com.yapp.bol.app"
-        minSdk = 21
-        targetSdk = 32
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = com.yapp.bol.Applications.minSdk
+        targetSdk = com.yapp.bol.Applications.targetSdk
+        versionCode = com.yapp.bol.Applications.versionCode
+        versionName = com.yapp.bol.Applications.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -25,7 +25,6 @@ android {
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
-
             )
         }
         debug {
@@ -37,7 +36,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = com.yapp.bol.Applications.jvmTarget
     }
 }
 
