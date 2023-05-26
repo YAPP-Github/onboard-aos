@@ -21,7 +21,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideHttpClient(
-        appInterceptor: com.yapp.bol.app.di.NetworkModule.AppInterceptor,
+        appInterceptor: AppInterceptor,
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .readTimeout(10, TimeUnit.SECONDS)
@@ -34,12 +34,11 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideRetrofitInstance(
-        baseUrl: String,
         okHttpClient: OkHttpClient,
         gsonConverterFactory: GsonConverterFactory,
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(gsonConverterFactory)
             .build()
@@ -49,11 +48,6 @@ object NetworkModule {
     @Singleton
     fun provideConverterFactory(): GsonConverterFactory {
         return GsonConverterFactory.create()
-    }
-
-    @Provides
-    fun provideBaseUrl(): String {
-        return BASE_URL
     }
 
     class AppInterceptor @Inject constructor() : Interceptor {
