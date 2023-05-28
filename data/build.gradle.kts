@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -15,6 +17,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+        buildConfigField("String", "REMOTE_SERVER", getApi("REMOTE_SERVER"))
     }
 
     buildTypes {
@@ -55,4 +58,8 @@ dependencies {
     implementation(com.yapp.bol.DaggerHilt.DAGGER_HILT)
     kapt(com.yapp.bol.DaggerHilt.DAGGER_HILT_COMPILER)
     kapt(com.yapp.bol.DaggerHilt.DAGGER_HILT_ANDROIDX_COMPILER)
+}
+
+fun getApi(propertyKey: String): String {
+    return gradleLocalProperties(rootDir).getProperty(propertyKey)
 }
