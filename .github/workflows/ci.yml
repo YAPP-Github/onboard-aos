@@ -28,7 +28,15 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
-      # gradle 캐싱 작업
+      # secret 생성
+      - name: Create secret key
+        run: |
+          echo REMOTE_SERVER=\"$SERVER_URL\" >> ./local.properties
+        shell: bash
+        env:
+          SERVER_URL: ${{ secrets.SERVER_URL }}
+
+        # gradle 캐싱 작업
       - name: Cache Gradle packages
         uses: actions/cache@v2
         with:
