@@ -1,5 +1,3 @@
-import com.yapp.bol.Applications.versionName
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -78,6 +76,12 @@ dependencies {
 
     // Coroutines
     implementation(com.yapp.bol.Coroutines.COROUTINES)
+
+    // Firebase
+    implementation(platform(com.yapp.bol.Firebase.FIREBASE_BOM))
+    implementation(com.yapp.bol.Firebase.FIREBASE_AUTH)
+    implementation(com.yapp.bol.Firebase.FIREBASE_ANALYTICS)
+    implementation(com.yapp.bol.Firebase.GMS_AUTH)
 
     // Login
     implementation(com.yapp.bol.Login.KAKAO)
