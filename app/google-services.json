@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "407255596267",
+    "project_id": "bol-yapp",
+    "storage_bucket": "bol-yapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:407255596267:android:44af0862a60a510f9c12ae",
+        "android_client_info": {
+          "package_name": "com.yapp.bol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "407255596267-urm8d36ilo11rqt2e2k7o97oav607vr2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yapp.bol",
+            "certificate_hash": "4f74bc1ae3696a7472c30ac68a2e30efa83818a2"
+          }
+        },
+        {
+          "client_id": "407255596267-oh8srvr5ddpv0qd53kdceeu8e7thjeld.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3Jdmkogwo6YQP03yJMp6oJ8PTb7QSR94"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "407255596267-oh8srvr5ddpv0qd53kdceeu8e7thjeld.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
