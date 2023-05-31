@@ -1,3 +1,4 @@
+import com.yapp.bol.Applications.versionName
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
@@ -26,7 +27,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
         debug {
@@ -78,6 +79,12 @@ dependencies {
 
     // Coroutines
     implementation(com.yapp.bol.Coroutines.COROUTINES)
+
+    // Firebase
+    implementation(platform(com.yapp.bol.Firebase.FIREBASE_BOM))
+    implementation(com.yapp.bol.Firebase.FIREBASE_AUTH)
+    implementation(com.yapp.bol.Firebase.FIREBASE_ANALYTICS)
+    implementation(com.yapp.bol.Firebase.GMS_AUTH)
 
     // Login
     implementation(com.yapp.bol.Login.KAKAO)
