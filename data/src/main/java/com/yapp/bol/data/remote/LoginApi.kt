@@ -7,7 +7,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface LoginApi {
-    @POST("auth/login")
+    @POST("v1/auth/login")
     suspend fun postMockApi(
         @Body mockApiRequest: MockApiRequest,
     ): Response<MockApiResponse>
