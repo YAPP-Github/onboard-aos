@@ -54,14 +54,3 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew build
-
-      # ktlint test
-      - name: Run ktlint
-        run: ./gradlew ktlintCheck
-
-          - name: Create secret key
-          run: |
-
-          shell: bash
-          env:
-
