@@ -40,6 +40,17 @@ class KakaoTestActivity : AppCompatActivity() {
 
         KakaoSdk.init(this, KAKAO_API_KEY)
         kakaoClient = UserApiClient.instance
+        kakaoLogin()
+    }
+
+    private fun kakaoLogin() {
+        if (isKakaoTalkInstalled) {
+            handleKakaoTalkLoginResult()
+        } else {
+            kakaoClient.loginWithKakaoAccount(this, callback = kakaoCallBack)
+        }
+    }
+
     private fun handleKakaoTalkLoginResult() {
         kakaoClient.loginWithKakaoTalk(this) { token, error ->
             if (isClientErrorCancelled(error)) return@loginWithKakaoTalk
