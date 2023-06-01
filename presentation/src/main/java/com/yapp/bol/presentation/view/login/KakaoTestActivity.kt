@@ -22,6 +22,10 @@ class KakaoTestActivity : AppCompatActivity() {
     private val kakaoCallBack: (OAuthToken?, Throwable?) -> Unit = { token, _ ->
         token?.let { mainViewModel.loginTest(token.accessToken) }
     }
+
+    private val isKakaoTalkInstalled
+        get() = kakaoClient.isKakaoTalkLoginAvailable(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityKakaoTestBinding.inflate(layoutInflater)
