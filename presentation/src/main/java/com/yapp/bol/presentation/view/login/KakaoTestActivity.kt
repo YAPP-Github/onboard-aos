@@ -27,7 +27,7 @@ class KakaoTestActivity : AppCompatActivity() {
     }
 
     private val isKakaoTalkInstalled
-        get() = kakaoClient?.isKakaoTalkLoginAvailable(this)
+        get() = kakaoClient?.isKakaoTalkLoginAvailable(this) ?: false
 
     private val isClientErrorCancelled: (Throwable?) -> Boolean = { error ->
         error is ClientError && error.reason == ClientErrorCause.Cancelled
@@ -44,7 +44,7 @@ class KakaoTestActivity : AppCompatActivity() {
     }
 
     private fun kakaoLogin() {
-        if (isKakaoTalkInstalled == true) {
+        if (isKakaoTalkInstalled) {
             handleKakaoTalkLoginResult()
         } else {
             kakaoClient?.loginWithKakaoAccount(this, callback = kakaoCallBack)
