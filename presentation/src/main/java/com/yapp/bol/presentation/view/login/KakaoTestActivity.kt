@@ -18,7 +18,8 @@ class KakaoTestActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_kakao_test)
+        binding = ActivityKakaoTestBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     companion object {
         const val KAKAO_API_KEY = BuildConfig.KAKAO_API_KEY
     }
