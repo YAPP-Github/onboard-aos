@@ -17,11 +17,15 @@ class KakaoTestActivity : AppCompatActivity() {
 
     private val mainViewModel: MainViewModel by viewModels()
 
+    private lateinit var kakaoClient: UserApiClient
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityKakaoTestBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         KakaoSdk.init(this, KAKAO_API_KEY)
+        kakaoClient = UserApiClient.instance
     companion object {
         const val KAKAO_API_KEY = BuildConfig.KAKAO_API_KEY
     }
