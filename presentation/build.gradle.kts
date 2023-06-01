@@ -15,6 +15,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+        buildConfigField("String", "KAKAO_API_KEY", getApi("KAKAO_API_KEY"))
     }
 
     buildTypes {
@@ -77,4 +78,8 @@ dependencies {
 
     // Login
     implementation(com.yapp.bol.Login.KAKAO)
+}
+
+fun getApi(propertyKey: String): String {
+    return com.android.build.gradle.internal.cxx.configure.gradleLocalProperties(rootDir).getProperty(propertyKey)
 }
