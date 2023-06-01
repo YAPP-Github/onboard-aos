@@ -74,4 +74,7 @@ dependencies {
 
     // Coroutines
     implementation(com.yapp.bol.Coroutines.COROUTINES)
+
+    // Login
+    implementation(com.yapp.bol.Login.KAKAO)
 }

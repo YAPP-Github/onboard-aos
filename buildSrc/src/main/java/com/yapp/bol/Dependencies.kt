@@ -1,6 +1,7 @@
 package com.yapp.bol
 
 import com.yapp.bol.Versions.HILT_VERSION
+import com.yapp.bol.Versions.KAKAO_VERSION
 import com.yapp.bol.Versions.KOTLIN_VERSION
 import com.yapp.bol.Versions.KTLINT_VERSION
 
@@ -10,6 +11,7 @@ object Versions {
     const val KOTLIN_VERSION = "1.6.10"
     const val KTLINT_VERSION = "9.1.0"
     const val HILT_VERSION = "2.44"
+    const val KAKAO_VERSION = "2.11.0"
 }
 
 object Android {
@@ -61,6 +63,10 @@ object OkHttp {
 
 object KtLint {
     const val KTLINT = "org.jlleitschuh.gradle:ktlint-gradle:$KTLINT_VERSION"
+}
+
+object Login {
+    const val KAKAO = "com.kakao.sdk:v2-user:$KAKAO_VERSION"
 }
 
 object Test {

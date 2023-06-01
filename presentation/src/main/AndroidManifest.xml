@@ -23,6 +23,21 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <!-- Kakao 로그인 -->
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="oauth"
+                    android:scheme="kakao6b00372729fca3b38e27c16036192dc9" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
