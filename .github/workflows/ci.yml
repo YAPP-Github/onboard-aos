@@ -32,7 +32,7 @@ jobs:
       - name: Create secret key
         run: |
           echo REMOTE_SERVER=\"$SERVER_URL\" >> ./local.properties
-          echo TEST_KEY=\"$KAKAO_API_KEY\" >> ./local.properties
+          echo KAKAO_API_KEY=\"$KAKAO_API_KEY\" >> ./local.properties
         shell: bash
         env:
           SERVER_URL: ${{ secrets.SERVER_URL }}
