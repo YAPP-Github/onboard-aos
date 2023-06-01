@@ -20,14 +20,14 @@ class KakaoTestActivity : AppCompatActivity() {
 
     private val mainViewModel: MainViewModel by viewModels()
 
-    private lateinit var kakaoClient: UserApiClient
+    private var kakaoClient: UserApiClient? = null
 
     private val kakaoCallBack: (OAuthToken?, Throwable?) -> Unit = { token, _ ->
         token?.let { mainViewModel.loginTest(token.accessToken) }
     }
 
     private val isKakaoTalkInstalled
-        get() = kakaoClient.isKakaoTalkLoginAvailable(this)
+        get() = kakaoClient?.isKakaoTalkLoginAvailable(this)
 
     private val isClientErrorCancelled: (Throwable?) -> Boolean = { error ->
         error is ClientError && error.reason == ClientErrorCause.Cancelled
@@ -39,22 +39,22 @@ class KakaoTestActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         KakaoSdk.init(this, KAKAO_API_KEY)
-        kakaoClient = UserApiClient.instance
+        kakaoClient = checkNotNull(UserApiClient.instance)
         kakaoLogin()
     }
 
     private fun kakaoLogin() {
-        if (isKakaoTalkInstalled) {
+        if (isKakaoTalkInstalled == true) {
             handleKakaoTalkLoginResult()
         } else {
-            kakaoClient.loginWithKakaoAccount(this, callback = kakaoCallBack)
+            kakaoClient?.loginWithKakaoAccount(this, callback = kakaoCallBack)
         }
     }
 
     private fun handleKakaoTalkLoginResult() {
-        kakaoClient.loginWithKakaoTalk(this) { token, error ->
+        kakaoClient?.loginWithKakaoTalk(this) { token, error ->
             if (isClientErrorCancelled(error)) return@loginWithKakaoTalk
-            error?.let { kakaoClient.loginWithKakaoAccount(this, callback = kakaoCallBack) }
+            error?.let { kakaoClient?.loginWithKakaoAccount(this, callback = kakaoCallBack) }
             token?.let { mainViewModel.loginTest(token.accessToken) }
         }
     }
