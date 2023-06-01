@@ -2,13 +2,11 @@ package com.yapp.bol.presentation.view
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.yapp.bol.presentation.databinding.ActivityMainBinding
 import com.yapp.bol.presentation.view.login.GoogleTestActivity
 import com.yapp.bol.presentation.view.login.KakaoTestActivity
 import com.yapp.bol.presentation.view.login.NaverTestActivity
-import com.yapp.bol.presentation.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
