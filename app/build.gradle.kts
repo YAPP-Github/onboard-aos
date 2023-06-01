@@ -62,6 +62,7 @@ dependencies {
     implementation(com.yapp.bol.Retrofit.RETROFIT)
     implementation(com.yapp.bol.Retrofit.CONVERTER_GSON)
     implementation(com.yapp.bol.Retrofit.CONVERTER_JAXB)
+    implementation(com.yapp.bol.Retrofit.LOGGING_INTERCEPTOR)
 
     // AndroidX
     implementation(com.yapp.bol.AndroidX.LIFECYCLE_VIEW_MODEL)
