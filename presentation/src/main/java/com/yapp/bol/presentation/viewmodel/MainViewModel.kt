@@ -15,9 +15,9 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val kakaoLoginUseCase: KakaoLoginUseCase,
 ) : ViewModel(), RemoteErrorEmitter {
-    fun loginTest() = viewModelScope.launch {
-        val response: MockApiItem? = kakaoLoginUseCase.execute(this@MainViewModel, "SUCCESSid")
-        Log.d("MOCK TEST", response.toString())
+    fun loginTest(token: String) = viewModelScope.launch {
+        val response: MockApiItem? = kakaoLoginUseCase.execute(this@MainViewModel, token)
+        Log.d("MOCK TEST", "loginTest: ${response?.accessToken}")
     }
 
     override fun onError(msg: String) {
