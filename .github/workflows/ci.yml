@@ -54,3 +54,7 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew build
+
+      # ktlint test
+      - name: Run ktlint
+        run: ./gradlew ktlintCheck
