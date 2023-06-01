@@ -26,6 +26,10 @@ class KakaoTestActivity : AppCompatActivity() {
     private val isKakaoTalkInstalled
         get() = kakaoClient.isKakaoTalkLoginAvailable(this)
 
+    private val isClientErrorCancelled: (Throwable?) -> Boolean = { error ->
+        error is ClientError && error.reason == ClientErrorCause.Cancelled
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityKakaoTestBinding.inflate(layoutInflater)
