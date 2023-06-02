@@ -1,5 +1,6 @@
 package com.yapp.bol.app.di
 
+import com.yapp.bol.app.BuildConfig
 import com.yapp.bol.data.remote.LoginApi
 import com.yapp.bol.data.utils.Utils.BASE_URL
 import dagger.Module
@@ -21,7 +22,11 @@ object NetworkModule {
     @Singleton
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
+            level = if (BuildConfig.DEBUG) {
+                HttpLoggingInterceptor.Level.BODY
+            } else {
+                HttpLoggingInterceptor.Level.NONE
+            }
         }
     }
 
