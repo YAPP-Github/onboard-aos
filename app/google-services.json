@@ -7,17 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:407255596267:android:44af0862a60a510f9c12ae",
+        "mobilesdk_app_id": "1:407255596267:android:4c019570245194ce9c12ae",
         "android_client_info": {
-          "package_name": "com.yapp.bol"
+          "package_name": "com.yapp.bol.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "407255596267-urm8d36ilo11rqt2e2k7o97oav607vr2.apps.googleusercontent.com",
+          "client_id": "407255596267-pmr88ej2sarf4pga749rkd87ou0abt0m.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.yapp.bol",
+            "package_name": "com.yapp.bol.app",
             "certificate_hash": "4f74bc1ae3696a7472c30ac68a2e30efa83818a2"
           }
         },
