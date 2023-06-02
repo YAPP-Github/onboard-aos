@@ -80,5 +80,6 @@ object Firebase {
     const val FIREBASE_BOM = "com.google.firebase:firebase-bom:32.0.0"
     const val FIREBASE_AUTH = "com.google.firebase:firebase-auth-ktx"
     const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
-    const val GMS_AUTH = "implementation 'com.google.android.gms:play-services-auth:20.5.0'"
+    const val GMS_AUTH = "com.google.android.gms:play-services-auth:20.5.0"
+    const val GMS_CLASSPATH = "com.google.gms:google-services:4.3.15"
 }
