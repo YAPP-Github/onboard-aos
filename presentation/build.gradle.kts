@@ -1,9 +1,10 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
-    id("com.google.gms.google-services")
 }
 
 android {
@@ -18,6 +19,7 @@ android {
         consumerProguardFiles("consumer-rules.pro")
         buildConfigField("String", "KAKAO_API_KEY",getApi("KAKAO_API_KEY"))
         manifestPlaceholders["kakaoKay"] = getApi("KAKAO_API_KEY_MANI")
+        buildConfigField("String", "GOOGLE_LOGIN_API_KEY", getApi("GOOGLE_LOGIN_API_KEY"))
     }
 
     buildTypes {
@@ -89,5 +91,5 @@ dependencies {
 }
 
 fun getApi(propertyKey: String): String {
-    return com.android.build.gradle.internal.cxx.configure.gradleLocalProperties(rootDir).getProperty(propertyKey)
+    return gradleLocalProperties(rootDir).getProperty(propertyKey)
 }
