@@ -1,5 +1,5 @@
 ### Reference
-- [Notion Ticket]()
+- [Jira Ticket](https://yapp22-aos2.atlassian.net/browse/BOL-)
 
 ### 참고 사항
 
