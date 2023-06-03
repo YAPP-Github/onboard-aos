@@ -36,7 +36,7 @@
 
                 <data
                     android:host="oauth"
-                    android:scheme="kakao6b00372729fca3b38e27c16036192dc9" />
+                    android:scheme="kakao${kakaoKay}" />
             </intent-filter>
         </activity>
     </application>
