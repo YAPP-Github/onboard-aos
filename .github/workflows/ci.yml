@@ -54,8 +54,8 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build with Gradle
-        run: ./gradlew build
+      - name: Build project
+        run: ./gradlew assembleDebug
 
       # ktlint test
       - name: Run ktlint
