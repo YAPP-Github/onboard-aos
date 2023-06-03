@@ -60,3 +60,17 @@ jobs:
       # ktlint test
       - name: Run ktlint
         run: ./gradlew ktlintCheck
+
+      - name: Upload build reports
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-reports
+          path: app/build/reports/
+
+      - name: Upload all outputs
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: outputs
+          path: app/build/outputs/
