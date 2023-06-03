@@ -1,3 +1,5 @@
+import com.yapp.bol.Applications.versionName
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -15,6 +17,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+        buildConfigField("String", "KAKAO_API_KEY",getApi("KAKAO_API_KEY"))
+        manifestPlaceholders["kakaoKay"] = getApi("KAKAO_API_KEY_MANI")
     }
 
     buildTypes {
@@ -74,4 +78,11 @@ dependencies {
 
     // Coroutines
     implementation(com.yapp.bol.Coroutines.COROUTINES)
+
+    // Login
+    implementation(com.yapp.bol.Login.KAKAO)
+}
+
+fun getApi(propertyKey: String): String {
+    return com.android.build.gradle.internal.cxx.configure.gradleLocalProperties(rootDir).getProperty(propertyKey)
 }

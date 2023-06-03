@@ -13,6 +13,7 @@ dependencyResolutionManagement {
         mavenCentral()
         jcenter() // Warning: this repository is going to shut down soon
         maven { url = uri("https://jitpack.io") }
+        maven { url = uri("https://devrepo.kakao.com/nexus/content/groups/public/")}
     }
 }
 
@@ -21,4 +22,3 @@ include (":app")
 include (":domain")
 include (":data")
 include (":presentation")
-
