@@ -29,7 +29,7 @@ jobs:
           cache: gradle
 
       # secret 생성
-      - name: Create secret key
+      - name: secret key setting
         run: |
           echo REMOTE_SERVER=\"$SERVER_URL\" >> ./local.properties
           echo KAKAO_API_KEY=\"$KAKAO_API_KEY\" >> ./local.properties
