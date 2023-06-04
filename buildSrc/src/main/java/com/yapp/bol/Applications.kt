@@ -1,5 +1,7 @@
 package com.yapp.bol
 
+import org.gradle.api.JavaVersion
+
 object Applications {
     // APP Config
     const val minSdk = 21
@@ -11,4 +13,6 @@ object Applications {
     const val minorVersion = 0
     const val patchVersion = 0
     const val versionName = "$majorVersion.$minorVersion"
+    val sourceCompatibilityVersion = JavaVersion.VERSION_1_8
+    val targetCompatibilityVersion = JavaVersion.VERSION_1_8
 }

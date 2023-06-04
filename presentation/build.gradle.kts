@@ -1,4 +1,4 @@
-import com.yapp.bol.Applications.versionName
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
     id("com.android.library")
@@ -17,7 +17,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-        buildConfigField("String", "KAKAO_API_KEY",getApi("KAKAO_API_KEY"))
+        buildConfigField("String", "KAKAO_API_KEY", getApi("KAKAO_API_KEY"))
         manifestPlaceholders["kakaoKay"] = getApi("KAKAO_API_KEY_MANI")
     }
 
@@ -34,8 +34,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = com.yapp.bol.Applications.sourceCompatibilityVersion
+        targetCompatibility = com.yapp.bol.Applications.targetCompatibilityVersion
     }
     kotlinOptions {
         jvmTarget = com.yapp.bol.Applications.jvmTarget
@@ -84,5 +84,5 @@ dependencies {
 }
 
 fun getApi(propertyKey: String): String {
-    return com.android.build.gradle.internal.cxx.configure.gradleLocalProperties(rootDir).getProperty(propertyKey)
+    return gradleLocalProperties(rootDir).getProperty(propertyKey)
 }
