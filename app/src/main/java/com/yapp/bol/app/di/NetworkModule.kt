@@ -34,7 +34,7 @@ object NetworkModule {
     @Singleton
     fun provideHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
-        appInterceptor: AppInterceptor,
+        appInterceptor: AppInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .readTimeout(10, TimeUnit.SECONDS)
@@ -49,7 +49,7 @@ object NetworkModule {
     @Provides
     fun provideRetrofitInstance(
         okHttpClient: OkHttpClient,
-        gsonConverterFactory: GsonConverterFactory,
+        gsonConverterFactory: GsonConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)

@@ -8,14 +8,14 @@ import com.yapp.bol.domain.utils.RemoteErrorEmitter
 import javax.inject.Inject
 
 class MockRepositoryImpl @Inject constructor(
-    private val mockDataSource: MockDataSource,
+    private val mockDataSource: MockDataSource
 ) : MockRepository {
     override suspend fun getKakaoMock(
         remoteErrorEmitter: RemoteErrorEmitter,
-        token: String,
+        token: String
     ): MockApiItem? {
         return MapperToDomain.mapperToMockApiItem(
-            mockDataSource.getKakaoMock(remoteErrorEmitter, token = token),
+            mockDataSource.getKakaoMock(remoteErrorEmitter, token = token)
         )
     }
 }

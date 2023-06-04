@@ -10,7 +10,7 @@ import com.yapp.bol.domain.utils.RemoteErrorEmitter
 import javax.inject.Inject
 
 class MockDataSourceImpl @Inject constructor(
-    private val oauthApi: LoginApi,
+    private val oauthApi: LoginApi
 ) : BaseRepository(), MockDataSource {
     override suspend fun getKakaoMock(remoteErrorEmitter: RemoteErrorEmitter, token: String): MockApiResponse? {
         return safeApiCall(remoteErrorEmitter) {
