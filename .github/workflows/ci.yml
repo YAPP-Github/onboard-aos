@@ -33,10 +33,16 @@ jobs:
         run: |
           echo REMOTE_SERVER=\"$SERVER_URL\" >> ./local.properties
           echo KAKAO_API_KEY=\"$KAKAO_API_KEY\" >> ./local.properties
+          echo NAVER_CLIENT_ID=\"NAVER_CLIENT_ID\" >> ./local.properties
+          echo NAVER_CLIENT_NAME=\"NAVER_CLIENT_NAME\" >> ./local.properties
+          echo NAVER_CLIENT_SECRET=\"NAVER_CLIENT_SECRET\" >> ./local.properties
         shell: bash
         env:
           SERVER_URL: ${{ secrets.SERVER_URL }}
           KAKAO_API_KEY: ${{ secrets.KAKAO_API_KEY }}
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_NAME: ${{ secrets.NAVER_CLIENT_NAME }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
 
         # gradle 캐싱 작업
       - name: Cache Gradle packages
