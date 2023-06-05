@@ -12,7 +12,7 @@ object MapperToDomain {
     private fun MockApiResponse.toItem(): MockApiItem {
         return MockApiItem(
             this.accessToken,
-            this.refreshToken,
+            this.refreshToken
         )
     }
 }

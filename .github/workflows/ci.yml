@@ -21,22 +21,24 @@ jobs:
 
       # code branch checkout
       - uses: actions/checkout@v3
-      - name: set up JDK 11
+      - name: set up JDK 18
         uses: actions/setup-java@v3
         with:
-          java-version: '11'
+          java-version: '18'
           distribution: 'temurin'
           cache: gradle
 
       # secret 생성
-      - name: Create secret key
+      - name: secret key setting
         run: |
           echo REMOTE_SERVER=\"$SERVER_URL\" >> ./local.properties
           echo KAKAO_API_KEY=\"$KAKAO_API_KEY\" >> ./local.properties
+          echo KAKAO_API_KEY_MANI=\"KAKAO_API_KEY_MANI\" >> ./local.properties
         shell: bash
         env:
           SERVER_URL: ${{ secrets.SERVER_URL }}
           KAKAO_API_KEY: ${{ secrets.KAKAO_API_KEY }}
+          KAKAO_API_KEY_MANI: ${{ secrets.KAKAO_API_KEY_MANI }}
 
         # gradle 캐싱 작업
       - name: Cache Gradle packages
@@ -52,9 +54,23 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build with Gradle
-        run: ./gradlew build
+      - name: Build project
+        run: ./gradlew assembleDebug
 
       # ktlint test
       - name: Run ktlint
         run: ./gradlew ktlintCheck
+
+      - name: Upload build reports
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-reports
+          path: app/build/reports/
+
+      - name: Upload all outputs
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: outputs
+          path: app/build/outputs/

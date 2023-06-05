@@ -20,6 +20,12 @@ allprojects {
         plugin("maven-publish")
         plugin("org.jlleitschuh.gradle.ktlint")
     }
+    ktlint {
+        filter {
+            exclude { projectDir.toURI().relativize(it.file.toURI()).path.contains("/androidTest/") }
+            exclude { projectDir.toURI().relativize(it.file.toURI()).path.contains("/test/") }
+        }
+    }
 
     tasks.withType<JavaCompile> {
         options.isIncremental = true

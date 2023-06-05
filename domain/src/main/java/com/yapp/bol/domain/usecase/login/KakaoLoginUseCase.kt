@@ -6,7 +6,7 @@ import com.yapp.bol.domain.utils.RemoteErrorEmitter
 import javax.inject.Inject
 
 class KakaoLoginUseCase @Inject constructor(
-    private val mockRepository: MockRepository,
+    private val mockRepository: MockRepository
 ) {
     suspend fun execute(remoteErrorEmitter: RemoteErrorEmitter, token: String): MockApiItem? =
         mockRepository.getKakaoMock(remoteErrorEmitter, token = token)

@@ -15,7 +15,7 @@ class DataSourceModule {
     @Provides
     @Singleton
     fun provideMockDataSource(
-        oauthApi: LoginApi,
+        oauthApi: LoginApi
     ): MockDataSource {
         return MockDataSourceImpl(oauthApi)
     }
