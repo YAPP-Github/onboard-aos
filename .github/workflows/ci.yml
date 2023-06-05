@@ -34,11 +34,13 @@ jobs:
           echo REMOTE_SERVER=\"$SERVER_URL\" >> ./local.properties
           echo KAKAO_API_KEY=\"$KAKAO_API_KEY\" >> ./local.properties
           echo KAKAO_API_KEY_MANI=\"KAKAO_API_KEY_MANI\" >> ./local.properties
+          echo GOOGLE_LOGIN_API_KEY=\"GOOGLE_LOGIN_API_KEY\" >> ./local.properties
         shell: bash
         env:
           SERVER_URL: ${{ secrets.SERVER_URL }}
           KAKAO_API_KEY: ${{ secrets.KAKAO_API_KEY }}
           KAKAO_API_KEY_MANI: ${{ secrets.KAKAO_API_KEY_MANI }}
+          GOOGLE_LOGIN_API_KEY: ${{ secrets.GOOGLE_LOGIN_API_KEY }}
 
         # gradle 캐싱 작업
       - name: Cache Gradle packages
