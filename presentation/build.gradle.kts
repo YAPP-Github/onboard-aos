@@ -1,4 +1,3 @@
-import com.yapp.bol.Applications.versionName
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
