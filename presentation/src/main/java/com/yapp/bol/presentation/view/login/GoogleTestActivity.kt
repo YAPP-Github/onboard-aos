@@ -21,7 +21,7 @@ import com.yapp.bol.presentation.R
 
 class GoogleTestActivity : AppCompatActivity() {
 
-    private val auth: FirebaseAuth by lazy { Firebase.auth }
+    private val firebaseAuth: FirebaseAuth by lazy { Firebase.auth }
     private val googleLoginClientIntent: Intent by lazy {
         val gso = GoogleSignInOptions
             .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -66,9 +66,9 @@ class GoogleTestActivity : AppCompatActivity() {
     // 구글 로그인에 성공한 아이디를 Firebase에 통신하여 user 정보 가져오기
     private fun startFirebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
-        auth.signInWithCredential(credential)
+        firebaseAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
-                val user = auth.currentUser
+                val user = firebaseAuth.currentUser
                 if (task.isSuccessful && user != null) {
                     checkFirebaseIdToken(user)
                 } else {
