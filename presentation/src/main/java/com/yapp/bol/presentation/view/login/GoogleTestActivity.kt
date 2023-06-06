@@ -21,15 +21,6 @@ import com.yapp.bol.presentation.R
 
 class GoogleTestActivity : AppCompatActivity() {
 
-    private val firebaseAuth: FirebaseAuth by lazy { Firebase.auth }
-    private val googleLoginClientIntent: Intent by lazy {
-        val gso = GoogleSignInOptions
-            .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(BuildConfig.GOOGLE_LOGIN_API_KEY)
-            .requestEmail()
-            .build()
-        GoogleSignIn.getClient(this, gso).signInIntent
-    }
     private val googleLoginForResult: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             handleGoogleSignInResult(result)
@@ -39,7 +30,18 @@ class GoogleTestActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_google_test)
 
-        // TEST 용이라 binding 연결해두지 않았습니다.
+        initButton()
+    }
+
+    private fun initButton() {
+        val googleLoginClientIntent: Intent = GoogleSignInOptions
+            .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(BuildConfig.GOOGLE_LOGIN_API_KEY)
+            .requestEmail()
+            .build().let {
+                GoogleSignIn.getClient(this@GoogleTestActivity, it).signInIntent
+            }
+
         findViewById<SignInButton>(R.id.btn_login).setOnClickListener {
             googleLoginForResult.launch(googleLoginClientIntent)
         }
@@ -57,6 +59,8 @@ class GoogleTestActivity : AppCompatActivity() {
                 } catch (e: ApiException) {
                     // TODO : Google Sign In failed, update UI appropriately
                 }
+            } ?: run {
+                // TODO : null 처리 작업 필요
             }
         } else {
             // TODO : 그 외 예외 처리 UI 작업
@@ -66,6 +70,7 @@ class GoogleTestActivity : AppCompatActivity() {
     // 구글 로그인에 성공한 아이디를 Firebase에 통신하여 user 정보 가져오기
     private fun startFirebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
+        val firebaseAuth: FirebaseAuth = Firebase.auth
         firebaseAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 val user = firebaseAuth.currentUser
