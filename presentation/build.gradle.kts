@@ -83,7 +83,6 @@ dependencies {
     // Firebase
     implementation(platform(com.yapp.bol.Firebase.FIREBASE_BOM))
     implementation(com.yapp.bol.Firebase.FIREBASE_AUTH)
-    implementation(com.yapp.bol.Firebase.FIREBASE_ANALYTICS)
     implementation(com.yapp.bol.Firebase.GMS_AUTH)
 
     // Login
