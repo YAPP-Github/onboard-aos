@@ -41,6 +41,15 @@ class NewGroupActivity : AppCompatActivity() {
 
         val accessToken = intent.getStringExtra(ACCESS_TOKEN) ?: ""
 
+        binding.btnImage.setOnClickListener {
+            newGroupViewModel.postFileUpload(accessToken)
+        }
+
+        binding.ivImage.setOnClickListener {
+            checkedGalleryAccess()
+        }
+    }
+
     private fun checkedGalleryAccess() {
         if (isPermission)  generateGallery()
         else ActivityCompat.requestPermissions(this, PERMISSIONS, REQ_GALLERY)
