@@ -55,7 +55,7 @@ class GoogleTestActivity : AppCompatActivity() {
 
                 try {
                     val account = task.getResult(ApiException::class.java)!!
-                    startFirebaseAuthWithGoogle(account.idToken!!)
+                    Log.d("gso check google", account.idToken ?: "null")
                 } catch (e: ApiException) {
                     // TODO : Google Sign In failed, update UI appropriately
                 }
@@ -64,29 +64,6 @@ class GoogleTestActivity : AppCompatActivity() {
             }
         } else {
             // TODO : 그 외 예외 처리 UI 작업
-        }
-    }
-
-    // 구글 로그인에 성공한 아이디를 Firebase에 통신하여 user 정보 가져오기
-    private fun startFirebaseAuthWithGoogle(idToken: String) {
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
-        val firebaseAuth: FirebaseAuth = Firebase.auth
-        firebaseAuth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                val user = firebaseAuth.currentUser
-                if (task.isSuccessful && user != null) {
-                    checkFirebaseIdToken(user)
-                } else {
-                    // TODO : If sign in fails, display a message to the user.
-                }
-            }
-    }
-
-    // 가져온 user 정보로 idToken 가져오는 작업 수행
-    private fun checkFirebaseIdToken(user: FirebaseUser) {
-        user.getIdToken(true).addOnSuccessListener {
-            Log.d("gso check idToken", it.token ?: "null")
-            // TODO 최종 성공 작업 -> login 성공 & 서버로 토큰 보내기 (BOL-11-2 브랜치에서 작업할 예정)
         }
     }
 }
