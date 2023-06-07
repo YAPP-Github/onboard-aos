@@ -5,6 +5,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
+import android.os.Build
+import android.os.Bundle
 import android.provider.MediaStore
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -36,7 +38,14 @@ class NewGroupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityNewGroupBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         val accessToken = intent.getStringExtra(ACCESS_TOKEN) ?: ""
+
+    private fun checkedGalleryAccess() {
+        if (isPermission)  generateGallery()
+        else ActivityCompat.requestPermissions(this, PERMISSIONS, REQ_GALLERY)
+    }
+
     private fun generateGallery() {
         val intent = Intent(Intent.ACTION_PICK).apply {
             setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
