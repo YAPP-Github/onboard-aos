@@ -2,6 +2,8 @@ package com.yapp.bol.presentation.view.login
 
 import android.Manifest
 import android.content.Intent
+import android.database.Cursor
+import android.net.Uri
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -19,6 +21,10 @@ class NewGroupActivity : AppCompatActivity() {
         binding = ActivityNewGroupBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val accessToken = intent.getStringExtra(ACCESS_TOKEN) ?: ""
+    private fun getCursor(uri: Uri, proj: Array<String>): Cursor? {
+        return contentResolver.query(uri, proj, null, null, null)
+    }
+
     companion object {
         const val REQ_GALLERY = 1
         val PERMISSIONS = arrayOf(
