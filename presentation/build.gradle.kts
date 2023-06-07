@@ -56,7 +56,6 @@ dependencies {
     implementation(com.yapp.bol.Test.TEST_RUNNER)
     implementation(com.yapp.bol.Test.ESPRESSO_CORE)
 
-    implementation(project(mapOf("path" to ":data")))
     implementation(project(mapOf("path" to ":domain")))
 
     // Hilt
@@ -81,6 +80,10 @@ dependencies {
 
     // Login
     implementation(com.yapp.bol.Login.KAKAO)
+
+    // Glide
+    implementation(com.yapp.bol.Glide.GLIDE)
+    annotationProcessor(com.yapp.bol.Glide.COMPILER)
 }
 
 fun getApi(propertyKey: String): String {

@@ -69,6 +69,11 @@ object Login {
     const val KAKAO = "com.kakao.sdk:v2-user:$KAKAO_VERSION"
 }
 
+object Glide {
+    const val GLIDE = "com.github.bumptech.glide:glide:4.13.0"
+    const val COMPILER = "com.github.bumptech.glide:compiler:4.13.0"
+}
+
 object Test {
     const val JUNIT = "junit:junit:4.13.2"
     const val TEST_RUNNER = "com.android.support.test:runner:1.0.2"

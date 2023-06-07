@@ -3,6 +3,7 @@ package com.yapp.bol.app.di
 import com.yapp.bol.data.datasource.MockDataSource
 import com.yapp.bol.data.datasource.impl.MockDataSourceImpl
 import com.yapp.bol.data.remote.LoginApi
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,12 +12,9 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class DataSourceModule {
-    @Provides
+interface DataSourceModule {
+
+    @Binds
     @Singleton
-    fun provideMockDataSource(
-        oauthApi: LoginApi
-    ): MockDataSource {
-        return MockDataSourceImpl(oauthApi)
-    }
+    fun bindsMockDataSource(mockDataSourceImpl: MockDataSourceImpl): MockDataSource
 }
