@@ -17,8 +17,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-        buildConfigField("String", "KAKAO_API_KEY", getApi("KAKAO_API_KEY"))
-        buildConfigField("String", "GOOGLE_LOGIN_API_KEY", getApi("GOOGLE_LOGIN_API_KEY"))
+        buildConfigField("String", "KAKAO_API_KEY", getProperty("KAKAO_API_KEY"))
+        buildConfigField("String", "GOOGLE_LOGIN_API_KEY", getProperty("GOOGLE_LOGIN_API_KEY"))
         manifestPlaceholders["kakaoKay"] = getProperty("KAKAO_API_KEY_MANI")
         buildConfigField("String", "NAVER_CLIENT_ID", getProperty("NAVER_CLIENT_ID"))
         buildConfigField("String", "NAVER_CLIENT_NAME", getProperty("NAVER_CLIENT_NAME"))
@@ -65,6 +65,8 @@ dependencies {
     implementation(com.yapp.bol.Test.TEST_RUNNER)
     implementation(com.yapp.bol.Test.ESPRESSO_CORE)
 
+    implementation(project(mapOf("path" to ":domain")))
+
     // Hilt
     implementation(com.yapp.bol.DaggerHilt.DAGGER_HILT)
     kapt(com.yapp.bol.DaggerHilt.DAGGER_HILT_COMPILER)
@@ -89,6 +91,10 @@ dependencies {
     implementation(com.yapp.bol.OAuth.NAVER)
     implementation(com.yapp.bol.OAuth.KAKAO)
     implementation(com.yapp.bol.Firebase.GMS_AUTH)
+
+    // Glide
+    implementation(com.yapp.bol.Glide.GLIDE)
+    annotationProcessor(com.yapp.bol.Glide.COMPILER)
 }
 
 fun getProperty(propertyKey: String): String {
