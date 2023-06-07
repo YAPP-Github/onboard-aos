@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.yapp.bol.domain.usecase.login.NewGroupUseCase
 import com.yapp.bol.domain.utils.ErrorType
 import com.yapp.bol.domain.utils.RemoteErrorEmitter
+import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.File
@@ -17,7 +18,7 @@ class NewGroupViewModel @Inject constructor(
     private val newGroupUseCase: NewGroupUseCase
 ): ViewModel(), RemoteErrorEmitter {
 
-    private val _imageFile = MutableLiveData(File(""))
+    private val _imageFile = MutableLiveData(File(EMPTY_STRING))
     val imageFile = _imageFile
 
     fun postFileUpload(token: String) {
