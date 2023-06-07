@@ -80,13 +80,9 @@ dependencies {
     // Coroutines
     implementation(com.yapp.bol.Coroutines.COROUTINES)
 
-    // Firebase
-    implementation(platform(com.yapp.bol.Firebase.FIREBASE_BOM))
-    implementation(com.yapp.bol.Firebase.FIREBASE_AUTH)
-    implementation(com.yapp.bol.Firebase.GMS_AUTH)
-
     // Login
     implementation(com.yapp.bol.Login.KAKAO)
+    implementation(com.yapp.bol.Firebase.GMS_AUTH)
 }
 
 fun getApi(propertyKey: String): String {
