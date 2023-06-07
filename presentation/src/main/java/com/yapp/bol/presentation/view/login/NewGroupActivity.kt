@@ -2,6 +2,7 @@ package com.yapp.bol.presentation.view.login
 
 import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
 import android.provider.MediaStore
@@ -10,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.yapp.bol.presentation.databinding.ActivityNewGroupBinding
 import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
@@ -23,6 +25,11 @@ class NewGroupActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNewGroupBinding
     private val newGroupViewModel: NewGroupViewModel by viewModels()
+
+    private val isPermission: Boolean
+        get() = getPermission(WRITE_PERMISSION) != PackageManager.PERMISSION_DENIED
+            && getPermission(READ_PERMISSION) != PackageManager.PERMISSION_DENIED
+
     private val imageResult= getResultLauncher()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +37,14 @@ class NewGroupActivity : AppCompatActivity() {
         binding = ActivityNewGroupBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val accessToken = intent.getStringExtra(ACCESS_TOKEN) ?: ""
+    private fun getPermission(permissionType: Int): Int {
+        return when (permissionType) {
+            WRITE_PERMISSION -> ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            READ_PERMISSION -> ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+            else -> throw IllegalArgumentException("잘못된 권한 타입입니다.")
+        }
+    }
+
     private fun getResultLauncher(): ActivityResultLauncher<Intent> {
         return registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
