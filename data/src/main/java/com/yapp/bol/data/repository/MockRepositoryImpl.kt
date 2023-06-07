@@ -5,6 +5,7 @@ import com.yapp.bol.data.mapper.MapperToDomain
 import com.yapp.bol.domain.model.MockApiItem
 import com.yapp.bol.domain.repository.MockRepository
 import com.yapp.bol.domain.utils.RemoteErrorEmitter
+import java.io.File
 import javax.inject.Inject
 
 class MockRepositoryImpl @Inject constructor(
@@ -17,5 +18,9 @@ class MockRepositoryImpl @Inject constructor(
         return MapperToDomain.mapperToMockApiItem(
             mockDataSource.getKakaoMock(remoteErrorEmitter, token = token)
         )
+    }
+
+    override suspend fun postFileUpload(remoteErrorEmitter: RemoteErrorEmitter, token: String, file: File): String {
+        return mockDataSource.postFileUpload(remoteErrorEmitter,token,file)?.url ?: "Null !!!"
     }
 }
