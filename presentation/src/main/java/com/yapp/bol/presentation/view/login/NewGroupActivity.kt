@@ -37,6 +37,13 @@ class NewGroupActivity : AppCompatActivity() {
         binding = ActivityNewGroupBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val accessToken = intent.getStringExtra(ACCESS_TOKEN) ?: ""
+    private fun generateGallery() {
+        val intent = Intent(Intent.ACTION_PICK).apply {
+            setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
+        }
+        imageResult.launch(intent)
+    }
+
     private fun getPermission(permissionType: Int): Int {
         return when (permissionType) {
             WRITE_PERMISSION -> ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
