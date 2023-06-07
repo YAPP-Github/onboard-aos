@@ -89,6 +89,10 @@ dependencies {
     implementation(com.yapp.bol.OAuth.NAVER)
     implementation(com.yapp.bol.OAuth.KAKAO)
     implementation(com.yapp.bol.Firebase.GMS_AUTH)
+
+    // Glide
+    implementation(com.yapp.bol.Glide.GLIDE)
+    annotationProcessor(com.yapp.bol.Glide.COMPILER)
 }
 
 fun getProperty(propertyKey: String): String {
