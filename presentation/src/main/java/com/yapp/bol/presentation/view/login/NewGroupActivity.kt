@@ -5,6 +5,8 @@ import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.provider.MediaStore
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -14,16 +16,32 @@ import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
 import com.yapp.bol.presentation.view.login.KakaoTestActivity.Companion.ACCESS_TOKEN
 import com.yapp.bol.presentation.viewmodel.NewGroupViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
+
 @AndroidEntryPoint
 class NewGroupActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNewGroupBinding
     private val newGroupViewModel: NewGroupViewModel by viewModels()
+    private val imageResult= getResultLauncher()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNewGroupBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val accessToken = intent.getStringExtra(ACCESS_TOKEN) ?: ""
+    private fun getResultLauncher(): ActivityResultLauncher<Intent> {
+        return registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode != RESULT_OK) return@registerForActivityResult
+            val imageUri = result.data?.data ?: return@registerForActivityResult
+            val imageFile = File(getRealPathFromURI(imageUri))
+            newGroupViewModel.updateImageFile(imageFile)
+            setGroupImage(imageUri)
+        }
+    }
+
     private fun getRealPathFromURI(uri: Uri): String {
         val buildName = Build.MANUFACTURER
         if (buildName == "Xiaomi") return uri.path ?: EMPTY_STRING
