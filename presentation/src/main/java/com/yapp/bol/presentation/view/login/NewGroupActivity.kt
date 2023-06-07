@@ -7,7 +7,9 @@ import android.net.Uri
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.bumptech.glide.Glide
 import com.yapp.bol.presentation.databinding.ActivityNewGroupBinding
+import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
 import com.yapp.bol.presentation.view.login.KakaoTestActivity.Companion.ACCESS_TOKEN
 import com.yapp.bol.presentation.viewmodel.NewGroupViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,6 +23,10 @@ class NewGroupActivity : AppCompatActivity() {
         binding = ActivityNewGroupBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val accessToken = intent.getStringExtra(ACCESS_TOKEN) ?: ""
+    private fun setGroupImage(imageUri: Uri) {
+        Glide.with(this).load(imageUri).fitCenter().into(binding.ivImage)
+    }
+
     private fun getCursor(uri: Uri, proj: Array<String>): Cursor? {
         return contentResolver.query(uri, proj, null, null, null)
     }
