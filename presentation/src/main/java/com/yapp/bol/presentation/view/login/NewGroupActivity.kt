@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
+import android.provider.MediaStore
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -23,6 +24,19 @@ class NewGroupActivity : AppCompatActivity() {
         binding = ActivityNewGroupBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val accessToken = intent.getStringExtra(ACCESS_TOKEN) ?: ""
+    private fun getRealPathFromURI(uri: Uri): String {
+        val buildName = Build.MANUFACTURER
+        if (buildName == "Xiaomi") return uri.path ?: EMPTY_STRING
+
+        var columnIndex = 0
+        val cursor = getCursor(uri, arrayOf(MediaStore.Images.Media.DATA)) ?: return EMPTY_STRING
+        if (cursor.moveToFirst()) columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+
+        val result = cursor.getString(columnIndex)
+        cursor.close()
+        return result
+    }
+
     private fun setGroupImage(imageUri: Uri) {
         Glide.with(this).load(imageUri).fitCenter().into(binding.ivImage)
     }
