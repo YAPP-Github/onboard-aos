@@ -33,9 +33,9 @@ jobs:
         run: |
           echo REMOTE_SERVER=\"$SERVER_URL\" >> ./local.properties
           echo KAKAO_API_KEY=\"$KAKAO_API_KEY\" >> ./local.properties
-          echo NAVER_CLIENT_ID=\"NAVER_CLIENT_ID\" >> ./local.properties
-          echo NAVER_CLIENT_NAME=\"NAVER_CLIENT_NAME\" >> ./local.properties
-          echo NAVER_CLIENT_SECRET=\"NAVER_CLIENT_SECRET\" >> ./local.properties
+          echo NAVER_CLIENT_ID=\"$NAVER_CLIENT_ID\" >> ./local.properties
+          echo NAVER_CLIENT_NAME=\"$NAVER_CLIENT_NAME\" >> ./local.properties
+          echo NAVER_CLIENT_SECRET=\"$NAVER_CLIENT_SECRET\" >> ./local.properties
         shell: bash
         env:
           SERVER_URL: ${{ secrets.SERVER_URL }}
