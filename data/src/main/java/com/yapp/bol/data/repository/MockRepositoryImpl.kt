@@ -10,6 +10,7 @@ import javax.inject.Inject
 class MockRepositoryImpl @Inject constructor(
     private val mockDataSource: MockDataSource,
 ) : MockRepository {
+
     override suspend fun login(
         emitter: RemoteErrorEmitter,
         type: String,

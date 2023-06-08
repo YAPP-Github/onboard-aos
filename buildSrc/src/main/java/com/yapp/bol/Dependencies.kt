@@ -9,7 +9,7 @@ import com.yapp.bol.Versions.KTLINT_VERSION
 
 object Versions {
     const val KOTLIN_VERSION = "1.6.10"
-    const val KTLINT_VERSION = "9.1.0"
+    const val KTLINT_VERSION = "10.2.1"
     const val HILT_VERSION = "2.44"
     const val KAKAO_VERSION = "2.11.0"
 }

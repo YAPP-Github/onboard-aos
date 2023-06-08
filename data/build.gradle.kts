@@ -25,13 +25,13 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro",
+                "proguard-rules.pro"
             )
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = com.yapp.bol.Applications.sourceCompatibilityVersion
+        targetCompatibility = com.yapp.bol.Applications.targetCompatibilityVersion
     }
     kotlinOptions {
         jvmTarget = com.yapp.bol.Applications.jvmTarget
