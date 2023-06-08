@@ -65,8 +65,9 @@ object KtLint {
     const val KTLINT = "org.jlleitschuh.gradle:ktlint-gradle:$KTLINT_VERSION"
 }
 
-object Login {
+object OAuth {
     const val KAKAO = "com.kakao.sdk:v2-user:$KAKAO_VERSION"
+    const val NAVER = "com.navercorp.nid:oauth:5.4.0"
 }
 
 object Test {

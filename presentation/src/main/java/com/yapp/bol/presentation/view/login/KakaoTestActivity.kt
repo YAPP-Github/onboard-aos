@@ -10,7 +10,8 @@ import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 import com.yapp.bol.presentation.BuildConfig
 import com.yapp.bol.presentation.databinding.ActivityKakaoTestBinding
-import com.yapp.bol.presentation.viewmodel.MainViewModel
+import com.yapp.bol.presentation.viewmodel.login.LoginType
+import com.yapp.bol.presentation.viewmodel.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,12 +19,12 @@ class KakaoTestActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityKakaoTestBinding
 
-    private val mainViewModel: MainViewModel by viewModels()
+    private val viewModel: LoginViewModel by viewModels()
 
     private val kakaoClient: UserApiClient by lazy { UserApiClient.instance }
 
     private val kakaoOAuthCallBack: (OAuthToken?, Throwable?) -> Unit = { token, _ ->
-        token?.let { mainViewModel.loginTest(token.accessToken) }
+        token?.let { viewModel.login(LoginType.KAKAO, token.accessToken) }
     }
 
     private val isKakaoTalkInstalled
@@ -54,7 +55,7 @@ class KakaoTestActivity : AppCompatActivity() {
         kakaoClient.loginWithKakaoTalk(this) { token, error ->
             if (isClientErrorCancelled(error)) return@loginWithKakaoTalk
             error?.let { kakaoClient.loginWithKakaoAccount(this, callback = kakaoOAuthCallBack) }
-            token?.let { mainViewModel.loginTest(token.accessToken) }
+            token?.let { viewModel.login(LoginType.KAKAO, token.accessToken) }
         }
     }
 
