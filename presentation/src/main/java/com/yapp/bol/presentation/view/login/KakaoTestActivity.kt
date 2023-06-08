@@ -24,7 +24,7 @@ class KakaoTestActivity : AppCompatActivity() {
     private val kakaoClient: UserApiClient by lazy { UserApiClient.instance }
 
     private val kakaoOAuthCallBack: (OAuthToken?, Throwable?) -> Unit = { token, _ ->
-        token?.let { viewModel.login(LoginType.KAKAO_LOGIN, token.accessToken) }
+        token?.let { viewModel.login(LoginType.KAKAO, token.accessToken) }
     }
 
     private val isKakaoTalkInstalled
@@ -55,7 +55,7 @@ class KakaoTestActivity : AppCompatActivity() {
         kakaoClient.loginWithKakaoTalk(this) { token, error ->
             if (isClientErrorCancelled(error)) return@loginWithKakaoTalk
             error?.let { kakaoClient.loginWithKakaoAccount(this, callback = kakaoOAuthCallBack) }
-            token?.let { viewModel.login(LoginType.KAKAO_LOGIN, token.accessToken) }
+            token?.let { viewModel.login(LoginType.KAKAO, token.accessToken) }
         }
     }
 

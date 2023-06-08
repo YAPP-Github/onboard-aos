@@ -1,6 +1,7 @@
 package com.yapp.bol.data.datasource.mock.impl
 
 import com.yapp.bol.data.datasource.mock.MockDataSource
+import com.yapp.bol.data.datasource.mock.impl.LoginType.toDomain
 import com.yapp.bol.data.model.MockApiRequest
 import com.yapp.bol.data.model.MockApiResponse
 import com.yapp.bol.data.remote.LoginApi
@@ -18,7 +19,7 @@ class MockDataSourceImpl @Inject constructor(
         token: String,
     ): MockApiResponse? {
         return safeApiCall(emitter) {
-            api.postMockApi(MockApiRequest(type, token)).body()
+            api.postMockApi(MockApiRequest(type.toDomain(), token)).body()
         }
     }
 }

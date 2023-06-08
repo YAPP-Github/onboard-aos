@@ -42,7 +42,7 @@ class NaverTestActivity : AppCompatActivity() {
         val oauthLoginCallback = object : OAuthLoginCallback {
 
             override fun onSuccess() {
-                NaverIdLoginSDK.getAccessToken()?.let { viewModel.login(LoginType.NAVER_LOGIN, it) }
+                NaverIdLoginSDK.getAccessToken()?.let { viewModel.login(LoginType.NAVER, it) }
             }
 
             override fun onFailure(httpStatus: Int, message: String) {

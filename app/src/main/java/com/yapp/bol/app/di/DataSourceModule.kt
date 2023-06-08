@@ -1,7 +1,7 @@
 package com.yapp.bol.app.di
 
-import com.yapp.bol.data.datasource.MockDataSource
-import com.yapp.bol.data.datasource.impl.MockDataSourceImpl
+import com.yapp.bol.data.datasource.mock.MockDataSource
+import com.yapp.bol.data.datasource.mock.impl.MockDataSourceImpl
 import com.yapp.bol.data.remote.LoginApi
 import dagger.Module
 import dagger.Provides
