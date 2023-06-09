@@ -45,17 +45,17 @@ class GoogleTestActivity : AppCompatActivity() {
     // 구글 로그인 작업 수행
     private fun handleGoogleSignInResult(result: ActivityResult) {
         if (result.resultCode == RESULT_OK) {
-            result.data?.let { data ->
-                val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-
-                try {
-                    val account = task.getResult(ApiException::class.java)!!
-                    Log.d("gso check google", account.idToken ?: "null")
-                } catch (e: ApiException) {
-                    // TODO : Google Sign In failed, update UI appropriately
-                }
-            } ?: run {
-                // TODO : null 처리 작업 필요
+            try {
+                val account = GoogleSignIn
+                    .getSignedInAccountFromIntent(result.data)
+                    .getResult(ApiException::class.java)
+                val token = account.idToken
+                requireNotNull(token)
+                Log.d("gso check google", token)
+            } catch (e: Exception) {
+                // TODO : 예외 처리 UI 작업
+                // ApiException & IllegalArgumentException 두 예외가 발생할 수 있는데
+                // 구분하지 않고 하나의 UI로 처리하면 될 것 같습니다.
             }
         } else {
             // TODO : 그 외 예외 처리 UI 작업
