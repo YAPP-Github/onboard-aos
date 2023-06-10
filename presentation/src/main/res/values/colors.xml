@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Orange-->
+    <color name="Orange_10">#FF4D0D</color>
+    <color name="Orange_9">#FF5F25</color>
+    <color name="Orange_8">#FF713D</color>
+    <color name="Orange_7">#FF8256</color>
+    <color name="Orange_6">#FF946E</color>
+    <color name="Orange_5">#FFA686</color>
+    <color name="Orange_4">#FFB89E</color>
+    <color name="Orange_3">#FFCAB6</color>
+    <color name="Orange_2">#FFDBCF</color>
+    <color name="Orange_1">#FFEDE7</color>
+
+    <!--GRAY-->
+    <color name="Gray_15">#171717</color>
+    <color name="Gray_14">#242424</color>
+    <color name="Gray_13">#333333</color>
+    <color name="Gray_12">#3D3D3D</color>
+    <color name="Gray_11">#555555</color>
+    <color name="Gray_10">#6F6F6F</color>
+    <color name="Gray_9">#8B8B8B</color>
+    <color name="Gray_8">#A5A5A5</color>
+    <color name="Gray_7">#C1C1C1</color>
+    <color name="Gray_6">#DFDFDF</color>
+    <color name="Gray_5">#ECECEC</color>
+    <color name="Gray_4">#EFEFEF</color>
+    <color name="Gray_3">#F5F4F3</color>
+    <color name="Gray_2">#F7F7F7</color>
+    <color name="Gray_1">#FBFBFB</color>
+</resources>
