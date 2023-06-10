@@ -17,9 +17,9 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+        buildConfigField("String", "KAKAO_API_KEY", getApi("KAKAO_API_KEY"))
+        buildConfigField("String", "GOOGLE_LOGIN_API_KEY", getApi("GOOGLE_LOGIN_API_KEY"))
         manifestPlaceholders["kakaoKay"] = getProperty("KAKAO_API_KEY_MANI")
-
-        buildConfigField("String", "KAKAO_API_KEY", getProperty("KAKAO_API_KEY"))
         buildConfigField("String", "NAVER_CLIENT_ID", getProperty("NAVER_CLIENT_ID"))
         buildConfigField("String", "NAVER_CLIENT_NAME", getProperty("NAVER_CLIENT_NAME"))
         buildConfigField("String", "NAVER_CLIENT_SECRET", getProperty("NAVER_CLIENT_SECRET"))
@@ -85,12 +85,10 @@ dependencies {
     // Coroutines
     implementation(com.yapp.bol.Coroutines.COROUTINES)
 
-    // Coroutines
-    implementation(com.yapp.bol.Coroutines.COROUTINES)
-
     // OAuth
     implementation(com.yapp.bol.OAuth.NAVER)
     implementation(com.yapp.bol.OAuth.KAKAO)
+    implementation(com.yapp.bol.Firebase.GMS_AUTH)
 }
 
 fun getProperty(propertyKey: String): String {
