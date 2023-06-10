@@ -25,10 +25,10 @@ class GoogleTestActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_google_test)
 
-        initButton()
+        startGoogleLogin()
     }
 
-    private fun initButton() {
+    private fun startGoogleLogin() {
         val googleLoginClientIntent: Intent = GoogleSignInOptions
             .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(BuildConfig.GOOGLE_LOGIN_API_KEY)
