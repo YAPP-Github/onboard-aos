@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="22dp"
-    android:background="@drawable/cl_iamge_setting_dialog_background">
+    android:background="@drawable/bg_white_radius_12dp">
 
     <TextView
         android:id="@+id/tv_title"
