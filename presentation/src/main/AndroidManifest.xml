@@ -3,7 +3,7 @@
 
     <application>
         <activity
-            android:name=".GraoupSearchActivity"
+            android:name=".view.group.search.GroupSearchActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
