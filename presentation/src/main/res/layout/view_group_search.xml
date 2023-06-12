@@ -10,9 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:layout_marginHorizontal="18dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginBottom="26dp">
+        android:paddingTop="11dp"
+        android:paddingBottom="14dp">
 
         <EditText
             android:id="@+id/et_group_search"
@@ -32,8 +31,7 @@
         <Button
             android:layout_width="160dp"
             android:layout_height="32dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="26dp"
+            android:layout_marginTop="18dp"
             android:text="@string/group_search_register"
             android:background="@drawable/btn_group_search_button"
             android:paddingVertical="8dp"
