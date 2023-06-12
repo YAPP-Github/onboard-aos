@@ -37,7 +37,10 @@
             android:layout_marginBottom="12dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_group_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_group_list"
+            tools:itemCount="15"/>
     </LinearLayout>
 </layout>
