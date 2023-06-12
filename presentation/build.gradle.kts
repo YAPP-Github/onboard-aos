@@ -17,8 +17,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-        buildConfigField("String", "KAKAO_API_KEY", getApi("KAKAO_API_KEY"))
-        buildConfigField("String", "GOOGLE_LOGIN_API_KEY", getApi("GOOGLE_LOGIN_API_KEY"))
+        buildConfigField("String", "KAKAO_API_KEY", getProperty("KAKAO_API_KEY"))
+        buildConfigField("String", "GOOGLE_LOGIN_API_KEY", getProperty("GOOGLE_LOGIN_API_KEY"))
         manifestPlaceholders["kakaoKay"] = getProperty("KAKAO_API_KEY_MANI")
         buildConfigField("String", "NAVER_CLIENT_ID", getProperty("NAVER_CLIENT_ID"))
         buildConfigField("String", "NAVER_CLIENT_NAME", getProperty("NAVER_CLIENT_NAME"))
