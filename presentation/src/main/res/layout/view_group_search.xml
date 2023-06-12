@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="26dp">
+
+        <EditText
+            android:id="@+id/et_group_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_search"
+            android:hint="@string/group_search_hint"
+            android:paddingEnd="6dp"
+            android:paddingBottom="12dp"
+            android:backgroundTint="#171717"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:imeOptions="actionDone" />
+
+        <Button
+            android:layout_width="160dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="26dp"
+            android:text="@string/group_search_register"
+            android:background="@drawable/btn_group_search_button"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp"
+            android:textSize="11dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_group_search" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
