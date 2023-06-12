@@ -1,7 +1,7 @@
 package com.yapp.bol.data.datasource.impl
 
 import com.yapp.bol.data.datasource.RemoteDataSource
-import com.yapp.bol.data.model.LoginType
+import com.yapp.bol.data.datasource.mock.impl.LoginType.toDomain
 import com.yapp.bol.data.model.OAuthApiRequest
 import com.yapp.bol.data.model.OAuthApiResponse
 import com.yapp.bol.data.model.file_upload.FileUploadResponse
@@ -23,15 +23,13 @@ import javax.inject.Inject
 
 
 class RemoteDataSourceImpl @Inject constructor(
-    private val oauthApi: LoginApi,
+    private val loginApi: LoginApi,
     private val imageFileApi: ImageFileApi,
     private val groupApi: GroupApi,
 ) : BaseRepository(), RemoteDataSource {
-    override fun getKakaoOAuth(token: String): Flow<ApiResult<OAuthApiResponse>> = flow {
-        val result = safeApiCall {
-            oauthApi.postOAuthApi(OAuthApiRequest(LoginType.KAKAO_ACCESS_TOKEN, token))
-        }
-        emit(result)
+
+    override suspend fun login(type: String, token: String): OAuthApiResponse? {
+        return loginApi.postOAuthApi(OAuthApiRequest(type.toDomain(), token)).body()
     }
 
     override fun postFileUpload(

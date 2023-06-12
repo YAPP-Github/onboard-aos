@@ -1,7 +1,6 @@
 package com.yapp.bol.presentation.utils
 
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
