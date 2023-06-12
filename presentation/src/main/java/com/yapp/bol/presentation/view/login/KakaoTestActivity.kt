@@ -12,6 +12,9 @@ import com.yapp.bol.presentation.BuildConfig
 import com.yapp.bol.presentation.databinding.ActivityKakaoTestBinding
 import com.yapp.bol.presentation.viewmodel.login.LoginType
 import com.yapp.bol.presentation.viewmodel.login.LoginViewModel
+import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
+import com.yapp.bol.presentation.view.group.NewGroupActivity
+
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,6 +44,13 @@ class KakaoTestActivity : AppCompatActivity() {
 
         KakaoSdk.init(this, KAKAO_API_KEY)
         kakaoLogin()
+
+        kakaoTestViewModel.accessToken.observe(this) {
+            if (it == EMPTY_STRING) return@observe
+            val intent = Intent(this, NewGroupActivity::class.java)
+            intent.putExtra(ACCESS_TOKEN, it)
+            startActivity(intent)
+        }
     }
 
     private fun kakaoLogin() {
