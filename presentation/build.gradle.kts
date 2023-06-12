@@ -19,7 +19,7 @@ android {
         consumerProguardFiles("consumer-rules.pro")
         buildConfigField("String", "KAKAO_API_KEY", getProperty("KAKAO_API_KEY"))
         buildConfigField("String", "GOOGLE_LOGIN_API_KEY", getProperty("GOOGLE_LOGIN_API_KEY"))
-        manifestPlaceholders["kakaoKay"] = getProperty("KAKAO_API_KEY_MANI")
+        manifestPlaceholders["kakaoKey"] = getProperty("KAKAO_API_KEY_MANI")
         buildConfigField("String", "NAVER_CLIENT_ID", getProperty("NAVER_CLIENT_ID"))
         buildConfigField("String", "NAVER_CLIENT_NAME", getProperty("NAVER_CLIENT_NAME"))
         buildConfigField("String", "NAVER_CLIENT_SECRET", getProperty("NAVER_CLIENT_SECRET"))
