@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import java.io.File
 
 interface RemoteDataSource {
-    fun getKakaoMock(token: String): Flow<ApiResult<OAuthApiResponse>>
+    fun getKakaoOAuth(token: String): Flow<ApiResult<OAuthApiResponse>>
 
     fun postFileUpload(
         token: String,

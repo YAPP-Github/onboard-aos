@@ -180,5 +180,4 @@
         app:layout_constraintEnd_toEndOf="@+id/view_complete"
         app:layout_constraintStart_toStartOf="@+id/view_complete" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

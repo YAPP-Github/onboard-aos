@@ -8,7 +8,7 @@ enum class LoginType {
     NAVER_ACCESS_TOKEN
 }
 
-data class MockApiRequest(
+data class OAuthApiRequest(
     @SerializedName("type")
     val type: LoginType,
     @SerializedName("token")
