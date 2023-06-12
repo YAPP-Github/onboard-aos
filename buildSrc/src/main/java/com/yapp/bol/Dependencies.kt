@@ -65,8 +65,9 @@ object KtLint {
     const val KTLINT = "org.jlleitschuh.gradle:ktlint-gradle:$KTLINT_VERSION"
 }
 
-object Login {
+object OAuth {
     const val KAKAO = "com.kakao.sdk:v2-user:$KAKAO_VERSION"
+    const val NAVER = "com.navercorp.nid:oauth:5.4.0"
 }
 
 object Glide {
@@ -79,4 +80,12 @@ object Test {
     const val TEST_RUNNER = "com.android.support.test:runner:1.0.2"
     const val ESPRESSO_CORE = "com.android.support.test.espresso:espresso-core:3.0.2"
     const val EXT_JUNIT = "androidx.test.ext:junit:1.1.5"
+}
+
+object Firebase {
+    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:32.0.0"
+    const val FIREBASE_AUTH = "com.google.firebase:firebase-auth-ktx"
+    const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
+    const val GMS_AUTH = "com.google.android.gms:play-services-auth:20.5.0"
+    const val GMS_CLASSPATH = "com.google.gms:google-services:4.3.15"
 }

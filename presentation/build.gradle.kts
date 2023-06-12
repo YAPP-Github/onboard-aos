@@ -17,8 +17,12 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-        buildConfigField("String", "KAKAO_API_KEY", getApi("KAKAO_API_KEY"))
-        manifestPlaceholders["kakaoKey"] = getApi("KAKAO_API_KEY_MANI")
+        buildConfigField("String", "KAKAO_API_KEY", getProperty("KAKAO_API_KEY"))
+        buildConfigField("String", "GOOGLE_LOGIN_API_KEY", getProperty("GOOGLE_LOGIN_API_KEY"))
+        manifestPlaceholders["kakaoKay"] = getProperty("KAKAO_API_KEY_MANI")
+        buildConfigField("String", "NAVER_CLIENT_ID", getProperty("NAVER_CLIENT_ID"))
+        buildConfigField("String", "NAVER_CLIENT_NAME", getProperty("NAVER_CLIENT_NAME"))
+        buildConfigField("String", "NAVER_CLIENT_SECRET", getProperty("NAVER_CLIENT_SECRET"))
     }
 
     buildTypes {
@@ -26,20 +30,23 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
         debug {
             isMinifyEnabled = false
         }
     }
+
     compileOptions {
         sourceCompatibility = com.yapp.bol.Applications.sourceCompatibilityVersion
         targetCompatibility = com.yapp.bol.Applications.targetCompatibilityVersion
     }
+
     kotlinOptions {
         jvmTarget = com.yapp.bol.Applications.jvmTarget
     }
+
     buildFeatures {
         dataBinding = true
         viewBinding = true
@@ -48,6 +55,8 @@ android {
 
 dependencies {
 
+    implementation(project(mapOf("path" to ":domain")))
+
     implementation(com.yapp.bol.KTX.CORE)
     implementation(com.yapp.bol.AndroidX.APP_COMPAT)
     implementation(com.yapp.bol.AndroidX.MATERIAL)
@@ -55,8 +64,6 @@ dependencies {
     implementation(com.yapp.bol.Test.JUNIT)
     implementation(com.yapp.bol.Test.TEST_RUNNER)
     implementation(com.yapp.bol.Test.ESPRESSO_CORE)
-
-    implementation(project(mapOf("path" to ":domain")))
 
     // Hilt
     implementation(com.yapp.bol.DaggerHilt.DAGGER_HILT)
@@ -78,14 +85,12 @@ dependencies {
     // Coroutines
     implementation(com.yapp.bol.Coroutines.COROUTINES)
 
-    // Login
-    implementation(com.yapp.bol.Login.KAKAO)
-
-    // Glide
-    implementation(com.yapp.bol.Glide.GLIDE)
-    annotationProcessor(com.yapp.bol.Glide.COMPILER)
+    // OAuth
+    implementation(com.yapp.bol.OAuth.NAVER)
+    implementation(com.yapp.bol.OAuth.KAKAO)
+    implementation(com.yapp.bol.Firebase.GMS_AUTH)
 }
 
-fun getApi(propertyKey: String): String {
+fun getProperty(propertyKey: String): String {
     return gradleLocalProperties(rootDir).getProperty(propertyKey)
 }

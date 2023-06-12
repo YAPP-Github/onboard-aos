@@ -5,6 +5,7 @@ buildscript {
         classpath(com.yapp.bol.DaggerHilt.DAGGER_HILT_PLUGIN)
         classpath(com.yapp.bol.Kotlin.SDK)
         classpath(com.yapp.bol.Android.BUILD_GRADLE)
+        classpath(com.yapp.bol.Firebase.GMS_CLASSPATH)
     }
 }
 
