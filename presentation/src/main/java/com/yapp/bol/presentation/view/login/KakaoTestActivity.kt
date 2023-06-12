@@ -12,6 +12,7 @@ import com.kakao.sdk.user.UserApiClient
 import com.yapp.bol.presentation.BuildConfig
 import com.yapp.bol.presentation.databinding.ActivityKakaoTestBinding
 import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
+import com.yapp.bol.presentation.view.group.NewGroupActivity
 import com.yapp.bol.presentation.viewmodel.KakaoTestViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,9 +45,9 @@ class KakaoTestActivity : AppCompatActivity() {
         kakaoLogin()
 
         kakaoTestViewModel.accessToken.observe(this) {
-            if(it == EMPTY_STRING) return@observe
+            if (it == EMPTY_STRING) return@observe
             val intent = Intent(this, NewGroupActivity::class.java)
-            intent.putExtra(ACCESS_TOKEN,it)
+            intent.putExtra(ACCESS_TOKEN, it)
             startActivity(intent)
         }
     }
