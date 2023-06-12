@@ -1,7 +1,7 @@
 package com.yapp.bol.app.di
 
-import com.yapp.bol.data.repository.MockRepositoryImpl
-import com.yapp.bol.domain.repository.MockRepository
+import com.yapp.bol.data.repository.RepositoryImpl
+import com.yapp.bol.domain.repository.Repository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,5 +13,5 @@ import javax.inject.Singleton
 abstract class RepositoryModule {
     @Binds
     @Singleton
-    abstract fun bindMockRepository(mockRepositoryImpl: MockRepositoryImpl): MockRepository
+    abstract fun bindMockRepository(mockRepositoryImpl: RepositoryImpl): Repository
 }

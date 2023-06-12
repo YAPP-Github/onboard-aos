@@ -1,13 +1,13 @@
 package com.yapp.bol.domain.usecase.login
 
-import com.yapp.bol.domain.model.MockApiItem
-import com.yapp.bol.domain.repository.MockRepository
-import com.yapp.bol.domain.utils.RemoteErrorEmitter
+import com.yapp.bol.domain.model.ApiResult
+import com.yapp.bol.domain.model.OAuthApiItem
+import com.yapp.bol.domain.repository.Repository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class KakaoLoginUseCase @Inject constructor(
-    private val mockRepository: MockRepository
+    private val repository: Repository
 ) {
-    suspend fun execute(remoteErrorEmitter: RemoteErrorEmitter, token: String): MockApiItem? =
-        mockRepository.getKakaoMock(remoteErrorEmitter, token = token)
+    operator fun invoke(token: String): Flow<ApiResult<OAuthApiItem>> = repository.getKakaoMock(token = token)
 }
