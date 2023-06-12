@@ -1,1 +1,29 @@
-<resources></resources>
+<resources>
+    <string name="complete_message">모임 등록이 완료되었습니다!</string>
+    <string name="complete_group_organization_text">소속</string>
+    <string name="group_owner_text">관리자</string>
+    <string name="group_access_code_text">참여코드</string>
+    <string name="group_invite_guide">모임에 가입하기 위해서는 참여코드를 입력해야 \n합니다. 코드를 공유하고 멤버들을 초대해 보세요!</string>
+    <string name="confirmation_text">확인</string>
+    <string name="image_setting_delegate">모임 대표 이미지</string>
+    <string name="image_setting_delegate_guide">모임을 소개할 대표 이미지를 넣어보세요!</string>
+    <string name="image_setting_gallery">앨범에서 사진 선택</string>
+    <string name="image_setting_random">랜덤 이미지</string>
+    <string name="profile_setting">프로필 설정</string>
+    <string name="profile_setting_guide">관리자님이 모임에서 사용할 닉네임을 정해주세요</string>
+    <string name="profile_name_count">0/10</string>
+    <string name="complete_text">완료</string>
+
+    <string name="group_create_text">모임 등록</string>
+    <string name="group_name_text">보드게임 모임 이름</string>
+    <string name="group_name_hint">모임 이름을 입력해주세요.</string>
+    <string name="group_name_count">0/14</string>
+    <string name="group_description_text">모임 소개</string>
+    <string name="group_description_hint">모임을 소개해주세요.</string>
+    <string name="group_description_count">0/72</string>
+    <string name="group_organization_text">소속 (선택)</string>
+    <string name="group_organization_hint">소속을 알려주세요. (ex. 홍익대학교)</string>
+    <string name="group_organization_count">0/15</string>
+    <string name="group_create_guide">모임 등록하기</string>
+    <string name="group_creating_text">모임을 등록하는 중..</string>
+</resources>

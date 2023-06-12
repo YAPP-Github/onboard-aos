@@ -11,12 +11,8 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class DataSourceModule {
+interface DataSourceModule {
     @Provides
     @Singleton
-    fun provideMockDataSource(
-        oauthApi: LoginApi
-    ): MockDataSource {
-        return MockDataSourceImpl(oauthApi)
-    }
+    fun bindsRemoteDataSource(remoteDataSourceImpl: RemoteDataSourceImpl): RemoteDataSource
 }
