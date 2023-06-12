@@ -15,4 +15,11 @@ interface Repository {
         file: File
     ): Flow<ApiResult<String>>
 
+    fun postCreateGroup(
+        name: String,
+        description: String,
+        organization: String,
+        profileImageUrl: String,
+        nickname: String
+    ): Flow<ApiResult<NewGroupItem>>
 }

@@ -28,4 +28,15 @@ class RepositoryImpl @Inject constructor(
         }
     }
 
+    override fun postCreateGroup(
+        name: String,
+        description: String,
+        organization: String,
+        profileImageUrl: String,
+        nickname: String
+    ): Flow<ApiResult<NewGroupItem>> {
+        return remoteDataSource.postCreateGroup(name, description, organization, profileImageUrl, nickname).map {
+            it.newGroupToDomain()
+        }
+    }
 }

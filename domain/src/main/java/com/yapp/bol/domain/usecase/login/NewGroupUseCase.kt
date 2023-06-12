@@ -14,5 +14,13 @@ class NewGroupUseCase @Inject constructor(
         return repository.postFileUpload(token, file)
     }
 
+    fun postCreateGroup(
+        name: String,
+        description: String,
+        organization: String,
+        profileImageUrl: String,
+        nickname: String,
+    ): Flow<ApiResult<NewGroupItem>> {
+        return repository.postCreateGroup(name, description, organization, profileImageUrl, nickname)
     }
 }
