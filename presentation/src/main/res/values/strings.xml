@@ -1,1 +1,4 @@
-<resources></resources>
+<resources>
+    <string name="group_search_hint">모임 이름 검색</string>
+    <string name="group_search_register">우리 모임 새로 등록하기 +</string>
+</resources>
