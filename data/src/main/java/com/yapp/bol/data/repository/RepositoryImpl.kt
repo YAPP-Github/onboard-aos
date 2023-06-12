@@ -16,8 +16,8 @@ import javax.inject.Inject
 class RepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource
 ) : Repository {
-    override fun getKakaoMock(token: String): Flow<ApiResult<OAuthApiItem>> {
-        return remoteDataSource.getKakaoMock(token).map {
+    override fun getKakaoOAuth(token: String): Flow<ApiResult<OAuthApiItem>> {
+        return remoteDataSource.getKakaoOAuth(token).map {
             it.oAuthToDomain()
         }
     }

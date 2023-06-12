@@ -9,5 +9,5 @@ import javax.inject.Inject
 class KakaoLoginUseCase @Inject constructor(
     private val repository: Repository
 ) {
-    operator fun invoke(token: String): Flow<ApiResult<OAuthApiItem>> = repository.getKakaoMock(token = token)
+    operator fun invoke(token: String): Flow<ApiResult<OAuthApiItem>> = repository.getKakaoOAuth(token = token)
 }

@@ -9,7 +9,7 @@ import retrofit2.http.POST
 interface GroupApi {
 
     @POST("v1/group")
-    suspend fun postMockApi(
-        @Body mockApiRequest: NewGroupApiRequest
+    suspend fun postOAuthApi(
+        @Body newGroupApiRequest: NewGroupApiRequest
     ): Response<NewGroupApiResponse>
 }

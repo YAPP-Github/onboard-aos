@@ -14,5 +14,5 @@ interface DataSourceModule {
 
     @Binds
     @Singleton
-    fun bindsMockDataSource(mockDataSourceImpl: RemoteDataSourceImpl): RemoteDataSource
+    fun bindsRemoteDataSource(remoteDataSourceImpl: RemoteDataSourceImpl): RemoteDataSource
 }

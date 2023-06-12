@@ -2,7 +2,7 @@ package com.yapp.bol.data.datasource.impl
 
 import com.yapp.bol.data.datasource.RemoteDataSource
 import com.yapp.bol.data.model.LoginType
-import com.yapp.bol.data.model.MockApiRequest
+import com.yapp.bol.data.model.OAuthApiRequest
 import com.yapp.bol.data.model.OAuthApiResponse
 import com.yapp.bol.data.model.file_upload.FileUploadResponse
 import com.yapp.bol.data.model.group.NewGroupApiRequest
@@ -27,9 +27,9 @@ class RemoteDataSourceImpl @Inject constructor(
     private val imageFileApi: ImageFileApi,
     private val groupApi: GroupApi,
 ) : BaseRepository(), RemoteDataSource {
-    override fun getKakaoMock(token: String): Flow<ApiResult<OAuthApiResponse>> = flow {
+    override fun getKakaoOAuth(token: String): Flow<ApiResult<OAuthApiResponse>> = flow {
         val result = safeApiCall {
-            oauthApi.postMockApi(MockApiRequest(LoginType.KAKAO_ACCESS_TOKEN, token))
+            oauthApi.postOAuthApi(OAuthApiRequest(LoginType.KAKAO_ACCESS_TOKEN, token))
         }
         emit(result)
     }
@@ -57,7 +57,7 @@ class RemoteDataSourceImpl @Inject constructor(
         nickname: String
     ): Flow<ApiResult<NewGroupApiResponse>> = flow {
         val result = safeApiCall {
-            groupApi.postMockApi(NewGroupApiRequest(name, description, organization, profileImageUrl, nickname))
+            groupApi.postOAuthApi(NewGroupApiRequest(name, description, organization, profileImageUrl, nickname))
         }
         emit(result)
     }

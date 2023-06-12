@@ -8,7 +8,7 @@ import java.io.File
 
 interface Repository {
 
-    fun getKakaoMock(token: String): Flow<ApiResult<OAuthApiItem>>
+    fun getKakaoOAuth(token: String): Flow<ApiResult<OAuthApiItem>>
 
     fun postFileUpload(
         token: String,

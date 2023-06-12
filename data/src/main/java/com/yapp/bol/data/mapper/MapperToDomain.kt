@@ -9,7 +9,7 @@ import com.yapp.bol.domain.model.OAuthApiItem
 
 internal object MapperToDomain {
     // data -> domain
-    fun mapperToMockApiItem(response: OAuthApiResponse?): OAuthApiItem? {
+    fun mapperToOAuthApiItem(response: OAuthApiResponse?): OAuthApiItem? {
         return response?.toItem()
     }
 

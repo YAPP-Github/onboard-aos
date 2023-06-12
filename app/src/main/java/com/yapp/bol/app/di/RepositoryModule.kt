@@ -13,5 +13,5 @@ import javax.inject.Singleton
 abstract class RepositoryModule {
     @Binds
     @Singleton
-    abstract fun bindMockRepository(mockRepositoryImpl: RepositoryImpl): Repository
+    abstract fun bindRepository(repositoryImpl: RepositoryImpl): Repository
 }
