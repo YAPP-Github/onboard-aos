@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/et_new_group_background_on" android:state_focused="true" />
-    <item android:drawable="@drawable/et_new_group_background_off" android:state_focused="false" />
-</selector>
