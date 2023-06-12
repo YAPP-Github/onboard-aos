@@ -15,4 +15,11 @@ interface RemoteDataSource {
         file: File
     ): Flow<ApiResult<FileUploadResponse>>
 
+    fun postCreateGroup(
+        name: String,
+        description: String,
+        organization: String,
+        profileImageUrl: String,
+        nickname: String
+    ): Flow<ApiResult<NewGroupApiResponse>>
 }

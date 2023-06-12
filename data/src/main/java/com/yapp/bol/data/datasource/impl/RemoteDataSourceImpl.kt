@@ -49,6 +49,19 @@ class RemoteDataSourceImpl @Inject constructor(
         emit(result)
     }
 
+    override fun postCreateGroup(
+        name: String,
+        description: String,
+        organization: String,
+        profileImageUrl: String,
+        nickname: String
+    ): Flow<ApiResult<NewGroupApiResponse>> = flow {
+        val result = safeApiCall {
+            groupApi.postMockApi(NewGroupApiRequest(name, description, organization, profileImageUrl, nickname))
+        }
+        emit(result)
+    }
+
     private fun String.convertRequestToken(): String {
         return "Bearer $this"
     }
