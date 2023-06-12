@@ -24,7 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="440dp"
         android:layout_marginHorizontal="24dp"
-        android:background="@drawable/complete_group_background"
+        android:background="@drawable/bg_white_radius_12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,7 +114,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:layout_marginBottom="-2dp"
-        android:src="@drawable/owner_image"
+        android:src="@drawable/ic_owner"
         app:layout_constraintBottom_toTopOf="@+id/tv_group_owner_value"
         app:layout_constraintStart_toStartOf="@+id/tv_group_owner_value" />
 
@@ -148,7 +148,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/copy_image"
+        android:src="@drawable/ic_copy"
         app:layout_constraintBottom_toBottomOf="@+id/tv_group_access_code_value"
         app:layout_constraintStart_toEndOf="@+id/tv_group_access_code_value"
         app:layout_constraintTop_toTopOf="@+id/tv_group_access_code_value" />
@@ -171,7 +171,7 @@
         android:id="@+id/btn_group_complete"
         android:layout_width="0dp"
         android:layout_height="52dp"
-        android:background="@drawable/btn_profile_setting_backround"
+        android:background="@drawable/bg_orange_bottom_radius_12dp"
         android:text="@string/confirmation_text"
         android:textColor="@color/white"
         android:textSize="14dp"
