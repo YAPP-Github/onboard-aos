@@ -37,6 +37,7 @@ jobs:
                   echo NAVER_CLIENT_ID=\"$NAVER_CLIENT_ID\" >> ./local.properties
                   echo NAVER_CLIENT_NAME=\"$NAVER_CLIENT_NAME\" >> ./local.properties
                   echo NAVER_CLIENT_SECRET=\"$NAVER_CLIENT_SECRET\" >> ./local.properties
+                  echo GOOGLE_LOGIN_API_KEY=\"GOOGLE_LOGIN_API_KEY\" >> ./local.properties
               shell: bash
               env:
                   SERVER_URL: ${{ secrets.SERVER_URL }}
@@ -45,8 +46,9 @@ jobs:
                   NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
                   NAVER_CLIENT_NAME: ${{ secrets.NAVER_CLIENT_NAME }}
                   NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+                  GOOGLE_LOGIN_API_KEY: ${{ secrets.GOOGLE_LOGIN_API_KEY }}
 
-                # gradle 캐싱 작업
+            # gradle 캐싱 작업
             - name: Cache Gradle packages
               uses: actions/cache@v2
               with:
