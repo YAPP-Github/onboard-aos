@@ -2,9 +2,7 @@ package com.yapp.bol.presentation.viewmodel.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.navercorp.nid.oauth.NidOAuthPreferencesManager.accessToken
 import com.yapp.bol.domain.model.LoginItem
-import com.yapp.bol.domain.model.OAuthApiItem
 import com.yapp.bol.domain.usecase.login.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
