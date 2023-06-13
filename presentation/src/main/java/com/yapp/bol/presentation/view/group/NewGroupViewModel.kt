@@ -7,7 +7,7 @@ import com.yapp.bol.domain.model.NewGroupItem
 import com.yapp.bol.domain.usecase.login.NewGroupUseCase
 import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
 import com.yapp.bol.presentation.utils.checkedApiResult
-import com.yapp.bol.presentation.utils.checkedEmptyValue
+import com.yapp.bol.presentation.utils.isEmptyValue
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -32,6 +32,9 @@ class NewGroupViewModel @Inject constructor(
 
     private var groupOrganization = EMPTY_STRING
     private var imageFile = File(EMPTY_STRING)
+
+    val isCompleteButtonActivation
+        get() = isEmptyValue(groupName.value) && isEmptyValue(groupDescription.value)
 
     fun createNewGroup(token: String, nickName: String) {
         viewModelScope.launch {
@@ -72,10 +75,6 @@ class NewGroupViewModel @Inject constructor(
             NEW_GROUP_DESCRIPTION -> _groupDescription.value = value
             NEW_GROUP_ORGANIZATION -> groupOrganization = value
         }
-    }
-
-    fun checkedCompleteButtonActivation(): Boolean {
-        return groupName.value.checkedEmptyValue() && groupDescription.value.checkedEmptyValue()
     }
 
     fun updateImageFile(file: File) {
