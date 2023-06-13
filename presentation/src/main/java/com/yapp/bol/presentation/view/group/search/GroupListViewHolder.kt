@@ -2,11 +2,14 @@ package com.yapp.bol.presentation.view.group.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.yapp.bol.presentation.databinding.ItemGroupListBinding
 
 class GroupListViewHolder(private val binding: ItemGroupListBinding) : RecyclerView.ViewHolder(binding.root) {
     private var groupItem: String? = null
+    private val glide by lazy { Glide.with(binding.root) }
 
     init {
         binding.root.setOnClickListener {
@@ -17,7 +20,6 @@ class GroupListViewHolder(private val binding: ItemGroupListBinding) : RecyclerV
     fun bind(groupItem: String?) {
         if (groupItem == null) {
             // TODO ERROR
-            // binding.ivGroupImage.setImageDrawable()
         } else {
             showGroupData(groupItem)
         }
@@ -31,8 +33,14 @@ class GroupListViewHolder(private val binding: ItemGroupListBinding) : RecyclerV
             tvGroupName.text = ""
             tvGroupOrganization.text = ""
             tvGroupSize.text = ""
-            // ivGroupImage.setImageDrawable()
+            ivGroupImage.setImageWithGlide(" glide image uri ")
         }
+    }
+
+    private fun ImageView.setImageWithGlide(uri: String) {
+        glide
+            .load(uri)
+            .into(this)
     }
 
     companion object {
