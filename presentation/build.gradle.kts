@@ -93,6 +93,9 @@ dependencies {
     // Glide
     implementation(com.yapp.bol.Glide.GLIDE)
     implementation(com.yapp.bol.Glide.COMPILER)
+
+    // Navigation
+    implementation(com.yapp.bol.Navigation.NAVIGATION)
 }
 
 fun getProperty(propertyKey: String): String {
