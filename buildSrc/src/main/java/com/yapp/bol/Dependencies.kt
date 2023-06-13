@@ -94,3 +94,8 @@ object Firebase {
     const val GMS_AUTH = "com.google.android.gms:play-services-auth:20.5.0"
     const val GMS_CLASSPATH = "com.google.gms:google-services:4.3.15"
 }
+
+object Glide {
+    const val GLIDE = "com.github.bumptech.glide:glide:4.11.0"
+    const val GLIDE_COMPILER = "com.github.bumptech.glide:compiler:4.11.0"
+}

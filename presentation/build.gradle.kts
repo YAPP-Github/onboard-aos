@@ -92,6 +92,10 @@ dependencies {
 
     // Paging3
     implementation(com.yapp.bol.AndroidX.PAGING)
+
+    // Glide
+    implementation(com.yapp.bol.Glide.GLIDE)
+    kapt(com.yapp.bol.Glide.GLIDE_COMPILER)
 }
 
 fun getProperty(propertyKey: String): String {
