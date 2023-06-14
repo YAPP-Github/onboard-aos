@@ -6,13 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".view.match.game_select.GameSelectFragment">
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/btn_complete_text_color"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/tv_game_select_guide"
         android:layout_width="wrap_content"
@@ -20,10 +13,10 @@
         android:layout_margin="18dp"
         android:text="@string/game_select_guide"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_product_items"
+        android:id="@+id/rv_game_items"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="9dp"
