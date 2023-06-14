@@ -20,7 +20,7 @@ class AuthInterceptor @Inject constructor(
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val builder = chain.request().newBuilder()
-        var token = runBlocking { getAccessTokenUseCase.execute().first() }
+        var token = runBlocking { getAccessTokenUseCase().first() }
 
         builder.addHeader(AUTHORIZATION_HEADER, "Bearer $token")
 
@@ -29,7 +29,7 @@ class AuthInterceptor @Inject constructor(
         if (response.isUnauthorized()) {
             response.closeQuietly()
 
-            token = runBlocking { getRefreshTokenUseCase.execute().first() }
+            token = runBlocking { getRefreshTokenUseCase().first() }
 
             response = chain.proceed(
                 request.newBuilder()

@@ -6,7 +6,7 @@ import javax.inject.Inject
 class SaveRefreshTokenUseCase @Inject constructor(
     private val repository: AuthRepository,
 ) {
-    suspend fun execute(token: String) {
+    suspend operator fun invoke(token: String) {
         repository.saveRefreshToken(token)
     }
 }

@@ -37,13 +37,13 @@ class LoginViewModel @Inject constructor(
 
     private fun saveAccessToken(token: String) {
         viewModelScope.launch {
-            saveAccessTokenUseCase.execute(token)
+            saveAccessTokenUseCase(token)
         }
     }
 
     private fun saveRefreshToken(token: String) {
         viewModelScope.launch {
-            saveRefreshTokenUseCase.execute(token)
+            saveRefreshTokenUseCase(token)
         }
     }
 

@@ -7,5 +7,5 @@ import javax.inject.Inject
 class GetRefreshTokenUseCase @Inject constructor(
     private val authRepository: AuthRepository,
 ) {
-    fun execute(): Flow<String> = authRepository.refreshToken
+    operator fun invoke(): Flow<String> = authRepository.refreshToken
 }
