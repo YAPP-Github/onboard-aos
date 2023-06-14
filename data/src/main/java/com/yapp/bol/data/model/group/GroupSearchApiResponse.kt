@@ -1,10 +1,6 @@
 package com.yapp.bol.data.model.group
 
 data class GroupSearchApiResponse(
-    val groups: GroupContent
-)
-
-data class GroupContent(
     val content: List<GroupListItem>,
     val hasNext: Boolean
 )

@@ -24,7 +24,7 @@ object MapperToDomain {
     }
 
     private fun GroupSearchApiResponse.toItem(): List<GroupSearchItem> {
-        return this.groups.content.map { groupItem ->
+        return this.content.map { groupItem ->
             GroupSearchItem(
                 id = groupItem.id,
                 name = groupItem.name,
