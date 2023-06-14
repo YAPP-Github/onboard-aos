@@ -18,8 +18,9 @@ object DataStoreModule {
     fun provideProtoDataStore(@ApplicationContext context: Context): DataStore<Preferences> {
         return PreferenceDataStoreFactory.create(
             produceFile = {
-                context.preferencesDataStoreFile("user")
+                context.preferencesDataStoreFile(AUTH_DATA_STORE)
             },
         )
     }
+    private const val AUTH_DATA_STORE = "auth"
 }
