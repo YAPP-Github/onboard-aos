@@ -1,17 +1,8 @@
 package com.yapp.bol.data.utils
 
-import android.util.Log
 import com.yapp.bol.domain.model.ApiResult
-import com.yapp.bol.domain.utils.ErrorType
-import com.yapp.bol.domain.utils.RemoteErrorEmitter
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import okhttp3.ResponseBody
-import org.json.JSONObject
-import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
-import java.net.SocketTimeoutException
 
 abstract class BaseRepository {
     suspend fun <T : Any> safeApiCall(callFunction: suspend () -> Response<T>): ApiResult<T> {

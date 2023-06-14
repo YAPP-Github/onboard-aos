@@ -23,7 +23,7 @@ object MapperToDomain {
         }
     }
 
-    private fun GroupSearchApiResponse.toItem() : List<GroupSearchItem> {
+    private fun GroupSearchApiResponse.toItem(): List<GroupSearchItem> {
         return this.groups.content.map { groupItem ->
             GroupSearchItem(
                 id = groupItem.id,
@@ -33,7 +33,6 @@ object MapperToDomain {
                 profileImageUrl = groupItem.profileImageUrl,
                 memberCount = groupItem.memberCount
             )
-
         }
     }
 }
