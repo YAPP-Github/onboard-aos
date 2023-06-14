@@ -43,11 +43,11 @@ class GroupListAdapter : PagingDataAdapter<UiModel, RecyclerView.ViewHolder>(GRO
     companion object {
         private val GROUP_LIST_COMPARATOR = object : DiffUtil.ItemCallback<UiModel>() {
             override fun areItemsTheSame(oldItem: UiModel, newItem: UiModel): Boolean {
-                // data not found의 경우 같은 아이템으로 인식
+                // data not found의 경우 다 다른 item으로 인식
                 // group list의 경우에는 id 비교해서 같은 id일 경우 같은 아이템으로 인식
-                return ((oldItem is UiModel.GroupList && newItem is UiModel.GroupList &&
-                    oldItem.groupSearchItem.id == newItem.groupSearchItem.id) ||
-                    (oldItem is UiModel.DataNotFound && newItem is UiModel.DataNotFound))
+                return (oldItem is UiModel.GroupList && newItem is UiModel.GroupList &&
+                    oldItem.groupSearchItem.id == newItem.groupSearchItem.id)
+
             }
 
             override fun areContentsTheSame(oldItem: UiModel, newItem: UiModel): Boolean {
