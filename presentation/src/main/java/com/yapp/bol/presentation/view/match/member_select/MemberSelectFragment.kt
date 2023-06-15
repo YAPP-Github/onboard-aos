@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.yapp.bol.presentation.databinding.FragmentMemberSelectBinding
@@ -55,6 +56,10 @@ class MemberSelectFragment : Fragment() {
         viewModel.isCompleteButtonEnabled.observe(viewLifecycleOwner) {
             binding.btnPlayerComplete.isEnabled = it
         }
+        binding.etSearchMember.doOnTextChanged { text, start, before, count ->
+            viewModel.updateSearchMembers(text.toString())
+        }
+    }
     }
 
     override fun onDestroyView() {

@@ -33,22 +33,17 @@ class MatchViewModel @Inject constructor() : ViewModel() {
     }
 
     private fun getMembers() {
-        _members.value = testMembers
+        _members.value = allMembers
     }
 
-    fun addSelectMembers(memberItem: MemberItem) {
-        dynamicPlayers.add(memberItem)
-        _players.value = createNewMembers()
+    fun checkedSelectMembers(memberItem: MemberItem) {
+        if (players.value.contains(memberItem)) dynamicPlayers.remove(memberItem)
+        else dynamicPlayers.add(memberItem)
+        _players.value = dynamicPlayers.toList()
         checkedCompleteButtonEnabled()
     }
 
-    fun removeSelectMembers(memberItem: MemberItem) {
-        dynamicPlayers.remove(memberItem)
-        _players.value = createNewMembers()
-        checkedCompleteButtonEnabled()
-    }
-
-    fun clearMembersChecked(position: Int) {
+    fun clearMemberChecked(position: Int) {
         val newMembers = members.value?.map { item ->
             if (item.id == position) item.copy(isChecked = false)
             else item
@@ -56,10 +51,8 @@ class MatchViewModel @Inject constructor() : ViewModel() {
         _members.value = newMembers ?: listOf()
     }
 
-    private fun createNewMembers(): List<MemberItem> {
-        return List(dynamicPlayers.size) {
-            dynamicPlayers[it]
-        }
+    fun updateSearchMembers(search: String) {
+        _members.value = allMembers.filter { it.name.contains(search) }
     }
 
     private fun checkedCompleteButtonEnabled() {
@@ -67,7 +60,7 @@ class MatchViewModel @Inject constructor() : ViewModel() {
     }
 
     companion object {
-        val testMembers = List(10) {
+        private val allMembers = List(20) {
             MemberItem(it, "$it. Test", 1)
         }
     }
