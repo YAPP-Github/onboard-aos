@@ -9,7 +9,7 @@ import com.yapp.bol.presentation.databinding.RvGameItemBinding
 import com.yapp.bol.presentation.model.GameItem
 
 class GameSelectAdapter(
-    private val gameClickListener: (String) -> Unit
+    private val gameClickListener: (String) -> Unit,
 ) : ListAdapter<GameItem, GameSelectAdapter.ProductItemViewHolder>(diff) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductItemViewHolder {
@@ -19,9 +19,7 @@ class GameSelectAdapter(
     }
 
     override fun onBindViewHolder(holder: ProductItemViewHolder, position: Int) {
-        getItem(position)?.let {
-            holder.bind(it)
-        }
+        holder.bind(getItem(position))
     }
 
     class ProductItemViewHolder(

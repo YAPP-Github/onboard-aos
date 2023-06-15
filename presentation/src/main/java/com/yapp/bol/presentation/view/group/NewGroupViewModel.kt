@@ -7,7 +7,7 @@ import com.yapp.bol.domain.model.NewGroupItem
 import com.yapp.bol.domain.usecase.login.NewGroupUseCase
 import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
 import com.yapp.bol.presentation.utils.checkedApiResult
-import com.yapp.bol.presentation.utils.isEmptyValue
+import com.yapp.bol.presentation.utils.isInputTextValid
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -34,7 +34,7 @@ class NewGroupViewModel @Inject constructor(
     private var imageFile = File(EMPTY_STRING)
 
     val isCompleteButtonActivation
-        get() = isEmptyValue(groupName.value) && isEmptyValue(groupDescription.value)
+        get() = isInputTextValid(groupName.value) && isInputTextValid(groupDescription.value)
 
     fun createNewGroup(token: String, nickName: String) {
         viewModelScope.launch {
