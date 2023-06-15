@@ -31,7 +31,6 @@ class GameSelectAdapter(
 
         fun bind(item: GameItem) {
             binding.tvGameName.text = item.name
-            //binding.ivProductImage.setImage(item.imageUrl)
             binding.root.setOnClickListener {
                 gameClickListener(item.name)
             }

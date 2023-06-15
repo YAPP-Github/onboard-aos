@@ -27,7 +27,6 @@ class NewGroupCompleteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityNewGroupCompleteBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setNewGroupInfo()
         setClickListener()
     }

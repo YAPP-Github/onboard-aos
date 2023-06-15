@@ -4,5 +4,5 @@ import com.yapp.bol.presentation.utils.Constant.EMPTY_REGEX
 
 val isInputTextValid: (String?) -> Boolean = { value ->
     val regex = Regex(EMPTY_REGEX)
-     value?.matches(regex) ?: false
+    value?.matches(regex) ?: false
 }
