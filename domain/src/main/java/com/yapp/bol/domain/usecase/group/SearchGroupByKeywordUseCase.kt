@@ -9,12 +9,12 @@ import javax.inject.Inject
 class SearchGroupByKeywordUseCase @Inject constructor(
     private val groupRepository: GroupRepository
 ) {
-    operator fun invoke(
+    suspend fun invoke(
         name: String,
         page: Int,
         pageSize: Int,
-    ): Flow<ApiResult<List<GroupSearchItem>>> =
-        groupRepository.groupSearch(
+    ): ApiResult<List<GroupSearchItem>> =
+        groupRepository.searchGroup(
             name = name,
             page = page,
             pageSize = pageSize,

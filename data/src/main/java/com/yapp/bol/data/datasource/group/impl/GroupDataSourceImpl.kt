@@ -13,15 +13,14 @@ class GroupDataSourceImpl @Inject constructor(
     private val groupApi: GroupApi
 ) : BaseRepository(), GroupDataSource {
 
-    override fun groupSearch(name: String, page: Int, pageSize: Int):
-        Flow<ApiResult<GroupSearchApiResponse>> = flow {
-        val result = safeApiCall {
+    override suspend fun searchGroup(name: String, page: Int, pageSize: Int):
+        ApiResult<GroupSearchApiResponse>  {
+        return safeApiCall {
             groupApi.getGroupSearchResult(
                 name = name,
                 page = page.toString(),
                 pageSize = pageSize.toString()
             )
         }
-        emit(result)
     }
 }

@@ -6,9 +6,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface GroupRepository {
 
-    fun groupSearch(
+    suspend fun searchGroup(
         name: String,
         page: Int,
         pageSize: Int,
-    ): Flow<ApiResult<List<GroupSearchItem>>>
+    ): ApiResult<List<GroupSearchItem>>
 }
