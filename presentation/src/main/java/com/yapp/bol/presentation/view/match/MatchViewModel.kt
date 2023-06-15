@@ -43,15 +43,24 @@ class MatchViewModel @Inject constructor() : ViewModel() {
         checkedCompleteButtonEnabled()
     }
 
-    fun clearMemberChecked(position: Int) {
-        val newMembers = members.value?.map { item ->
-            if (item.id == position) item.copy(isChecked = false)
-            else item
-        }
-        _members.value = newMembers ?: listOf()
+    fun updateMembersIsChecked(position: Int, value: Boolean) {
+        allMembers[position].isChecked = value
     }
 
-    fun updateSearchMembers(search: String) {
+    fun clearMembers(position: Int? = null, search: String) {
+        if (position == null) {
+            updateSearchMembers(search)
+        } else {
+            val newMembers = allMembers.filter { it.name.contains(search) }.map { member ->
+                if (member.id == position) member.copy(isChecked = false)
+                else member
+            }
+            _members.value = newMembers
+            allMembers[position].isChecked = false
+        }
+    }
+
+    private fun updateSearchMembers(search: String) {
         _members.value = allMembers.filter { it.name.contains(search) }
     }
 

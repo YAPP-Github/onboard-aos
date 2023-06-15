@@ -9,7 +9,7 @@ import com.yapp.bol.presentation.databinding.RvMemberItemBinding
 import com.yapp.bol.presentation.model.MemberItem
 
 class MembersAdapter(
-    private val memberClickListener: (MemberItem) -> Unit,
+    private val memberClickListener: (MemberItem, Boolean) -> Unit,
 ) : ListAdapter<MemberItem, MembersAdapter.MembersViewHolder>(diff) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MembersViewHolder {
@@ -26,7 +26,7 @@ class MembersAdapter(
 
     class MembersViewHolder(
         val binding: RvMemberItemBinding,
-        private val memberClickListener: (MemberItem) -> Unit,
+        private val memberClickListener: (MemberItem, Boolean) -> Unit,
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: MemberItem) {
@@ -37,8 +37,7 @@ class MembersAdapter(
 
         private fun setClickListener(item: MemberItem) {
             binding.cbMemberSelect.setOnClickListener {
-                item.isChecked = binding.cbMemberSelect.isChecked
-                memberClickListener(item)
+                memberClickListener(item, binding.cbMemberSelect.isChecked)
             }
         }
     }
