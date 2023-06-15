@@ -22,12 +22,11 @@ class MemberSelectFragment : Fragment() {
     private val viewModel: MatchViewModel by activityViewModels()
     private val memberSelectAdapter = MemberSelectAdapter { member ->
         viewModel.removeSelectMembers(member)
+        viewModel.clearMembersChecked(member.id)
     }
-    private val membersAdapter by lazy {
-        MembersAdapter(requireContext()) { member, isChecked ->
-            if (isChecked) viewModel.addSelectMembers(member)
-            else viewModel.removeSelectMembers(member)
-        }
+    private val membersAdapter = MembersAdapter { member, isChecked ->
+        if (isChecked) viewModel.addSelectMembers(member)
+        else viewModel.removeSelectMembers(member)
     }
 
     override fun onCreateView(
@@ -49,12 +48,9 @@ class MemberSelectFragment : Fragment() {
             membersAdapter.submitList(members)
         }
 
-        viewModel.getMembers()
-        viewModel.selectMembers.filterNotNull().collectWithLifecycle(this) {
+        viewModel.players.filterNotNull().collectWithLifecycle(this) {
             memberSelectAdapter.submitList(it)
         }
-
-        memberSelectAdapter.setCallback(membersAdapter)
     }
 
     override fun onDestroyView() {

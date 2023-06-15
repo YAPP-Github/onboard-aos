@@ -8,17 +8,16 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.databinding.RvMemberSelectItemBinding
 import com.yapp.bol.presentation.model.MemberItem
+import okhttp3.internal.notifyAll
 
 class MemberSelectAdapter(
     private val memberDeleteClickListener: (MemberItem) -> Unit,
 ) : ListAdapter<MemberItem, MemberSelectAdapter.MemberSelectViewHolder>(diff) {
 
-    private lateinit var callback: AdapterCallback
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemberSelectViewHolder {
         val binding =
             RvMemberSelectItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MemberSelectViewHolder(binding,callback,memberDeleteClickListener)
+        return MemberSelectViewHolder(binding, memberDeleteClickListener)
     }
 
     override fun onBindViewHolder(holder: MemberSelectViewHolder, position: Int) {
@@ -27,13 +26,8 @@ class MemberSelectAdapter(
         }
     }
 
-    fun setCallback(callback: AdapterCallback) {
-        this.callback = callback
-    }
-
     class MemberSelectViewHolder(
         private val binding: RvMemberSelectItemBinding,
-        private val callback: AdapterCallback,
         private val memberDeleteClickListener: (MemberItem) -> Unit,
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -41,7 +35,6 @@ class MemberSelectAdapter(
             binding.tvMemberName.text = item.name
             binding.btnMemberDelete.setOnClickListener {
                 memberDeleteClickListener(item)
-                callback.checkedCheckBox(item.id)
             }
         }
     }

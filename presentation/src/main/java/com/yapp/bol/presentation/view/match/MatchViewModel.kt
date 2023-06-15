@@ -16,38 +16,50 @@ class MatchViewModel @Inject constructor() : ViewModel() {
     private val _members = MutableLiveData<List<MemberItem>>(listOf())
     val members = _members
 
-    private val tempList = arrayListOf<MemberItem>()
+    private val _players = MutableStateFlow(listOf<MemberItem>())
+    val players = _players.asStateFlow()
 
-    private val _selectMembers = MutableStateFlow(listOf<MemberItem>())
-    val selectMembers = _selectMembers.asStateFlow()
+    private val dynamicPlayers = arrayListOf<MemberItem>()
+
+    init {
+        getMembers()
+    }
 
     fun updateToolBarTitle(title: String) {
         _toolBarTitle.value = title
     }
 
-    fun getMembers() {
+    private fun getMembers() {
         _members.value = testMembers
     }
 
     fun addSelectMembers(memberItem: MemberItem) {
-        tempList.add(memberItem)
-        _selectMembers.value = createNewMembers()
+        dynamicPlayers.add(memberItem)
+        _players.value = createNewMembers()
     }
 
     fun removeSelectMembers(memberItem: MemberItem) {
-        tempList.remove(memberItem)
-        _selectMembers.value = createNewMembers()
+        dynamicPlayers.remove(memberItem)
+        _players.value = createNewMembers()
+    }
+
+    fun clearMembersChecked(position: Int) {
+        val newMembers = members.value?.map { item ->
+            if (item.id == position) item.copy(isChecked = false)
+            else item
+        }
+        _members.value = newMembers ?: listOf()
     }
 
     private fun createNewMembers(): List<MemberItem> {
-        return List(tempList.size) {
-            tempList[it]
+        return List(dynamicPlayers.size) {
+            dynamicPlayers[it]
         }
     }
 
     companion object {
         val testMembers = List(10) {
-            MemberItem(it,"$it. Test", 1)
+            MemberItem(it, "$it. Test", 1)
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.yapp.bol.presentation.view.match.member_select
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -10,37 +9,36 @@ import com.yapp.bol.presentation.databinding.RvMemberItemBinding
 import com.yapp.bol.presentation.model.MemberItem
 
 class MembersAdapter(
-    private val context: Context,
-    private val memberClickListener: (MemberItem,Boolean) -> Unit,
-) : ListAdapter<MemberItem, MembersAdapter.MembersViewHolder>(diff), AdapterCallback {
+    private val memberClickListener: (MemberItem, Boolean) -> Unit,
+) : ListAdapter<MemberItem, MembersAdapter.MembersViewHolder>(diff) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MembersViewHolder {
         val binding =
             RvMemberItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MembersViewHolder(binding,memberClickListener)
+        return MembersViewHolder(binding, memberClickListener)
     }
 
     override fun onBindViewHolder(holder: MembersViewHolder, position: Int) {
         getItem(position)?.let {
-            holder.bind(it,position)
+            holder.bind(it)
         }
-    }
-
-    override fun checkedCheckBox(position: Int) {
-        val recyclerView: RecyclerView = RecyclerView(context)
-        val viewHolder = recyclerView.findViewHolderForAdapterPosition(position) as? MembersViewHolder
-        viewHolder?.binding?.cbMemberSelect?.isChecked = false
     }
 
     class MembersViewHolder(
         val binding: RvMemberItemBinding,
-        private val memberClickListener: (MemberItem,Boolean) -> Unit,
+        private val memberClickListener: (MemberItem, Boolean) -> Unit,
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: MemberItem, position: Int) {
+        fun bind(item: MemberItem) {
             binding.tvMemberName.text = item.name
+            binding.cbMemberSelect.isChecked = item.isChecked
+            setClickListener(item)
+        }
+
+        private fun setClickListener(item: MemberItem) {
             binding.cbMemberSelect.setOnClickListener {
-                memberClickListener(item,binding.cbMemberSelect.isChecked)
+                item.isChecked = binding.cbMemberSelect.isChecked
+                memberClickListener(item, binding.cbMemberSelect.isChecked)
             }
         }
     }
