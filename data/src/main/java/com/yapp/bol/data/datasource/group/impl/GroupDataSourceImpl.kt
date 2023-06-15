@@ -5,8 +5,6 @@ import com.yapp.bol.data.model.group.GroupSearchApiResponse
 import com.yapp.bol.data.remote.GroupApi
 import com.yapp.bol.data.utils.BaseRepository
 import com.yapp.bol.domain.model.ApiResult
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class GroupDataSourceImpl @Inject constructor(
@@ -14,7 +12,7 @@ class GroupDataSourceImpl @Inject constructor(
 ) : BaseRepository(), GroupDataSource {
 
     override suspend fun searchGroup(name: String, page: Int, pageSize: Int):
-        ApiResult<GroupSearchApiResponse>  {
+        ApiResult<GroupSearchApiResponse> {
         return safeApiCall {
             groupApi.getGroupSearchResult(
                 name = name,

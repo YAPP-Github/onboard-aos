@@ -5,7 +5,6 @@ import androidx.paging.PagingState
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.GroupSearchItem
 import com.yapp.bol.domain.repository.GroupRepository
-import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 class GroupListPagingSource @Inject constructor(
