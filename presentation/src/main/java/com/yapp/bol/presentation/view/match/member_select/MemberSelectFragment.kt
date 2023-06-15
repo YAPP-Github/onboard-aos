@@ -51,6 +51,10 @@ class MemberSelectFragment : Fragment() {
         viewModel.players.filterNotNull().collectWithLifecycle(this) {
             memberSelectAdapter.submitList(it)
         }
+
+        viewModel.isCompleteButtonEnabled.observe(viewLifecycleOwner) {
+            binding.btnPlayerComplete.isEnabled = it
+        }
     }
 
     override fun onDestroyView() {

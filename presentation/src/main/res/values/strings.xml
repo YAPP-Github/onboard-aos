@@ -28,4 +28,7 @@
     <string name="group_creating_text">모임을 등록하는 중..</string>
 
     <string name="game_select_guide">플레이 할 보드게임을 선택해주세요</string>
+    <string name="play_select_guide">게임을 함께 플레이 한 멤버를 선택해주세요</string>
+    <string name="player_complete_guide">플레이어 선택 완료</string>
+    <string name="member_search_hint">멤버 검색</string>
 </resources>

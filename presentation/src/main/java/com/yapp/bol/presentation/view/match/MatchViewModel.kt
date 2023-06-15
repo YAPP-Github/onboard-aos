@@ -19,6 +19,9 @@ class MatchViewModel @Inject constructor() : ViewModel() {
     private val _players = MutableStateFlow(listOf<MemberItem>())
     val players = _players.asStateFlow()
 
+    private val _isCompleteButtonEnabled = MutableLiveData(false)
+    val isCompleteButtonEnabled = _isCompleteButtonEnabled
+
     private val dynamicPlayers = arrayListOf<MemberItem>()
 
     init {
@@ -36,11 +39,13 @@ class MatchViewModel @Inject constructor() : ViewModel() {
     fun addSelectMembers(memberItem: MemberItem) {
         dynamicPlayers.add(memberItem)
         _players.value = createNewMembers()
+        checkedCompleteButtonEnabled()
     }
 
     fun removeSelectMembers(memberItem: MemberItem) {
         dynamicPlayers.remove(memberItem)
         _players.value = createNewMembers()
+        checkedCompleteButtonEnabled()
     }
 
     fun clearMembersChecked(position: Int) {
@@ -55,6 +60,10 @@ class MatchViewModel @Inject constructor() : ViewModel() {
         return List(dynamicPlayers.size) {
             dynamicPlayers[it]
         }
+    }
+
+    private fun checkedCompleteButtonEnabled() {
+        _isCompleteButtonEnabled.value = players.value.size > 1
     }
 
     companion object {
