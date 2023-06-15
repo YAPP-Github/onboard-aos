@@ -51,6 +51,10 @@ dependencies {
 
     // Hilt
     implementation(com.yapp.bol.DaggerHilt.DAGGER_HILT)
+    implementation("androidx.paging:paging-common-ktx:3.1.1")
     kapt(com.yapp.bol.DaggerHilt.DAGGER_HILT_COMPILER)
     kapt(com.yapp.bol.DaggerHilt.DAGGER_HILT_ANDROIDX_COMPILER)
+
+    // Paging 아래 paging library는 android dependency가 없습니다.
+    kapt(com.yapp.bol.AndroidX.PAGING_WITHOUT_ANDROID)
 }

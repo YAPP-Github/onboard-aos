@@ -40,6 +40,7 @@ object AndroidX {
     const val FRAGMENT = "androidx.fragment:fragment-ktx:1.3.6"
     const val COMPOSE = "androidx.activity:activity-compose:1.5.1"
     const val PAGING = "androidx.paging:paging-runtime:$PAGING_VERSION"
+    const val PAGING_WITHOUT_ANDROID = "androidx.paging:paging-common:$PAGING_VERSION"
 }
 
 object Coroutines {
