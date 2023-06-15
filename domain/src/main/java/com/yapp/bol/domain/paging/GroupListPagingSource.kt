@@ -4,8 +4,8 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.GroupSearchItem
-import com.yapp.bol.domain.paging.GroupPagingConfig.GROUP_LIST_STARTING_PAGE_INDEX
 import com.yapp.bol.domain.repository.GroupRepository
+import com.yapp.bol.domain.utils.GroupPagingConfig.GROUP_LIST_STARTING_PAGE_INDEX
 import javax.inject.Inject
 
 class GroupListPagingSource @Inject constructor(
@@ -36,8 +36,4 @@ class GroupListPagingSource @Inject constructor(
             return LoadResult.Error(exception)
         }
     }
-}
-
-object GroupPagingConfig {
-    const val GROUP_LIST_STARTING_PAGE_INDEX = 1
 }
