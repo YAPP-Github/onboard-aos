@@ -10,6 +10,7 @@ import javax.inject.Inject
 
 class GroupListPagingSource @Inject constructor(
     private val groupRepository: GroupRepository,
+    private val keyword: String
 ) : PagingSource<Int, GroupSearchItem>() {
     override fun getRefreshKey(state: PagingState<Int, GroupSearchItem>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -22,7 +23,7 @@ class GroupListPagingSource @Inject constructor(
         val page = params.key ?: GROUP_LIST_STARTING_PAGE_INDEX
         return try {
             val response = groupRepository.searchGroup(
-                name = "your_name",
+                name = keyword,
                 page = page,
                 pageSize = params.loadSize
             )
