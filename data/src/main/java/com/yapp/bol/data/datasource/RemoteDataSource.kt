@@ -8,11 +8,19 @@ import kotlinx.coroutines.flow.Flow
 import java.io.File
 
 interface RemoteDataSource {
-    fun getKakaoMock(token: String): Flow<ApiResult<OAuthApiResponse>>
+
+    suspend fun login(type: String, token: String): OAuthApiResponse?
 
     fun postFileUpload(
         token: String,
         file: File
     ): Flow<ApiResult<FileUploadResponse>>
 
+    fun postCreateGroup(
+        name: String,
+        description: String,
+        organization: String,
+        profileImageUrl: String,
+        nickname: String
+    ): Flow<ApiResult<NewGroupApiResponse>>
 }

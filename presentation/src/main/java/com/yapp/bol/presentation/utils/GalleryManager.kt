@@ -1,4 +1,4 @@
-package com.yapp.bol.presentation.view.login
+package com.yapp.bol.presentation.utils
 
 import android.Manifest
 import android.content.Intent
@@ -6,53 +6,33 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
 import android.os.Build
-import android.os.Bundle
 import android.provider.MediaStore
+import android.widget.ImageView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
-import com.yapp.bol.presentation.databinding.ActivityNewGroupBinding
-import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
-import com.yapp.bol.presentation.view.login.KakaoTestActivity.Companion.ACCESS_TOKEN
-import com.yapp.bol.presentation.viewmodel.NewGroupViewModel
-import dagger.hilt.android.AndroidEntryPoint
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import java.io.File
 
-@AndroidEntryPoint
-class NewGroupActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityNewGroupBinding
-    private val newGroupViewModel: NewGroupViewModel by viewModels()
+class GalleryManager(
+    private val context: AppCompatActivity,
+    private val imageView: ImageView,
+    private val uploadImageFile: (File) -> Unit,
+) {
 
     private val isPermission: Boolean
         get() = getPermission(WRITE_PERMISSION) != PackageManager.PERMISSION_DENIED
             && getPermission(READ_PERMISSION) != PackageManager.PERMISSION_DENIED
 
-    private val imageResult= getResultLauncher()
+    private val imageResult = getResultLauncher()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityNewGroupBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        val accessToken = intent.getStringExtra(ACCESS_TOKEN) ?: ""
-
-        binding.btnImage.setOnClickListener {
-            newGroupViewModel.postFileUpload(accessToken)
-        }
-
-        binding.ivImage.setOnClickListener {
-            checkedGalleryAccess()
-        }
-    }
-
-    private fun checkedGalleryAccess() {
-        if (isPermission)  generateGallery()
-        else ActivityCompat.requestPermissions(this, PERMISSIONS, REQ_GALLERY)
+    fun checkedGalleryAccess() {
+        if (isPermission) generateGallery()
+        else ActivityCompat.requestPermissions(context, PERMISSIONS, REQ_GALLERY)
     }
 
     private fun generateGallery() {
@@ -64,30 +44,30 @@ class NewGroupActivity : AppCompatActivity() {
 
     private fun getPermission(permissionType: Int): Int {
         return when (permissionType) {
-            WRITE_PERMISSION -> ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            READ_PERMISSION -> ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+            WRITE_PERMISSION -> ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            READ_PERMISSION -> ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
             else -> throw IllegalArgumentException("잘못된 권한 타입입니다.")
         }
     }
 
     private fun getResultLauncher(): ActivityResultLauncher<Intent> {
-        return registerForActivityResult(
+        return context.registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
-            if (result.resultCode != RESULT_OK) return@registerForActivityResult
+            if (result.resultCode != AppCompatActivity.RESULT_OK) return@registerForActivityResult
             val imageUri = result.data?.data ?: return@registerForActivityResult
             val imageFile = File(getRealPathFromURI(imageUri))
-            newGroupViewModel.updateImageFile(imageFile)
-            setGroupImage(imageUri)
+            uploadImageFile(imageFile)
+            imageView.loadImage(imageUri.toString())
         }
     }
 
     private fun getRealPathFromURI(uri: Uri): String {
         val buildName = Build.MANUFACTURER
-        if (buildName == "Xiaomi") return uri.path ?: EMPTY_STRING
+        if (buildName == "Xiaomi") return uri.path ?: Constant.EMPTY_STRING
 
         var columnIndex = 0
-        val cursor = getCursor(uri, arrayOf(MediaStore.Images.Media.DATA)) ?: return EMPTY_STRING
+        val cursor = getCursor(uri, arrayOf(MediaStore.Images.Media.DATA)) ?: return Constant.EMPTY_STRING
         if (cursor.moveToFirst()) columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
 
         val result = cursor.getString(columnIndex)
@@ -95,12 +75,8 @@ class NewGroupActivity : AppCompatActivity() {
         return result
     }
 
-    private fun setGroupImage(imageUri: Uri) {
-        Glide.with(this).load(imageUri).fitCenter().into(binding.ivImage)
-    }
-
     private fun getCursor(uri: Uri, proj: Array<String>): Cursor? {
-        return contentResolver.query(uri, proj, null, null, null)
+        return context.contentResolver.query(uri, proj, null, null, null)
     }
 
     companion object {

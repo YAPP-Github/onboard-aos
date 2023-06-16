@@ -1,8 +1,8 @@
 package com.yapp.bol.data.datasource.impl
 
 import com.yapp.bol.data.datasource.RemoteDataSource
-import com.yapp.bol.data.model.LoginType
-import com.yapp.bol.data.model.MockApiRequest
+import com.yapp.bol.data.datasource.mock.impl.LoginType.toDomain
+import com.yapp.bol.data.model.OAuthApiRequest
 import com.yapp.bol.data.model.OAuthApiResponse
 import com.yapp.bol.data.model.file_upload.FileUploadResponse
 import com.yapp.bol.data.model.group.NewGroupApiRequest
@@ -23,15 +23,13 @@ import javax.inject.Inject
 
 
 class RemoteDataSourceImpl @Inject constructor(
-    private val oauthApi: LoginApi,
+    private val loginApi: LoginApi,
     private val imageFileApi: ImageFileApi,
     private val groupApi: GroupApi,
 ) : BaseRepository(), RemoteDataSource {
-    override fun getKakaoMock(token: String): Flow<ApiResult<OAuthApiResponse>> = flow {
-        val result = safeApiCall {
-            oauthApi.postMockApi(MockApiRequest(LoginType.KAKAO_ACCESS_TOKEN, token))
-        }
-        emit(result)
+
+    override suspend fun login(type: String, token: String): OAuthApiResponse? {
+        return loginApi.postOAuthApi(OAuthApiRequest(type.toDomain(), token)).body()
     }
 
     override fun postFileUpload(
@@ -45,6 +43,19 @@ class RemoteDataSourceImpl @Inject constructor(
 
         val result = safeApiCall {
             imageFileApi.postFileUpload(token = token.convertRequestToken(), file = filePart, purpose = purpose)
+        }
+        emit(result)
+    }
+
+    override fun postCreateGroup(
+        name: String,
+        description: String,
+        organization: String,
+        profileImageUrl: String,
+        nickname: String
+    ): Flow<ApiResult<NewGroupApiResponse>> = flow {
+        val result = safeApiCall {
+            groupApi.postOAuthApi(NewGroupApiRequest(name, description, organization, profileImageUrl, nickname))
         }
         emit(result)
     }
