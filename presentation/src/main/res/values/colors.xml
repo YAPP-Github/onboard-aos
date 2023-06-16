@@ -28,4 +28,10 @@
     <color name="Gray_3">#F5F4F3</color>
     <color name="Gray_2">#F7F7F7</color>
     <color name="Gray_1">#FBFBFB</color>
+
+    <!--RED-->
+    <color name="Red">#F11414</color>
+
+    <!--YELLOW-->
+    <color name="Yellow">#FFBC10</color>
 </resources>
