@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.core.content.ContextCompat
@@ -14,6 +15,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.FragmentMemberSelectBinding
+import com.yapp.bol.presentation.utils.GuestAddDialog
+import com.yapp.bol.presentation.utils.ImageSettingDialog
 import com.yapp.bol.presentation.view.match.MatchViewModel
 import com.yapp.bol.presentation.view.match.game_select.GameSelectFragment.Companion.GAME_NAME
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,7 +38,9 @@ class MemberSelectFragment : Fragment() {
         matchViewModel.updateMemberIsChecked(member.id, isChecked)
     }
 
-    private val inputManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    private val inputManager by lazy {
+        activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -95,6 +100,10 @@ class MemberSelectFragment : Fragment() {
                 binding.etSearchMember.requestFocus()
             }
         }
+
+        binding.btnTempMember.setOnClickListener {
+            generateGuestAddDialog { name ->  }
+        }
     }
 
     private fun setFocusChangeListener(): View.OnFocusChangeListener {
@@ -105,6 +114,12 @@ class MemberSelectFragment : Fragment() {
             )
             binding.ivSearchIcon.setImageDrawable(image)
         }
+    }
+
+    private fun generateGuestAddDialog(checkedGalleryAccess: (String) -> Unit) {
+        val dialog = GuestAddDialog(requireContext(), checkedGalleryAccess)
+        dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+        dialog.show()
     }
 
     private fun getInputTextValue(): String {
