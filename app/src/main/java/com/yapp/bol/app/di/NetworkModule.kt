@@ -1,6 +1,8 @@
 package com.yapp.bol.app.di
 
 import com.yapp.bol.app.BuildConfig
+import com.yapp.bol.data.remote.GroupApi
+import com.yapp.bol.data.remote.ImageFileApi
 import com.yapp.bol.data.remote.LoginApi
 import com.yapp.bol.data.utils.Utils.BASE_URL
 import dagger.Module
@@ -34,13 +36,13 @@ object NetworkModule {
     @Singleton
     fun provideHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
-        appInterceptor: AppInterceptor,
+        authInterceptor: AuthInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .readTimeout(10, TimeUnit.SECONDS)
             .connectTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(15, TimeUnit.SECONDS)
-            .addInterceptor(appInterceptor)
+            .addInterceptor(authInterceptor)
             .addInterceptor(httpLoggingInterceptor)
             .build()
     }
@@ -49,7 +51,7 @@ object NetworkModule {
     @Provides
     fun provideRetrofitInstance(
         okHttpClient: OkHttpClient,
-        gsonConverterFactory: GsonConverterFactory
+        gsonConverterFactory: GsonConverterFactory,
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -72,5 +74,14 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideAppInterceptor(): AppInterceptor = AppInterceptor()
+    fun provideFileUploadApiService(retrofit: Retrofit): ImageFileApi {
+        return retrofit.create(ImageFileApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGroupApiService(retrofit: Retrofit): GroupApi {
+        return retrofit.create(GroupApi::class.java)
+    }
+
 }
