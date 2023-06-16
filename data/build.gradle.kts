@@ -25,7 +25,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -58,6 +58,9 @@ dependencies {
     implementation(com.yapp.bol.DaggerHilt.DAGGER_HILT)
     kapt(com.yapp.bol.DaggerHilt.DAGGER_HILT_COMPILER)
     kapt(com.yapp.bol.DaggerHilt.DAGGER_HILT_ANDROIDX_COMPILER)
+
+    implementation(com.yapp.bol.DataStore.DATA_STORE_CORE)
+    implementation(com.yapp.bol.DataStore.DATA_STORE)
 }
 
 fun getApi(propertyKey: String): String {

@@ -1,5 +1,6 @@
 package com.yapp.bol
 
+import com.yapp.bol.Versions.DATA_STORE_VERSION
 import com.yapp.bol.Versions.HILT_VERSION
 import com.yapp.bol.Versions.KAKAO_VERSION
 import com.yapp.bol.Versions.KOTLIN_VERSION
@@ -12,6 +13,7 @@ object Versions {
     const val KTLINT_VERSION = "10.2.1"
     const val HILT_VERSION = "2.44"
     const val KAKAO_VERSION = "2.11.0"
+    const val DATA_STORE_VERSION = "1.0.0"
 }
 
 object Android {
@@ -68,6 +70,11 @@ object KtLint {
 object OAuth {
     const val KAKAO = "com.kakao.sdk:v2-user:$KAKAO_VERSION"
     const val NAVER = "com.navercorp.nid:oauth:5.4.0"
+}
+
+object DataStore {
+    const val DATA_STORE = "androidx.datastore:datastore-preferences:$DATA_STORE_VERSION"
+    const val DATA_STORE_CORE = "androidx.datastore:datastore-preferences-core:$DATA_STORE_VERSION"
 }
 
 object Test {
