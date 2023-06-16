@@ -14,11 +14,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.FragmentMemberSelectBinding
-import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.view.match.MatchViewModel
 import com.yapp.bol.presentation.view.match.game_select.GameSelectFragment.Companion.GAME_NAME
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.filterNotNull
 
 @AndroidEntryPoint
 class MemberSelectFragment : Fragment() {
@@ -30,12 +28,14 @@ class MemberSelectFragment : Fragment() {
 
     private val memberSelectAdapter = MemberSelectAdapter { member ->
         viewModel.checkedSelectMembers(member)
-        viewModel.clearMembers(member.id, binding.etSearchMember.text.toString())
+        viewModel.clearMembers(member.id, getInputTextValue())
     }
-    private val membersAdapter = MembersAdapter { member, value ->
+    private val membersAdapter = MembersAdapter { member, isChecked ->
         viewModel.checkedSelectMembers(member)
-        viewModel.updateMembersIsChecked(member.id, value)
+        viewModel.updateMemberIsChecked(member.id, isChecked)
     }
+
+    private val inputManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,17 +52,14 @@ class MemberSelectFragment : Fragment() {
         binding.rvMemberSelect.adapter = memberSelectAdapter
         binding.rvMembers.adapter = membersAdapter
 
-        viewModel.members.observe(viewLifecycleOwner) { members ->
-            membersAdapter.submitList(members)
+        setObserver()
+        setClickListener()
+
+        binding.etSearchMember.doOnTextChanged { text, _, _, _ ->
+            viewModel.updateSearchMembers(text.toString())
         }
 
-        viewModel.players.filterNotNull().collectWithLifecycle(this) {
-            memberSelectAdapter.submitList(it)
-        }
-
-        viewModel.isCompleteButtonEnabled.observe(viewLifecycleOwner) {
-            binding.btnPlayerComplete.isEnabled = it
-        }
+        binding.etSearchMember.onFocusChangeListener = setFocusChangeListener()
 
         val scrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -71,20 +68,23 @@ class MemberSelectFragment : Fragment() {
             }
         }
         binding.rvMembers.addOnScrollListener(scrollListener)
+    }
 
-        binding.etSearchMember.doOnTextChanged { text, start, before, count ->
-            viewModel.clearMembers(search = text.toString())
+    private fun setObserver() {
+        viewModel.members.observe(viewLifecycleOwner) { members ->
+            membersAdapter.submitList(members)
         }
 
-        val focus = View.OnFocusChangeListener { v, hasFocus ->
-            val image = ContextCompat.getDrawable(
-                requireContext(),
-                if (hasFocus) R.drawable.ic_cancel_gray else R.drawable.ic_search
-            )
-            binding.ivSearchIcon.setImageDrawable(image)
+        viewModel.isCompleteButtonEnabled.observe(viewLifecycleOwner) {
+            binding.btnPlayerComplete.isEnabled = it
         }
-        binding.etSearchMember.onFocusChangeListener = focus
 
+        viewModel.players.observe(viewLifecycleOwner) { players ->
+            memberSelectAdapter.submitList(players)
+        }
+    }
+
+    private fun setClickListener() {
         binding.ivSearchIcon.setOnClickListener {
             if (binding.etSearchMember.isFocused) {
                 hideKeyboard()
@@ -97,15 +97,27 @@ class MemberSelectFragment : Fragment() {
         }
     }
 
+    private fun setFocusChangeListener(): View.OnFocusChangeListener {
+        return View.OnFocusChangeListener { _, hasFocus ->
+            val image = ContextCompat.getDrawable(
+                requireContext(),
+                if (hasFocus) R.drawable.ic_cancel_gray else R.drawable.ic_search
+            )
+            binding.ivSearchIcon.setImageDrawable(image)
+        }
+    }
+
+    private fun getInputTextValue(): String {
+        return binding.etSearchMember.text.toString()
+    }
+
     private fun hideKeyboard() {
         if (activity == null && activity?.currentFocus == null) return
-        val inputManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(activity?.currentFocus?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }
 
     private fun showKeyboard(editText: EditText) {
         if (activity == null && activity?.currentFocus == null) return
-        val inputManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
     }
 

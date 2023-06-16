@@ -36,7 +36,6 @@ class GameSelectFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.rvGameItems.adapter = recyclerAdapter
-
         recyclerAdapter.submitList(testList)
     }
 
