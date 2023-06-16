@@ -19,6 +19,6 @@ interface GroupApi {
 
     @GET("v1/game/{groupId}")
     suspend fun getGameList(
-        @Path("groupId") groupId: String,
+        @Path("groupId") groupId: Int,
     ): Response<GameApiResponse>
 }

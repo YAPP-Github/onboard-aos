@@ -9,7 +9,7 @@ import javax.inject.Inject
 class MatchUseCase@Inject constructor(
     private val repository: Repository
 ) {
-    fun getGameList(groupId: String): Flow<ApiResult<List<GameItem>>> {
+    fun getGameList(groupId: Int): Flow<ApiResult<List<GameItem>>> {
         return repository.getGameList(groupId)
     }
 }

@@ -41,7 +41,7 @@ class MatchViewModel @Inject constructor(
 
     private fun getGameList() {
         viewModelScope.launch {
-            matchUseCase.getGameList("X0ALW9").collectLatest {
+            matchUseCase.getGameList(9999).collectLatest {
                 checkedApiResult(
                     apiResult = it,
                     success = { data -> _gameList.value = data },

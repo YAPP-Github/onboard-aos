@@ -61,7 +61,7 @@ class RemoteDataSourceImpl @Inject constructor(
         emit(result)
     }
 
-    override fun getGameList(groupId: String): Flow<ApiResult<GameApiResponse>> = flow {
+    override fun getGameList(groupId: Int): Flow<ApiResult<GameApiResponse>> = flow {
         val result = safeApiCall { groupApi.getGameList(groupId) }
         emit(result)
     }

@@ -24,5 +24,5 @@ interface Repository {
         nickname: String
     ): Flow<ApiResult<NewGroupItem>>
 
-    fun getGameList(groupId: String): Flow<ApiResult<List<GameItem>>>
+    fun getGameList(groupId: Int): Flow<ApiResult<List<GameItem>>>
 }
