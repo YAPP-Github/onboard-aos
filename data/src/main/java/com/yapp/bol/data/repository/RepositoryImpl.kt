@@ -5,6 +5,7 @@ import com.yapp.bol.data.mapper.MapperToDomain.fileUploadToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.gameToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.newGroupToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.toDomain
+import com.yapp.bol.data.mapper.MapperToDomain.validToDomain
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
@@ -19,7 +20,7 @@ class RepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource
 ) : Repository {
     override suspend fun login(type: String, token: String): LoginItem? {
-        return remoteDataSource.login(type,token).toDomain()
+        return remoteDataSource.login(type, token).toDomain()
     }
 
     override fun postFileUpload(token: String, file: File): Flow<ApiResult<String>> {
@@ -43,6 +44,12 @@ class RepositoryImpl @Inject constructor(
     override fun getGameList(groupId: Int): Flow<ApiResult<List<GameItem>>> {
         return remoteDataSource.getGameList(groupId).map {
             it.gameToDomain()
+        }
+    }
+
+    override fun getValidateNickName(groupId: Int, nickname: String): Flow<ApiResult<Boolean>> {
+        return remoteDataSource.getValidateNickName(groupId, nickname).map {
+            it.validToDomain()
         }
     }
 }

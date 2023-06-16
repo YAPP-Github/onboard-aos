@@ -1,6 +1,7 @@
 package com.yapp.bol.data.remote
 
 import com.yapp.bol.data.model.group.GameApiResponse
+import com.yapp.bol.data.model.group.MemberValidApiResponse
 import com.yapp.bol.data.model.group.NewGroupApiRequest
 import com.yapp.bol.data.model.group.NewGroupApiResponse
 import retrofit2.Response
@@ -21,4 +22,10 @@ interface GroupApi {
     suspend fun getGameList(
         @Path("groupId") groupId: Int,
     ): Response<GameApiResponse>
+
+    @GET("/v1/group/1/member/validateNickname")
+    suspend fun getValidateNickName(
+        @Query("groupId") groupId: Int,
+        @Query("nickname") nickName: String,
+    ): Response<MemberValidApiResponse>
 }

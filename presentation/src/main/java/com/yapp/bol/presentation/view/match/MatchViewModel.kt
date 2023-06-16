@@ -32,6 +32,9 @@ class MatchViewModel @Inject constructor(
     private val _gameList = MutableLiveData(listOf<com.yapp.bol.domain.model.GameItem>())
     val gameList = _gameList
 
+    private val _isNickNameValidate = MutableLiveData(false)
+    val isNickNameValidate = _isNickNameValidate
+
     private val dynamicPlayers = arrayListOf<MemberItem>()
 
     init {
@@ -52,6 +55,18 @@ class MatchViewModel @Inject constructor(
                 success = { data -> _gameList.value = data },
                 error = { throwable -> throw throwable },
             )
+        }
+    }
+
+    fun getValidateNickName(groupId: Int, nickname: String) {
+        viewModelScope.launch {
+            matchUseCase.getValidateNickName(groupId, nickname).collect {
+                checkedApiResult(
+                    apiResult = it,
+                    success = { data -> _isNickNameValidate.value = data },
+                    error = { throwable -> throw throwable }
+                )
+            }
         }
     }
 

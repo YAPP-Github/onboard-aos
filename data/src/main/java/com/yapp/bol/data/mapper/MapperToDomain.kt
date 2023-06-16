@@ -4,6 +4,7 @@ import com.yapp.bol.data.model.OAuthApiResponse
 import com.yapp.bol.data.model.file_upload.FileUploadResponse
 import com.yapp.bol.data.model.group.GameApiResponse
 import com.yapp.bol.data.model.group.GameDTO
+import com.yapp.bol.data.model.group.MemberValidApiResponse
 import com.yapp.bol.data.model.group.NewGroupApiResponse
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.GameItem
@@ -33,6 +34,16 @@ internal object MapperToDomain {
         )
     }
 
+    private fun GameDTO.toItem(): GameItem {
+        return GameItem(
+            id = this.id,
+            name = this.name,
+            maxMember = this.maxMember,
+            minMember = this.maxMember,
+            img = this.img,
+        )
+    }
+
     fun ApiResult<FileUploadResponse>.fileUploadToDomain(): ApiResult<String> {
         return when (this) {
             is ApiResult.Success -> ApiResult.Success(data.url)
@@ -54,13 +65,10 @@ internal object MapperToDomain {
         }
     }
 
-    private fun GameDTO.toItem(): GameItem {
-        return GameItem(
-            id = this.id,
-            name = this.name,
-            maxMember = this.maxMember,
-            minMember = this.maxMember,
-            img = this.img,
-        )
+    fun ApiResult<MemberValidApiResponse>.validToDomain(): ApiResult<Boolean> {
+        return when (this) {
+            is ApiResult.Success -> ApiResult.Success(data.isAvailable)
+            is ApiResult.Error -> ApiResult.Error(exception)
+        }
     }
 }

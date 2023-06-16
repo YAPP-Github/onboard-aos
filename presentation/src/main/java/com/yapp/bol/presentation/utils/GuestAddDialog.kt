@@ -12,11 +12,13 @@ import androidx.core.widget.doOnTextChanged
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.GuestAddDialogBinding
 import com.yapp.bol.presentation.utils.Converter.convertLengthToString
+import com.yapp.bol.presentation.view.match.member_select.ValidateCallBack
 
 class GuestAddDialog(
     private val context: Context,
     private val addGuest: (String) -> Unit,
-) : Dialog(context) {
+    private val getValidateNickName: (String) -> Unit,
+) : Dialog(context), ValidateCallBack {
 
     private lateinit var binding: GuestAddDialogBinding
 
@@ -33,10 +35,11 @@ class GuestAddDialog(
             addGuest(binding.etGuestName.text.toString())
         }
 
-        binding.etGuestName.doOnTextChanged { _, start, _, count ->
+        binding.etGuestName.doOnTextChanged { text, start, _, count ->
             val color = if (count == 10) Color.parseColor("#EB5555") else Color.parseColor("#8B8B8B")
             binding.tvGuestNameCount.setTextColor(color)
             binding.tvGuestNameCount.text = convertLengthToString(PROFILE_NAME_MAX_LENGTH, start + count)
+            getValidateNickName(text.toString())
         }
     }
 
@@ -53,10 +56,24 @@ class GuestAddDialog(
         val orangeColor = ContextCompat.getColor(context, R.color.orange_09)
         val firstColorSpan = ForegroundColorSpan(orangeColor)
         val secondColorSpan = ForegroundColorSpan(orangeColor)
-        spannableString.setSpan(firstColorSpan, firstStartIndex, firstEndIndex, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
-        spannableString.setSpan(secondColorSpan, secondStartIndex, secondEndIndex, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
+        spannableString.setSpan(
+            firstColorSpan,
+            firstStartIndex,
+            firstEndIndex,
+            SpannableString.SPAN_INCLUSIVE_INCLUSIVE
+        )
+        spannableString.setSpan(
+            secondColorSpan,
+            secondStartIndex,
+            secondEndIndex,
+            SpannableString.SPAN_INCLUSIVE_INCLUSIVE
+        )
 
         binding.tvDescription.text = spannableString
+    }
+
+    override fun setNicknameValid(value: Boolean) {
+        binding.btnGuestAdd.isEnabled = value
     }
 
     companion object {

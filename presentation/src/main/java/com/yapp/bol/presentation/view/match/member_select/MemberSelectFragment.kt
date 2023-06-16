@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.core.content.ContextCompat
@@ -41,6 +40,14 @@ class MemberSelectFragment : Fragment() {
         activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
 
+    private val dialog by lazy {
+        GuestAddDialog(
+            context = requireContext(),
+            addGuest = { name -> },
+            getValidateNickName = { nickname -> matchViewModel.getValidateNickName(10, nickname) },
+        )
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,6 +64,7 @@ class MemberSelectFragment : Fragment() {
         binding.rvMembers.adapter = membersAdapter
 
         setViewModelObserve()
+
         setClickListener()
 
         binding.etSearchMember.doOnTextChanged { text, _, _, _ ->
@@ -86,6 +94,10 @@ class MemberSelectFragment : Fragment() {
         matchViewModel.players.observe(viewLifecycleOwner) { players ->
             memberSelectAdapter.submitList(players)
         }
+
+        matchViewModel.isNickNameValidate.observe(viewLifecycleOwner) {
+            if (dialog.isShowing) dialog.setNicknameValid(it)
+        }
     }
 
     private fun setClickListener() {
@@ -99,9 +111,8 @@ class MemberSelectFragment : Fragment() {
                 binding.etSearchMember.requestFocus()
             }
         }
-
         binding.btnTempMember.setOnClickListener {
-            generateGuestAddDialog { name -> }
+            dialog.show()
         }
     }
 
@@ -113,12 +124,6 @@ class MemberSelectFragment : Fragment() {
             )
             binding.ivSearchIcon.setImageDrawable(image)
         }
-    }
-
-    private fun generateGuestAddDialog(checkedGalleryAccess: (String) -> Unit) {
-        val dialog = GuestAddDialog(requireContext(), checkedGalleryAccess)
-        dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
-        dialog.show()
     }
 
     private fun getInputTextValue(): String {
