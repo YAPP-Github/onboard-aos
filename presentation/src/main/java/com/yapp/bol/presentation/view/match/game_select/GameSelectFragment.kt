@@ -17,7 +17,7 @@ class GameSelectFragment : Fragment() {
     private var _binding: FragmentGameSeleteBinding? = null
     private val binding get() = checkNotNull(_binding)
 
-    private val recyclerAdapter = GameSelectAdapter { gameName ->
+    private val gameSelectAdapter = GameSelectAdapter { gameName ->
         val bundle = Bundle().apply {
             putString(GAME_NAME, gameName)
         }
@@ -35,8 +35,8 @@ class GameSelectFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.rvGameItems.adapter = recyclerAdapter
-        recyclerAdapter.submitList(testList)
+        binding.rvProductItems.adapter = gameSelectAdapter
+        gameSelectAdapter.submitList(testList)
     }
 
     override fun onDestroyView() {
