@@ -2,13 +2,20 @@ package com.yapp.bol.presentation.view.match
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.yapp.bol.domain.usecase.login.MatchUseCase
 import com.yapp.bol.presentation.model.MemberItem
 import com.yapp.bol.presentation.utils.Constant.GAME_RESULT_RECORD
+import com.yapp.bol.presentation.utils.checkedApiResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MatchViewModel @Inject constructor() : ViewModel() {
+class MatchViewModel @Inject constructor(
+    private val matchUseCase: MatchUseCase
+) : ViewModel() {
 
     private val _toolBarTitle = MutableLiveData(GAME_RESULT_RECORD)
     val toolBarTitle = _toolBarTitle
@@ -22,10 +29,26 @@ class MatchViewModel @Inject constructor() : ViewModel() {
     private val _isCompleteButtonEnabled = MutableLiveData(false)
     val isCompleteButtonEnabled = _isCompleteButtonEnabled
 
+    private val _gameList = MutableLiveData(listOf<com.yapp.bol.domain.model.GameItem>())
+    val gameList = _gameList
+
     private val dynamicPlayers = arrayListOf<MemberItem>()
 
     init {
+        getGameList()
         getMembers()
+    }
+
+    private fun getGameList() {
+        viewModelScope.launch {
+            matchUseCase.getGameList("X0ALW9").collectLatest {
+                checkedApiResult(
+                    apiResult = it,
+                    success = { data -> _gameList.value = data },
+                    error = { throwable -> throw throwable },
+                )
+            }
+        }
     }
 
     fun updateToolBarTitle(title: String) {

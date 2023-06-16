@@ -5,6 +5,7 @@ import com.yapp.bol.data.datasource.mock.impl.LoginType.toDomain
 import com.yapp.bol.data.model.OAuthApiRequest
 import com.yapp.bol.data.model.OAuthApiResponse
 import com.yapp.bol.data.model.file_upload.FileUploadResponse
+import com.yapp.bol.data.model.group.GameApiResponse
 import com.yapp.bol.data.model.group.NewGroupApiRequest
 import com.yapp.bol.data.model.group.NewGroupApiResponse
 import com.yapp.bol.data.remote.GroupApi
@@ -57,6 +58,11 @@ class RemoteDataSourceImpl @Inject constructor(
         val result = safeApiCall {
             groupApi.postOAuthApi(NewGroupApiRequest(name, description, organization, profileImageUrl, nickname))
         }
+        emit(result)
+    }
+
+    override fun getGameList(groupId: String): Flow<ApiResult<GameApiResponse>> = flow {
+        val result = safeApiCall { groupApi.getGameList(groupId) }
         emit(result)
     }
 

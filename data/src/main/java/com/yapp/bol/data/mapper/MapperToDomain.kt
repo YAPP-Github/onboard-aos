@@ -2,8 +2,11 @@ package com.yapp.bol.data.mapper
 
 import com.yapp.bol.data.model.OAuthApiResponse
 import com.yapp.bol.data.model.file_upload.FileUploadResponse
+import com.yapp.bol.data.model.group.GameApiResponse
+import com.yapp.bol.data.model.group.GameDTO
 import com.yapp.bol.data.model.group.NewGroupApiResponse
 import com.yapp.bol.domain.model.ApiResult
+import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.model.NewGroupItem
 
@@ -42,5 +45,22 @@ internal object MapperToDomain {
             is ApiResult.Success -> ApiResult.Success(data.toItem())
             is ApiResult.Error -> ApiResult.Error(exception)
         }
+    }
+
+    fun ApiResult<GameApiResponse>.gameToDomain(): ApiResult<List<GameItem>> {
+        return when (this) {
+            is ApiResult.Success -> ApiResult.Success(data.list.map { it.toItem() })
+            is ApiResult.Error -> ApiResult.Error(exception)
+        }
+    }
+
+    private fun GameDTO.toItem(): GameItem {
+        return GameItem(
+            id = this.id,
+            name = this.name,
+            maxMember = this.maxMember,
+            minMember = this.maxMember,
+            img = this.img,
+        )
     }
 }

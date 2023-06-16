@@ -2,9 +2,11 @@ package com.yapp.bol.data.repository
 
 import com.yapp.bol.data.datasource.RemoteDataSource
 import com.yapp.bol.data.mapper.MapperToDomain.fileUploadToDomain
+import com.yapp.bol.data.mapper.MapperToDomain.gameToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.newGroupToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.toDomain
 import com.yapp.bol.domain.model.ApiResult
+import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.model.NewGroupItem
 import com.yapp.bol.domain.repository.Repository
@@ -35,6 +37,12 @@ class RepositoryImpl @Inject constructor(
     ): Flow<ApiResult<NewGroupItem>> {
         return remoteDataSource.postCreateGroup(name, description, organization, profileImageUrl, nickname).map {
             it.newGroupToDomain()
+        }
+    }
+
+    override fun getGameList(groupId: String): Flow<ApiResult<List<GameItem>>> {
+        return remoteDataSource.getGameList(groupId).map {
+            it.gameToDomain()
         }
     }
 }

@@ -24,15 +24,15 @@ class MemberSelectFragment : Fragment() {
     private var _binding: FragmentMemberSelectBinding? = null
     private val binding get() = checkNotNull(_binding)
 
-    private val viewModel: MatchViewModel by activityViewModels()
+    private val matchViewModel: MatchViewModel by activityViewModels()
 
     private val memberSelectAdapter = MemberSelectAdapter { member ->
-        viewModel.checkedSelectMembers(member)
-        viewModel.clearMembers(member.id, getInputTextValue())
+        matchViewModel.checkedSelectMembers(member)
+        matchViewModel.clearMembers(member.id, getInputTextValue())
     }
     private val membersAdapter = MembersAdapter { member, isChecked ->
-        viewModel.checkedSelectMembers(member)
-        viewModel.updateMemberIsChecked(member.id, isChecked)
+        matchViewModel.checkedSelectMembers(member)
+        matchViewModel.updateMemberIsChecked(member.id, isChecked)
     }
 
     private val inputManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -47,16 +47,16 @@ class MemberSelectFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val gameName = arguments?.getString(GAME_NAME) ?: ""
-        viewModel.updateToolBarTitle(gameName)
+        matchViewModel.updateToolBarTitle(gameName)
 
         binding.rvMemberSelect.adapter = memberSelectAdapter
         binding.rvMembers.adapter = membersAdapter
 
-        setObserver()
+        setViewModelObserve()
         setClickListener()
 
         binding.etSearchMember.doOnTextChanged { text, _, _, _ ->
-            viewModel.updateSearchMembers(text.toString())
+            matchViewModel.updateSearchMembers(text.toString())
         }
 
         binding.etSearchMember.onFocusChangeListener = setFocusChangeListener()
@@ -70,16 +70,16 @@ class MemberSelectFragment : Fragment() {
         binding.rvMembers.addOnScrollListener(scrollListener)
     }
 
-    private fun setObserver() {
-        viewModel.members.observe(viewLifecycleOwner) { members ->
+    private fun setViewModelObserve() {
+        matchViewModel.members.observe(viewLifecycleOwner) { members ->
             membersAdapter.submitList(members)
         }
 
-        viewModel.isCompleteButtonEnabled.observe(viewLifecycleOwner) {
+        matchViewModel.isCompleteButtonEnabled.observe(viewLifecycleOwner) {
             binding.btnPlayerComplete.isEnabled = it
         }
 
-        viewModel.players.observe(viewLifecycleOwner) { players ->
+        matchViewModel.players.observe(viewLifecycleOwner) { players ->
             memberSelectAdapter.submitList(players)
         }
     }

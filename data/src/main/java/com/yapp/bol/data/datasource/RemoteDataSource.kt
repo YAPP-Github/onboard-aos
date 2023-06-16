@@ -2,6 +2,7 @@ package com.yapp.bol.data.datasource
 
 import com.yapp.bol.data.model.OAuthApiResponse
 import com.yapp.bol.data.model.file_upload.FileUploadResponse
+import com.yapp.bol.data.model.group.GameApiResponse
 import com.yapp.bol.data.model.group.NewGroupApiResponse
 import com.yapp.bol.domain.model.ApiResult
 import kotlinx.coroutines.flow.Flow
@@ -23,4 +24,6 @@ interface RemoteDataSource {
         profileImageUrl: String,
         nickname: String
     ): Flow<ApiResult<NewGroupApiResponse>>
+
+    fun getGameList(groupId: String): Flow<ApiResult<GameApiResponse>>
 }

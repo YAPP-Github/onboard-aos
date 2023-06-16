@@ -1,6 +1,7 @@
 package com.yapp.bol.domain.repository
 
 import com.yapp.bol.domain.model.ApiResult
+import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.model.NewGroupItem
 import kotlinx.coroutines.flow.Flow
@@ -22,4 +23,6 @@ interface Repository {
         profileImageUrl: String,
         nickname: String
     ): Flow<ApiResult<NewGroupItem>>
+
+    fun getGameList(groupId: String): Flow<ApiResult<List<GameItem>>>
 }
