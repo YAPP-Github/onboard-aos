@@ -81,11 +81,11 @@ class NewGroupActivity : AppCompatActivity() {
 
     private fun setViewModelObserve() {
         newGroupViewModel.groupName.observe(this) {
-            binding.btnCreateGroup.isEnabled = newGroupViewModel.checkedCompleteButtonActivation()
+            binding.btnCreateGroup.isEnabled = newGroupViewModel.isCompleteButtonActivation
         }
 
         newGroupViewModel.groupDescription.observe(this) {
-            binding.btnCreateGroup.isEnabled = newGroupViewModel.checkedCompleteButtonActivation()
+            binding.btnCreateGroup.isEnabled = newGroupViewModel.isCompleteButtonActivation
         }
 
         newGroupViewModel.successGroupDate.observe(this) {
