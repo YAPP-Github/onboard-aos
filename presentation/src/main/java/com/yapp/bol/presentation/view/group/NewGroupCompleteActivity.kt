@@ -3,14 +3,16 @@ package com.yapp.bol.presentation.view.group
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.yapp.bol.domain.model.NewGroupItem
 import com.yapp.bol.presentation.databinding.ActivityNewGroupCompleteBinding
-import com.yapp.bol.presentation.utils.checkedEmptyValue
+import com.yapp.bol.presentation.utils.isInputTextValid
 import com.yapp.bol.presentation.view.group.NewGroupActivity.Companion.ACCESS_CODE_KEY
+import com.yapp.bol.presentation.view.match.MatchActivity
 
 
 class NewGroupCompleteActivity : AppCompatActivity() {
@@ -25,7 +27,6 @@ class NewGroupCompleteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityNewGroupCompleteBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setNewGroupInfo()
         setClickListener()
     }
@@ -46,10 +47,19 @@ class NewGroupCompleteActivity : AppCompatActivity() {
         binding.tvGroupAccessCodeValue.setOnClickListener {
             generateCopy(newGroupItem.accessCode)
         }
+        binding.btnGroupComplete.setOnClickListener {
+            moveMatchActivity()
+        }
+    }
+
+    private fun moveMatchActivity() {
+        val intent = Intent(this, MatchActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun checkedOrganization(organization: String) {
-        if (organization.checkedEmptyValue()) {
+        if (isInputTextValid(organization)) {
             binding.tvGroupOrganizationValue.text = organization
         } else {
             binding.tvGroupOrganizationValue.visibility = View.INVISIBLE

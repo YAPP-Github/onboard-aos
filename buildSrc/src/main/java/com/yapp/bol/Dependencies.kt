@@ -89,3 +89,7 @@ object Firebase {
     const val GMS_AUTH = "com.google.android.gms:play-services-auth:20.5.0"
     const val GMS_CLASSPATH = "com.google.gms:google-services:4.3.15"
 }
+
+object Navigation {
+    const val NAVIGATION = "androidx.navigation:navigation-dynamic-features-fragment:2.5.3"
+}

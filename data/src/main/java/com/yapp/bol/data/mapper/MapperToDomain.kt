@@ -6,7 +6,6 @@ import com.yapp.bol.data.model.group.NewGroupApiResponse
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.model.NewGroupItem
-import com.yapp.bol.domain.model.OAuthApiItem
 
 internal object MapperToDomain {
 
