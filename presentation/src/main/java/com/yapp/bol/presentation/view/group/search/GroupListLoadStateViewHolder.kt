@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
-import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.ViewGroupListErrorBinding
 
 class GroupListLoadStateViewHolder(
