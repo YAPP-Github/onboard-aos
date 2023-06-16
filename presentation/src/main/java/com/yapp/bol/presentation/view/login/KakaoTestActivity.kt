@@ -1,8 +1,10 @@
 package com.yapp.bol.presentation.view.login
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.kakao.sdk.auth.Constants.ACCESS_TOKEN
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.model.ClientError
@@ -10,9 +12,14 @@ import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 import com.yapp.bol.presentation.BuildConfig
 import com.yapp.bol.presentation.databinding.ActivityKakaoTestBinding
+import com.yapp.bol.presentation.utils.Constant
+import com.yapp.bol.presentation.utils.collectWithLifecycle
+import com.yapp.bol.presentation.utils.showToast
+import com.yapp.bol.presentation.view.group.NewGroupActivity
 import com.yapp.bol.presentation.viewmodel.login.LoginType
 import com.yapp.bol.presentation.viewmodel.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.filterNotNull
 
 @AndroidEntryPoint
 class KakaoTestActivity : AppCompatActivity() {
@@ -41,6 +48,7 @@ class KakaoTestActivity : AppCompatActivity() {
 
         KakaoSdk.init(this, KAKAO_API_KEY)
         kakaoLogin()
+        subscribeObservables()
     }
 
     private fun kakaoLogin() {
@@ -59,7 +67,18 @@ class KakaoTestActivity : AppCompatActivity() {
         }
     }
 
+    private fun subscribeObservables() {
+        viewModel.loginResult.filterNotNull().collectWithLifecycle(this) {
+            if (it.accessToken == Constant.EMPTY_STRING) return@collectWithLifecycle
+            val intent = Intent(this@KakaoTestActivity, NewGroupActivity::class.java)
+            intent.putExtra(ACCESS_TOKEN, it.accessToken)
+            startActivity(intent)
+
+        }
+    }
+
     companion object {
         const val KAKAO_API_KEY = BuildConfig.KAKAO_API_KEY
+        const val ACCESS_TOKEN = "Access Token"
     }
 }

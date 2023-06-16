@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_white_radius_12dp">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="26dp"
+        android:layout_marginStart="4dp"
+        android:text="@string/profile_setting"
+        android:textColor="@color/image_setting_dialog_text_1"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/profile_setting_guide"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="@+id/tv_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+    <EditText
+        android:id="@+id/et_profile_name"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginHorizontal="26dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_white_radius_8dp"
+        android:hint="@string/group_owner_test"
+        android:maxLength="10"
+        android:padding="16dp"
+        android:singleLine="true"
+        android:textColorHint="@color/hint_text_color"
+        android:textCursorDrawable="@drawable/ic_cursor"
+        android:textStyle="bold"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_description" />
+
+    <ImageView
+        android:id="@+id/iv_owner_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_owner"
+        app:layout_constraintStart_toStartOf="@+id/et_profile_name"
+        app:layout_constraintTop_toTopOf="@+id/et_profile_name" />
+
+    <TextView
+        android:id="@+id/tv_profile_name_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:text="@string/profile_name_count"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_profile_name"
+        app:layout_constraintEnd_toEndOf="@+id/et_profile_name"
+        app:layout_constraintTop_toTopOf="@+id/et_profile_name" />
+
+    <Button
+        android:id="@+id/btn_profile_complete"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_orange_bottom_radius_12dp"
+        android:text="@string/complete_text"
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_profile_name" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
