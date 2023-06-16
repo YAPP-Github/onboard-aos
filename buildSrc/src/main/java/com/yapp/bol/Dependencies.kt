@@ -1,5 +1,6 @@
 package com.yapp.bol
 
+import com.yapp.bol.Versions.DATA_STORE_VERSION
 import com.yapp.bol.Versions.HILT_VERSION
 import com.yapp.bol.Versions.KAKAO_VERSION
 import com.yapp.bol.Versions.KOTLIN_VERSION
@@ -12,6 +13,7 @@ object Versions {
     const val KTLINT_VERSION = "10.2.1"
     const val HILT_VERSION = "2.44"
     const val KAKAO_VERSION = "2.11.0"
+    const val DATA_STORE_VERSION = "1.0.0"
 }
 
 object Android {
@@ -70,9 +72,9 @@ object OAuth {
     const val NAVER = "com.navercorp.nid:oauth:5.4.0"
 }
 
-object Glide {
-    const val GLIDE = "com.github.bumptech.glide:glide:4.13.0"
-    const val COMPILER = "com.github.bumptech.glide:compiler:4.13.0"
+object DataStore {
+    const val DATA_STORE = "androidx.datastore:datastore-preferences:$DATA_STORE_VERSION"
+    const val DATA_STORE_CORE = "androidx.datastore:datastore-preferences-core:$DATA_STORE_VERSION"
 }
 
 object Test {
@@ -88,8 +90,4 @@ object Firebase {
     const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
     const val GMS_AUTH = "com.google.android.gms:play-services-auth:20.5.0"
     const val GMS_CLASSPATH = "com.google.gms:google-services:4.3.15"
-}
-
-object Navigation {
-    const val NAVIGATION = "androidx.navigation:navigation-dynamic-features-fragment:2.5.3"
 }
