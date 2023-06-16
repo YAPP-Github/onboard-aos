@@ -35,19 +35,23 @@ class MatchViewModel @Inject constructor(
     private val dynamicPlayers = arrayListOf<MemberItem>()
 
     init {
-        getGameList()
-        getMembers()
+        initialized()
     }
 
-    private fun getGameList() {
+    private fun initialized() {
         viewModelScope.launch {
-            matchUseCase.getGameList(9999).collectLatest {
-                checkedApiResult(
-                    apiResult = it,
-                    success = { data -> _gameList.value = data },
-                    error = { throwable -> throw throwable },
-                )
-            }
+            getGameList()
+            getMembers()
+        }
+    }
+
+    private suspend fun getGameList() {
+        matchUseCase.getGameList(9999).collectLatest {
+            checkedApiResult(
+                apiResult = it,
+                success = { data -> _gameList.value = data },
+                error = { throwable -> throw throwable },
+            )
         }
     }
 

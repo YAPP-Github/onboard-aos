@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.FragmentMemberSelectBinding
 import com.yapp.bol.presentation.utils.GuestAddDialog
-import com.yapp.bol.presentation.utils.ImageSettingDialog
 import com.yapp.bol.presentation.view.match.MatchViewModel
 import com.yapp.bol.presentation.view.match.game_select.GameSelectFragment.Companion.GAME_NAME
 import dagger.hilt.android.AndroidEntryPoint
@@ -102,7 +101,7 @@ class MemberSelectFragment : Fragment() {
         }
 
         binding.btnTempMember.setOnClickListener {
-            generateGuestAddDialog { name ->  }
+            generateGuestAddDialog { name -> }
         }
     }
 

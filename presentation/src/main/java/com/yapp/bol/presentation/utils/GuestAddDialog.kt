@@ -5,17 +5,13 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.GuestAddDialogBinding
-import com.yapp.bol.presentation.databinding.ProfileSettingDialogBinding
-import com.yapp.bol.presentation.model.MemberItem
 import com.yapp.bol.presentation.utils.Converter.convertLengthToString
-
 
 class GuestAddDialog(
     private val context: Context,
