@@ -40,7 +40,7 @@ class RepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getGameList(groupId: String): Flow<ApiResult<List<GameItem>>> {
+    override fun getGameList(groupId: Int): Flow<ApiResult<List<GameItem>>> {
         return remoteDataSource.getGameList(groupId).map {
             it.gameToDomain()
         }

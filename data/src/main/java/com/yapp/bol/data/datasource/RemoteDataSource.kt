@@ -25,5 +25,5 @@ interface RemoteDataSource {
         nickname: String
     ): Flow<ApiResult<NewGroupApiResponse>>
 
-    fun getGameList(groupId: String): Flow<ApiResult<GameApiResponse>>
+    fun getGameList(groupId: Int): Flow<ApiResult<GameApiResponse>>
 }

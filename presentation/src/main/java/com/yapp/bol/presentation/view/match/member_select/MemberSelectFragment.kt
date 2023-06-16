@@ -35,7 +35,9 @@ class MemberSelectFragment : Fragment() {
         matchViewModel.updateMemberIsChecked(member.id, isChecked)
     }
 
-    private val inputManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    private val inputManager by lazy {
+        activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
