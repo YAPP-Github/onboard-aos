@@ -74,4 +74,7 @@ dependencies {
 
     // Coroutines
     implementation(com.yapp.bol.Coroutines.COROUTINES)
+
+    implementation(com.yapp.bol.DataStore.DATA_STORE_CORE)
+    implementation(com.yapp.bol.DataStore.DATA_STORE)
 }
