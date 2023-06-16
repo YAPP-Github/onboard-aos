@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/cl_iamge_setting_dialog_background">
+    android:background="@drawable/bg_white_radius_12dp">
 
     <TextView
         android:id="@+id/tv_title"
@@ -34,13 +34,13 @@
         android:layout_marginHorizontal="26dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/et_profile_setting_backround"
+        android:background="@drawable/bg_white_radius_8dp"
         android:hint="@string/group_owner_test"
         android:maxLength="10"
         android:padding="16dp"
         android:singleLine="true"
         android:textColorHint="@color/hint_text_color"
-        android:textCursorDrawable="@drawable/cursor_image"
+        android:textCursorDrawable="@drawable/ic_cursor"
         android:textStyle="bold"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="19dp"
         android:layout_marginTop="12dp"
-        android:src="@drawable/owner_image"
+        android:src="@drawable/ic_owner"
         app:layout_constraintStart_toStartOf="@+id/et_profile_name"
         app:layout_constraintTop_toTopOf="@+id/et_profile_name" />
 
@@ -73,7 +73,7 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="24dp"
-        android:background="@drawable/btn_profile_setting_backround"
+        android:background="@drawable/bg_orange_bottom_radius_12dp"
         android:text="@string/complete_text"
         android:textColor="@color/white"
         android:textSize="14dp"

@@ -27,8 +27,5 @@
     <string name="group_create_guide">모임 등록하기</string>
     <string name="group_creating_text">모임을 등록하는 중..</string>
 
-
-
-
-
+    <string name="game_select_guide">플레이 할 보드게임을 선택해주세요</string>
 </resources>

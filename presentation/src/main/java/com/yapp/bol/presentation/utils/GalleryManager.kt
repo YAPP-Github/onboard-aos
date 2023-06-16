@@ -1,7 +1,6 @@
 package com.yapp.bol.presentation.utils
 
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
@@ -59,7 +58,7 @@ class GalleryManager(
             val imageUri = result.data?.data ?: return@registerForActivityResult
             val imageFile = File(getRealPathFromURI(imageUri))
             uploadImageFile(imageFile)
-            setGroupImage(imageUri, imageView)
+            imageView.loadImage(imageUri.toString())
         }
     }
 
@@ -74,13 +73,6 @@ class GalleryManager(
         val result = cursor.getString(columnIndex)
         cursor.close()
         return result
-    }
-
-    private fun setGroupImage(imageUri: Uri, imageView: ImageView) {
-        Glide.with(context)
-            .load(imageUri)
-            .transform(CenterCrop(),RoundedCorners(20))
-            .into(imageView)
     }
 
     private fun getCursor(uri: Uri, proj: Array<String>): Cursor? {

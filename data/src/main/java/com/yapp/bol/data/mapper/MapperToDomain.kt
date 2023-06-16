@@ -4,19 +4,17 @@ import com.yapp.bol.data.model.OAuthApiResponse
 import com.yapp.bol.data.model.file_upload.FileUploadResponse
 import com.yapp.bol.data.model.group.NewGroupApiResponse
 import com.yapp.bol.domain.model.ApiResult
+import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.model.NewGroupItem
-import com.yapp.bol.domain.model.OAuthApiItem
 
 internal object MapperToDomain {
-    // data -> domain
-    fun mapperToMockApiItem(response: OAuthApiResponse?): OAuthApiItem? {
-        return response?.toItem()
-    }
 
-    private fun OAuthApiResponse.toItem(): OAuthApiItem {
-        return OAuthApiItem(
+    fun OAuthApiResponse?.toDomain(): LoginItem? = this?.toItem()
+
+    private fun OAuthApiResponse.toItem(): LoginItem {
+        return LoginItem(
             this.accessToken,
-            this.refreshToken
+            this.refreshToken,
         )
     }
 
@@ -30,13 +28,6 @@ internal object MapperToDomain {
             this.profileImageUrl,
             this.accessCode
         )
-    }
-
-    fun ApiResult<OAuthApiResponse>.oAuthToDomain(): ApiResult<OAuthApiItem> {
-        return when (this) {
-            is ApiResult.Success -> ApiResult.Success(data.toItem())
-            is ApiResult.Error -> ApiResult.Error(exception)
-        }
     }
 
     fun ApiResult<FileUploadResponse>.fileUploadToDomain(): ApiResult<String> {
