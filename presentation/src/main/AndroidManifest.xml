@@ -6,7 +6,13 @@
 
     <application>
         <activity
-            android:name=".view.login.NewGroupActivity"
+            android:name=".view.match.MatchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.group.NewGroupCompleteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.group.NewGroupActivity"
             android:exported="false" />
         <activity
             android:name=".view.login.GoogleTestActivity"
@@ -28,7 +34,8 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity> <!-- Kakao 로그인 -->
+        </activity>
+        <!-- Kakao 로그인 -->
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
@@ -40,7 +47,7 @@
 
                 <data
                     android:host="oauth"
-                    android:scheme="kakao${kakaoKay}" />
+                    android:scheme="kakao${kakaoKey}" />
             </intent-filter>
         </activity>
     </application>
