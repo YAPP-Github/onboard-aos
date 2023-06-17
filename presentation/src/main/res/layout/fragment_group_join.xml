@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bol="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_group_join_mock"> <!-- todo 게임 데이터 연동 시 이미지를 제거해야 합니다. -->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="18dp">
+
+            <TextView
+                android:id="@+id/tv_belong_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="홍익대학교"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_group_title" />
+
+            <TextView
+                android:id="@+id/tv_group_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:text="YAPP 보드게임 팟"
+                android:textColor="@color/white"
+                android:textSize="24dp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_group_description" />
+
+            <TextView
+                android:id="@+id/tv_group_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="28dp"
+                android:text="우리 보드게임 동아리는 최고의 보드게임 동아리 멋진 동아리 얍 최고 화이팅~ 우리 보드게임 동아리 최고"
+                android:textColor="#F0F0F0"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/group_explain_layout" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/group_explain_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:orientation="horizontal"
+                bol:layout_constraintBottom_toTopOf="@+id/tv_group_join">
+
+                <com.yapp.bol.presentation.view.group.join.component.GroupItemUserTitle
+                    android:id="@+id/group_member_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:title="member"
+                    bol:detailTitle="32명" />
+
+                <com.yapp.bol.presentation.view.group.join.component.GroupItemUserTitle
+                    android:id="@+id/group_admin_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="@id/group_member_view"
+                    app:layout_constraintTop_toBottomOf="@id/group_member_view"
+                    app:title="owner"
+                    bol:detailTitle="승은" />
+
+                <com.yapp.bol.presentation.view.group.join.component.GroupItemGame
+                    android:id="@+id/group_item_game_view_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="18dp"
+                    app:gameTitle="가이아 프로..."
+                    app:layout_constraintEnd_toStartOf="@id/group_item_game_view_2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    bol:imageUrl="https://media.flaticon.com/dist/min/img/apple-icon-144x144-precomposed.png" />
+
+                <com.yapp.bol.presentation.view.group.join.component.GroupItemGame
+                    android:id="@+id/group_item_game_view_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:gameTitle="스플랜더"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    bol:imageUrl="https://media.flaticon.com/dist/min/img/apple-icon-144x144-precomposed.png" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_group_join"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="26dp"
+                android:background="@drawable/group_join_bg"
+                android:gravity="center"
+                android:paddingVertical="12dp"
+                android:text="@string/group_join_title"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</layout>
