@@ -12,8 +12,7 @@ class GroupListAdapter : PagingDataAdapter<GroupSearchUiModel, RecyclerView.View
         uiModel?.let {
             when (uiModel) {
                 is GroupSearchUiModel.GroupList -> (holder as GroupListViewHolder).bind(uiModel.groupSearchItem)
-                // TODO BEFORE PR : text input 바꿔주기
-                is GroupSearchUiModel.DataNotFound -> (holder as GroupListNotFoundViewHolder).bind("")
+                is GroupSearchUiModel.DataNotFound -> (holder as GroupListNotFoundViewHolder).bind(uiModel.keyword)
             }
         }
     }
