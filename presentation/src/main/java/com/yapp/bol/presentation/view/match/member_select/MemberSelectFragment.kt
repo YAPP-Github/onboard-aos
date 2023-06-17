@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.FragmentMemberSelectBinding
@@ -26,14 +27,15 @@ class MemberSelectFragment : Fragment() {
     private val binding get() = checkNotNull(_binding)
 
     private val matchViewModel: MatchViewModel by activityViewModels()
+    private val memberSelectViewModel: MemberSelectViewModel by viewModels()
 
     private val memberSelectAdapter = MemberSelectAdapter { member ->
-        matchViewModel.checkedSelectMembers(member)
-        matchViewModel.clearMembers(member.id, getInputTextValue())
+        memberSelectViewModel.checkedSelectMembers(member)
+        memberSelectViewModel.clearMembers(member.id, getInputTextValue())
     }
     private val membersAdapter = MembersAdapter { member, isChecked ->
-        matchViewModel.checkedSelectMembers(member)
-        matchViewModel.updateMemberIsChecked(member.id, isChecked)
+        memberSelectViewModel.checkedSelectMembers(member)
+        memberSelectViewModel.updateMemberIsChecked(member.id, isChecked)
     }
 
     private val inputManager by lazy {
@@ -44,7 +46,7 @@ class MemberSelectFragment : Fragment() {
         GuestAddDialog(
             context = requireContext(),
             addGuest = { name -> },
-            getValidateNickName = { nickname -> matchViewModel.getValidateNickName(10, nickname) },
+            getValidateNickName = { nickname -> memberSelectViewModel.getValidateNickName(10, nickname) },
         )
     }
 
@@ -69,7 +71,7 @@ class MemberSelectFragment : Fragment() {
         setClickListener()
 
         binding.etSearchMember.doOnTextChanged { text, _, _, _ ->
-            matchViewModel.updateSearchMembers(text.toString())
+            memberSelectViewModel.updateSearchMembers(text.toString())
         }
 
         binding.etSearchMember.onFocusChangeListener = setFocusChangeListener()
@@ -84,21 +86,21 @@ class MemberSelectFragment : Fragment() {
     }
 
     private fun setViewModelObserve() {
-        matchViewModel.members.observe(viewLifecycleOwner) { members ->
+        memberSelectViewModel.members.observe(viewLifecycleOwner) { members ->
             val isVisible = members.isEmpty()
             setSearchResultNothing(isVisible, getInputTextValue())
             membersAdapter.submitList(members)
         }
 
-        matchViewModel.isCompleteButtonEnabled.observe(viewLifecycleOwner) {
+        memberSelectViewModel.isCompleteButtonEnabled.observe(viewLifecycleOwner) {
             binding.btnPlayerComplete.isEnabled = it
         }
 
-        matchViewModel.players.observe(viewLifecycleOwner) { players ->
+        memberSelectViewModel.players.observe(viewLifecycleOwner) { players ->
             memberSelectAdapter.submitList(players)
         }
 
-        matchViewModel.isNickNameValidate.observe(viewLifecycleOwner) {
+        memberSelectViewModel.isNickNameValidate.observe(viewLifecycleOwner) {
             if (dialog.isShowing) dialog.setNicknameValid(it)
         }
     }
