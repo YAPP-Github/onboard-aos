@@ -40,7 +40,6 @@ class GameSelectFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.rvGameItems.adapter = gameSelectAdapter
-
         matchViewModel.gameList.observe(viewLifecycleOwner) {
             gameSelectAdapter.submitList(it)
         }

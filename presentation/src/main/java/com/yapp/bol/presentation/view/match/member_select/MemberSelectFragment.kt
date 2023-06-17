@@ -138,7 +138,7 @@ class MemberSelectFragment : Fragment() {
         return View.OnFocusChangeListener { _, hasFocus ->
             val image = ContextCompat.getDrawable(
                 requireContext(),
-                if (hasFocus) R.drawable.ic_cancel_gray else R.drawable.ic_search
+                if (hasFocus) R.drawable.ic_cancel_gray else R.drawable.ic_search,
             )
             binding.ivSearchIcon.setImageDrawable(image)
         }
