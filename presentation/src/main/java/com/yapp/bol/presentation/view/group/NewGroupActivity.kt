@@ -4,6 +4,7 @@ import KeyboardVisibilityUtils
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -27,11 +28,27 @@ class NewGroupActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNewGroupBinding
     private val newGroupViewModel: NewGroupViewModel by viewModels()
-    private val keyboardVisibilityUtils by lazy {
-        KeyboardVisibilityUtils(window = window, onShowKeyboard = ::moveScroll)
-    }
     private val accessToken by lazy {
         intent.getStringExtra(ACCESS_TOKEN) ?: EMPTY_STRING
+    }
+
+    private val inputManager by lazy {
+        getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+    }
+
+    private val profileSettingDialog by lazy {
+        ProfileSettingDialog(
+            context = this,
+            createGroup = ::createNewGroup,
+        )
+    }
+
+    private val keyboardVisibilityUtils by lazy {
+        KeyboardVisibilityUtils(
+            window = window,
+            onShowKeyboard = ::moveScroll,
+            onHideKeyboard = { profileSettingDialog.dismiss() },
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +61,10 @@ class NewGroupActivity : AppCompatActivity() {
         setCreateGroupButton()
         setClickListener()
         setViewModelObserve()
+
+        profileSettingDialog.setOnShowListener {
+            hideKeyboard()
+        }
     }
 
     private fun setTextChangeListener() {
@@ -75,7 +96,8 @@ class NewGroupActivity : AppCompatActivity() {
         }
 
         binding.btnCreateGroup.setOnClickListener {
-            generateProfileSettingDialog(::createNewGroup)
+            hideKeyboard()
+            profileSettingDialog.show()
         }
     }
 
@@ -115,11 +137,6 @@ class NewGroupActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun generateProfileSettingDialog(createGroup: (String) -> Unit) {
-        val dialog = ProfileSettingDialog(this, createGroup)
-        dialog.show()
-    }
-
     private fun generateProgressBar() {
         binding.loadingBackground.visibility = View.VISIBLE
         binding.tvLoadingText.visibility = View.VISIBLE
@@ -153,6 +170,11 @@ class NewGroupActivity : AppCompatActivity() {
         val dpHeight = (display?.heightPixels ?: 0) / density
 
         return dpHeight.toInt()
+    }
+
+    private fun hideKeyboard() {
+        if (currentFocus == null) return
+        inputManager.hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }
 
     override fun onDestroy() {

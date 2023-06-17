@@ -5,6 +5,9 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import com.yapp.bol.presentation.databinding.ProfileSettingDialogBinding
 import com.yapp.bol.presentation.utils.Converter.convertLengthToString
@@ -33,6 +36,11 @@ class ProfileSettingDialog(
             binding.tvProfileNameCount.setTextColor(color)
             binding.tvProfileNameCount.text = convertLengthToString(PROFILE_NAME_MAX_LENGTH, start + count)
         }
+    }
+    override fun show() {
+        super.show()
+        binding.etProfileName.requestFocus()
+        window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }
 
     companion object {

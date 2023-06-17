@@ -1,5 +1,6 @@
 package com.yapp.bol.presentation.view.match.member_select
 
+import KeyboardVisibilityUtils
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -42,11 +43,18 @@ class MemberSelectFragment : Fragment() {
         activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
 
-    private val dialog by lazy {
+    private val guestAddDialog by lazy {
         GuestAddDialog(
             context = requireContext(),
             addGuest = { name -> },
             getValidateNickName = { nickname -> memberSelectViewModel.getValidateNickName(10, nickname) },
+        )
+    }
+
+    private val keyboardVisibilityUtils by lazy {
+        KeyboardVisibilityUtils(
+            window = activity?.window ?: throw Exception(),
+            onHideKeyboard = { guestAddDialog.dismiss() },
         )
     }
 
@@ -67,7 +75,6 @@ class MemberSelectFragment : Fragment() {
         binding.rvMembers.adapter = membersAdapter
 
         setViewModelObserve()
-
         setClickListener()
 
         binding.etSearchMember.doOnTextChanged { text, _, _, _ ->
@@ -83,6 +90,7 @@ class MemberSelectFragment : Fragment() {
             }
         }
         binding.rvMembers.addOnScrollListener(scrollListener)
+        keyboardVisibilityUtils
     }
 
     private fun setViewModelObserve() {
@@ -101,7 +109,7 @@ class MemberSelectFragment : Fragment() {
         }
 
         memberSelectViewModel.isNickNameValidate.observe(viewLifecycleOwner) {
-            if (dialog.isShowing) dialog.setNicknameValid(it)
+            if (guestAddDialog.isShowing) guestAddDialog.setNicknameValid(it)
         }
     }
 
@@ -120,7 +128,6 @@ class MemberSelectFragment : Fragment() {
     private fun setClickListener() {
         binding.ivSearchIcon.setOnClickListener {
             if (binding.etSearchMember.isFocused) {
-                hideKeyboard()
                 binding.etSearchMember.text.clear()
                 binding.etSearchMember.clearFocus()
             } else {
@@ -129,10 +136,11 @@ class MemberSelectFragment : Fragment() {
             }
         }
         binding.btnTempMember.setOnClickListener {
-            dialog.show()
+            guestAddDialog.show()
         }
         binding.btnGuestAddNothing.setOnClickListener {
-            dialog.show()
+            hideKeyboard()
+            guestAddDialog.show()
         }
     }
 
@@ -162,6 +170,7 @@ class MemberSelectFragment : Fragment() {
 
     override fun onDestroyView() {
         _binding = null
+        keyboardVisibilityUtils.detachKeyboardListeners()
         super.onDestroyView()
     }
 }

@@ -48,6 +48,8 @@
         android:background="@android:color/transparent"
         android:gravity="center_vertical"
         android:hint="@string/member_search_hint"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
         android:singleLine="true"
         android:textColorHint="@color/hint_text_color"
         android:textCursorDrawable="@drawable/ic_cursor"

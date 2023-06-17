@@ -36,6 +36,10 @@ class MembersAdapter(
         }
 
         private fun setClickListener(item: MemberItem) {
+            binding.root.setOnClickListener {
+                binding.cbMemberSelect.isChecked = binding.cbMemberSelect.isChecked.not()
+                memberClickListener(item, binding.cbMemberSelect.isChecked)
+            }
             binding.cbMemberSelect.setOnClickListener {
                 memberClickListener(item, binding.cbMemberSelect.isChecked)
             }
