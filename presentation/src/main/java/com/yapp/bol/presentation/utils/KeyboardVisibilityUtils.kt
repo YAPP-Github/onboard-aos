@@ -13,7 +13,6 @@ class KeyboardVisibilityUtils(
     private val windowVisibleDisplayFrame = Rect()
     private var lastVisibleDecorViewHeight: Int = 0
 
-
     private val onGlobalLayoutListener = ViewTreeObserver.OnGlobalLayoutListener {
         window.decorView.getWindowVisibleDisplayFrame(windowVisibleDisplayFrame)
         val visibleDecorViewHeight = windowVisibleDisplayFrame.height()
