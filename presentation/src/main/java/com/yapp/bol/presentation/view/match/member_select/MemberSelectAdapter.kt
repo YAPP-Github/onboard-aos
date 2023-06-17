@@ -2,13 +2,11 @@ package com.yapp.bol.presentation.view.match.member_select
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.CheckBox
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.databinding.RvMemberSelectItemBinding
 import com.yapp.bol.presentation.model.MemberItem
-import okhttp3.internal.notifyAll
 
 class MemberSelectAdapter(
     private val memberDeleteClickListener: (MemberItem) -> Unit,

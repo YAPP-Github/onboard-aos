@@ -9,7 +9,6 @@ import androidx.core.widget.doOnTextChanged
 import com.yapp.bol.presentation.databinding.ProfileSettingDialogBinding
 import com.yapp.bol.presentation.utils.Converter.convertLengthToString
 
-
 class ProfileSettingDialog(
     private val context: Context,
     private val createGroup: (String) -> Unit,

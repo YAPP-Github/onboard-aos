@@ -41,7 +41,7 @@ class MemberSelectFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = FragmentMemberSelectBinding.inflate(inflater, container, false)
         return _binding?.root

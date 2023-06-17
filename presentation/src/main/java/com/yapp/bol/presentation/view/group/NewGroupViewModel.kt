@@ -49,7 +49,8 @@ class NewGroupViewModel @Inject constructor(
             checkedApiResult(
                 apiResult = it,
                 success = { data -> imageUrl = data },
-                error = { throwable -> throw throwable })
+                error = { throwable -> throw throwable }
+            )
         }
         return imageUrl
     }
@@ -65,7 +66,8 @@ class NewGroupViewModel @Inject constructor(
             checkedApiResult(
                 apiResult = it,
                 success = { data -> _successGroupDate.value = data },
-                error = { throwable -> throw throwable })
+                error = { throwable -> throw throwable }
+            )
         }
     }
 

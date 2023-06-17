@@ -22,7 +22,6 @@ import com.yapp.bol.presentation.view.group.NewGroupViewModel.Companion.NEW_GROU
 import com.yapp.bol.presentation.view.login.KakaoTestActivity.Companion.ACCESS_TOKEN
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class NewGroupActivity : AppCompatActivity() {
 
@@ -65,7 +64,8 @@ class NewGroupActivity : AppCompatActivity() {
     }
 
     private fun setClickListener() {
-        val galleryManager = GalleryManager(context = this,
+        val galleryManager = GalleryManager(
+            context = this,
             imageView = binding.ivImage,
             uploadImageFile = { file -> newGroupViewModel.updateImageFile(file) }
         )
