@@ -1,6 +1,8 @@
 package com.yapp.bol.app.di
 
 import com.yapp.bol.data.datasource.RemoteDataSource
+import com.yapp.bol.data.datasource.auth.AuthDataSource
+import com.yapp.bol.data.datasource.auth.impl.AuthDataSourceImpl
 import com.yapp.bol.data.datasource.impl.RemoteDataSourceImpl
 import dagger.Binds
 import dagger.Module
@@ -15,4 +17,8 @@ interface DataSourceModule {
     @Binds
     @Singleton
     fun bindsRemoteDataSource(remoteDataSourceImpl: RemoteDataSourceImpl): RemoteDataSource
+
+    @Binds
+    @Singleton
+    fun bindsAuthDatasource(authDataSourceImpl: AuthDataSourceImpl): AuthDataSource
 }
