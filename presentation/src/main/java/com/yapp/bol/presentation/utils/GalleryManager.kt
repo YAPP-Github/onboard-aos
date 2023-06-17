@@ -22,8 +22,8 @@ class GalleryManager(
 ) {
 
     private val isPermission: Boolean
-        get() = getPermission(WRITE_PERMISSION) != PackageManager.PERMISSION_DENIED
-            && getPermission(READ_PERMISSION) != PackageManager.PERMISSION_DENIED
+        get() = getPermission(WRITE_PERMISSION) != PackageManager.PERMISSION_DENIED &&
+            getPermission(READ_PERMISSION) != PackageManager.PERMISSION_DENIED
 
     private val imageResult = getResultLauncher()
 

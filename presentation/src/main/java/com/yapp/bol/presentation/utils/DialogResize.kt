@@ -19,7 +19,6 @@ fun Context.dialogWidthResize(dialog: Dialog, width: Float) {
         val x = (size.x * width).toInt()
 
         window?.setLayout(x, ViewGroup.LayoutParams.WRAP_CONTENT)
-
     } else {
         val rect = windowManager.currentWindowMetrics.bounds
 
