@@ -82,7 +82,6 @@
         app:layout_constraintStart_toEndOf="@+id/view_search_container"
         app:layout_constraintTop_toBottomOf="@+id/rv_member_select" />
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_members"
         android:layout_width="0dp"
@@ -94,6 +93,73 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_search_container"
         tools:listitem="@layout/rv_member_item" />
+
+    <View
+        android:id="@+id/view_search_result_nothing"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="9dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_player_complete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_search_container" />
+
+    <TextView
+        android:id="@+id/tv_search_result_nothing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:text="@string/search_result_nothing"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/view_search_result_nothing"
+        app:layout_constraintStart_toStartOf="@+id/view_search_result_nothing"
+        app:layout_constraintTop_toTopOf="@+id/view_search_result_nothing" />
+
+    <TextView
+        android:id="@+id/tv_search_result_nothing_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/search_result_nothing_guide"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/view_search_result_nothing"
+        app:layout_constraintStart_toStartOf="@+id/view_search_result_nothing"
+        app:layout_constraintTop_toBottomOf="@+id/tv_search_result_nothing" />
+
+    <Button
+        android:id="@+id/btn_guest_add_nothing"
+        android:layout_width="124dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/bg_stroke_gray_radius_28dp"
+        app:layout_constraintEnd_toEndOf="@+id/view_search_result_nothing"
+        app:layout_constraintStart_toStartOf="@+id/view_search_result_nothing"
+        app:layout_constraintTop_toBottomOf="@+id/tv_search_result_nothing_guide" />
+
+    <TextView
+        android:id="@+id/tv_guest_add_nothing"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
+        android:paddingStart="20dp"
+        android:text="@string/guest_add_nothing"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_guest_add_nothing"
+        app:layout_constraintStart_toStartOf="@+id/btn_guest_add_nothing"
+        app:layout_constraintTop_toTopOf="@+id/btn_guest_add_nothing" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:src="@drawable/ic_plus_small"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_guest_add_nothing"
+        app:layout_constraintStart_toEndOf="@+id/tv_guest_add_nothing"
+        app:layout_constraintTop_toTopOf="@+id/btn_guest_add_nothing" />
 
     <TextView
         android:id="@+id/btn_player_complete"

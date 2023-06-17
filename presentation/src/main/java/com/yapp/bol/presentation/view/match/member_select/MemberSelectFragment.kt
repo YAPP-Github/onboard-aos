@@ -84,6 +84,8 @@ class MemberSelectFragment : Fragment() {
 
     private fun setViewModelObserve() {
         matchViewModel.members.observe(viewLifecycleOwner) { members ->
+            val isVisible = members.isEmpty()
+            setSearchResultNothing(isVisible, getInputTextValue())
             membersAdapter.submitList(members)
         }
 
@@ -100,6 +102,18 @@ class MemberSelectFragment : Fragment() {
         }
     }
 
+    private fun setSearchResultNothing(isVisible: Boolean, keyword: String) {
+        val visible = if (isVisible) View.VISIBLE else View.GONE
+        val searchResult = String.format(resources.getString(R.string.search_result_nothing), keyword)
+        binding.viewSearchResultNothing.visibility = visible
+        binding.tvSearchResultNothingGuide.visibility = visible
+        binding.btnGuestAddNothing.visibility = visible
+        binding.tvSearchResultNothing.apply {
+            text = searchResult
+            visibility = visible
+        }
+    }
+
     private fun setClickListener() {
         binding.ivSearchIcon.setOnClickListener {
             if (binding.etSearchMember.isFocused) {
@@ -112,6 +126,9 @@ class MemberSelectFragment : Fragment() {
             }
         }
         binding.btnTempMember.setOnClickListener {
+            dialog.show()
+        }
+        binding.btnGuestAddNothing.setOnClickListener {
             dialog.show()
         }
     }
