@@ -19,7 +19,7 @@ class RepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource
 ) : Repository {
     override suspend fun login(type: String, token: String): LoginItem? {
-        return remoteDataSource.login(type,token).toDomain()
+        return remoteDataSource.login(type, token).toDomain()
     }
 
     override fun postFileUpload(token: String, file: File): Flow<ApiResult<String>> {
