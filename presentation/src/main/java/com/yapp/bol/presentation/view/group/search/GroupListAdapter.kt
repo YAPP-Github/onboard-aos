@@ -5,6 +5,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.R
+import com.yapp.bol.presentation.data.GroupSearchUiModel
 
 class GroupListAdapter : PagingDataAdapter<GroupSearchUiModel, RecyclerView.ViewHolder>(GROUP_LIST_COMPARATOR) {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

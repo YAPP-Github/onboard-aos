@@ -1,4 +1,4 @@
-package com.yapp.bol.presentation.view.group.search
+package com.yapp.bol.presentation.data
 
 import com.yapp.bol.domain.model.GroupSearchItem
 
