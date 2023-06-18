@@ -1,10 +1,12 @@
 package com.yapp.bol.presentation.view.group.search
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
+import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.ViewGroupListErrorBinding
 
 class GroupListLoadStateViewHolder(
@@ -17,15 +19,15 @@ class GroupListLoadStateViewHolder(
     }
 
     fun bind(loadState: LoadState) {
-        binding.tvError1.isVisible = loadState is LoadState.Error
-        binding.tvError2.isVisible = loadState is LoadState.Error
-        binding.btnRetry.isVisible = loadState is LoadState.Error
+        binding.sflLoading.isVisible = loadState is LoadState.Loading
+        binding.llError.isVisible = loadState is LoadState.Error
     }
 
     companion object {
         fun create(parent: ViewGroup, retry: () -> Unit): GroupListLoadStateViewHolder {
             val inflater = LayoutInflater.from(parent.context)
-            val binding = ViewGroupListErrorBinding.inflate(inflater, parent, false)
+            val view = inflater.inflate(R.layout.view_group_list_error, parent, false)
+            val binding = ViewGroupListErrorBinding.bind(view)
             return GroupListLoadStateViewHolder(binding, retry)
         }
     }
