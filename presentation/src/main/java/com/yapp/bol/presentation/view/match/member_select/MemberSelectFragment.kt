@@ -141,6 +141,7 @@ class MemberSelectFragment : Fragment() {
             guestAddDialog.show()
         }
         binding.btnGuestAddNothing.setOnClickListener {
+            hideKeyboard()
             guestAddDialog.show()
         }
     }
