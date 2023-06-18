@@ -4,7 +4,6 @@ import KeyboardVisibilityUtils
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -32,10 +31,6 @@ class NewGroupActivity : AppCompatActivity() {
         intent.getStringExtra(ACCESS_TOKEN) ?: EMPTY_STRING
     }
 
-    private val inputManager by lazy {
-        getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-    }
-
     private val profileSettingDialog by lazy {
         ProfileSettingDialog(
             context = this,
@@ -47,7 +42,6 @@ class NewGroupActivity : AppCompatActivity() {
         KeyboardVisibilityUtils(
             window = window,
             onShowKeyboard = ::moveScroll,
-            onHideKeyboard = { profileSettingDialog.dismiss() },
         )
     }
 
@@ -61,10 +55,6 @@ class NewGroupActivity : AppCompatActivity() {
         setCreateGroupButton()
         setClickListener()
         setViewModelObserve()
-
-        profileSettingDialog.setOnShowListener {
-            hideKeyboard()
-        }
     }
 
     private fun setTextChangeListener() {
@@ -96,7 +86,6 @@ class NewGroupActivity : AppCompatActivity() {
         }
 
         binding.btnCreateGroup.setOnClickListener {
-            hideKeyboard()
             profileSettingDialog.show()
         }
     }
@@ -170,11 +159,6 @@ class NewGroupActivity : AppCompatActivity() {
         val dpHeight = (display?.heightPixels ?: 0) / density
 
         return dpHeight.toInt()
-    }
-
-    private fun hideKeyboard() {
-        if (currentFocus == null) return
-        inputManager.hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }
 
     override fun onDestroy() {
