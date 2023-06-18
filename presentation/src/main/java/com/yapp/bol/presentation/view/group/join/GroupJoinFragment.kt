@@ -37,7 +37,17 @@ class GroupJoinFragment : Fragment() {
             .setMessage(getString(R.string.group_join_code_input_plz))
             .setLimitSize(6)
             .setOnLimit {
-                // todo 프로필 설정 dialog 로 이동
+                showProfileSettingDialog()
+            }.show()
+    }
+
+    private fun showProfileSettingDialog() {
+        InputDialog(requireContext())
+            .setTitle("프로필 설정")
+            .setMessage("모임에서 사용할 닉네임을 10자 이하로 입력해주세요.\n")
+            .setLimitSize(10)
+            .setOnSummit {
+                // todo request server api
             }.show()
     }
 }
