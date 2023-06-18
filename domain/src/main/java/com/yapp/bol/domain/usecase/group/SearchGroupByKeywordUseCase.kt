@@ -8,6 +8,7 @@ import com.yapp.bol.domain.model.GroupSearchItem
 import com.yapp.bol.domain.paging.GroupListPagingSource
 import com.yapp.bol.domain.repository.GroupRepository
 import com.yapp.bol.domain.utils.GroupPagingConfig
+import com.yapp.bol.domain.utils.GroupPagingConfig.GROUP_LIST_INIT_LOAD_SIZE
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -20,7 +21,7 @@ class SearchGroupByKeywordUseCase @Inject constructor(
             config = PagingConfig(
                 pageSize = GroupPagingConfig.NETWORK_PAGE_SIZE,
                 enablePlaceholders = false,
-                initialLoadSize = 3
+                initialLoadSize = GROUP_LIST_INIT_LOAD_SIZE
             ),
             pagingSourceFactory = { GroupListPagingSource(groupRepository = groupRepository, keyword = keyword) }
         ).flow
