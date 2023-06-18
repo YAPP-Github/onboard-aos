@@ -1,5 +1,6 @@
 package com.yapp.bol.presentation.view.match
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,7 +19,7 @@ class MatchViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _toolBarTitle = MutableLiveData(GAME_RESULT_RECORD)
-    val toolBarTitle = _toolBarTitle
+    val toolBarTitle: LiveData<String> = _toolBarTitle
 
     fun updateToolBarTitle(title: String) {
         _toolBarTitle.value = title

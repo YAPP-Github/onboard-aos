@@ -1,5 +1,6 @@
 package com.yapp.bol.presentation.view.match.member_select
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,17 +16,17 @@ class MemberSelectViewModel @Inject constructor(
     private val matchUseCase: MatchUseCase
 ) : ViewModel() {
 
-    private val _members = MutableLiveData<List<MemberItem>>(listOf())
-    val members = _members
+    private val _members = MutableLiveData(listOf<MemberItem>())
+    val members: LiveData<List<MemberItem>> = _members
 
     private val _players = MutableLiveData(listOf<MemberItem>())
-    val players = _players
+    val players: LiveData<List<MemberItem>> = _players
 
     private val _isCompleteButtonEnabled = MutableLiveData(false)
-    val isCompleteButtonEnabled = _isCompleteButtonEnabled
+    val isCompleteButtonEnabled: LiveData<Boolean> = _isCompleteButtonEnabled
 
     private val _isNickNameValidate = MutableLiveData(false)
-    val isNickNameValidate = _isNickNameValidate
+    val isNickNameValidate: LiveData<Boolean> = _isNickNameValidate
 
     private val dynamicPlayers = arrayListOf<MemberItem>()
 

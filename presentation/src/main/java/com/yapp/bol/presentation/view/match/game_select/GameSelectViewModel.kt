@@ -1,5 +1,6 @@
 package com.yapp.bol.presentation.view.match.game_select
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,8 +18,7 @@ class GameSelectViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _gameList = MutableLiveData(listOf<GameItem>())
-    val gameList = _gameList
-
+    val gameList: LiveData<List<GameItem>> = _gameList
 
     init {
         viewModelScope.launch {
