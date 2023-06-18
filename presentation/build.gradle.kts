@@ -96,6 +96,9 @@ dependencies {
     // Glide
     implementation(com.yapp.bol.Glide.GLIDE)
     kapt(com.yapp.bol.Glide.GLIDE_COMPILER)
+
+    // Shimmer
+    implementation(com.yapp.bol.Shimmer.SHIMMER)
 }
 
 fun getProperty(propertyKey: String): String {
