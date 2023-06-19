@@ -9,10 +9,8 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup.MarginLayoutParams
 import android.view.WindowManager
-import android.widget.LinearLayout
 import androidx.annotation.StringRes
 import androidx.core.view.updateLayoutParams
-import androidx.core.view.updateMargins
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import com.yapp.bol.presentation.R
@@ -29,7 +27,7 @@ class InputDialog(
         context.inflate(R.layout.dialog_input, null, false)
     }
 
-    private var onLimitExceeded: ((String) -> Unit)? = null
+    private var onLimitExceeded: ((String, InputDialog) -> Unit)? = null
     private var onLimit: Int = 0
 
     init {
@@ -59,22 +57,26 @@ class InputDialog(
         binding.etInput.doAfterTextChanged { text ->
 
             binding.tvInputCount.text = "${text?.length ?: 0}/$onLimit"
+            binding.tvSummit.isEnabled = true
 
             if ((text?.length ?: 0) > onLimit) {
-                onLimitExceeded?.invoke(text.toString())
+                onLimitExceeded?.invoke(text.toString(), this)
                 binding.etInput.setText(text?.substring(0, onLimit))
+                binding.tvInputCount.setTextColor(Color.RED)
                 binding.etInput.setSelection(onLimit)
+            } else {
+                binding.tvInputCount.setTextColor(Color.GRAY)
             }
         }
     }
 
-    fun setOnSummit(onSummit: (String) -> Unit): InputDialog {
+    fun setOnSummit(onSummit: (String, InputDialog) -> Unit): InputDialog {
         binding.summitLayout.visibility = View.VISIBLE
         binding.etLayout.updatePadding(bottom = 0)
+        binding.etInput.setText(listOf("이승은", "차경민", "기본 이름", "랜덤 이름").random()) // todo 기획이 완료 된 후 실제 기본 이름으로 변경해야합니다.
 
         binding.tvSummit.setOnClickListener {
-            onSummit(binding.etInput.text.toString())
-            dismiss()
+            onSummit(binding.etInput.text.toString(), this)
         }
         return this
     }
@@ -104,9 +106,16 @@ class InputDialog(
         return this
     }
 
-    fun setOnLimit(onLimitExceeded: (String) -> Unit): InputDialog {
+    fun setOnLimit(onLimitExceeded: (String, InputDialog) -> Unit): InputDialog {
         this.onLimitExceeded = onLimitExceeded
         return this
+    }
+
+    fun showErrorMessage(message: String) {
+        binding.tvErrorMessage.visibility = View.VISIBLE
+        binding.tvErrorMessage.text = message
+
+        binding.tvSummit.isEnabled = false
     }
 
     private fun onBackPress() {

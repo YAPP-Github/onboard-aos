@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
@@ -37,21 +38,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:hint="닉네임을 입력해주세요."
+                android:textColorHint="#C1C1C1"
                 android:background="@drawable/bg_gray_radius_8dp"
                 android:paddingVertical="14dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="0dp"
-                android:textSize="26dp" />
+                android:textSize="16dp" />
 
         </LinearLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/summit_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingTop="16dp"
             android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_error_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:paddingStart="18dp"
+                android:textColor="#FF0000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
             <TextView
                 android:id="@+id/tv_input_count"
@@ -61,6 +75,8 @@
                 android:layout_marginTop="4dp"
                 android:paddingStart="0dp"
                 android:paddingEnd="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="03/10" />
 
             <TextView
@@ -68,11 +84,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/bg_orange_radius_8dp"
+                android:background="@drawable/bg_orange_enabled"
                 android:gravity="center"
                 android:paddingVertical="16dp"
                 android:text="모임 들어가기"
-                android:textColor="@color/white" />
-        </LinearLayout>
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_input_count" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </layout>

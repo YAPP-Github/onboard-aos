@@ -5,6 +5,8 @@ import com.yapp.bol.data.mapper.MapperToDomain.fileUploadToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.newGroupToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.toDomain
 import com.yapp.bol.domain.model.ApiResult
+import com.yapp.bol.domain.model.BaseItem
+import com.yapp.bol.domain.model.ErrorItem
 import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.model.NewGroupItem
 import com.yapp.bol.domain.repository.Repository
@@ -14,10 +16,10 @@ import java.io.File
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
-    private val remoteDataSource: RemoteDataSource
+    private val remoteDataSource: RemoteDataSource,
 ) : Repository {
     override suspend fun login(type: String, token: String): LoginItem? {
-        return remoteDataSource.login(type,token).toDomain()
+        return remoteDataSource.login(type, token).toDomain()
     }
 
     override fun postFileUpload(token: String, file: File): Flow<ApiResult<String>> {
@@ -31,10 +33,14 @@ class RepositoryImpl @Inject constructor(
         description: String,
         organization: String,
         profileImageUrl: String,
-        nickname: String
+        nickname: String,
     ): Flow<ApiResult<NewGroupItem>> {
         return remoteDataSource.postCreateGroup(name, description, organization, profileImageUrl, nickname).map {
             it.newGroupToDomain()
         }
+    }
+
+    override fun joinGroup(groupId: String, accessCode: String, nickname: String): Flow<ApiResult<BaseItem>> {
+        return remoteDataSource.joinGroup(groupId, accessCode, nickname).map { it.toDomain() }
     }
 }

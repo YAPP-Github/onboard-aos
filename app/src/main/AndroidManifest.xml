@@ -15,8 +15,9 @@
         android:theme="@style/Theme.BolTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+
         <activity
-            android:name="com.yapp.bol.presentation.view.group.GroupActivity"
+            android:name="com.yapp.bol.presentation.view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

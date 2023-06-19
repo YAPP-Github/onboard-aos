@@ -51,6 +51,8 @@
                     android:scheme="kakao${kakaoKey}" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".view.group.GroupActivity"/>
     </application>
 
 </manifest>
