@@ -4,7 +4,6 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.GroupItem
-import com.yapp.bol.domain.model.GroupSearchItem
 import com.yapp.bol.domain.repository.GroupRepository
 import com.yapp.bol.domain.utils.GroupPagingConfig.GROUP_LIST_STARTING_PAGE_INDEX
 import javax.inject.Inject
@@ -32,7 +31,7 @@ class GroupListPagingSource @Inject constructor(
             LoadResult.Page(
                 data = success.data.groupItemList,
                 prevKey = if (page > 1) page - 1 else null,
-                nextKey = if (response.data.isNotEmpty()) page + 1 else null
+                nextKey = if (response.data.hasNext) page + 1 else null
             )
         } catch (exception: Exception) {
             return LoadResult.Error(exception)
