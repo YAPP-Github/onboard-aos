@@ -1,6 +1,8 @@
 package com.yapp.bol.domain.repository
 
 import com.yapp.bol.domain.model.ApiResult
+import com.yapp.bol.domain.model.BaseItem
+import com.yapp.bol.domain.model.ErrorItem
 import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.model.NewGroupItem
 import kotlinx.coroutines.flow.Flow
@@ -12,7 +14,7 @@ interface Repository {
 
     fun postFileUpload(
         token: String,
-        file: File
+        file: File,
     ): Flow<ApiResult<String>>
 
     fun postCreateGroup(
@@ -20,6 +22,12 @@ interface Repository {
         description: String,
         organization: String,
         profileImageUrl: String,
-        nickname: String
+        nickname: String,
     ): Flow<ApiResult<NewGroupItem>>
+
+    fun joinGroup(
+        groupId: String,
+        accessCode: String,
+        nickname: String,
+    ): Flow<ApiResult<BaseItem>>
 }

@@ -4,14 +4,16 @@ import com.yapp.bol.data.datasource.RemoteDataSource
 import com.yapp.bol.data.datasource.mock.impl.LoginType.toDomain
 import com.yapp.bol.data.model.OAuthApiRequest
 import com.yapp.bol.data.model.OAuthApiResponse
+import com.yapp.bol.data.model.base.BaseResponse
 import com.yapp.bol.data.model.file_upload.FileUploadResponse
+import com.yapp.bol.data.model.group.JoinGroupApiRequest
 import com.yapp.bol.data.model.group.NewGroupApiRequest
 import com.yapp.bol.data.model.group.NewGroupApiResponse
 import com.yapp.bol.data.remote.GroupApi
 import com.yapp.bol.data.remote.ImageFileApi
 import com.yapp.bol.data.remote.LoginApi
-import com.yapp.bol.data.utils.BaseRepository
 import com.yapp.bol.data.utils.Image.GROUP_IMAGE
+import com.yapp.bol.domain.handle.BaseRepository
 import com.yapp.bol.domain.model.ApiResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -20,7 +22,6 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 import javax.inject.Inject
-
 
 class RemoteDataSourceImpl @Inject constructor(
     private val loginApi: LoginApi,
@@ -34,9 +35,8 @@ class RemoteDataSourceImpl @Inject constructor(
 
     override fun postFileUpload(
         token: String,
-        file: File
+        file: File,
     ): Flow<ApiResult<FileUploadResponse>> = flow {
-
         val fileBody = RequestBody.create(MediaType.parse(MEDIA_TYPE_IMAGE), file)
         val filePart = MultipartBody.Part.createFormData(FILE_KEY, file.name, fileBody)
         val purpose = RequestBody.create(MediaType.parse(MEDIA_TYPE_TEXT), GROUP_IMAGE)
@@ -52,11 +52,20 @@ class RemoteDataSourceImpl @Inject constructor(
         description: String,
         organization: String,
         profileImageUrl: String,
-        nickname: String
+        nickname: String,
     ): Flow<ApiResult<NewGroupApiResponse>> = flow {
         val result = safeApiCall {
             groupApi.postOAuthApi(NewGroupApiRequest(name, description, organization, profileImageUrl, nickname))
         }
+        emit(result)
+    }
+
+    override fun joinGroup(
+        groupId: String,
+        accessCode: String,
+        nickname: String,
+    ): Flow<ApiResult<BaseResponse>> = flow {
+        val result = safeApiCall { groupApi.joinGroup(groupId, JoinGroupApiRequest(nickname, accessCode)) }
         emit(result)
     }
 
