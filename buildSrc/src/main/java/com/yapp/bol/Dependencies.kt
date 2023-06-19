@@ -54,6 +54,7 @@ object DaggerHilt {
 object Retrofit {
     const val RETROFIT = "com.squareup.retrofit2:retrofit:2.9.0"
     const val CONVERTER_GSON = "com.squareup.retrofit2:converter-gson:2.9.0"
+    const val GSON = "com.google.code.gson:gson:2.9.0"
     const val CONVERTER_JAXB = "com.squareup.retrofit2:converter-jaxb:2.9.0"
     const val LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:4.10.0"
 }
