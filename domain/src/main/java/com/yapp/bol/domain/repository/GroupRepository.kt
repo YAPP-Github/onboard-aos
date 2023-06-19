@@ -9,5 +9,5 @@ interface GroupRepository {
         name: String,
         page: Int,
         pageSize: Int,
-    ): ApiResult<List<GroupSearchItem>>
+    ): ApiResult<GroupSearchItem>
 }

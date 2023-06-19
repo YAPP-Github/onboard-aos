@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.yapp.bol.domain.model.GroupSearchItem
+import com.yapp.bol.domain.model.GroupItem
 import com.yapp.bol.presentation.databinding.ItemGroupListBinding
 
 class GroupListViewHolder(private val binding: ItemGroupListBinding) : RecyclerView.ViewHolder(binding.root) {
-    private var groupItem: GroupSearchItem? = null
+    private var groupItem: GroupItem? = null
     private val glide by lazy { Glide.with(binding.root) }
 
     init {
@@ -18,7 +18,7 @@ class GroupListViewHolder(private val binding: ItemGroupListBinding) : RecyclerV
         }
     }
 
-    fun bind(groupItem: GroupSearchItem?) {
+    fun bind(groupItem: GroupItem?) {
         if (groupItem == null) {
             // TODO ERROR
         } else {
@@ -26,7 +26,7 @@ class GroupListViewHolder(private val binding: ItemGroupListBinding) : RecyclerV
         }
     }
 
-    private fun showGroupData(groupItem: GroupSearchItem) {
+    private fun showGroupData(groupItem: GroupItem) {
         this.groupItem = groupItem
 
         binding.apply {
