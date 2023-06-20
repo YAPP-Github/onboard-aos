@@ -13,6 +13,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.FragmentMemberSelectBinding
@@ -143,6 +144,10 @@ class MemberSelectFragment : Fragment() {
         binding.btnGuestAddNothing.setOnClickListener {
             hideKeyboard()
             guestAddDialog.show()
+        }
+
+        binding.btnPlayerComplete.setOnClickListener {
+            findNavController().navigate(R.id.action_memberSelectFragment_to_gameResultFragment)
         }
     }
 

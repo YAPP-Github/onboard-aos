@@ -42,4 +42,6 @@
     <string name="search_result_nothing">\'%s\'에 대한 검색 결과가 없습니다.</string>
     <string name="search_result_nothing_guide">함께 보드게임을 플레이한 상대가 온보드에\n 아직 없다면,임시 멤버로 추가해 기록해보세요!</string>
     <string name="guest_add_nothing">임시 멤버 추가</string>
+
+    <string name="game_result_rank">%d위</string>
 </resources>
