@@ -38,10 +38,25 @@ class GameResultViewModel @Inject constructor() : ViewModel() {
         }
         updatePlayers()
     }
+    private var currentRank = 0
 
     private fun updatePlayers() {
         _players.value = testPlayers.mapIndexed { index, memberResultItem ->
-            memberResultItem.copy(rank = index)
+            memberResultItem.copy(rank = setPlayerRank(index))
+        }
+        currentRank= 0
+    }
+
+    private fun setPlayerRank(rank: Int): Int {
+        if(rank == 0) {
+            return currentRank
+        }
+
+        return if(testPlayers[rank].score == testPlayers[rank-1].score) {
+            currentRank
+        } else {
+            currentRank = rank
+            currentRank
         }
     }
 
