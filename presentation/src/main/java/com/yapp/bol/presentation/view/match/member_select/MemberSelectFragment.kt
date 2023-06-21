@@ -121,6 +121,7 @@ class MemberSelectFragment : Fragment() {
         binding.viewSearchResultNothing.visibility = visible
         binding.tvSearchResultNothingGuide.visibility = visible
         binding.btnGuestAddNothing.visibility = visible
+        binding.ivPlus.visibility = visible
         binding.tvSearchResultNothing.apply {
             text = searchResult
             visibility = visible
