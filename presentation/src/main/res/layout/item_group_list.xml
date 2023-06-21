@@ -3,31 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="110dp"
     android:background="@drawable/bg_group_list"
+    android:backgroundTint="#FFFFFF"
     android:layout_marginBottom="12dp"
-    android:paddingStart="22dp"
-    android:paddingEnd="12dp">
+    android:paddingStart="20dp"
+    android:paddingEnd="14dp">
 
     <TextView
         android:id="@+id/tv_group_name"
-        android:layout_width="wrap_content"
+        android:layout_width="209dp"
         android:layout_height="wrap_content"
         android:text=""
         android:textSize="15dp"
         android:lineHeight="24dp"
         android:textColor="#171717"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_group_description"
-        android:layout_width="wrap_content"
+        android:layout_width="209dp"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
         android:text=""
         android:lineHeight="16dp"
         android:textSize="11dp"
+        android:maxLines="1"
         android:textColor="#171717"
         android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="@+id/tv_group_name"
@@ -70,12 +73,12 @@
 
     <ImageView
         android:id="@+id/iv_group_image"
-        android:layout_width="60dp"
-        android:layout_height="76dp"
+        android:layout_width="62dp"
+        android:layout_height="82dp"
         android:background="@drawable/ic_group_list_img_shape"
         android:scaleType="centerCrop"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
