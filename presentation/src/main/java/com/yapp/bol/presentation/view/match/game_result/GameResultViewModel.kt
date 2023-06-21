@@ -15,9 +15,12 @@ class GameResultViewModel @Inject constructor() : ViewModel() {
     private val _players = MutableLiveData(testPlayers.toList())
     val players: LiveData<List<MemberResultItem>> = _players
 
+    private val _recordCompleteIsEnabled = MutableLiveData(false)
+    val recordCompleteIsEnabled: LiveData<Boolean> = _recordCompleteIsEnabled
 
     fun updatePlayerScore(position: Int, value: Int) {
         testPlayers[position].score = value
+        _recordCompleteIsEnabled.value = checkedRecordCompleteIsEnabled()
     }
 
     fun changePlayerPosition(position: Int, value: Int) {
@@ -36,6 +39,9 @@ class GameResultViewModel @Inject constructor() : ViewModel() {
         updatePlayers()
     }
 
+    private fun updatePlayers() {
+        _players.value = testPlayers.mapIndexed { index, memberResultItem ->
+            memberResultItem.copy(rank = index)
         }
     }
 

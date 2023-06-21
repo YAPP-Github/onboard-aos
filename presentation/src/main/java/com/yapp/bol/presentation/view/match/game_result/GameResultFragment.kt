@@ -45,6 +45,10 @@ class GameResultFragment : Fragment() {
             gameResultAdapter.submitList(it)
         }
 
+        gameResultViewModel.recordCompleteIsEnabled.observe(viewLifecycleOwner) {
+            binding.btnRecordComplete.isEnabled = it
+        }
+
         matchViewModel.updateToolBarTitle(GAME_RESULT_TITLE)
     }
 
