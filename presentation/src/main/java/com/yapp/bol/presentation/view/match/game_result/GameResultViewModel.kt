@@ -1,43 +1,48 @@
 package com.yapp.bol.presentation.view.match.game_result
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.yapp.bol.presentation.model.MemberResultItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class GameResultViewModel @Inject constructor() : ViewModel() {
+    private val testPlayers = ArrayList<MemberResultItem>(20).apply {
+        addAll(List(20) { MemberResultItem(it, "$it. Text", 0, it) })
+    }
+    private val _players = MutableLiveData(testPlayers.toList())
+    val players: LiveData<List<MemberResultItem>> = _players
 
-    private val players = ArrayList<Pair<Int,Int>>(10).apply {
-        addAll(List(10) { -1 to -1 })
+
+    fun updatePlayerScore(position: Int, value: Int) {
+        testPlayers[position].score = value
     }
 
-    fun updatePlayerValue(position: Int, value: Int) {
-        val temp = getPlayerRank(position)
-        if(temp == -1) players[position] = position to value
-        else players[temp] = position to value
-    }
-
-    fun getTargetPosition(position: Int, value: Int): Int {
-        val rank = getPlayerRank(position)
-        for(i in 0 until rank) {
-            if(players[i].second < value) {
-                swipeValue(i,rank)
-                return  i
+    fun changePlayerPosition(position: Int, value: Int) {
+        for (i in 0 until position) {
+            if (testPlayers[i].score < value) {
+                swipePlayer(i, position)
+                return
             }
         }
-        return -1
     }
 
-    private fun getPlayerRank(position: Int): Int {
-        for(i in 0 until  players.size) {
-            if(players[i].first == position) return i
+    private fun swipePlayer(target: Int, currentPosition: Int) {
+        testPlayers.removeAt(currentPosition).also {
+            testPlayers.add(target, it)
         }
-        return -1
+        updatePlayers()
     }
 
-    private fun swipeValue(form: Int, to: Int) {
-        players.removeAt(to).also {
-            players.add(form, it)
         }
+    }
+
+    private fun checkedRecordCompleteIsEnabled(): Boolean {
+        for (i in 0 until testPlayers.size) {
+            if (testPlayers[i].score == 0) return false
+        }
+        return true
     }
 }
