@@ -6,13 +6,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.yapp.bol.domain.model.GroupItem
+import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.ItemGroupListBinding
-import com.yapp.bol.presentation.utils.colorAnimator
-import com.yapp.bol.presentation.utils.textColorAnimator
+import com.yapp.bol.presentation.utils.colorTransitionAnimator as colorAnim
+import com.yapp.bol.presentation.utils.textColorSmoothTransitionAnimator as textColorAnim
 
 class GroupListViewHolder(private val binding: ItemGroupListBinding) : RecyclerView.ViewHolder(binding.root) {
-    private var groupItem: GroupItem? = null
     private val glide by lazy { Glide.with(binding.root) }
 
     init {
@@ -22,69 +24,61 @@ class GroupListViewHolder(private val binding: ItemGroupListBinding) : RecyclerV
         }
     }
 
-    fun bind(groupItem: GroupItem?) {
-        if (groupItem == null) {
-            // TODO ERROR
-        } else {
-            showGroupData(groupItem)
-        }
-    }
-
-    private fun ItemGroupListBinding.onClickAnimation() {
-        val animDuration = 400L
-
-        root.colorAnimator(
-            middleColor = Color.parseColor("#242424"),
-            endColor = Color.parseColor("#FFFFFF"),
-            durationMS = animDuration,
-        ).start()
-
-        tvGroupName.textColorAnimator(
-            middleColor = Color.parseColor("#FBFBFB"),
-            endColor = Color.parseColor("#171717"),
-            durationMS = animDuration,
-        ).start()
-
-        tvGroupDescription.textColorAnimator(
-            middleColor = Color.parseColor("#FBFBFB"),
-            endColor = Color.parseColor("#171717"),
-            durationMS = animDuration,
-        ).start()
-
-        tvGroupSize.textColorAnimator(
-            middleColor = Color.parseColor("#FBFBFB"),
-            endColor = Color.parseColor("#171717"),
-            durationMS = animDuration,
-        ).start()
-
-        tvGroupOrganization.textColorAnimator(
-            middleColor = Color.parseColor("#FBFBFB"),
-            endColor = Color.parseColor("#171717"),
-            durationMS = animDuration,
-        ).start()
-
-        viewSeparator.colorAnimator(
-            middleColor = Color.parseColor("#242424"),
-            endColor = Color.parseColor("#FFFFFF"),
-            durationMS = animDuration,
-        ).start()
-    }
-
-    private fun showGroupData(groupItem: GroupItem) {
-        this.groupItem = groupItem
-
+    fun bind(groupItem: GroupItem) {
         binding.apply {
             tvGroupDescription.text = groupItem.description
             tvGroupName.text = groupItem.name
             tvGroupOrganization.text = groupItem.organization
-            tvGroupSize.text = groupItem.memberCount.toString()
+            "${groupItem.memberCount}명".also { tvGroupSize.text = it }
             ivGroupImage.setImageWithGlide(groupItem.profileImageUrl)
         }
+    }
+
+    // TODO : color 리소스로 변경 필요
+    private fun ItemGroupListBinding.onClickAnimation() {
+        val animDuration = 400L
+
+        root.colorAnim(
+            startColor = Color.parseColor("#242424"),
+            endColor = Color.parseColor("#FFFFFF"),
+            durationMS = animDuration,
+        ).start()
+
+        tvGroupName.textColorAnim(
+            startColor = Color.parseColor("#FBFBFB"),
+            endColor = Color.parseColor("#171717"),
+            durationMS = animDuration,
+        ).start()
+
+        tvGroupDescription.textColorAnim(
+            startColor = Color.parseColor("#FBFBFB"),
+            endColor = Color.parseColor("#171717"),
+            durationMS = animDuration,
+        ).start()
+
+        tvGroupSize.textColorAnim(
+            startColor = Color.parseColor("#F5F4F3"),
+            endColor = Color.parseColor("#A5A5A5"),
+            durationMS = animDuration,
+        ).start()
+
+        tvGroupOrganization.textColorAnim(
+            startColor = Color.parseColor("#F5F4F3"),
+            endColor = Color.parseColor("#A5A5A5"),
+            durationMS = animDuration,
+        ).start()
+
+        viewSeparator.colorAnim(
+            startColor = Color.parseColor("#F5F4F3"),
+            endColor = Color.parseColor("#C1C1C1"),
+            durationMS = animDuration,
+        ).start()
     }
 
     private fun ImageView.setImageWithGlide(uri: String) {
         glide
             .load(uri)
+            .transform(CenterCrop(), RoundedCorners(resources.getDimension(R.dimen.dp8).toInt()))
             .into(this)
     }
 
