@@ -15,11 +15,13 @@
         android:orientation="vertical"
         android:paddingHorizontal="18dp"
         android:background="#F6F6F6">
+
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="37dp"
+            android:layout_marginBottom="26dp"
             android:text="@string/group_search_title"
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +43,6 @@
 
                 <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:id="@+id/collapsing_tool_bar"
-                    app:maxLines="2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_scrollFlags="scroll|enterAlways">
@@ -61,13 +62,13 @@
                 android:id="@+id/rv_group_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:itemCount="15"
                 tools:listitem="@layout/item_group_list"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     </LinearLayout>
 
 </layout>
