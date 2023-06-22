@@ -1,9 +1,10 @@
 package com.yapp.bol.presentation.view.match.game_result
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.widget.doOnTextChanged
+import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -44,13 +45,13 @@ class GameResultAdapter(
 
         fun bind(item: MemberResultItem, position: Int) {
             currentAdapterPosition = position
-            binding.tvMemberRank.text =
-                String.format(context.resources.getString(R.string.game_result_rank), item.rank + 1)
+            binding.tvMemberRank.text = String.format(context.resources.getString(R.string.game_result_rank), item.rank + 1)
+            if(item.rank == 0) binding.tvMemberRank.setTextColor(Color.parseColor("#FF4D0D"))
             binding.tvMemberName.text = item.name
             val score = if (item.score == 0) "" else item.score.toString()
             binding.etGameScore.setText(score)
 
-            binding.etGameScore.doOnTextChanged { text, _, _, _ ->
+            binding.etGameScore.doAfterTextChanged { text ->
                 val value = text.toString()
                 val intValue = if (value.isEmpty()) 0 else value.toInt()
                 gameResultUpdateListener.updatePlayerScore(position, intValue)
