@@ -35,8 +35,9 @@ class GroupListViewHolder(private val binding: ItemGroupListBinding) : RecyclerV
     }
 
     // TODO : color 리소스로 변경 필요
+    // TODO : design system button으로 교체 필요
     private fun ItemGroupListBinding.onClickAnimation() {
-        val animDuration = 400L
+        val animDuration = 150L
 
         root.colorAnim(
             startColor = Color.parseColor("#242424"),
@@ -75,10 +76,11 @@ class GroupListViewHolder(private val binding: ItemGroupListBinding) : RecyclerV
         ).start()
     }
 
+    // TODO : merge 후 util 함수로 교체
     private fun ImageView.setImageWithGlide(uri: String) {
         glide
             .load(uri)
-            .transform(CenterCrop(), RoundedCorners(resources.getDimension(R.dimen.dp8).toInt()))
+            .transform(CenterCrop(), RoundedCorners(resources.getDimension(R.dimen.group_search_item_image_radius).toInt()))
             .into(this)
     }
 
