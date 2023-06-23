@@ -22,7 +22,7 @@ class GameResultAdapter(
 
     interface GameResultUpdateListener {
         fun updatePlayerScore(position: Int, value: Int?)
-        fun sortPlayerScore()
+        fun updatePlayers()
         fun showKeyboard(editText: EditText)
         fun moveScroll(position: Int)
     }
@@ -47,7 +47,6 @@ class GameResultAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: MemberResultItem, position: Int) {
-
             setTextView(item)
             setClickListener(position)
             setTextChangeListener(position)
@@ -56,7 +55,8 @@ class GameResultAdapter(
         private fun setTextView(item: MemberResultItem) {
             binding.tvMemberRank.text =
                 String.format(context.resources.getString(R.string.game_result_rank), item.rank + 1)
-            if (item.rank == 0) binding.tvMemberRank.setTextColor(Color.parseColor("#FF4D0D"))
+            val textColor = if (item.rank == 0) Color.parseColor("#FF4D0D") else Color.GRAY
+            binding.tvMemberRank.setTextColor(textColor)
             binding.tvMemberName.text = item.name
             val score = if (item.score == null) EMPTY_STRING else item.score.toString()
             binding.etGameScore.setText(score)
@@ -66,7 +66,7 @@ class GameResultAdapter(
             binding.etGameScore.setOnKeyListener { _, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                     val value = binding.etGameScore.text.toString()
-                    if (value.isNotEmpty()) gameResultUpdateListener.sortPlayerScore()
+                    if (value.isNotEmpty()) gameResultUpdateListener.updatePlayers()
                     gameResultUpdateListener.moveScroll(position + MOVE_SCROLL_POINT)
                 }
                 false

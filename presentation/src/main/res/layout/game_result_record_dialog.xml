@@ -76,7 +76,8 @@
         android:textColor="@color/black"
         android:textSize="11dp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_clock"
-        app:layout_constraintEnd_toEndOf="@+id/view_guide_line_1" />
+        app:layout_constraintEnd_toEndOf="@+id/view_guide_line_1"
+        app:layout_constraintTop_toTopOf="@+id/iv_clock" />
 
     <View
         android:id="@+id/view_guide_line_1"
@@ -84,7 +85,7 @@
         android:layout_height="1dp"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="16dp"
-        android:background="@color/hint_text_color"
+        android:background="@color/gray_03"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_calendar" />
@@ -96,8 +97,10 @@
         android:layout_marginHorizontal="6dp"
         android:layout_marginVertical="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:scrollbars="vertical"
+        android:scrollbarFadeDuration="0"
         app:layout_constrainedHeight="true"
-        app:layout_constraintBottom_toTopOf="@+id/view_guide_line"
+        app:layout_constraintBottom_toTopOf="@+id/view_guide_line_2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_guide_line_1"
@@ -105,11 +108,12 @@
         tools:listitem="@layout/rv_player_record_item" />
 
     <View
-        android:id="@+id/view_guide_line"
+        android:id="@+id/view_guide_line_2"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginHorizontal="24dp"
         android:layout_marginBottom="18dp"
+        android:background="@color/gray_03"
         app:layout_constraintBottom_toTopOf="@+id/tv_record_final_guide"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
