@@ -23,6 +23,7 @@ class GameSelectFragment : Fragment() {
     private val gameSelectViewModel: GameSelectViewModel by viewModels()
 
     private val gameSelectAdapter = GameSelectAdapter { gameName ->
+        matchViewModel.updateGameName(gameName)
         val bundle = Bundle().apply {
             putString(GAME_NAME, gameName)
         }
