@@ -22,7 +22,7 @@ fun Context.dialogWidthResize(
 
         val window = dialog.window
         val x = (size.x * widthRatio).toInt()
-        val height  = if(isResultDialog) {
+        val height = if (isResultDialog) {
             this.convertPxToDp(RESULT_RECORD_DIALOG_HEIGHT)
         } else {
             ViewGroup.LayoutParams.WRAP_CONTENT
@@ -34,7 +34,7 @@ fun Context.dialogWidthResize(
         val window = dialog.window
         val x = (rect.width() * widthRatio).toInt()
 
-        val height  = if(isResultDialog) {
+        val height = if (isResultDialog) {
             this.convertPxToDp(RESULT_RECORD_DIALOG_HEIGHT)
         } else {
             ViewGroup.LayoutParams.WRAP_CONTENT

@@ -9,7 +9,7 @@ data class MemberItem(
     val name: String,
     val level: Int,
     var isChecked: Boolean = false,
-): Parcelable {
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString() ?: EMPTY_STRING,

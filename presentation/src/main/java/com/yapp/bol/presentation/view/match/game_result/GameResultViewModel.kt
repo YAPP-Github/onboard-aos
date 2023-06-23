@@ -22,7 +22,7 @@ class GameResultViewModel @Inject constructor() : ViewModel() {
 
     fun initPlayers(player: ArrayList<MemberItem>) {
         val newPlayers = player.mapIndexed { index, memberItem ->
-            MemberResultItem(memberItem.id,memberItem.name,null, index)
+            MemberResultItem(memberItem.id, memberItem.name, null, index)
         }
         dynamicPlayers.addAll(newPlayers)
         updatePlayers()

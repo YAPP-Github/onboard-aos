@@ -46,9 +46,7 @@ class MemberSelectFragment : Fragment() {
     private val guestAddDialog by lazy {
         GuestAddDialog(
             context = requireContext(),
-            addGuest = { name ->
-                //TODO : 게스트 추가 API
-            },
+            addGuest = { name -> },
             getValidateNickName = { nickname -> memberSelectViewModel.getValidateNickName(10, nickname) },
         )
     }
