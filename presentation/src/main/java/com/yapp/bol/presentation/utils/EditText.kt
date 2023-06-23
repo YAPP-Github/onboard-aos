@@ -3,13 +3,8 @@ package com.yapp.bol.presentation.utils
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
-import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.TextView
-import androidx.core.content.ContextCompat.getSystemService
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow

@@ -80,7 +80,10 @@ class GroupListViewHolder(private val binding: ItemGroupListBinding) : RecyclerV
     private fun ImageView.setImageWithGlide(uri: String) {
         glide
             .load(uri)
-            .transform(CenterCrop(), RoundedCorners(resources.getDimension(R.dimen.group_search_item_image_radius).toInt()))
+            .transform(
+                CenterCrop(),
+                RoundedCorners(resources.getDimension(R.dimen.group_search_item_image_radius).toInt())
+            )
             .into(this)
     }
 
