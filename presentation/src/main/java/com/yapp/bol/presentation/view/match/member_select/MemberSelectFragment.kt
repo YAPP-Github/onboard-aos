@@ -54,7 +54,7 @@ class MemberSelectFragment : Fragment() {
     private val keyboardVisibilityUtils by lazy {
         KeyboardVisibilityUtils(
             window = activity?.window ?: throw Exception(),
-            onHideKeyboard = {if(guestAddDialog.isShowing) guestAddDialog.dismiss() },
+            onHideKeyboard = { if (guestAddDialog.isShowing) guestAddDialog.dismiss() },
         )
     }
 
@@ -78,7 +78,7 @@ class MemberSelectFragment : Fragment() {
         setClickListener()
 
         binding.etSearchMember.doOnTextChanged { text, _, _, _ ->
-            if ((text?.length?: 0) > 0) binding.etSearchMember.requestFocus()
+            if ((text?.length ?: 0) > 0) binding.etSearchMember.requestFocus()
             memberSelectViewModel.updateSearchMembers(text.toString())
         }
 
