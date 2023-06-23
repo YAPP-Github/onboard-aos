@@ -3,56 +3,52 @@ package com.yapp.bol.presentation.view.match.game_result
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.yapp.bol.presentation.model.MemberItem
 import com.yapp.bol.presentation.model.MemberResultItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class GameResultViewModel @Inject constructor() : ViewModel() {
-    private val testPlayers = ArrayList<MemberResultItem>(20).apply {
-        addAll(List(20) { MemberResultItem(it, "$it. Text", 0, it) })
-    }
-    private val _players = MutableLiveData(testPlayers.toList())
+
+    private val dynamicPlayers = ArrayList<MemberResultItem>()
+    private var currentRank = 0
+
+    private val _players = MutableLiveData(dynamicPlayers.toList())
     val players: LiveData<List<MemberResultItem>> = _players
 
     private val _recordCompleteIsEnabled = MutableLiveData(false)
     val recordCompleteIsEnabled: LiveData<Boolean> = _recordCompleteIsEnabled
 
-    fun updatePlayerScore(position: Int, value: Int) {
-        testPlayers[position].score = value
+    fun initPlayers(player: ArrayList<MemberItem>) {
+        val newPlayers = player.mapIndexed { index, memberItem ->
+            MemberResultItem(memberItem.id,memberItem.name,null, index)
+        }
+        dynamicPlayers.addAll(newPlayers)
+        updatePlayers()
+    }
+
+    fun updatePlayerScore(position: Int, value: Int?) {
+        dynamicPlayers[position].score = value
         _recordCompleteIsEnabled.value = checkedRecordCompleteIsEnabled()
     }
 
-    fun changePlayerPosition(position: Int, value: Int) {
-        for (i in 0 until position) {
-            if (testPlayers[i].score < value) {
-                swipePlayer(i, position)
-                return
-            }
-        }
-    }
-
-    private fun swipePlayer(target: Int, currentPosition: Int) {
-        testPlayers.removeAt(currentPosition).also {
-            testPlayers.add(target, it)
-        }
+    fun sortPlayerScore() {
+        dynamicPlayers.sortByDescending { it.score }
         updatePlayers()
     }
-    private var currentRank = 0
 
     private fun updatePlayers() {
-        _players.value = testPlayers.mapIndexed { index, memberResultItem ->
+        _players.value = dynamicPlayers.mapIndexed { index, memberResultItem ->
             memberResultItem.copy(rank = setPlayerRank(index))
         }
-        currentRank= 0
+        currentRank = 0
     }
 
     private fun setPlayerRank(rank: Int): Int {
-        if(rank == 0) {
-            return currentRank
-        }
+        if (rank == 0) return currentRank
 
-        return if(testPlayers[rank].score == testPlayers[rank-1].score) {
+        return if (dynamicPlayers[rank].score == dynamicPlayers[rank - 1].score && dynamicPlayers[rank].score != null) {
             currentRank
         } else {
             currentRank = rank
@@ -61,8 +57,8 @@ class GameResultViewModel @Inject constructor() : ViewModel() {
     }
 
     private fun checkedRecordCompleteIsEnabled(): Boolean {
-        for (i in 0 until testPlayers.size) {
-            if (testPlayers[i].score == 0) return false
+        for (i in 0 until dynamicPlayers.size) {
+            if (dynamicPlayers[i].score == null) return false
         }
         return true
     }
