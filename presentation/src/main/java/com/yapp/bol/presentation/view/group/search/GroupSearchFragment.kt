@@ -112,5 +112,4 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
                 )
             }
         }
-
 }
