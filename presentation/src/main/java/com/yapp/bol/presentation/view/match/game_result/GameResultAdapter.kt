@@ -99,6 +99,6 @@ class GameResultAdapter(
             }
         }
 
-        const val MOVE_SCROLL_POINT = 3
+        const val MOVE_SCROLL_POINT = 2
     }
 }
