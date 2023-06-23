@@ -161,7 +161,6 @@ class GameResultFragment : Fragment() {
         binding.tvLoadingText.visibility = View.GONE
         binding.pbLoading.visibility = View.GONE
         binding.tvGameRecordComplete.visibility = View.VISIBLE
-
     }
 
     override fun onDestroy() {
