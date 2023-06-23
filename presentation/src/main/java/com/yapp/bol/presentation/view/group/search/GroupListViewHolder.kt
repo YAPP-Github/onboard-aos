@@ -1,8 +1,6 @@
 package com.yapp.bol.presentation.view.group.search
 
-import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
@@ -30,7 +28,6 @@ class GroupListViewHolder(private val binding: ItemGroupListBinding) : RecyclerV
             "${groupItem.memberCount}명".also { tvGroupSize.text = it }
             ivGroupImage.setImageWithGlide(groupItem.profileImageUrl)
         }
-
     }
 
     // TODO : merge 후 util 함수로 교체
