@@ -44,4 +44,11 @@
     <string name="guest_add_nothing">임시 멤버 추가</string>
 
     <string name="game_result_rank">%d위</string>
+    <string name="game_player_count">%d인 플레이</string>
+    <string name="game_record_final_guide">최종 기록 이후 점수 수정이 불가능합니다\n정말로 확정하시겠습니까?</string>
+    <string name="game_record_guide">%s 결과를 입력해주세요!</string>
+    <string name="game_result_recording_text">점수 기록 중..</string>
+    <string name="game_result_recording_complete">%s\n점수 기록이 완료되었습니다.</string>
+    <string name="game_record_complete">기록 완료</string>
+    <string name="game_record_hint">0</string>
 </resources>
