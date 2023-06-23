@@ -51,4 +51,5 @@ dependencies {
     implementation(com.yapp.bol.Test.JUNIT)
     implementation(com.yapp.bol.Test.TEST_RUNNER)
     implementation(com.yapp.bol.Test.ESPRESSO_CORE)
+
 }
