@@ -46,8 +46,8 @@ class GameResultFragment : Fragment() {
         )
     }
 
-    private val resultRecordDialog by lazy {
-        ResultRecordDialog(
+    private val resultRecordDialog
+        get() = ResultRecordDialog(
             requireContext(),
             ResultRecordItem(
                 gameName = matchViewModel.gameName,
