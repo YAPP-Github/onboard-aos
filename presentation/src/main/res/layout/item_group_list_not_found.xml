@@ -30,7 +30,7 @@
         android:background="@drawable/bg_group_list"
         android:backgroundTint="#FF5F25"
         android:textColor="#F5F4F3"
-        android:text="@string/group_search_not_found_button"
+        android:text="@string/group_search_register"
         android:textSize="16dp" />
 
 </LinearLayout>
