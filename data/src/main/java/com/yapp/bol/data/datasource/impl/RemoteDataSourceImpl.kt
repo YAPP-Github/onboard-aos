@@ -81,7 +81,7 @@ class RemoteDataSourceImpl @Inject constructor(
     private fun getMimeType(fileName: String): String {
         return URLConnection.guessContentTypeFromName(fileName)
     }
-    
+
     companion object {
         const val FILE_KEY = "file"
     }
