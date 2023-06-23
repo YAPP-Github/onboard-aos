@@ -13,9 +13,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-/**
- * 테스트용으로 만들어둔 파일입니다.
- */
 @HiltViewModel
 class GroupSearchViewModel @Inject constructor(
     private val searchGroupUseCase: SearchGroupByKeywordUseCase,
