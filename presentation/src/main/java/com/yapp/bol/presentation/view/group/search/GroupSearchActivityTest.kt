@@ -1,7 +1,6 @@
 package com.yapp.bol.presentation.view.group.search
 
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseActivity
@@ -15,16 +14,13 @@ import kotlinx.coroutines.launch
  */
 @AndroidEntryPoint
 class GroupSearchActivityTest : BaseActivity<ActivityGroupSearchTestBinding>(R.layout.activity_group_search_test) {
-    override val viewModel: GroupSearchViewModel by viewModels()
+    val viewModel: GroupSearchViewModel by viewModels()
     private val adapter by lazy { GroupListAdapter() }
-
-    override fun initViewModel(viewModel: ViewModel) {
-        binding.lifecycleOwner = this@GroupSearchActivityTest
-        binding.viewmodel = this.viewModel
-    }
 
     override fun onCreateAction() {
         initPagingFlow()
+        binding.lifecycleOwner = this@GroupSearchActivityTest
+        binding.viewmodel = this.viewModel
         binding.viewGroupSearch
     }
 
