@@ -63,7 +63,7 @@ class GameResultAdapter(
         }
 
         private fun setClickListener(position: Int) {
-            binding.etGameScore.setOnKeyListener { v, keyCode, event ->
+            binding.etGameScore.setOnKeyListener { _, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                     val value = binding.etGameScore.text.toString()
                     if (value.isNotEmpty()) gameResultUpdateListener.sortPlayerScore()
