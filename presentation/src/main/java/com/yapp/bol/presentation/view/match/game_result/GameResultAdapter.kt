@@ -2,15 +2,18 @@ package com.yapp.bol.presentation.view.match.game_result
 
 import android.content.Context
 import android.graphics.Color
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.R
-import com.yapp.bol.presentation.databinding.RvMemberMatchItemBinding
+import com.yapp.bol.presentation.databinding.RvPlayerMatchItemBinding
 import com.yapp.bol.presentation.model.MemberResultItem
+import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
 
 class GameResultAdapter(
     private val context: Context,
@@ -18,13 +21,15 @@ class GameResultAdapter(
 ) : ListAdapter<MemberResultItem, GameResultAdapter.GameResultViewHolder>(diff) {
 
     interface GameResultUpdateListener {
-        val updatePlayerScore: (Int, Int) -> Unit
-        val changePlayerPosition: (Int, Int) -> Unit
+        fun updatePlayerScore(position: Int, value: Int?)
+        fun sortPlayerScore()
+        fun showKeyboard(editText: EditText)
+        fun moveScroll(position: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameResultViewHolder {
         val binding =
-            RvMemberMatchItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            RvPlayerMatchItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return GameResultViewHolder(binding, context, gameResultUpdateListener)
     }
 
@@ -36,31 +41,49 @@ class GameResultAdapter(
 
     override fun getItemId(position: Int) = position.toLong()
     class GameResultViewHolder(
-        private val binding: RvMemberMatchItemBinding,
+        private val binding: RvPlayerMatchItemBinding,
         private val context: Context,
         private val gameResultUpdateListener: GameResultUpdateListener,
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        private var currentAdapterPosition: Int = -1
-
         fun bind(item: MemberResultItem, position: Int) {
-            currentAdapterPosition = position
-            binding.tvMemberRank.text = String.format(context.resources.getString(R.string.game_result_rank), item.rank + 1)
-            if(item.rank == 0) binding.tvMemberRank.setTextColor(Color.parseColor("#FF4D0D"))
-            binding.tvMemberName.text = item.name
-            val score = if (item.score == 0) "" else item.score.toString()
-            binding.etGameScore.setText(score)
 
-            binding.etGameScore.doAfterTextChanged { text ->
-                val value = text.toString()
-                val intValue = if (value.isEmpty()) 0 else value.toInt()
-                gameResultUpdateListener.updatePlayerScore(position, intValue)
+            setTextView(item)
+            setClickListener(position)
+            setTextChangeListener(position)
+        }
+
+        private fun setTextView(item: MemberResultItem) {
+            binding.tvMemberRank.text =
+                String.format(context.resources.getString(R.string.game_result_rank), item.rank + 1)
+            if (item.rank == 0) binding.tvMemberRank.setTextColor(Color.parseColor("#FF4D0D"))
+            binding.tvMemberName.text = item.name
+            val score = if (item.score == null) EMPTY_STRING else item.score.toString()
+            binding.etGameScore.setText(score)
+        }
+
+        private fun setClickListener(position: Int) {
+            binding.etGameScore.setOnKeyListener { v, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
+                    val value = binding.etGameScore.text.toString()
+                    if (value.isNotEmpty()) gameResultUpdateListener.sortPlayerScore()
+                    gameResultUpdateListener.moveScroll(position + MOVE_SCROLL_POINT)
+                }
+                false
             }
 
             binding.root.setOnClickListener {
-                val value = binding.etGameScore.text.toString()
-                if (value.isEmpty()) return@setOnClickListener
-                gameResultUpdateListener.changePlayerPosition(position, value.toInt())
+                binding.etGameScore.requestFocus()
+                binding.etGameScore.setSelection(binding.etGameScore.text.length)
+                gameResultUpdateListener.showKeyboard(binding.etGameScore)
+            }
+        }
+
+        private fun setTextChangeListener(position: Int) {
+            binding.etGameScore.doAfterTextChanged { text ->
+                val value = text.toString()
+                val intValue = if (value.isEmpty()) null else value.toInt()
+                gameResultUpdateListener.updatePlayerScore(position, intValue)
             }
         }
     }
@@ -75,5 +98,7 @@ class GameResultAdapter(
                 return oldItem == newItem
             }
         }
+
+        const val MOVE_SCROLL_POINT = 3
     }
 }
