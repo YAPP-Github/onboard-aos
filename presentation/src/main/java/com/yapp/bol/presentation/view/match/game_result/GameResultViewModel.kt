@@ -11,7 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class GameResultViewModel @Inject constructor() : ViewModel() {
 
-    private val dynamicPlayers = ArrayList<MemberResultItem>()
+    val dynamicPlayers = ArrayList<MemberResultItem>()
     private var currentRank = 0
 
     private val _players = MutableLiveData(dynamicPlayers.toList())
@@ -33,12 +33,12 @@ class GameResultViewModel @Inject constructor() : ViewModel() {
         _recordCompleteIsEnabled.value = checkedRecordCompleteIsEnabled()
     }
 
-    fun sortPlayerScore() {
+    private fun sortPlayerScore() {
         dynamicPlayers.sortByDescending { it.score }
-        updatePlayers()
     }
 
-    private fun updatePlayers() {
+    fun updatePlayers() {
+        sortPlayerScore()
         _players.value = dynamicPlayers.mapIndexed { index, memberResultItem ->
             memberResultItem.copy(rank = setPlayerRank(index))
         }

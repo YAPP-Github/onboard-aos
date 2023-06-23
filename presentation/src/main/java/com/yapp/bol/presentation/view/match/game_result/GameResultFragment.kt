@@ -42,7 +42,7 @@ class GameResultFragment : Fragment() {
     private val keyboardVisibilityUtils by lazy {
         KeyboardVisibilityUtils(
             window = activity?.window ?: throw Exception(),
-            onHideKeyboard = gameResultViewModel::sortPlayerScore,
+            onHideKeyboard = gameResultViewModel::updatePlayers,
         )
     }
 
@@ -56,7 +56,6 @@ class GameResultFragment : Fragment() {
                 resultRecording = ::resultRecording
             )
         )
-    }
 
     private val gameResultAdapter by lazy {
         GameResultAdapter(
@@ -66,8 +65,8 @@ class GameResultFragment : Fragment() {
                     gameResultViewModel.updatePlayerScore(position, value)
                 }
 
-                override fun sortPlayerScore() {
-                    gameResultViewModel.sortPlayerScore()
+                override fun updatePlayers() {
+                    gameResultViewModel.updatePlayers()
                 }
 
                 override fun showKeyboard(editText: EditText) {
@@ -142,7 +141,7 @@ class GameResultFragment : Fragment() {
     private fun resultRecording() {
         lifecycleScope.launch {
             generateProgressBar()
-            delay(2000)
+            delay(1000)
             completeRecord()
         }
     }
