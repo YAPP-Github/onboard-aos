@@ -6,7 +6,6 @@ import android.graphics.Point
 import android.os.Build
 import android.view.ViewGroup
 import android.view.WindowManager
-import com.yapp.bol.presentation.utils.Constant.RESULT_RECORD_DIALOG_HEIGHT
 
 fun Context.dialogWidthResize(
     dialog: Dialog,
@@ -21,24 +20,19 @@ fun Context.dialogWidthResize(
         display.getSize(size)
 
         val window = dialog.window
-        val x = (size.x * widthRatio).toInt()
-        val height = if (isResultDialog) {
-            this.convertPxToDp(RESULT_RECORD_DIALOG_HEIGHT)
-        } else {
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        }
-        window?.setLayout(x, height)
+        val width = (size.x * widthRatio).toInt()
+        val resultDialogHeight = (size.y * 0.6f).toInt()
+        val height = if (isResultDialog) resultDialogHeight else ViewGroup.LayoutParams.WRAP_CONTENT
+
+        window?.setLayout(width, height)
     } else {
         val rect = windowManager.currentWindowMetrics.bounds
 
         val window = dialog.window
         val x = (rect.width() * widthRatio).toInt()
+        val resultDialogHeight = (rect.height() * 0.6f).toInt()
+        val height = if (isResultDialog) resultDialogHeight else ViewGroup.LayoutParams.WRAP_CONTENT
 
-        val height = if (isResultDialog) {
-            this.convertPxToDp(RESULT_RECORD_DIALOG_HEIGHT)
-        } else {
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        }
         window?.setLayout(x, height)
     }
 }
