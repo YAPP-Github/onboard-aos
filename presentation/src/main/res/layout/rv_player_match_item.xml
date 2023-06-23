@@ -32,7 +32,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
-        android:text="멤버 이름"
         android:textColor="@color/black"
         android:textSize="16dp"
         android:textStyle="bold"
@@ -57,7 +56,9 @@
         android:background="@android:color/transparent"
         android:hint="0"
         android:inputType="number"
+        android:singleLine="true"
         android:textColorHint="#DFDFDF"
+        android:textCursorDrawable="@drawable/ic_cursor"
         android:textSize="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tv_game_score_unit"
@@ -76,6 +77,5 @@
         app:layout_constraintBottom_toBottomOf="@+id/et_game_score"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/et_game_score" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

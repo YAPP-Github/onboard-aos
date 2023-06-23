@@ -1,4 +1,4 @@
-package com.yapp.bol.presentation.utils
+package com.yapp.bol.presentation.view.group.dialog
 
 import android.app.Dialog
 import android.content.Context
@@ -6,11 +6,10 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import com.yapp.bol.presentation.databinding.ProfileSettingDialogBinding
 import com.yapp.bol.presentation.utils.Converter.convertLengthToString
+import com.yapp.bol.presentation.utils.dialogWidthResize
 
 class ProfileSettingDialog(
     private val context: Context,

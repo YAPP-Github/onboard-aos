@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".view.match.game_result.GameResultFragment">
 
-
     <ImageView
         android:id="@+id/iv_calendar"
         android:layout_width="wrap_content"
@@ -18,11 +17,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_iv_calendar"
+        android:id="@+id/tv_calendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:text="23/05/13"
         android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_calendar"
         app:layout_constraintStart_toEndOf="@+id/iv_calendar"
@@ -35,7 +33,7 @@
         android:layout_marginStart="12dp"
         android:src="@drawable/ic_clock"
         app:layout_constraintBottom_toBottomOf="@+id/iv_calendar"
-        app:layout_constraintStart_toEndOf="@+id/tv_iv_calendar"
+        app:layout_constraintStart_toEndOf="@+id/tv_calendar"
         app:layout_constraintTop_toTopOf="@+id/iv_calendar" />
 
     <TextView
@@ -43,12 +41,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:text="12:37"
         android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_calendar"
         app:layout_constraintStart_toEndOf="@+id/iv_clock"
         app:layout_constraintTop_toTopOf="@+id/iv_calendar" />
-
 
     <TextView
         android:id="@+id/tv_game_record_guide"
@@ -56,16 +52,15 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="18dp"
         android:layout_marginTop="9dp"
-        android:text="테라포밍 마스 게임 결과를 입력해주세요 !"
+        android:text="@string/game_record_guide"
         android:textColor="@color/black"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_calendar" />
 
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_members"
+        android:id="@+id/rv_players"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="9dp"
@@ -76,7 +71,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_game_record_guide"
         app:layout_constraintVertical_chainStyle="packed"
-        tools:listitem="@layout/rv_member_match_item" />
+        tools:listitem="@layout/rv_player_match_item" />
 
     <TextView
         android:id="@+id/btn_record_complete"
@@ -87,13 +82,64 @@
         android:background="@drawable/bg_white_to_orange_radius_8dp"
         android:enabled="false"
         android:gravity="center"
-        android:text="기록 완료"
+        android:text="@string/game_record_complete"
         android:textColor="@drawable/tc_white_to_gray"
         android:textSize="14dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/loading_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/loading_background_color"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/tv_loading_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
+        android:text="@string/game_result_recording_text"
+        android:textColor="@color/profile_setting_btn_background_color"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/pb_loading"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateDrawable="@drawable/pb_loading"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_game_record_complete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/game_result_recording_complete"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
