@@ -16,7 +16,6 @@ abstract class BaseActivity<VD : ViewDataBinding>(@LayoutRes val layoutRes: Int)
         super.onCreate(savedInstanceState)
         binding.lifecycleOwner = this
 
-        initViewModel(viewModel)
         onCreateAction()
     }
 
