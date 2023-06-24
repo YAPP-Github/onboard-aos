@@ -1,8 +1,10 @@
 package com.yapp.bol.app.di
 
+import com.yapp.bol.data.repository.GroupRepositoryImpl
 import com.yapp.bol.data.repository.MockRepositoryImpl
 import com.yapp.bol.data.repository.auth.AuthRepositoryImpl
 import com.yapp.bol.domain.repository.AuthRepository
+import com.yapp.bol.domain.repository.GroupRepository
 import com.yapp.bol.domain.repository.MockRepository
 import dagger.Binds
 import dagger.Module
@@ -18,4 +20,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun bindAuthRepository(repository: AuthRepositoryImpl): AuthRepository
+
+    @Binds
+    abstract fun bindGroupRepository(repository: GroupRepositoryImpl): GroupRepository
 }

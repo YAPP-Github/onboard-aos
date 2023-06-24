@@ -1,6 +1,7 @@
 package com.yapp.bol.app.di
 
 import com.yapp.bol.app.BuildConfig
+import com.yapp.bol.data.remote.GroupApi
 import com.yapp.bol.data.remote.LoginApi
 import com.yapp.bol.data.utils.Utils.BASE_URL
 import dagger.Module
@@ -68,5 +69,11 @@ object NetworkModule {
     @Singleton
     fun provideOAuthApiService(retrofit: Retrofit): LoginApi {
         return retrofit.create(LoginApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGroupApiService(retrofit: Retrofit): GroupApi {
+        return retrofit.create(GroupApi::class.java)
     }
 }

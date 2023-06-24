@@ -6,5 +6,5 @@ data class GroupSearchItem(
     val description: String,
     val organization: String,
     val profileImageUrl: String,
-    val memberCount: String,
+    val memberCount: Int,
 )
