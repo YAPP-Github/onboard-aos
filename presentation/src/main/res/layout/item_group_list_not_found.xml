@@ -26,6 +26,10 @@
         android:layout_height="54dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="156dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:background="@drawable/bg_group_list"
+        android:backgroundTint="#FF5F25"
+        android:textColor="#F5F4F3"
         android:text="@string/group_search_not_found_button"
         android:textSize="16dp" />
 

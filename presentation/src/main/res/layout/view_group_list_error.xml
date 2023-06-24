@@ -38,6 +38,9 @@
                 android:layout_width="211dp"
                 android:layout_height="44dp"
                 android:text="@string/group_search_error_button"
+                android:background="@drawable/btn_radius_8"
+                android:backgroundTint="#FF5F25"
+                android:textColor="#F5F4F3"
                 android:textSize="14dp"
                 android:layout_marginTop="20dp"/>
 

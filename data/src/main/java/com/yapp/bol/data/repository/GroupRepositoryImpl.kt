@@ -15,7 +15,7 @@ class GroupRepositoryImpl @Inject constructor(
         name: String,
         page: Int,
         pageSize: Int
-    ): ApiResult<List<GroupSearchItem>> {
+    ): ApiResult<GroupSearchItem> {
         return groupDataSource.searchGroup(
             name = name,
             page = page,

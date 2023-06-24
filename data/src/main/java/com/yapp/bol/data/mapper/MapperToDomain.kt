@@ -3,6 +3,7 @@ package com.yapp.bol.data.mapper
 import com.yapp.bol.data.model.MockApiResponse
 import com.yapp.bol.data.model.group.GroupSearchApiResponse
 import com.yapp.bol.domain.model.ApiResult
+import com.yapp.bol.domain.model.GroupItem
 import com.yapp.bol.domain.model.GroupSearchItem
 import com.yapp.bol.domain.model.LoginItem
 
@@ -16,16 +17,21 @@ object MapperToDomain {
         )
     }
 
-    fun ApiResult<GroupSearchApiResponse>.toDomain(): ApiResult<List<GroupSearchItem>> {
+    fun ApiResult<GroupSearchApiResponse>.toDomain(): ApiResult<GroupSearchItem> {
         return when (this) {
-            is ApiResult.Success -> ApiResult.Success(data.toItem())
+            is ApiResult.Success -> ApiResult.Success(
+                GroupSearchItem(
+                    hasNext = this.data.hasNext,
+                    groupItemList = data.toItem(),
+                )
+            )
             is ApiResult.Error -> ApiResult.Error(exception)
         }
     }
 
-    private fun GroupSearchApiResponse.toItem(): List<GroupSearchItem> {
+    private fun GroupSearchApiResponse.toItem(): List<GroupItem> {
         return this.content.map { groupItem ->
-            GroupSearchItem(
+            GroupItem(
                 id = groupItem.id,
                 name = groupItem.name,
                 description = groupItem.description,

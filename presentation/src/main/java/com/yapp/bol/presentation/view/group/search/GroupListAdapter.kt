@@ -5,13 +5,14 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.R
+import com.yapp.bol.presentation.data.GroupSearchUiModel
 
 class GroupListAdapter : PagingDataAdapter<GroupSearchUiModel, RecyclerView.ViewHolder>(GROUP_LIST_COMPARATOR) {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val uiModel = getItem(position)
         uiModel?.let {
             when (uiModel) {
-                is GroupSearchUiModel.GroupList -> (holder as GroupListViewHolder).bind(uiModel.groupSearchItem)
+                is GroupSearchUiModel.GroupList -> (holder as GroupListViewHolder).bind(uiModel.groupItem)
                 is GroupSearchUiModel.DataNotFound -> (holder as GroupListNotFoundViewHolder).bind(uiModel.keyword)
             }
         }
@@ -44,7 +45,7 @@ class GroupListAdapter : PagingDataAdapter<GroupSearchUiModel, RecyclerView.View
                 // group list의 경우에는 id 비교해서 같은 id일 경우 같은 아이템으로 인식
                 return (
                     oldItem is GroupSearchUiModel.GroupList && newItem is GroupSearchUiModel.GroupList &&
-                        oldItem.groupSearchItem.id == newItem.groupSearchItem.id
+                        oldItem.groupItem.id == newItem.groupItem.id
                     )
             }
 
