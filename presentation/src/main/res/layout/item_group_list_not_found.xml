@@ -7,11 +7,13 @@
 
     <TextView
         android:id="@+id/tv_guide"
-        android:layout_width="wrap_content"
+        android:layout_width="256dp"
         android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:gravity="center"
         android:text="@string/group_search_not_found"
         android:textSize="16dp"
-        android:layout_marginTop="80dp"/>
+        android:layout_marginTop="38dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -30,7 +32,7 @@
         android:background="@drawable/bg_group_list"
         android:backgroundTint="#FF5F25"
         android:textColor="#F5F4F3"
-        android:text="@string/group_search_not_found_button"
+        android:text="@string/group_search_register"
         android:textSize="16dp" />
 
 </LinearLayout>

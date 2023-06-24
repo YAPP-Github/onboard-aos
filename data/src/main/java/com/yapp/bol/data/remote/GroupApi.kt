@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface GroupApi {
-    @GET("/v1/group/search")
+    @GET("/v1/group")
     suspend fun getGroupSearchResult(
         @Query("name") name: String,
         @Query("pageNumber") page: String,

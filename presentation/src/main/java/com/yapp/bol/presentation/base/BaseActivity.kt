@@ -5,11 +5,8 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.ViewModel
 
 abstract class BaseActivity<VD : ViewDataBinding>(@LayoutRes val layoutRes: Int) : AppCompatActivity() {
-
-    protected abstract val viewModel: ViewModel
 
     val binding: VD by lazy {
         DataBindingUtil.setContentView(this, layoutRes) as VD
@@ -19,7 +16,6 @@ abstract class BaseActivity<VD : ViewDataBinding>(@LayoutRes val layoutRes: Int)
         super.onCreate(savedInstanceState)
         binding.lifecycleOwner = this
 
-        initViewModel(viewModel)
         onCreateAction()
     }
 
@@ -33,8 +29,7 @@ abstract class BaseActivity<VD : ViewDataBinding>(@LayoutRes val layoutRes: Int)
         onResumeAction()
     }
 
-    abstract fun initViewModel(viewModel: ViewModel)
-    abstract fun onCreateAction()
+    protected open fun onCreateAction() {}
     protected open fun onStartAction() {}
     protected open fun onResumeAction() {}
 }

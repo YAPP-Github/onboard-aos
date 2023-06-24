@@ -26,7 +26,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/group_search_hint"
-                android:imeOptions="actionDone"
+                android:imeOptions="actionSearch"
                 android:background="@android:color/transparent"
                 android:inputType="text"
                 android:maxLines="1"
