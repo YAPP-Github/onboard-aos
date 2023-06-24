@@ -12,7 +12,6 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.ItemGroupListBinding
 
 class GroupListViewHolder(private val binding: ItemGroupListBinding) : RecyclerView.ViewHolder(binding.root) {
-  
     private val glide by lazy { Glide.with(binding.root) }
 
     init {
