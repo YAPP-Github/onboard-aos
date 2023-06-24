@@ -18,5 +18,14 @@
         android:id="@+id/memberSelectFragment"
         android:name="com.yapp.bol.presentation.view.match.member_select.MemberSelectFragment"
         android:label="fragment_member_select"
-        tools:layout="@layout/fragment_member_select" />
+        tools:layout="@layout/fragment_member_select" >
+        <action
+            android:id="@+id/action_memberSelectFragment_to_gameResultFragment"
+            app:destination="@id/gameResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameResultFragment"
+        android:name="com.yapp.bol.presentation.view.match.game_result.GameResultFragment"
+        android:label="fragment_game_result"
+        tools:layout="@layout/fragment_game_result" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.yapp.bol.presentation.utils
+package com.yapp.bol.presentation.view.group.dialog
 
 import android.app.Dialog
 import android.content.Context
@@ -6,12 +6,12 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import com.yapp.bol.presentation.databinding.ImageSettingDialogBinding
-
+import com.yapp.bol.presentation.utils.dialogWidthResize
 
 class ImageSettingDialog(
     private val context: Context,
     private val checkedGalleryAccess: () -> Unit,
-): Dialog(context) {
+) : Dialog(context) {
 
     private lateinit var binding: ImageSettingDialogBinding
 
@@ -20,7 +20,7 @@ class ImageSettingDialog(
         setContentView(binding.root)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        context.dialogWidthResize(this,0.9f)
+        context.dialogWidthResize(this, 0.9f)
 
         binding.btnMoveGallery.setOnClickListener {
             dismiss()

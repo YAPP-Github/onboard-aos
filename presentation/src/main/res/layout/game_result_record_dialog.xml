@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="462dp"
+    android:background="@drawable/bg_white_radius_12dp">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="39dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/bg_light_green_radius_8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_game_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:textColor="@color/image_setting_dialog_text_1"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/iv_calendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:src="@drawable/ic_calendar"
+        app:layout_constraintStart_toStartOf="@+id/tv_game_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_game_name" />
+
+    <TextView
+        android:id="@+id/tv_calendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_calendar"
+        app:layout_constraintStart_toEndOf="@+id/iv_calendar"
+        app:layout_constraintTop_toTopOf="@+id/iv_calendar" />
+
+    <ImageView
+        android:id="@+id/iv_clock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:src="@drawable/ic_clock"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_calendar"
+        app:layout_constraintStart_toEndOf="@+id/tv_calendar"
+        app:layout_constraintTop_toTopOf="@+id/iv_calendar" />
+
+    <TextView
+        android:id="@+id/tv_clock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_calendar"
+        app:layout_constraintStart_toEndOf="@+id/iv_clock"
+        app:layout_constraintTop_toTopOf="@+id/iv_calendar" />
+
+    <TextView
+        android:id="@+id/tv_player_count"
+        android:layout_width="72dp"
+        android:layout_height="22dp"
+        android:background="@drawable/bg_light_red_radius_12dp"
+        android:gravity="center"
+        android:text="@string/game_player_count"
+        android:textColor="@color/black"
+        android:textSize="11dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_clock"
+        app:layout_constraintEnd_toEndOf="@+id/view_guide_line_1"
+        app:layout_constraintTop_toTopOf="@+id/iv_clock" />
+
+    <View
+        android:id="@+id/view_guide_line_1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/gray_03"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_calendar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_players"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="6dp"
+        android:layout_marginVertical="16dp"
+        android:scrollbarFadeDuration="0"
+        android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toTopOf="@+id/view_guide_line_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_guide_line_1"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:listitem="@layout/rv_player_record_item" />
+
+    <View
+        android:id="@+id/view_guide_line_2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="18dp"
+        android:background="@color/gray_03"
+        app:layout_constraintBottom_toTopOf="@+id/tv_record_final_guide"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_record_final_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:text="@string/game_record_final_guide"
+        android:textColor="@color/orange_10"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_profile_complete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_profile_complete"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_orange_bottom_radius_12dp"
+        android:text="@string/complete_text"
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

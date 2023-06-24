@@ -27,5 +27,27 @@
     <string name="group_create_guide">모임 등록하기</string>
     <string name="group_creating_text">모임을 등록하는 중..</string>
 
+    <string name="game_result_record">게임 결과 기록</string>
     <string name="game_select_guide">플레이 할 보드게임을 선택해주세요</string>
+    <string name="play_select_guide">게임을 함께 플레이 한 멤버를 선택해주세요</string>
+    <string name="player_complete_guide">플레이어 선택 완료</string>
+    <string name="member_search_hint">멤버 검색</string>
+
+    <string name="guest_add_text">임시 멤버 추가</string>
+    <string name="guest_description_text">아직 온보드에 가입하지 않은 상대를 모임에\n임시 멤버로 추가하고 게임 기록을 남겨보세요.</string>
+    <string name="guest_name_hint">임시 멤버가 사용할 닉네임을 입력해주세요.</string>
+    <string name="guest_name_set_tip">Tip :임시 멤버의 닉네임은 기억하기 쉽게 만들어주세요.\n이후 온보드에 가입할 때 기록을 연동할 수 있습니다.</string>
+
+    <string name="search_result_nothing">\'%s\'에 대한 검색 결과가 없습니다.</string>
+    <string name="search_result_nothing_guide">함께 보드게임을 플레이한 상대가 온보드에\n 아직 없다면,임시 멤버로 추가해 기록해보세요!</string>
+    <string name="guest_add_nothing">임시 멤버 추가</string>
+
+    <string name="game_result_rank">%d위</string>
+    <string name="game_player_count">%d인 플레이</string>
+    <string name="game_record_final_guide">최종 기록 이후 점수 수정이 불가능합니다\n정말로 확정하시겠습니까?</string>
+    <string name="game_record_guide">%s 결과를 입력해주세요!</string>
+    <string name="game_result_recording_text">점수 기록 중..</string>
+    <string name="game_result_recording_complete">%s\n점수 기록이 완료되었습니다.</string>
+    <string name="game_record_complete">기록 완료</string>
+    <string name="game_record_hint">0</string>
 </resources>
