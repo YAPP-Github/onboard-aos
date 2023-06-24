@@ -18,7 +18,7 @@ interface GroupApi {
         @Body newGroupApiRequest: NewGroupApiRequest
     ): Response<NewGroupApiResponse>
 
-    @GET("v1/game/{groupId}")
+    @GET("/v1/group/{groupId}/game")
     suspend fun getGameList(
         @Path("groupId") groupId: Int,
     ): Response<GameApiResponse>

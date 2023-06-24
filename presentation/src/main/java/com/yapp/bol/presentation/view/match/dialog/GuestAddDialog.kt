@@ -1,4 +1,4 @@
-package com.yapp.bol.presentation.utils
+package com.yapp.bol.presentation.view.match.dialog
 
 import android.app.Dialog
 import android.content.Context
@@ -14,6 +14,7 @@ import androidx.core.widget.doOnTextChanged
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.GuestAddDialogBinding
 import com.yapp.bol.presentation.utils.Converter.convertLengthToString
+import com.yapp.bol.presentation.utils.dialogWidthResize
 import com.yapp.bol.presentation.view.match.member_select.ValidateCallBack
 
 class GuestAddDialog(
