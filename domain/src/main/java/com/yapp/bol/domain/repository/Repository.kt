@@ -25,4 +25,9 @@ interface Repository {
     ): Flow<ApiResult<NewGroupItem>>
 
     fun getGameList(groupId: Int): Flow<ApiResult<List<GameItem>>>
+
+    fun getValidateNickName(
+        groupId: Int,
+        nickname: String,
+    ): Flow<ApiResult<Boolean>>
 }

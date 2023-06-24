@@ -72,16 +72,10 @@ object OAuth {
     const val NAVER = "com.navercorp.nid:oauth:5.4.0"
 }
 
-object Glide {
-    const val GLIDE = "com.github.bumptech.glide:glide:4.13.0"
-    const val COMPILER = "com.github.bumptech.glide:compiler:4.13.0"
-}
-
 object DataStore {
     const val DATA_STORE = "androidx.datastore:datastore-preferences:$DATA_STORE_VERSION"
     const val DATA_STORE_CORE = "androidx.datastore:datastore-preferences-core:$DATA_STORE_VERSION"
 }
-
 
 object Test {
     const val JUNIT = "junit:junit:4.13.2"
@@ -96,6 +90,11 @@ object Firebase {
     const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
     const val GMS_AUTH = "com.google.android.gms:play-services-auth:20.5.0"
     const val GMS_CLASSPATH = "com.google.gms:google-services:4.3.15"
+}
+
+object Glide {
+    const val GLIDE = "com.github.bumptech.glide:glide:4.13.0"
+    const val COMPILER = "com.github.bumptech.glide:compiler:4.13.0"
 }
 
 object Navigation {

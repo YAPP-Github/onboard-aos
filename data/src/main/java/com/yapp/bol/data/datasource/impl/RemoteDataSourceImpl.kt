@@ -6,6 +6,7 @@ import com.yapp.bol.data.model.OAuthApiRequest
 import com.yapp.bol.data.model.OAuthApiResponse
 import com.yapp.bol.data.model.file_upload.FileUploadResponse
 import com.yapp.bol.data.model.group.GameApiResponse
+import com.yapp.bol.data.model.group.MemberValidApiResponse
 import com.yapp.bol.data.model.group.NewGroupApiRequest
 import com.yapp.bol.data.model.group.NewGroupApiResponse
 import com.yapp.bol.data.remote.GroupApi
@@ -20,6 +21,7 @@ import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
+import java.net.URLConnection
 import javax.inject.Inject
 
 class RemoteDataSourceImpl @Inject constructor(
@@ -36,10 +38,9 @@ class RemoteDataSourceImpl @Inject constructor(
         token: String,
         file: File
     ): Flow<ApiResult<FileUploadResponse>> = flow {
-
-        val fileBody = RequestBody.create(MediaType.parse(MEDIA_TYPE_IMAGE), file)
+        val fileBody = RequestBody.create(MediaType.parse(getMimeType(file.name)), file)
         val filePart = MultipartBody.Part.createFormData(FILE_KEY, file.name, fileBody)
-        val purpose = RequestBody.create(MediaType.parse(MEDIA_TYPE_TEXT), GROUP_IMAGE)
+        val purpose = RequestBody.create(MediaType.parse(getMimeType(file.name)), GROUP_IMAGE)
 
         val result = safeApiCall {
             imageFileApi.postFileUpload(token = token.convertRequestToken(), file = filePart, purpose = purpose)
@@ -65,13 +66,23 @@ class RemoteDataSourceImpl @Inject constructor(
         emit(result)
     }
 
+    override fun getValidateNickName(
+        groupId: Int,
+        nickname: String,
+    ): Flow<ApiResult<MemberValidApiResponse>> = flow {
+        val result = safeApiCall { groupApi.getValidateNickName(groupId, nickname) }
+        emit(result)
+    }
+
     private fun String.convertRequestToken(): String {
         return "Bearer $this"
     }
 
+    private fun getMimeType(fileName: String): String {
+        return URLConnection.guessContentTypeFromName(fileName)
+    }
+
     companion object {
-        const val MEDIA_TYPE_IMAGE = "image/*"
-        const val MEDIA_TYPE_TEXT = "text/*"
         const val FILE_KEY = "file"
     }
 }

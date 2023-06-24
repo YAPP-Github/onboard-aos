@@ -8,15 +8,14 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface RepositoryModule {
-    @Binds
-    @Singleton
-    fun bindRepository(repositoryImpl: RepositoryImpl): Repository
+abstract class RepositoryModule {
 
     @Binds
-    fun bindAuthRepository(repository: AuthRepositoryImpl): AuthRepository
+    abstract fun bindRepository(repositoryImpl: RepositoryImpl): Repository
+
+    @Binds
+    abstract fun bindAuthRepository(repository: AuthRepositoryImpl): AuthRepository
 }

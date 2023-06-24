@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_white_radius_16dp">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="26dp"
+        android:text="@string/guest_add_text"
+        android:textColor="@color/image_setting_dialog_text_1"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/guest_description_text"
+        android:textColor="@color/image_setting_dialog_text_1"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tv_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+    <TextView
+        android:id="@+id/tv_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/guest_name_set_tip"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="@+id/tv_description"
+        app:layout_constraintTop_toBottomOf="@+id/tv_description" />
+
+
+    <View
+        android:id="@+id/view_guest_name_container"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginHorizontal="26dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_white_radius_8dp"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tip" />
+
+    <EditText
+        android:id="@+id/et_guest_name"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="33dp"
+        android:background="@android:color/transparent"
+        android:hint="@string/guest_name_hint"
+        android:maxLength="10"
+        android:singleLine="true"
+        android:textColorHint="@android:color/darker_gray"
+        android:textCursorDrawable="@drawable/ic_cursor"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view_guest_name_container"
+        app:layout_constraintEnd_toEndOf="@+id/view_guest_name_container"
+        app:layout_constraintStart_toEndOf="@+id/iv_guest_image"
+        app:layout_constraintTop_toTopOf="@+id/view_guest_name_container" />
+
+    <ImageView
+        android:id="@+id/iv_guest_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:src="@drawable/ic_empty_dice_small"
+        app:layout_constraintBottom_toBottomOf="@+id/view_guest_name_container"
+        app:layout_constraintStart_toStartOf="@+id/view_guest_name_container"
+        app:layout_constraintTop_toTopOf="@+id/view_guest_name_container" />
+
+    <TextView
+        android:id="@+id/tv_guest_name_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/profile_name_count"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/view_guest_name_container"
+        app:layout_constraintTop_toBottomOf="@+id/view_guest_name_container" />
+
+    <Button
+        android:id="@+id/btn_guest_add"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/bg_white_to_orange"
+        android:enabled="false"
+        android:text="@string/guest_add_text"
+        android:textColor="@drawable/tc_white_to_gray"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_guest_name_container" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
