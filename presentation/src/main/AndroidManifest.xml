@@ -3,6 +3,13 @@
 
     <application>
         <activity
+            android:name=".view.group.search.GroupSearchActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".view.login.GoogleTestActivity"
             android:exported="false">
             <meta-data
@@ -22,9 +29,7 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>
-
-        <!-- Kakao 로그인 -->
+        </activity> <!-- Kakao 로그인 -->
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">

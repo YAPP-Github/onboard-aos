@@ -1,1 +1,10 @@
-<resources></resources>
+<resources>
+    <!-- group search -->
+    <string name="group_search_hint">모임 이름 검색</string>
+    <string name="group_search_register">우리 모임 새로 등록하기 +</string>
+    <string name="group_search_title">활동하고 계신\n보드게임 모임을 찾아주세요.</string>
+    <string name="group_search_list_description">지금 인기 있는 모임</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
