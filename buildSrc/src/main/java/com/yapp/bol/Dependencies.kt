@@ -100,3 +100,7 @@ object Glide {
     const val GLIDE = "com.github.bumptech.glide:glide:4.11.0"
     const val GLIDE_COMPILER = "com.github.bumptech.glide:compiler:4.11.0"
 }
+
+object Shimmer {
+    const val SHIMMER = "com.facebook.shimmer:shimmer:0.5.0"
+}

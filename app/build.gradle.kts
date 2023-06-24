@@ -41,6 +41,11 @@ android {
     kotlinOptions {
         jvmTarget = com.yapp.bol.Applications.jvmTarget
     }
+
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
 }
 
 dependencies {

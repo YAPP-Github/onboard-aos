@@ -30,11 +30,11 @@ class GroupListViewHolder(private val binding: ItemGroupListBinding) : RecyclerV
         this.groupItem = groupItem
 
         binding.apply {
-            tvGroupDescription.text = ""
-            tvGroupName.text = ""
-            tvGroupOrganization.text = ""
-            tvGroupSize.text = ""
-            ivGroupImage.setImageWithGlide(" glide image uri ")
+            tvGroupDescription.text = groupItem.description
+            tvGroupName.text = groupItem.name
+            tvGroupOrganization.text = groupItem.organization
+            tvGroupSize.text = groupItem.memberCount.toString()
+            ivGroupImage.setImageWithGlide(groupItem.profileImageUrl)
         }
     }
 
