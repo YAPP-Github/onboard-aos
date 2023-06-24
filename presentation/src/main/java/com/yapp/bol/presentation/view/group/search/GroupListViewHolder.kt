@@ -12,10 +12,12 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.ItemGroupListBinding
 
 class GroupListViewHolder(private val binding: ItemGroupListBinding) : RecyclerView.ViewHolder(binding.root) {
+  
     private val glide by lazy { Glide.with(binding.root) }
 
     init {
         binding.root.setOnClickListener {
+
             // TODO : 다음 fragment 로 전환 코드 필요
         }
     }
