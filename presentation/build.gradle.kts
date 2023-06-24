@@ -89,6 +89,13 @@ dependencies {
     implementation(com.yapp.bol.OAuth.NAVER)
     implementation(com.yapp.bol.OAuth.KAKAO)
     implementation(com.yapp.bol.Firebase.GMS_AUTH)
+
+    // Paging3
+    implementation(com.yapp.bol.AndroidX.PAGING)
+
+    // Glide
+    implementation(com.yapp.bol.Glide.GLIDE)
+    kapt(com.yapp.bol.Glide.GLIDE_COMPILER)
 }
 
 fun getProperty(propertyKey: String): String {
