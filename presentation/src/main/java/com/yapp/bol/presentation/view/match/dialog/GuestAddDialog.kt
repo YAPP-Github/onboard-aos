@@ -1,4 +1,4 @@
-package com.yapp.bol.presentation.utils
+package com.yapp.bol.presentation.view.match.dialog
 
 import android.app.Dialog
 import android.content.Context
@@ -7,11 +7,14 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.view.Gravity
+import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.GuestAddDialogBinding
 import com.yapp.bol.presentation.utils.Converter.convertLengthToString
+import com.yapp.bol.presentation.utils.dialogWidthResize
 import com.yapp.bol.presentation.view.match.member_select.ValidateCallBack
 
 class GuestAddDialog(
@@ -41,6 +44,19 @@ class GuestAddDialog(
             binding.tvGuestNameCount.text = convertLengthToString(PROFILE_NAME_MAX_LENGTH, start + count)
             getValidateNickName(text.toString())
         }
+        this.window?.setGravity(Gravity.BOTTOM)
+    }
+
+    override fun show() {
+        super.show()
+        binding.etGuestName.requestFocus()
+        window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+    }
+
+    override fun dismiss() {
+        binding.etGuestName.text = null
+        binding.btnGuestAdd.isEnabled = false
+        super.dismiss()
     }
 
     private fun setGuestAddDescription() {

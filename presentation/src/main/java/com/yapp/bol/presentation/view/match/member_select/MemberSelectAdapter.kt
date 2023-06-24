@@ -34,6 +34,10 @@ class MemberSelectAdapter(
             binding.btnMemberDelete.setOnClickListener {
                 memberDeleteClickListener(item)
             }
+
+            binding.root.setOnClickListener {
+                memberDeleteClickListener(item)
+            }
         }
     }
 

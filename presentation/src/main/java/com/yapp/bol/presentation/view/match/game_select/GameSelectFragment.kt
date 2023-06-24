@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.FragmentGameSeleteBinding
@@ -19,8 +20,10 @@ class GameSelectFragment : Fragment() {
     private val binding get() = checkNotNull(_binding)
 
     private val matchViewModel: MatchViewModel by activityViewModels()
+    private val gameSelectViewModel: GameSelectViewModel by viewModels()
 
     private val gameSelectAdapter = GameSelectAdapter { gameName ->
+        matchViewModel.updateGameName(gameName)
         val bundle = Bundle().apply {
             putString(GAME_NAME, gameName)
         }
@@ -40,9 +43,11 @@ class GameSelectFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.rvGameItems.adapter = gameSelectAdapter
-        matchViewModel.gameList.observe(viewLifecycleOwner) {
+
+        gameSelectViewModel.gameList.observe(viewLifecycleOwner) {
             gameSelectAdapter.submitList(it)
         }
+        matchViewModel.updateToolBarTitle(requireContext().resources.getString(R.string.game_result_record))
     }
 
     override fun onDestroyView() {

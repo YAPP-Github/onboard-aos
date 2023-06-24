@@ -31,11 +31,11 @@
         android:id="@+id/view_search_container"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="12dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="9dp"
         android:background="@drawable/bg_stroke_gray_radius_8dp"
-        app:layout_constraintEnd_toStartOf="@+id/btn_temp_member"
-        app:layout_constraintHorizontal_weight="0.875"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rv_member_select" />
 
@@ -43,10 +43,9 @@
         android:id="@+id/et_search_member"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginEnd="9dp"
         android:background="@android:color/transparent"
         android:gravity="center_vertical"
+        android:paddingStart="18dp"
         android:hint="@string/member_search_hint"
         android:imeOptions="actionSearch"
         android:inputType="text"
@@ -70,20 +69,6 @@
         app:layout_constraintEnd_toEndOf="@+id/view_search_container"
         app:layout_constraintTop_toTopOf="@+id/view_search_container" />
 
-    <ImageButton
-        android:id="@+id/btn_temp_member"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/bg_stroke_gray_radius_8dp"
-        android:src="@drawable/ic_plus"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="0.125"
-        app:layout_constraintStart_toEndOf="@+id/view_search_container"
-        app:layout_constraintTop_toBottomOf="@+id/rv_member_select" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_members"
         android:layout_width="0dp"
@@ -103,8 +88,10 @@
         android:layout_margin="9dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_player_complete"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_search_container" />
+        app:layout_constraintTop_toBottomOf="@+id/view_search_container"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/tv_search_result_nothing"
@@ -155,7 +142,6 @@
         app:layout_constraintTop_toTopOf="@+id/btn_guest_add_nothing" />
 
     <ImageView
-        android:id="@+id/iv_plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -163,6 +149,18 @@
         app:layout_constraintBottom_toBottomOf="@+id/btn_guest_add_nothing"
         app:layout_constraintStart_toEndOf="@+id/tv_guest_add_nothing"
         app:layout_constraintTop_toTopOf="@+id/btn_guest_add_nothing" />
+
+    <TextView
+        android:id="@+id/btn_temp_member"
+        android:layout_width="124dp"
+        android:layout_height="32dp"
+        android:background="@drawable/bg_white_radius_28dp"
+        android:text="@string/guest_add_text"
+        android:gravity="center"
+        android:layout_marginBottom="26dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_player_complete"
+        app:layout_constraintEnd_toEndOf="@+id/btn_player_complete"
+        app:layout_constraintStart_toStartOf="@+id/btn_player_complete" />
 
     <TextView
         android:id="@+id/btn_player_complete"
