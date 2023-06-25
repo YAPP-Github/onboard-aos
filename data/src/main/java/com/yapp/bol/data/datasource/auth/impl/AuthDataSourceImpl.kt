@@ -4,9 +4,7 @@ import com.yapp.bol.data.datasource.auth.AuthDataSource
 import com.yapp.bol.data.datasource.auth.impl.datastore.AuthManager
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
 class AuthDataSourceImpl @Inject constructor(
     private val authManager: AuthManager,
 ) : AuthDataSource {

@@ -97,8 +97,12 @@ object Firebase {
 }
 
 object Glide {
-    const val GLIDE = "com.github.bumptech.glide:glide:4.11.0"
-    const val GLIDE_COMPILER = "com.github.bumptech.glide:compiler:4.11.0"
+    const val GLIDE = "com.github.bumptech.glide:glide:4.13.0"
+    const val COMPILER = "com.github.bumptech.glide:compiler:4.13.0"
+}
+
+object Navigation {
+    const val NAVIGATION = "androidx.navigation:navigation-dynamic-features-fragment:2.5.3"
 }
 
 object Shimmer {
