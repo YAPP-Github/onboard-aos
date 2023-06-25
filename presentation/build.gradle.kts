@@ -56,6 +56,7 @@ android {
 dependencies {
 
     implementation(project(mapOf("path" to ":domain")))
+    implementation(project(mapOf("path" to ":designsystem")))
 
     implementation(com.yapp.bol.KTX.CORE)
     implementation(com.yapp.bol.AndroidX.APP_COMPAT)
