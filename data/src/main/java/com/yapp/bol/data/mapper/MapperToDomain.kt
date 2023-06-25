@@ -1,6 +1,5 @@
 package com.yapp.bol.data.mapper
 
-import com.yapp.bol.data.model.MockApiResponse
 import com.yapp.bol.data.model.group.GroupSearchApiResponse
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.GroupItem
@@ -11,7 +10,6 @@ import com.yapp.bol.data.model.group.GameApiResponse
 import com.yapp.bol.data.model.group.GameDTO
 import com.yapp.bol.data.model.group.MemberValidApiResponse
 import com.yapp.bol.data.model.group.NewGroupApiResponse
-import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.model.NewGroupItem
