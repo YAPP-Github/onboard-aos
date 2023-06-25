@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.yapp.bol.presentation"
+    namespace = "com.yapp.bol.designsystem"
     compileSdk = com.yapp.bol.Applications.compileSdk
 
     defaultConfig {
