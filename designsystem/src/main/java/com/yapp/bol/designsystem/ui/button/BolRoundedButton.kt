@@ -27,12 +27,12 @@ class BolRoundedButton : ConstraintLayout {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BolRoundedButton)
 
         try {
-            buttonType = ButtonType.fromParams(typedArray.getInt(
-                R.styleable.BolRoundedButton_bolButtonType, ButtonType.RoundedSquareType.ordinal
-            ))
-            buttonColor = ButtonColor.fromParams(typedArray.getInt(
-                R.styleable.BolRoundedButton_bolButtonColor, ButtonColor.Orange.ordinal
-            ))
+            buttonType = ButtonType.fromParams(
+                typedArray.getInt(R.styleable.BolRoundedButton_bolButtonType, ButtonType.RoundedSquareType.ordinal)
+            )
+            buttonColor = ButtonColor.fromParams(
+                typedArray.getInt(R.styleable.BolRoundedButton_bolButtonColor, ButtonColor.Orange.ordinal)
+            )
             buttonText = typedArray.getString(R.styleable.BolRoundedButton_bolButtonText)
 
             setEnableButton()
