@@ -9,8 +9,8 @@ android {
     compileSdk = com.yapp.bol.Applications.compileSdk
 
     defaultConfig {
-        minSdk = 21
-        targetSdk = 32
+        minSdk = com.yapp.bol.Applications.minSdk
+        targetSdk = com.yapp.bol.Applications.targetSdk
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
