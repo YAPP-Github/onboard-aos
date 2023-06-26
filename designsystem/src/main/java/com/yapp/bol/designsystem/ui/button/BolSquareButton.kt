@@ -54,7 +54,7 @@ class BolSquareButton : ConstraintLayout {
 
         binding.btnBol.apply {
             isEnabled = false
-            background = AppCompatResources.getDrawable(context,R.drawable.bg_square_btn_disable)
+            background = AppCompatResources.getDrawable(context, R.drawable.bg_square_btn_disable)
             setTextColor(getDisableTextColor())
         }
     }
