@@ -6,6 +6,7 @@ import com.yapp.bol.data.model.OAuthApiRequest
 import com.yapp.bol.data.model.OAuthApiResponse
 import com.yapp.bol.data.model.file_upload.FileUploadResponse
 import com.yapp.bol.data.model.group.GameApiResponse
+import com.yapp.bol.data.model.group.MemberListResponse
 import com.yapp.bol.data.model.group.MemberValidApiResponse
 import com.yapp.bol.data.model.group.NewGroupApiRequest
 import com.yapp.bol.data.model.group.NewGroupApiResponse
@@ -71,6 +72,16 @@ class RemoteDataSourceImpl @Inject constructor(
         nickname: String,
     ): Flow<ApiResult<MemberValidApiResponse>> = flow {
         val result = safeApiCall { groupApi.getValidateNickName(groupId, nickname) }
+        emit(result)
+    }
+
+    override fun getMemberList(
+        groupId: Int,
+        pageSize: Int,
+        cursor: String?,
+        nickname: String?,
+    ): Flow<ApiResult<MemberListResponse>> = flow {
+        val result = safeApiCall { groupApi.getMemberList(groupId, pageSize, cursor, nickname) }
         emit(result)
     }
 

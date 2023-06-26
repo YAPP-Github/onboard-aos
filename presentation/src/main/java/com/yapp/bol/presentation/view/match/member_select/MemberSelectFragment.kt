@@ -34,9 +34,9 @@ class MemberSelectFragment : Fragment() {
         memberSelectViewModel.checkedSelectMembers(member)
         memberSelectViewModel.clearMembers(member.id, getInputTextValue())
     }
-    private val membersAdapter = MembersAdapter { member, isChecked ->
+    private val membersAdapter = MembersAdapter { member, position, isChecked ->
         memberSelectViewModel.checkedSelectMembers(member)
-        memberSelectViewModel.updateMemberIsChecked(member.id, isChecked)
+        memberSelectViewModel.updateMemberIsChecked(position, isChecked)
     }
 
     private val keyboardManager by lazy {

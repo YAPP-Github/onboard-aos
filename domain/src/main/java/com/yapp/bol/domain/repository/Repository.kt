@@ -3,6 +3,7 @@ package com.yapp.bol.domain.repository
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
+import com.yapp.bol.domain.model.MemberItem
 import com.yapp.bol.domain.model.NewGroupItem
 import kotlinx.coroutines.flow.Flow
 import java.io.File
@@ -30,4 +31,11 @@ interface Repository {
         groupId: Int,
         nickname: String,
     ): Flow<ApiResult<Boolean>>
+
+    fun getMemberList(
+        groupId: Int,
+        pageSize: Int,
+        cursor: String?,
+        nickname: String?,
+    ): Flow<ApiResult<List<MemberItem>>>
 }

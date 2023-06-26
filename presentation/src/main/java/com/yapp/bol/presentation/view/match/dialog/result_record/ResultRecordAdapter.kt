@@ -28,7 +28,7 @@ class ResultRecordAdapter : ListAdapter<MemberResultItem, ResultRecordAdapter.Ga
         fun bind(item: MemberResultItem) {
             val rank = item.rank + 1
             binding.tvMemberRank.text = rank.toString()
-            binding.tvMemberName.text = item.name
+            binding.tvMemberName.text = item.nickname
             binding.tvMemberScore.text = item.score.toString()
             val textColor = if (item.rank == 0) Color.parseColor("#FF4D0D") else Color.BLACK
             binding.tvMemberRank.setTextColor(textColor)

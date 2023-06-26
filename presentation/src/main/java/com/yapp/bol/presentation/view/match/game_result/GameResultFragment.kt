@@ -13,7 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.FragmentGameResultBinding
-import com.yapp.bol.presentation.model.MemberItem
+import com.yapp.bol.presentation.model.MemberInfo
 import com.yapp.bol.presentation.model.ResultRecordItem
 import com.yapp.bol.presentation.utils.KeyboardManager
 import com.yapp.bol.presentation.view.match.MatchViewModel
@@ -90,7 +90,7 @@ class GameResultFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val players = arguments?.getParcelableArrayList<MemberItem>(PLAYERS)
+        val players = arguments?.getParcelableArrayList<MemberInfo>(PLAYERS)
         gameResultViewModel.initPlayers(players ?: arrayListOf())
         binding.rvPlayers.adapter = gameResultAdapter
         setTextView()

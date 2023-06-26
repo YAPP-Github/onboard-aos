@@ -9,6 +9,7 @@ import com.yapp.bol.data.mapper.MapperToDomain.validToDomain
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
+import com.yapp.bol.domain.model.MemberItem
 import com.yapp.bol.domain.model.NewGroupItem
 import com.yapp.bol.domain.repository.Repository
 import kotlinx.coroutines.flow.Flow
@@ -50,6 +51,17 @@ class RepositoryImpl @Inject constructor(
     override fun getValidateNickName(groupId: Int, nickname: String): Flow<ApiResult<Boolean>> {
         return remoteDataSource.getValidateNickName(groupId, nickname).map {
             it.validToDomain()
+        }
+    }
+
+    override fun getMemberList(
+        groupId: Int,
+        pageSize: Int,
+        cursor: String?,
+        nickname: String?,
+    ): Flow<ApiResult<List<MemberItem>>> {
+        return remoteDataSource.getMemberList(groupId, pageSize, cursor, nickname).map {
+            it.toDomain()
         }
     }
 }

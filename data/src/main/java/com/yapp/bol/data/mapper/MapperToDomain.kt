@@ -4,11 +4,14 @@ import com.yapp.bol.data.model.OAuthApiResponse
 import com.yapp.bol.data.model.file_upload.FileUploadResponse
 import com.yapp.bol.data.model.group.GameApiResponse
 import com.yapp.bol.data.model.group.GameDTO
+import com.yapp.bol.data.model.group.MemberDTO
+import com.yapp.bol.data.model.group.MemberListResponse
 import com.yapp.bol.data.model.group.MemberValidApiResponse
 import com.yapp.bol.data.model.group.NewGroupApiResponse
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
+import com.yapp.bol.domain.model.MemberItem
 import com.yapp.bol.domain.model.NewGroupItem
 
 internal object MapperToDomain {
@@ -44,6 +47,15 @@ internal object MapperToDomain {
         )
     }
 
+    private fun MemberDTO.toItem(): MemberItem {
+        return MemberItem(
+            id = this.id,
+            role = this.role,
+            nickname = this.nickname,
+            level = this.level,
+        )
+    }
+
     fun ApiResult<FileUploadResponse>.fileUploadToDomain(): ApiResult<String> {
         return when (this) {
             is ApiResult.Success -> ApiResult.Success(data.url)
@@ -68,6 +80,13 @@ internal object MapperToDomain {
     fun ApiResult<MemberValidApiResponse>.validToDomain(): ApiResult<Boolean> {
         return when (this) {
             is ApiResult.Success -> ApiResult.Success(data.isAvailable)
+            is ApiResult.Error -> ApiResult.Error(exception)
+        }
+    }
+
+    fun ApiResult<MemberListResponse>.toDomain(): ApiResult<List<MemberItem>> {
+        return when (this) {
+            is ApiResult.Success -> ApiResult.Success(data.contents.map { it.toItem() })
             is ApiResult.Error -> ApiResult.Error(exception)
         }
     }

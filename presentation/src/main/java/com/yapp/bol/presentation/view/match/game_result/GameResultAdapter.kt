@@ -57,7 +57,7 @@ class GameResultAdapter(
                 String.format(context.resources.getString(R.string.game_result_rank), item.rank + 1)
             val textColor = if (item.rank == 0) Color.parseColor("#FF4D0D") else Color.GRAY
             binding.tvMemberRank.setTextColor(textColor)
-            binding.tvMemberName.text = item.name
+            binding.tvMemberName.text = item.nickname
             val score = if (item.score == null) EMPTY_STRING else item.score.toString()
             binding.etGameScore.setText(score)
         }
