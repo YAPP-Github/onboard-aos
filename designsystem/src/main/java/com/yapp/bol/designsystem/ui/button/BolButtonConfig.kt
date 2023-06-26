@@ -6,7 +6,7 @@ enum class ButtonType() {
 
     companion object {
         fun fromParams(id: Int): ButtonType {
-            return when(id) {
+            return when (id) {
                 RoundedSquareType.ordinal -> RoundedSquareType
                 BottomRoundedSquareType.ordinal -> BottomRoundedSquareType
                 else -> throw IllegalArgumentException()
@@ -21,7 +21,7 @@ enum class ButtonColor() {
 
     companion object {
         fun fromParams(id: Int): ButtonColor {
-            return when(id) {
+            return when (id) {
                 Orange.ordinal -> Orange
                 Transparent.ordinal -> Transparent
                 else -> throw IllegalArgumentException()
