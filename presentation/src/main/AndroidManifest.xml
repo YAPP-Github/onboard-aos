@@ -7,6 +7,7 @@
     <application>
         <activity
             android:name=".view.match.MatchActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".view.group.NewGroupCompleteActivity"

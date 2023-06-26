@@ -14,7 +14,6 @@ import com.yapp.bol.presentation.utils.isInputTextValid
 import com.yapp.bol.presentation.view.group.NewGroupActivity.Companion.ACCESS_CODE_KEY
 import com.yapp.bol.presentation.view.match.MatchActivity
 
-
 class NewGroupCompleteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNewGroupCompleteBinding

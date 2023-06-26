@@ -1,8 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.match.member_select.MemberSelectFragment">
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tv_member_select_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="18dp"
+        android:text="@string/play_select_guide"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_member_select"
+        android:layout_width="0dp"
+        android:layout_height="96dp"
+        android:layout_marginHorizontal="24dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_member_select_guide"
+        tools:listitem="@layout/rv_member_select_item" />
+
+    <View
+        android:id="@+id/view_search_container"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bg_stroke_gray_radius_8dp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_temp_member"
+        app:layout_constraintHorizontal_weight="0.875"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_member_select" />
+
+    <EditText
+        android:id="@+id/et_search_member"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="9dp"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
+        android:hint="@string/member_search_hint"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:singleLine="true"
+        android:textColorHint="@color/hint_text_color"
+        android:textCursorDrawable="@drawable/ic_cursor"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view_search_container"
+        app:layout_constraintEnd_toStartOf="@+id/iv_search_icon"
+        app:layout_constraintStart_toStartOf="@+id/view_search_container"
+        app:layout_constraintTop_toTopOf="@+id/view_search_container" />
+
+    <ImageView
+        android:id="@+id/iv_search_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="12dp"
+        android:layout_marginEnd="13.2dp"
+        android:src="@drawable/ic_search"
+        app:layout_constraintBottom_toBottomOf="@+id/view_search_container"
+        app:layout_constraintEnd_toEndOf="@+id/view_search_container"
+        app:layout_constraintTop_toTopOf="@+id/view_search_container" />
+
+    <ImageButton
+        android:id="@+id/btn_temp_member"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/bg_stroke_gray_radius_8dp"
+        android:src="@drawable/ic_plus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="0.125"
+        app:layout_constraintStart_toEndOf="@+id/view_search_container"
+        app:layout_constraintTop_toBottomOf="@+id/rv_member_select" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_members"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="9dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/btn_player_complete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_search_container"
+        tools:listitem="@layout/rv_member_item" />
+
+    <View
+        android:id="@+id/view_search_result_nothing"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="9dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_player_complete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_search_container" />
+
+    <TextView
+        android:id="@+id/tv_search_result_nothing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:text="@string/search_result_nothing"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/view_search_result_nothing"
+        app:layout_constraintStart_toStartOf="@+id/view_search_result_nothing"
+        app:layout_constraintTop_toTopOf="@+id/view_search_result_nothing" />
+
+    <TextView
+        android:id="@+id/tv_search_result_nothing_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/search_result_nothing_guide"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/view_search_result_nothing"
+        app:layout_constraintStart_toStartOf="@+id/view_search_result_nothing"
+        app:layout_constraintTop_toBottomOf="@+id/tv_search_result_nothing" />
+
+    <Button
+        android:id="@+id/btn_guest_add_nothing"
+        android:layout_width="124dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/bg_stroke_gray_radius_28dp"
+        app:layout_constraintEnd_toEndOf="@+id/view_search_result_nothing"
+        app:layout_constraintStart_toStartOf="@+id/view_search_result_nothing"
+        app:layout_constraintTop_toBottomOf="@+id/tv_search_result_nothing_guide" />
+
+    <TextView
+        android:id="@+id/tv_guest_add_nothing"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
+        android:paddingStart="20dp"
+        android:text="@string/guest_add_nothing"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_guest_add_nothing"
+        app:layout_constraintStart_toStartOf="@+id/btn_guest_add_nothing"
+        app:layout_constraintTop_toTopOf="@+id/btn_guest_add_nothing" />
+
+    <ImageView
+        android:id="@+id/iv_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:src="@drawable/ic_plus_small"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_guest_add_nothing"
+        app:layout_constraintStart_toEndOf="@+id/tv_guest_add_nothing"
+        app:layout_constraintTop_toTopOf="@+id/btn_guest_add_nothing" />
+
+    <TextView
+        android:id="@+id/btn_player_complete"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginBottom="26dp"
+        android:background="@drawable/bg_white_to_orange_radius_8dp"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="@string/player_complete_guide"
+        android:textColor="@drawable/tc_white_to_gray"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

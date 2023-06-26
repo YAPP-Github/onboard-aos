@@ -14,25 +14,36 @@ import com.yapp.bol.presentation.databinding.ActivityNewGroupBinding
 import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
 import com.yapp.bol.presentation.utils.Converter.convertLengthToString
 import com.yapp.bol.presentation.utils.GalleryManager
-import com.yapp.bol.presentation.utils.ImageSettingDialog
-import com.yapp.bol.presentation.utils.ProfileSettingDialog
+import com.yapp.bol.presentation.utils.convertPxToDp
+import com.yapp.bol.presentation.view.group.dialog.ImageSettingDialog
+import com.yapp.bol.presentation.view.group.dialog.ProfileSettingDialog
 import com.yapp.bol.presentation.view.group.NewGroupViewModel.Companion.NEW_GROUP_DESCRIPTION
 import com.yapp.bol.presentation.view.group.NewGroupViewModel.Companion.NEW_GROUP_NAME
 import com.yapp.bol.presentation.view.group.NewGroupViewModel.Companion.NEW_GROUP_ORGANIZATION
 import com.yapp.bol.presentation.view.login.KakaoTestActivity.Companion.ACCESS_TOKEN
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class NewGroupActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNewGroupBinding
     private val newGroupViewModel: NewGroupViewModel by viewModels()
-    private val keyboardVisibilityUtils by lazy {
-        KeyboardVisibilityUtils(window = window, onShowKeyboard = ::moveScroll)
-    }
     private val accessToken by lazy {
         intent.getStringExtra(ACCESS_TOKEN) ?: EMPTY_STRING
+    }
+
+    private val profileSettingDialog by lazy {
+        ProfileSettingDialog(
+            context = this,
+            createGroup = ::createNewGroup,
+        )
+    }
+
+    private val keyboardVisibilityUtils by lazy {
+        KeyboardVisibilityUtils(
+            window = window,
+            onShowKeyboard = ::moveScroll,
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,7 +76,8 @@ class NewGroupActivity : AppCompatActivity() {
     }
 
     private fun setClickListener() {
-        val galleryManager = GalleryManager(context = this,
+        val galleryManager = GalleryManager(
+            context = this,
             imageView = binding.ivImage,
             uploadImageFile = { file -> newGroupViewModel.updateImageFile(file) }
         )
@@ -75,7 +87,7 @@ class NewGroupActivity : AppCompatActivity() {
         }
 
         binding.btnCreateGroup.setOnClickListener {
-            generateProfileSettingDialog(::createNewGroup)
+            profileSettingDialog.show()
         }
     }
 
@@ -115,11 +127,6 @@ class NewGroupActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun generateProfileSettingDialog(createGroup: (String) -> Unit) {
-        val dialog = ProfileSettingDialog(this, createGroup)
-        dialog.show()
-    }
-
     private fun generateProgressBar() {
         binding.loadingBackground.visibility = View.VISIBLE
         binding.tvLoadingText.visibility = View.VISIBLE
@@ -140,11 +147,6 @@ class NewGroupActivity : AppCompatActivity() {
         params.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
 
         binding.btnCreateGroup.layoutParams = params
-    }
-
-    private fun convertPxToDp(px: Int): Int {
-        val density = resources.displayMetrics.density
-        return (px * density).toInt()
     }
 
     private fun getScreenHeight(): Int {
