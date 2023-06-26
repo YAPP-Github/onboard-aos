@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/new_group_background_color"
-    tools:context=".view.group.NewGroupCompleteActivity">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textView2"
@@ -13,87 +10,91 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="36dp"
         android:text="@string/complete_message"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/view_complete"
+        app:layout_constraintBottom_toTopOf="@+id/iv_group_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <View
-        android:id="@+id/view_complete"
+    <ImageView
+        android:id="@+id/iv_group_image"
         android:layout_width="0dp"
-        android:layout_height="440dp"
-        android:layout_marginHorizontal="24dp"
-        android:background="@drawable/bg_white_radius_12dp"
+        android:layout_height="464dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view_group_image"
+        android:layout_width="0dp"
+        android:layout_height="464dp"
+        android:background="@drawable/bg_black_alpaha_50_radius_12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tv_group_organization_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="56dp"
+        android:text="@string/group_organization_test"
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="@+id/iv_group_image"
+        app:layout_constraintTop_toTopOf="@+id/iv_group_image" />
+
+    <TextView
         android:id="@+id/tv_group_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="34dp"
-        android:layout_marginTop="74dp"
-        android:layout_marginEnd="49dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="30dp"
         android:ellipsize="end"
-        android:maxLines="1"
+        android:maxLines="2"
         android:text="@string/group_title_test"
-        android:textColor="@color/black"
-        android:textSize="24dp"
+        android:textColor="@color/white"
+        android:textSize="28dp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/view_complete"
-        app:layout_constraintStart_toStartOf="@+id/view_complete"
-        app:layout_constraintTop_toTopOf="@+id/view_complete" />
+        app:layout_constraintEnd_toEndOf="@+id/iv_group_image"
+        app:layout_constraintStart_toStartOf="@+id/iv_group_image"
+        app:layout_constraintTop_toBottomOf="@+id/tv_group_organization_value" />
 
     <TextView
         android:id="@+id/tv_group_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:maxLines="2"
+        android:maxLines="4"
         android:text="@string/group_description_test"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="@+id/tv_group_title"
         app:layout_constraintStart_toStartOf="@+id/tv_group_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_group_title" />
 
-    <TextView
-        android:id="@+id/tv_group_organization"
+    <ImageView
+        android:id="@+id/iv_owner_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="46dp"
-        android:text="@string/complete_group_organization_text"
-        android:textColor="@color/complete_guide_text_color"
-        android:textSize="12dp"
-        app:layout_constraintStart_toStartOf="@+id/tv_group_description"
-        app:layout_constraintTop_toBottomOf="@+id/tv_group_description" />
-
-    <TextView
-        android:id="@+id/tv_group_organization_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:text="@string/group_organization_test"
-        android:textColor="@color/black"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_group_organization"
-        app:layout_constraintStart_toStartOf="@+id/tv_group_organization"
-        app:layout_constraintTop_toTopOf="@+id/tv_group_organization" />
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/ic_owner"
+        app:layout_constraintBottom_toTopOf="@+id/iv_access_code_icon"
+        app:layout_constraintStart_toStartOf="@+id/tv_group_description" />
 
     <TextView
         android:id="@+id/tv_group_owner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginStart="8dp"
         android:text="관리자"
-        android:textColor="@color/complete_guide_text_color"
+        android:textColor="@color/gray_07"
         android:textSize="12dp"
-        app:layout_constraintStart_toStartOf="@+id/tv_group_organization"
-        app:layout_constraintTop_toBottomOf="@+id/tv_group_organization" />
+        app:layout_constraintStart_toEndOf="@+id/iv_owner_icon"
+        app:layout_constraintTop_toTopOf="@+id/iv_owner_icon" />
 
     <TextView
         android:id="@+id/tv_group_owner_value"
@@ -101,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:text="@string/group_owner_test"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tv_group_owner"
@@ -109,25 +110,24 @@
         app:layout_constraintTop_toTopOf="@+id/tv_group_owner" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/iv_access_code_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginBottom="-2dp"
-        android:src="@drawable/ic_owner"
-        app:layout_constraintBottom_toTopOf="@+id/tv_group_owner_value"
-        app:layout_constraintStart_toStartOf="@+id/tv_group_owner_value" />
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/ic_access_code"
+        app:layout_constraintBottom_toTopOf="@+id/tv_group_access_guide"
+        app:layout_constraintStart_toStartOf="@+id/iv_owner_icon" />
 
     <TextView
         android:id="@+id/tv_group_access_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginStart="8dp"
         android:text="@string/group_access_code_text"
-        android:textColor="@color/complete_guide_text_color"
+        android:textColor="@color/gray_07"
         android:textSize="12dp"
-        app:layout_constraintStart_toStartOf="@+id/tv_group_owner"
-        app:layout_constraintTop_toBottomOf="@+id/tv_group_owner" />
+        app:layout_constraintStart_toEndOf="@+id/iv_access_code_icon"
+        app:layout_constraintTop_toTopOf="@+id/iv_access_code_icon" />
 
     <TextView
         android:id="@+id/tv_group_access_code_value"
@@ -135,7 +135,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:text="@string/group_access_code_test"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tv_group_access_code"
@@ -154,30 +154,32 @@
         app:layout_constraintTop_toTopOf="@+id/tv_group_access_code_value" />
 
     <TextView
+        android:id="@+id/tv_group_access_guide"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="34dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="40dp"
+        android:layout_marginBottom="52dp"
         android:lineSpacingExtra="2dp"
         android:text="@string/group_invite_guide"
-        android:textColor="@color/complete_guide_access_text_color"
+        android:textColor="@color/orange_05"
         android:textSize="13dp"
-        app:layout_constraintEnd_toEndOf="@+id/view_complete"
-        app:layout_constraintStart_toStartOf="@+id/view_complete"
-        app:layout_constraintTop_toBottomOf="@+id/tv_group_access_code" />
+        app:layout_constraintBottom_toBottomOf="@+id/iv_group_image"
+        app:layout_constraintEnd_toEndOf="@+id/iv_group_image"
+        app:layout_constraintStart_toStartOf="@+id/iv_access_code_icon" />
 
     <Button
         android:id="@+id/btn_group_complete"
         android:layout_width="0dp"
         android:layout_height="52dp"
-        android:background="@drawable/bg_orange_bottom_radius_12dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bg_orange_radius_8dp"
         android:text="@string/confirmation_text"
         android:textColor="@color/white"
         android:textSize="14dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/view_complete"
-        app:layout_constraintEnd_toEndOf="@+id/view_complete"
-        app:layout_constraintStart_toStartOf="@+id/view_complete" />
+        app:layout_constraintEnd_toEndOf="@+id/iv_group_image"
+        app:layout_constraintStart_toStartOf="@+id/iv_group_image"
+        app:layout_constraintTop_toBottomOf="@+id/iv_group_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
