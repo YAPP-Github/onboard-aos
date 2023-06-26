@@ -16,30 +16,30 @@ fun getRoundedButtonDrawableState(
     duration: Int,
 ): StateListDrawable {
 
-    val defaultShape: Int = when(color) {
+    val defaultShape: Int = when (color) {
         ButtonColor.Orange -> {
-            when(type) {
+            when (type) {
                 ButtonType.BottomRoundedSquareType -> R.drawable.bg_bottom_rounded_btn_orange10
                 ButtonType.RoundedSquareType -> R.drawable.bg_rounded_square_btn_orange10
             }
         }
         ButtonColor.Transparent -> {
-            when(type) {
+            when (type) {
                 ButtonType.BottomRoundedSquareType -> R.drawable.bg_bottom_rounded_btn_transparent
                 ButtonType.RoundedSquareType -> R.drawable.bg_rounded_square_btn_transparent
             }
         }
     }
 
-    val pressedShape: Int = when(color) {
+    val pressedShape: Int = when (color) {
         ButtonColor.Orange -> {
-            when(type) {
+            when (type) {
                 ButtonType.BottomRoundedSquareType -> R.drawable.bg_bottom_rounded_btn_gray15
                 ButtonType.RoundedSquareType -> R.drawable.bg_rounded_square_btn_gray15
             }
         }
         ButtonColor.Transparent -> {
-            when(type) {
+            when (type) {
                 ButtonType.BottomRoundedSquareType -> R.drawable.bg_bottom_rounded_btn_gray5
                 ButtonType.RoundedSquareType -> R.drawable.bg_rounded_square_btn_gray5
             }
