@@ -26,4 +26,8 @@ class MatchUseCase @Inject constructor(
     ): Flow<ApiResult<List<MemberItem>>> {
         return repository.getMemberList(groupId, pageSize, cursor, nickname)
     }
+
+    suspend fun postGuestMember(groupId: Int, nickname: String) {
+        repository.postGuestMember(groupId, nickname)
+    }
 }

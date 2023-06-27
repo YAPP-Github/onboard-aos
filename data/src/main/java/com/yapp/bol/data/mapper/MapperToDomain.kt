@@ -25,7 +25,7 @@ internal object MapperToDomain {
         )
     }
 
-    fun NewGroupApiResponse.toItem(): NewGroupItem {
+    private fun NewGroupApiResponse.toItem(): NewGroupItem {
         return NewGroupItem(
             this.id,
             this.name,

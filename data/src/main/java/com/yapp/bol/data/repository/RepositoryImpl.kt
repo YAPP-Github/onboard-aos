@@ -64,4 +64,8 @@ class RepositoryImpl @Inject constructor(
             it.toDomain()
         }
     }
+
+    override suspend fun postGuestMember(groupId: Int, nickname: String) {
+        remoteDataSource.postGuestMember(groupId, nickname)
+    }
 }

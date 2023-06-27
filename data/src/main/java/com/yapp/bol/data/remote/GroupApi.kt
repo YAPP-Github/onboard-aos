@@ -1,6 +1,7 @@
 package com.yapp.bol.data.remote
 
 import com.yapp.bol.data.model.group.GameApiResponse
+import com.yapp.bol.data.model.group.GuestAddApiRequest
 import com.yapp.bol.data.model.group.MemberListResponse
 import com.yapp.bol.data.model.group.MemberValidApiResponse
 import com.yapp.bol.data.model.group.NewGroupApiRequest
@@ -37,4 +38,10 @@ interface GroupApi {
         @Query("cursor") cursor: String?,
         @Query("nickname") nickname: String?,
     ): Response<MemberListResponse>
+
+    @POST("/v1/group/{groupId}/guest")
+    suspend fun postGuestMember(
+        @Path("groupId") groupId: Int,
+        @Body guestAddApiRequest: GuestAddApiRequest
+    )
 }

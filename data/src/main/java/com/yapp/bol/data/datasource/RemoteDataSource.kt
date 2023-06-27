@@ -40,4 +40,6 @@ interface RemoteDataSource {
         cursor: String? = null,
         nickname: String? = null,
     ): Flow<ApiResult<MemberListResponse>>
+
+    suspend fun postGuestMember(groupId: Int, nickname: String)
 }

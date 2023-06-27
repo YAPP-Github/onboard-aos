@@ -41,6 +41,20 @@ class MemberSelectViewModel @Inject constructor(
         getMembers()
     }
 
+    private fun getMembers() {
+        viewModelScope.launch {
+            val memberList = withContext(Dispatchers.IO) { getMemberList() }
+            allMembers = setMemberIsChecked(memberList)
+            updateSearchMembers("")
+        }
+    }
+
+    fun addGuestMember(nickname: String) {
+        viewModelScope.launch {
+            postGuestMember(nickname)
+        }
+    }
+
     fun getValidateNickName(groupId: Int, nickname: String) {
         viewModelScope.launch {
             matchUseCase.getValidateNickName(groupId, nickname).collect {
@@ -53,17 +67,9 @@ class MemberSelectViewModel @Inject constructor(
         }
     }
 
-    private fun getMembers() {
-        viewModelScope.launch {
-            val memberList = withContext(Dispatchers.IO) { getMemberList() }
-            allMembers = memberList
-            _members.value = memberList
-        }
-    }
-
     private suspend fun getMemberList(): List<MemberInfo> {
         var memberList = listOf<MemberInfo>()
-        matchUseCase.getMemberList(groupId, 10, null, null).collectLatest {
+        matchUseCase.getMemberList(19, 10, null, null).collectLatest {
             checkedApiResult(
                 apiResult = it,
                 success = { data -> memberList = data.map { member -> member.toPresentation() } },
@@ -71,6 +77,11 @@ class MemberSelectViewModel @Inject constructor(
             )
         }
         return memberList
+    }
+
+    private suspend fun postGuestMember(nickname: String) {
+        matchUseCase.postGuestMember(19, nickname)
+        getMembers()
     }
 
     fun updateMemberIsChecked(position: Int, isChecked: Boolean) {
@@ -95,6 +106,18 @@ class MemberSelectViewModel @Inject constructor(
 
     fun updateGroupId(id: Int) {
         groupId = id
+    }
+
+    private fun setMemberIsChecked(memberList: List<MemberInfo>): List<MemberInfo> {
+        return memberList.map { memberInfo ->
+            if (checkedMemberSelected(memberInfo.id)) memberInfo.copy(isChecked = true)
+            else memberInfo
+        }
+    }
+
+    private fun checkedMemberSelected(id: Int): Boolean {
+        val result = members.value?.find { it.id == id && it.isChecked }
+        return result != null
     }
 
     private fun checkedCompleteButtonEnabled() {

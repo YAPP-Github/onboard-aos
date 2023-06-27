@@ -38,4 +38,6 @@ interface Repository {
         cursor: String?,
         nickname: String?,
     ): Flow<ApiResult<List<MemberItem>>>
+
+    suspend fun postGuestMember(groupId: Int, nickname: String)
 }
