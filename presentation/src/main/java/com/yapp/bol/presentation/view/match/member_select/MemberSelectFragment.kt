@@ -51,12 +51,7 @@ class MemberSelectFragment : Fragment() {
         )
     }
 
-    private val keyboardVisibilityUtils by lazy {
-        KeyboardVisibilityUtils(
-            window = activity?.window ?: throw Exception(),
-            onHideKeyboard = { if (guestAddDialog.isShowing) guestAddDialog.dismiss() },
-        )
-    }
+    private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -75,6 +70,11 @@ class MemberSelectFragment : Fragment() {
         binding.rvMemberSelect.adapter = memberSelectAdapter
         binding.rvMembers.adapter = membersAdapter
 
+        keyboardVisibilityUtils = KeyboardVisibilityUtils(
+            window = activity?.window ?: throw Exception(),
+            onHideKeyboard = { if (guestAddDialog.isShowing) guestAddDialog.dismiss() },
+        )
+
         setViewModelObserve()
         setClickListener()
 
@@ -92,7 +92,6 @@ class MemberSelectFragment : Fragment() {
             }
         }
         binding.rvMembers.addOnScrollListener(scrollListener)
-        keyboardVisibilityUtils
     }
 
     private fun setViewModelObserve() {
