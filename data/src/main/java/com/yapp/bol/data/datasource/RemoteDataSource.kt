@@ -24,7 +24,7 @@ interface RemoteDataSource {
         description: String,
         organization: String,
         profileImageUrl: String,
-        nickname: String
+        nickname: String,
     ): Flow<ApiResult<NewGroupApiResponse>>
 
     fun getGameList(groupId: Int): Flow<ApiResult<GameApiResponse>>

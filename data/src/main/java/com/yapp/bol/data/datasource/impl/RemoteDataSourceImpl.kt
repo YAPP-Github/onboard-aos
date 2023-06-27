@@ -81,7 +81,7 @@ class RemoteDataSourceImpl @Inject constructor(
         cursor: String?,
         nickname: String?,
     ): Flow<ApiResult<MemberListResponse>> = flow {
-        val result = safeApiCall { groupApi.getMemberList(groupId, pageSize, cursor, nickname) }
+        val result = safeApiCall { groupApi.getMemberList(groupId,pageSize,cursor,nickname) }
         emit(result)
     }
 
