@@ -24,6 +24,10 @@ class MembersAdapter(
         }
     }
 
+    override fun getItemViewType(position: Int) = position
+
+    override fun getItemId(position: Int) = position.toLong()
+
     class MembersViewHolder(
         val binding: RvMemberItemBinding,
         private val memberClickListener: (MemberInfo, Int, Boolean) -> Unit,
