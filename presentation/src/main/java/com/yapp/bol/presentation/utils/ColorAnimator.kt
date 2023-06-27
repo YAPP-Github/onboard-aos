@@ -14,7 +14,7 @@ import android.widget.TextView
  * 뷰의 background의 tint가 시작 색상으로부터 종료 색상까지 자연스럽게 이어지는 애니메이션
  * durationMS 값이 작을수록 애니메이션의 자연스러움 정도는 떨어짐
  */
-fun View.colorSmoothTransitionAnimator(
+fun View.createSmoothColorAnimator(
     startColor: Int,
     endColor: Int,
     durationMS: Long = 1000L,
@@ -37,7 +37,7 @@ fun View.colorSmoothTransitionAnimator(
  * 시작 색상으로부터 종료 색상까지 자연스럽게 이어지는 애니메이션
  * durationMS 값이 작을수록 애니메이션의 자연스러움 정도는 떨어짐
  */
-fun TextView.textColorSmoothTransitionAnimator(
+fun TextView.createSmoothTextColorAnimator(
     startColor: Int,
     endColor: Int,
     durationMS: Long = 1000L,
@@ -59,7 +59,7 @@ fun TextView.textColorSmoothTransitionAnimator(
  * 뷰의 background의 tint가 duration 기준으로 animator 시작 시 startColor로 바뀌고
  * animator 종료 시 endColor로 바뀌게 됨. 자연스러운 변경이 아님.
  */
-fun View.colorTransitionAnimator(
+fun View.createColorAnimator(
     startColor: Int,
     endColor: Int,
     durationMS: Long = 1000L,
@@ -93,7 +93,7 @@ fun View.colorTransitionAnimator(
  * 텍스트뷰의 text color가 duration 기준으로 animator 시작 시 startColor로 바뀌고
  * animator 종료 시 endColor로 바뀌게 됨. 자연스러운 변경이 아님.
  */
-fun TextView.textColorTransitionAnimator(
+fun TextView.createTextColorAnimator(
     startColor: Int,
     endColor: Int,
     durationMS: Long = 1000L,
