@@ -10,7 +10,7 @@ import com.yapp.bol.designsystem.R
 import com.yapp.bol.designsystem.databinding.BolSquareButtonBinding
 import com.yapp.bol.designsystem.ui.button.BolButtonConfig.animationDuration
 
-class BolSquareButton : ConstraintLayout {
+class BolSquareButton : ConstraintLayout, BolBaseButton {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         getAttrsValue(context, attrs)
@@ -47,7 +47,7 @@ class BolSquareButton : ConstraintLayout {
     private fun getDisableTextColor(): Int =
         ContextCompat.getColor(binding.root.context, R.color.Gray_7)
 
-    fun disableButton() {
+    override fun disableButton() {
         if (!binding.btnBol.isEnabled) {
             return
         }
@@ -59,13 +59,13 @@ class BolSquareButton : ConstraintLayout {
         }
     }
 
-    fun setOnClickListener(onClick: () -> Unit) {
+    override fun setOnClickListener(onClick: () -> Unit) {
         binding.btnBol.setOnClickListener {
             onClick()
         }
     }
 
-    fun enableButton() {
+    override fun enableButton() {
         if (binding.btnBol.isEnabled) {
             return
         }

@@ -10,7 +10,7 @@ import com.yapp.bol.designsystem.R
 import com.yapp.bol.designsystem.databinding.BolRoundedButtonBinding
 import com.yapp.bol.designsystem.ui.button.BolButtonConfig.animationDuration
 
-class BolRoundedButton : ConstraintLayout {
+class BolRoundedButton : ConstraintLayout, BolBaseButton {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         getAttrsValue(context, attrs)
@@ -64,7 +64,7 @@ class BolRoundedButton : ConstraintLayout {
     private fun getDisableTextColor(): Int =
         ContextCompat.getColor(binding.root.context, R.color.Gray_7)
 
-    fun disableButton() {
+    override fun disableButton() {
         if (!binding.btnBol.isEnabled) {
             return
         }
@@ -85,13 +85,13 @@ class BolRoundedButton : ConstraintLayout {
         }
     }
 
-    fun setOnClickListener(onClick: () -> Unit) {
+    override fun setOnClickListener(onClick: () -> Unit) {
         binding.btnBol.setOnClickListener {
             onClick()
         }
     }
 
-    fun enableButton() {
+    override fun enableButton() {
         if (binding.btnBol.isEnabled) {
             return
         }
