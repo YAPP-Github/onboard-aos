@@ -27,7 +27,6 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
 
     override fun onViewCreatedAction() {
         super.onViewCreatedAction()
-        binding.lifecycleOwner = this@GroupSearchFragment
         binding.viewGroupListLoading.root.visibility = View.GONE
         setAdapter()
     }
