@@ -37,12 +37,12 @@
         android:background="@drawable/bg_white_radius_8dp"
         android:hint="@string/group_owner_test"
         android:maxLength="10"
-        android:padding="16dp"
+        android:paddingHorizontal="40dp"
         android:singleLine="true"
         android:textColorHint="@color/hint_text_color"
         android:textCursorDrawable="@drawable/ic_cursor"
-        android:textStyle="bold"
         android:textSize="16dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_description" />
@@ -51,9 +51,9 @@
         android:id="@+id/iv_owner_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
         android:src="@drawable/ic_owner"
+        app:layout_constraintBottom_toBottomOf="@+id/et_profile_name"
         app:layout_constraintStart_toStartOf="@+id/et_profile_name"
         app:layout_constraintTop_toTopOf="@+id/et_profile_name" />
 
