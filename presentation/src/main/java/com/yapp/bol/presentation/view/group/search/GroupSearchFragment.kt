@@ -51,7 +51,7 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
 
     // 상단 search view 초기화 관련 작업
     private fun FragmentGroupSearchBinding.initSearchView(adapter: GroupListAdapter) {
-        binding.initEditText(adapter)
+        initEditText(adapter)
 
         val editText = viewGroupSearch.etGroupSearch
         val rightDrawableBtn = viewGroupSearch.btnSearchRight
