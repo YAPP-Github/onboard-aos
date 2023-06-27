@@ -80,9 +80,6 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
                     val isTyping = !(it.isNullOrBlank() || it.isEmpty())
                     viewGroupSearch.btnSearchRight.setImageButtonByState(isTyping)
                 }
-                .launchIn(this)
-
-            editTextFlow
                 .debounce(debounceDuration)
                 .onEach {
                     adapter.searchByKeyword(it.toString())
