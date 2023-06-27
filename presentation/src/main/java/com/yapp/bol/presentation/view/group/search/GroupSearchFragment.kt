@@ -29,10 +29,10 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
         super.onViewCreatedAction()
         binding.lifecycleOwner = this@GroupSearchFragment
         binding.viewGroupListLoading.root.visibility = View.GONE
-        bindView()
+        setAdapter()
     }
 
-    private fun bindView() {
+    private fun setAdapter() {
         val adapter = GroupListAdapter()
         initPaging(adapter)
         binding.initSearchView(adapter)
