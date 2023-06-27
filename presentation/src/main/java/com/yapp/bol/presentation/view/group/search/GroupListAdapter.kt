@@ -13,7 +13,7 @@ class GroupListAdapter : PagingDataAdapter<GroupSearchUiModel, RecyclerView.View
         uiModel?.let {
             when (uiModel) {
                 is GroupSearchUiModel.GroupList -> (holder as GroupListViewHolder).bind(uiModel.groupItem)
-                is GroupSearchUiModel.DataNotFound -> (holder as GroupListNotFoundViewHolder).bind(uiModel.keyword)
+                is GroupSearchUiModel.GroupNotFound -> (holder as GroupListNotFoundViewHolder).bind(uiModel.keyword)
             }
         }
     }
@@ -32,7 +32,7 @@ class GroupListAdapter : PagingDataAdapter<GroupSearchUiModel, RecyclerView.View
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
             is GroupSearchUiModel.GroupList -> R.layout.item_group_list
-            is GroupSearchUiModel.DataNotFound -> R.layout.item_group_list_not_found
+            is GroupSearchUiModel.GroupNotFound -> R.layout.item_group_list_not_found
             // when 사용을 위해 else 넣어주었습니다.
             else -> throw UnsupportedOperationException("Unknown Group List View")
         }
