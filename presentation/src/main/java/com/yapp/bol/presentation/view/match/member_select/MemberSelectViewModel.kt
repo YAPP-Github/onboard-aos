@@ -35,11 +35,10 @@ class MemberSelectViewModel @Inject constructor(
     val dynamicPlayers = arrayListOf<MemberInfo>()
 
     private lateinit var allMembers: List<MemberInfo>
+    var groupId = 0
 
     init {
-        viewModelScope.launch {
-            getMembers()
-        }
+        getMembers()
     }
 
     fun getValidateNickName(groupId: Int, nickname: String) {
@@ -64,7 +63,7 @@ class MemberSelectViewModel @Inject constructor(
 
     private suspend fun getMemberList(): List<MemberInfo> {
         var memberList = listOf<MemberInfo>()
-        matchUseCase.getMemberList(19, 10, null, null).collectLatest {
+        matchUseCase.getMemberList(groupId, 10, null, null).collectLatest {
             checkedApiResult(
                 apiResult = it,
                 success = { data -> memberList = data.map { member -> member.toPresentation() } },
@@ -92,6 +91,10 @@ class MemberSelectViewModel @Inject constructor(
 
     fun updateSearchMembers(search: String) {
         _members.value = allMembers.filter { it.nickname.contains(search) }
+    }
+
+    fun updateGroupId(id: Int) {
+        groupId = id
     }
 
     private fun checkedCompleteButtonEnabled() {

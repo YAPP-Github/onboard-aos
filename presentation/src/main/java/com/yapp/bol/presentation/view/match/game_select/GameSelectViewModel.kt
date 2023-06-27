@@ -20,18 +20,25 @@ class GameSelectViewModel @Inject constructor(
     private val _gameList = MutableLiveData(listOf<GameItem>())
     val gameList: LiveData<List<GameItem>> = _gameList
 
+    var groupId = 0
+
     init {
         viewModelScope.launch {
             getGameList()
         }
     }
+
     private suspend fun getGameList() {
-        matchUseCase.getGameList(9999).collectLatest {
+        matchUseCase.getGameList(groupId).collectLatest {
             checkedApiResult(
                 apiResult = it,
                 success = { data -> _gameList.value = data },
                 error = { throwable -> throw throwable },
             )
         }
+    }
+
+    fun updateGroupId(id: Int) {
+        groupId = id
     }
 }

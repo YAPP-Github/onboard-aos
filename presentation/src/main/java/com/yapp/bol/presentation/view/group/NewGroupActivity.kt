@@ -23,7 +23,6 @@ import com.yapp.bol.presentation.view.group.dialog.NewGroupCompleteDialog
 import com.yapp.bol.presentation.view.group.dialog.ProfileSettingDialog
 import com.yapp.bol.presentation.view.login.KakaoTestActivity.Companion.ACCESS_TOKEN
 import com.yapp.bol.presentation.view.match.MatchActivity
-import com.yapp.bol.presentation.view.match.game_select.GameSelectFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -120,7 +119,7 @@ class NewGroupActivity : AppCompatActivity() {
             context = this,
             newGroup = newGroupItem,
             moveHome = { groupId -> moveMatchActivity(groupId) }
-         ).show()
+        ).show()
     }
 
     private fun moveScroll(keyboardHeight: Int) {
@@ -168,9 +167,9 @@ class NewGroupActivity : AppCompatActivity() {
     }
 
     private fun moveMatchActivity(groupId: Int) {
-        val bundle = Bundle().apply { putInt(GROUP_ID, groupId) }
         val intent = Intent(this, MatchActivity::class.java)
-        startActivity(intent,bundle)
+        intent.putExtra(GROUP_ID, groupId)
+        startActivity(intent)
         finish()
     }
 

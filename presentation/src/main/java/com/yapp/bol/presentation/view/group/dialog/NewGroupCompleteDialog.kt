@@ -52,6 +52,7 @@ class NewGroupCompleteDialog(
 
     private fun setClickListener() {
         binding.btnGroupComplete.setOnClickListener {
+            dismiss()
             moveHome(newGroup.id)
         }
 

@@ -70,6 +70,7 @@ class MemberSelectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val gameName = arguments?.getString(GAME_NAME) ?: EMPTY_STRING
         matchViewModel.updateToolBarTitle(gameName)
+        memberSelectViewModel.updateGroupId(matchViewModel.groupId)
 
         binding.rvMemberSelect.adapter = memberSelectAdapter
         binding.rvMembers.adapter = membersAdapter
