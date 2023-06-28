@@ -39,12 +39,7 @@ class GameResultFragment : Fragment() {
         KeyboardManager(requireActivity())
     }
 
-    private val keyboardVisibilityUtils by lazy {
-        KeyboardVisibilityUtils(
-            window = activity?.window ?: throw Exception(),
-            onHideKeyboard = gameResultViewModel::updatePlayers,
-        )
-    }
+    private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
 
     private val resultRecordDialog
         get() = ResultRecordDialog(
@@ -95,18 +90,14 @@ class GameResultFragment : Fragment() {
         binding.rvPlayers.adapter = gameResultAdapter
         setTextView()
         setViewModelObserve()
+        setClickListener()
+        setScrollListener()
 
-        val scrollListener = object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                keyboardManager.hideKeyboard()
-            }
-        }
-        binding.rvPlayers.addOnScrollListener(scrollListener)
-        binding.btnRecordComplete.setOnClickListener {
-            resultRecordDialog.show()
-        }
         matchViewModel.updateToolBarTitle(GAME_RESULT_TITLE)
-        keyboardVisibilityUtils
+        keyboardVisibilityUtils = KeyboardVisibilityUtils(
+            window = activity?.window ?: throw Exception(),
+            onHideKeyboard = gameResultViewModel::updatePlayers,
+        )
     }
 
     private fun setViewModelObserve() {
@@ -124,6 +115,21 @@ class GameResultFragment : Fragment() {
             String.format(requireContext().resources.getString(R.string.game_record_guide), matchViewModel.gameName)
         binding.tvCalendar.text = currentTime[0]
         binding.tvClock.text = currentTime[1]
+    }
+
+    private fun setClickListener() {
+        binding.btnRecordComplete.setOnClickListener {
+            resultRecordDialog.show()
+        }
+    }
+
+    private fun setScrollListener() {
+        val scrollListener = object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                keyboardManager.hideKeyboard()
+            }
+        }
+        binding.rvPlayers.addOnScrollListener(scrollListener)
     }
 
     private fun getCurrentTime(): List<String> {
@@ -163,10 +169,10 @@ class GameResultFragment : Fragment() {
         binding.tvGameRecordComplete.visibility = View.VISIBLE
     }
 
-    override fun onDestroy() {
+    override fun onDestroyView() {
         _binding = null
         keyboardVisibilityUtils.detachKeyboardListeners()
-        super.onDestroy()
+        super.onDestroyView()
     }
 
     companion object {

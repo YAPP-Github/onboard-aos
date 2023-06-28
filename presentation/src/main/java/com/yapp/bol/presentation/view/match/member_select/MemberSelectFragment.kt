@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -94,59 +95,58 @@ class MemberSelectFragment : Fragment() {
         binding.rvMembers.addOnScrollListener(scrollListener)
     }
 
-    private fun setViewModelObserve() {
-        memberSelectViewModel.members.observe(viewLifecycleOwner) { members ->
+    private fun setViewModelObserve() = with(memberSelectViewModel) {
+        members.observe(viewLifecycleOwner) { members ->
             val isVisible = members.isEmpty()
             setSearchResultNothing(isVisible, getInputTextValue())
             membersAdapter.submitList(members)
         }
 
-        memberSelectViewModel.isCompleteButtonEnabled.observe(viewLifecycleOwner) {
+        isCompleteButtonEnabled.observe(viewLifecycleOwner) {
             binding.btnPlayerComplete.isEnabled = it
         }
 
-        memberSelectViewModel.players.observe(viewLifecycleOwner) { players ->
+        players.observe(viewLifecycleOwner) { players ->
             memberSelectAdapter.submitList(players)
         }
 
-        memberSelectViewModel.isNickNameValidate.observe(viewLifecycleOwner) {
+        isNickNameValidate.observe(viewLifecycleOwner) {
             if (guestAddDialog.isShowing) guestAddDialog.setNicknameValid(it)
         }
     }
 
-    private fun setSearchResultNothing(isVisible: Boolean, keyword: String) {
-        val visible = if (isVisible) View.VISIBLE else View.GONE
+    private fun setSearchResultNothing(visible: Boolean, keyword: String) = with(binding) {
         val searchResult = String.format(resources.getString(R.string.search_result_nothing), keyword)
-        binding.viewSearchResultNothing.visibility = visible
-        binding.tvSearchResultNothingGuide.visibility = visible
-        binding.btnGuestAddNothing.visibility = visible
-        binding.ivPlus.visibility = visible
-        binding.tvSearchResultNothing.apply {
+        viewSearchResultNothing.isVisible = visible
+        tvSearchResultNothingGuide.isVisible = visible
+        btnGuestAddNothing.isVisible = visible
+        ivPlus.isVisible = visible
+        tvSearchResultNothing.apply {
             text = searchResult
-            visibility = visible
+            isVisible = visible
         }
     }
 
-    private fun setClickListener() {
-        binding.ivSearchIcon.setOnClickListener {
-            if (binding.etSearchMember.isFocused) {
-                binding.etSearchMember.text.clear()
-                binding.etSearchMember.clearFocus()
+    private fun setClickListener() = with(binding) {
+        ivSearchIcon.setOnClickListener {
+            if (etSearchMember.isFocused) {
+                etSearchMember.text.clear()
+                etSearchMember.clearFocus()
             } else {
-                keyboardManager.showKeyboard(binding.etSearchMember)
-                binding.etSearchMember.requestFocus()
+                keyboardManager.showKeyboard(etSearchMember)
+                etSearchMember.requestFocus()
             }
         }
-        binding.btnTempMember.setOnClickListener {
+        btnTempMember.setOnClickListener {
             keyboardManager.hideKeyboard()
             guestAddDialog.show()
         }
-        binding.btnGuestAddNothing.setOnClickListener {
+        btnGuestAddNothing.setOnClickListener {
             keyboardManager.hideKeyboard()
             guestAddDialog.show()
         }
 
-        binding.btnPlayerComplete.setOnClickListener {
+        btnPlayerComplete.setOnClickListener {
             val bundle = Bundle().apply {
                 putParcelableArrayList(PLAYERS, memberSelectViewModel.dynamicPlayers)
             }

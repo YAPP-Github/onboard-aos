@@ -41,19 +41,17 @@ class NewGroupActivity : AppCompatActivity() {
         )
     }
 
-    private val keyboardVisibilityUtils by lazy {
-        KeyboardVisibilityUtils(
-            window = window,
-            onShowKeyboard = ::moveScroll,
-        )
-    }
+    private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNewGroupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        keyboardVisibilityUtils
+        keyboardVisibilityUtils = KeyboardVisibilityUtils(
+            window = window,
+            onShowKeyboard = ::moveScroll,
+        )
         setTextChangeListener()
         setCreateGroupButton()
         setClickListener()
