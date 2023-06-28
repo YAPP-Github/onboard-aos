@@ -23,4 +23,8 @@ class MatchActivity : AppCompatActivity() {
             binding.tvPageName.text = title
         }
     }
+    companion object {
+        /* 추후 enum class 로 변경 예정*/
+        const val GUEST = "GUEST"
+    }
 }
