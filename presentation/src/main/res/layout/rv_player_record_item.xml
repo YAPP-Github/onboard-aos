@@ -34,7 +34,8 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="20dp"
-        android:src="@mipmap/ic_member_level"
+        android:scaleType="centerInside"
+        android:src="@mipmap/ic_member_full_level"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_member_rank_unit"
         app:layout_constraintTop_toTopOf="parent" />
@@ -69,10 +70,10 @@
         android:id="@+id/tv_member_score_unit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="48dp"
         android:text="점"
         android:textColor="@color/black"
         android:textSize="11dp"
-        android:layout_marginEnd="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

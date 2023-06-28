@@ -5,8 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.RvMemberItemBinding
 import com.yapp.bol.presentation.model.MemberInfo
+import com.yapp.bol.presentation.view.match.MatchActivity.Companion.GUEST
 
 class MembersAdapter(
     private val memberClickListener: (MemberInfo, Int, Boolean) -> Unit,
@@ -19,9 +21,7 @@ class MembersAdapter(
     }
 
     override fun onBindViewHolder(holder: MembersViewHolder, position: Int) {
-        getItem(position)?.let {
-            holder.bind(it, position)
-        }
+        holder.bind(getItem(position), position)
     }
 
     override fun getItemViewType(position: Int) = position
@@ -36,7 +36,13 @@ class MembersAdapter(
         fun bind(item: MemberInfo, position: Int) {
             binding.tvMemberName.text = item.nickname
             binding.cbMemberSelect.isChecked = item.isChecked
+            setImageView(item)
             setClickListener(item, position)
+        }
+
+        private fun setImageView(item: MemberInfo) {
+            val image = if (item.role == GUEST) R.drawable.img_dice_empty_small else R.mipmap.ic_member_level
+            binding.ivMemberLevelIcon.setImageResource(image)
         }
 
         private fun setClickListener(item: MemberInfo, position: Int) {
