@@ -4,6 +4,7 @@ import com.yapp.bol.data.model.group.GameApiResponse
 import com.yapp.bol.data.model.group.MemberValidApiResponse
 import com.yapp.bol.data.model.group.NewGroupApiRequest
 import com.yapp.bol.data.model.group.NewGroupApiResponse
+import com.yapp.bol.data.model.group.GroupSearchApiResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -28,4 +29,11 @@ interface GroupApi {
         @Query("groupId") groupId: Int,
         @Query("nickname") nickName: String,
     ): Response<MemberValidApiResponse>
+
+    @GET("/v1/group")
+    suspend fun getGroupSearchResult(
+        @Query("name") name: String,
+        @Query("pageNumber") page: String,
+        @Query("pageSize") pageSize: String,
+    ): Response<GroupSearchApiResponse>
 }

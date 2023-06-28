@@ -96,6 +96,12 @@ dependencies {
 
     // Navigation
     implementation(com.yapp.bol.Navigation.NAVIGATION)
+
+    // Paging3
+    implementation(com.yapp.bol.AndroidX.PAGING)
+
+    // Shimmer
+    implementation(com.yapp.bol.Shimmer.SHIMMER)
 }
 
 fun getProperty(propertyKey: String): String {
