@@ -62,4 +62,9 @@
     <string name="game_result_recording_complete">%s\n점수 기록이 완료되었습니다.</string>
     <string name="game_record_complete">기록 완료</string>
     <string name="game_record_hint">0</string>
+
+    <string name="rank_win_rate">%d%%</string>
+    <string name="rank_play_count">플레이 %d회</string>
+    <string name="rank_default">-</string>
+    <string name="rank_default_play_count">플레이 0회</string>
 </resources>
