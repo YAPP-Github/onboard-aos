@@ -16,7 +16,7 @@ class BolSquareButton constructor(
 ) : ConstraintLayout(context, attrs), BolBaseButton {
 
     init {
-        if(!isInEditMode) { getAttrsValue(context, attrs) }
+        if (!isInEditMode) { getAttrsValue(context, attrs) }
     }
 
     private val binding: BolSquareButtonBinding by lazy {

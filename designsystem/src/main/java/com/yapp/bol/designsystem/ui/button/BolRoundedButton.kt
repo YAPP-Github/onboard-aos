@@ -16,7 +16,7 @@ class BolRoundedButton(
 ) : ConstraintLayout(context, attrs), BolBaseButton {
 
     init {
-        if(!isInEditMode) { getAttrsValue(context, attrs) }
+        if (!isInEditMode) { getAttrsValue(context, attrs) }
     }
 
     private val binding: BolRoundedButtonBinding by lazy {
