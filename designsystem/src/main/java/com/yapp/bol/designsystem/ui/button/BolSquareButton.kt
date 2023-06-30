@@ -10,10 +10,13 @@ import com.yapp.bol.designsystem.R
 import com.yapp.bol.designsystem.databinding.BolSquareButtonBinding
 import com.yapp.bol.designsystem.ui.button.BolButtonConfig.animationDuration
 
-class BolSquareButton : ConstraintLayout, BolBaseButton {
+class BolSquareButton constructor(
+    context: Context,
+    attrs: AttributeSet
+) : ConstraintLayout(context, attrs), BolBaseButton {
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        getAttrsValue(context, attrs)
+    init {
+        if (!isInEditMode) { getAttrsValue(context, attrs) }
     }
 
     private val binding: BolSquareButtonBinding by lazy {
