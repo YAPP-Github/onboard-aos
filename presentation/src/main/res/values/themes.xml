@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BolTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/Orange_10</item>
+        <item name="colorPrimaryDark">@color/Orange_9</item>
+        <item name="colorAccent">@color/Gray_13</item>
+    </style>
+
+</resources>
