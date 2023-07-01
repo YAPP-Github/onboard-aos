@@ -12,9 +12,15 @@ class UserRankItem1to3ViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     init {
-        binding.viewRank1.root.setOnClickListener { }
-        binding.viewRank2.root.setOnClickListener { }
-        binding.viewRank3.root.setOnClickListener { }
+        binding.viewRank1.root.setOnClickListener {
+            // TODO : MVP 개발 단계일지 모르지만 각 유저 클릭 시 액션
+        }
+        binding.viewRank2.root.setOnClickListener {
+            // TODO : MVP 개발 단계일지 모르지만 각 유저 클릭 시 액션
+        }
+        binding.viewRank3.root.setOnClickListener {
+            // TODO : MVP 개발 단계일지 모르지만 각 유저 클릭 시 액션
+        }
     }
 
     fun bind(userRankItem: UserRankItem) {

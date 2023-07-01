@@ -9,7 +9,9 @@ class UserRankItemAfter4ViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     init {
-        binding.root.setOnClickListener {  }
+        binding.root.setOnClickListener {
+            // TODO : MVP 개발 단계일지 모르지만 각 유저 클릭 시 액션
+        }
     }
 
     fun bind(userRankItem: UserRankItem) {
@@ -22,5 +24,4 @@ class UserRankItemAfter4ViewHolder(
         tvPlayCount.text = userRankItem.playCount.toString()
         tvWinRate.text = userRankItem.winRate.toString()
     }
-
 }
