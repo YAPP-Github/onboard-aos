@@ -1,4 +1,4 @@
-package com.yapp.bol.presentation.view.home.rank
+package com.yapp.bol.presentation.view.home.rank.user
 
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.domain.model.UserRankItem

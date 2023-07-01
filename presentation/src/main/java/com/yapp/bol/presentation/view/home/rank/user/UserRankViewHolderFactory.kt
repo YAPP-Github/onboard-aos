@@ -1,4 +1,4 @@
-package com.yapp.bol.presentation.view.home.rank
+package com.yapp.bol.presentation.view.home.rank.user
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
