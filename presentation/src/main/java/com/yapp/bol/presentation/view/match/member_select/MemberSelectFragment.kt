@@ -2,6 +2,7 @@ package com.yapp.bol.presentation.view.match.member_select
 
 import KeyboardVisibilityUtils
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.FragmentMemberSelectBinding
@@ -33,7 +35,7 @@ class MemberSelectFragment : Fragment() {
 
     private val memberSelectAdapter = MemberSelectAdapter { member ->
         memberSelectViewModel.checkedSelectMembers(member)
-        memberSelectViewModel.clearMembers(member.id, getInputTextValue())
+        memberSelectViewModel.clearMembers(member.id)
     }
     private val membersAdapter = MembersAdapter { member, position, isChecked ->
         memberSelectViewModel.checkedSelectMembers(member)
@@ -81,18 +83,31 @@ class MemberSelectFragment : Fragment() {
 
         binding.etSearchMember.doOnTextChanged { text, _, _, _ ->
             if ((text?.length ?: 0) > 0) binding.etSearchMember.requestFocus()
-            memberSelectViewModel.updateSearchMembers(text.toString())
+            memberSelectViewModel.clearNextPage()
+            memberSelectViewModel.getMembers(getInputTextValue())
         }
 
         binding.etSearchMember.onFocusChangeListener = setFocusChangeListener()
 
         val scrollListener = object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 keyboardManager.hideKeyboard()
                 binding.etSearchMember.clearFocus()
+                geNextMember(recyclerView)
             }
         }
         binding.rvMembers.addOnScrollListener(scrollListener)
+    }
+
+    private fun geNextMember(recyclerView: RecyclerView) {
+        val newPagePointItemVisible =
+            (recyclerView.layoutManager as? LinearLayoutManager)?.findLastVisibleItemPosition() ?: 0
+
+        val itemTotalCount = membersAdapter.itemCount - 10
+
+        if (newPagePointItemVisible == itemTotalCount) {
+            memberSelectViewModel.getMembers()
+        }
     }
 
     private fun setViewModelObserve() = with(memberSelectViewModel) {

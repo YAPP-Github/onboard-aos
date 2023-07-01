@@ -34,18 +34,23 @@ class MemberSelectViewModel @Inject constructor(
 
     val dynamicPlayers = arrayListOf<MemberInfo>()
 
-    private lateinit var allMembers: List<MemberInfo>
-    var groupId = 0
+    private var allMembers: List<MemberInfo> = listOf()
+    private var loadingState = false
+    private var groupId = 0
+    private var cursor: String? = null
+    private var hasNext = true
 
     init {
         getMembers()
     }
 
-    private fun getMembers() {
+    fun getMembers(nickname: String? = null) {
+        if (hasNext.not() || loadingState) return
+        loadingState = true
         viewModelScope.launch {
-            val memberList = withContext(Dispatchers.IO) { getMemberList() }
-            allMembers = setMemberIsChecked(memberList)
-            updateSearchMembers("")
+            val memberList = withContext(Dispatchers.IO) { getMemberList(nickname) }
+            allMembers = setMemberIsChecked(allMembers + memberList)
+            updateMembers()
         }
     }
 
@@ -67,12 +72,16 @@ class MemberSelectViewModel @Inject constructor(
         }
     }
 
-    private suspend fun getMemberList(): List<MemberInfo> {
+    private suspend fun getMemberList(nickname: String? = null): List<MemberInfo> {
         var memberList = listOf<MemberInfo>()
-        matchUseCase.getMemberList(19, 10, null, null).collectLatest {
+        matchUseCase.getMemberList(19, 20, cursor, nickname).collectLatest {
             checkedApiResult(
                 apiResult = it,
-                success = { data -> memberList = data.map { member -> member.toPresentation() } },
+                success = { data ->
+                    memberList = data.members.map { member -> member.toPresentation() }
+                    cursor = data.cursor
+                    hasNext = data.hasNext
+                },
                 error = { throwable -> throw throwable }
             )
         }
@@ -81,6 +90,7 @@ class MemberSelectViewModel @Inject constructor(
 
     private suspend fun postGuestMember(nickname: String) {
         matchUseCase.postGuestMember(19, nickname)
+        clearNextPage()
         getMembers()
     }
 
@@ -95,13 +105,20 @@ class MemberSelectViewModel @Inject constructor(
         checkedCompleteButtonEnabled()
     }
 
-    fun clearMembers(position: Int, search: String) {
+    fun clearMembers(position: Int) {
         allMembers = allMembers.map { if (it.id == position) it.copy(isChecked = false) else it }
-        updateSearchMembers(search)
+        updateMembers()
     }
 
-    fun updateSearchMembers(search: String) {
-        _members.value = allMembers.filter { it.nickname.contains(search) }
+    fun clearNextPage() {
+        allMembers = listOf()
+        cursor = null
+        hasNext = true
+    }
+
+    private fun updateMembers() {
+        loadingState = false
+        _members.value = allMembers.toList()
     }
 
     fun updateGroupId(id: Int) {
@@ -110,14 +127,10 @@ class MemberSelectViewModel @Inject constructor(
 
     private fun setMemberIsChecked(memberList: List<MemberInfo>): List<MemberInfo> {
         return memberList.map { memberInfo ->
-            if (checkedMemberSelected(memberInfo.id)) memberInfo.copy(isChecked = true)
+            val isChecked = players.value?.any { it.id == memberInfo.id } ?: false
+            if (isChecked) memberInfo.copy(isChecked = true)
             else memberInfo
         }
-    }
-
-    private fun checkedMemberSelected(id: Int): Boolean {
-        val result = members.value?.find { it.id == id && it.isChecked }
-        return result != null
     }
 
     private fun checkedCompleteButtonEnabled() {
