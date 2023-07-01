@@ -1,4 +1,16 @@
 <resources>
+    <!-- group search -->
+    <string name="group_search_hint">모임 이름 검색</string>
+    <string name="group_search_register">우리 모임 새로 등록하기 +</string>
+    <string name="group_search_title">활동하고 계신\n보드게임 모임을 찾아주세요.</string>
+    <string name="group_search_list_description">지금 인기 있는 모임</string>
+    <string name="group_search_error_guide1">인터넷이 연결되어 있지 않습니다</string>
+    <string name="group_search_error_guide2">연결 상태를 다시 확인해주세요</string>
+    <string name="group_search_error_button">다시 불러오기</string>
+    <string name="group_search_not_found">‘%s’에 대한 검색 결과가 없습니다.</string>
+    <string name="group_search_not_found_guide">보드게임 모임을 등록해주세요!</string>
+    <string name="group_search_not_found_button">우리 보드게임 모임 만들러가기</string>
+
     <string name="complete_message">모임 등록이 완료되었습니다!</string>
     <string name="complete_group_organization_text">소속</string>
     <string name="group_owner_text">관리자</string>
