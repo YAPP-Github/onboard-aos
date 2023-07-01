@@ -7,11 +7,10 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import com.yapp.bol.presentation.databinding.ImageSettingDialogBinding
 
-
 class ImageSettingDialog(
     private val context: Context,
     private val checkedGalleryAccess: () -> Unit,
-): Dialog(context) {
+) : Dialog(context) {
 
     private lateinit var binding: ImageSettingDialogBinding
 
@@ -20,7 +19,7 @@ class ImageSettingDialog(
         setContentView(binding.root)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        context.dialogWidthResize(this,0.9f)
+        context.dialogWidthResize(this, 0.9f)
 
         binding.btnMoveGallery.setOnClickListener {
             dismiss()

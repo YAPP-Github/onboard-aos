@@ -22,17 +22,27 @@ import com.yapp.bol.presentation.view.group.NewGroupViewModel.Companion.NEW_GROU
 import com.yapp.bol.presentation.view.login.KakaoTestActivity.Companion.ACCESS_TOKEN
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class NewGroupActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNewGroupBinding
     private val newGroupViewModel: NewGroupViewModel by viewModels()
-    private val keyboardVisibilityUtils by lazy {
-        KeyboardVisibilityUtils(window = window, onShowKeyboard = ::moveScroll)
-    }
     private val accessToken by lazy {
         intent.getStringExtra(ACCESS_TOKEN) ?: EMPTY_STRING
+    }
+
+    private val profileSettingDialog by lazy {
+        ProfileSettingDialog(
+            context = this,
+            createGroup = ::createNewGroup,
+        )
+    }
+
+    private val keyboardVisibilityUtils by lazy {
+        KeyboardVisibilityUtils(
+            window = window,
+            onShowKeyboard = ::moveScroll,
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,7 +75,8 @@ class NewGroupActivity : AppCompatActivity() {
     }
 
     private fun setClickListener() {
-        val galleryManager = GalleryManager(context = this,
+        val galleryManager = GalleryManager(
+            context = this,
             imageView = binding.ivImage,
             uploadImageFile = { file -> newGroupViewModel.updateImageFile(file) }
         )
@@ -75,7 +86,7 @@ class NewGroupActivity : AppCompatActivity() {
         }
 
         binding.btnCreateGroup.setOnClickListener {
-            generateProfileSettingDialog(::createNewGroup)
+            profileSettingDialog.show()
         }
     }
 
@@ -112,11 +123,6 @@ class NewGroupActivity : AppCompatActivity() {
 
     private fun generateImageSettingDialog(checkedGalleryAccess: () -> Unit) {
         val dialog = ImageSettingDialog(this, checkedGalleryAccess)
-        dialog.show()
-    }
-
-    private fun generateProfileSettingDialog(createGroup: (String) -> Unit) {
-        val dialog = ProfileSettingDialog(this, createGroup)
         dialog.show()
     }
 
