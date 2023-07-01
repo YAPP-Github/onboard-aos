@@ -17,7 +17,6 @@ internal object RankMapper {
             is ApiResult.Error -> ApiResult.Error(exception)
         }
 
-
     private fun UserRankApiResponse.toDomain(): List<UserRankItem> =
         this.contents.map { userRankDTO ->
             UserRankItem(
