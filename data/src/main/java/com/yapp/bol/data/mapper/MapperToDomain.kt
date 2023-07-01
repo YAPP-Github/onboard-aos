@@ -12,6 +12,7 @@ import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.model.MemberItem
+import com.yapp.bol.domain.model.MemberItems
 import com.yapp.bol.domain.model.NewGroupItem
 
 internal object MapperToDomain {
@@ -84,9 +85,15 @@ internal object MapperToDomain {
         }
     }
 
-    fun ApiResult<MemberListResponse>.toDomain(): ApiResult<List<MemberItem>> {
+    fun ApiResult<MemberListResponse>.toDomain(): ApiResult<MemberItems> {
         return when (this) {
-            is ApiResult.Success -> ApiResult.Success(data.contents.map { it.toItem() })
+            is ApiResult.Success -> ApiResult.Success(
+                MemberItems(
+                    members = data.contents.map { it.toItem() },
+                    cursor = data.cursor,
+                    hasNext = data.hasNext
+                )
+            )
             is ApiResult.Error -> ApiResult.Error(exception)
         }
     }

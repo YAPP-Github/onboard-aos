@@ -4,6 +4,7 @@ import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.model.MemberItem
+import com.yapp.bol.domain.model.MemberItems
 import com.yapp.bol.domain.model.NewGroupItem
 import kotlinx.coroutines.flow.Flow
 import java.io.File
@@ -37,7 +38,7 @@ interface Repository {
         pageSize: Int,
         cursor: String?,
         nickname: String?,
-    ): Flow<ApiResult<List<MemberItem>>>
+    ): Flow<ApiResult<MemberItems>>
 
     suspend fun postGuestMember(groupId: Int, nickname: String)
 }

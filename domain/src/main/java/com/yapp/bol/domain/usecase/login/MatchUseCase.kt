@@ -3,6 +3,7 @@ package com.yapp.bol.domain.usecase.login
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.MemberItem
+import com.yapp.bol.domain.model.MemberItems
 import com.yapp.bol.domain.repository.Repository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -23,7 +24,7 @@ class MatchUseCase @Inject constructor(
         pageSize: Int,
         cursor: String?,
         nickname: String?,
-    ): Flow<ApiResult<List<MemberItem>>> {
+    ): Flow<ApiResult<MemberItems>> {
         return repository.getMemberList(groupId, pageSize, cursor, nickname)
     }
 
