@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.model.UserRankUiModel
 
-class UserRankItemAdapter : ListAdapter<UserRankUiModel, RecyclerView.ViewHolder>(diff) {
+class UserRankAdapter : ListAdapter<UserRankUiModel, RecyclerView.ViewHolder>(diff) {
 
     private val userRankViewHolderFactory by lazy { UserRankViewHolderFactory() }
 
