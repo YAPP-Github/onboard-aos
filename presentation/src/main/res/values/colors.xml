@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="gray_normal">#DDDDDD</color>
+    <color name="orange_10">#FF4D0D</color>
+    <color name="white">#FFF</color>
+    <color name="gray_10">#DADADA</color>
+
     <color name="new_group_background_color">#F5F5F5</color>
     <color name="btn_complete_text_color">#A7A7A7</color>
     <color name="hint_text_color">#9B9B9B</color>
