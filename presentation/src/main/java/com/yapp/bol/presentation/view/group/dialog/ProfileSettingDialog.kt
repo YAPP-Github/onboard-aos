@@ -6,7 +6,9 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
+import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.ProfileSettingDialogBinding
 import com.yapp.bol.presentation.utils.Converter.convertLengthToString
 import com.yapp.bol.presentation.utils.dialogWidthResize
@@ -31,11 +33,12 @@ class ProfileSettingDialog(
         }
 
         binding.etProfileName.doOnTextChanged { _, start, _, count ->
-            val color = if (count == 10) Color.parseColor("#EB5555") else Color.parseColor("#8B8B8B")
-            binding.tvProfileNameCount.setTextColor(color)
+            val color = if (count == 10) R.color.Orange_10 else R.color.Gray_8
+            binding.tvProfileNameCount.setTextColor(ContextCompat.getColor(context, color))
             binding.tvProfileNameCount.text = convertLengthToString(PROFILE_NAME_MAX_LENGTH, start + count)
         }
     }
+
     override fun show() {
         super.show()
         binding.etProfileName.requestFocus()

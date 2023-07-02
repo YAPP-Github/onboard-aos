@@ -91,7 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="관리자"
-        android:textColor="@color/gray_07"
+        android:textColor="@color/Gray_7"
         android:textSize="12dp"
         app:layout_constraintStart_toEndOf="@+id/iv_owner_icon"
         app:layout_constraintTop_toTopOf="@+id/iv_owner_icon" />
@@ -124,7 +124,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/group_access_code_text"
-        android:textColor="@color/gray_07"
+        android:textColor="@color/Gray_7"
         android:textSize="12dp"
         app:layout_constraintStart_toEndOf="@+id/iv_access_code_icon"
         app:layout_constraintTop_toTopOf="@+id/iv_access_code_icon" />
@@ -162,7 +162,7 @@
         android:layout_marginBottom="52dp"
         android:lineSpacingExtra="2dp"
         android:text="@string/group_invite_guide"
-        android:textColor="@color/orange_05"
+        android:textColor="@color/Orange_5"
         android:textSize="13dp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_group_image"
         app:layout_constraintEnd_toEndOf="@+id/iv_group_image"

@@ -39,8 +39,8 @@ class GuestAddDialog(
         }
 
         binding.etGuestName.doOnTextChanged { _, start, _, count ->
-            val color = if (count == 10) Color.parseColor("#EB5555") else Color.parseColor("#8B8B8B")
-            binding.tvGuestNameCount.setTextColor(color)
+            val color = if (count == 10) R.color.Orange_10 else R.color.Gray_8
+            binding.tvGuestNameCount.setTextColor(ContextCompat.getColor(context, color))
             binding.tvGuestNameCount.text = convertLengthToString(PROFILE_NAME_MAX_LENGTH, start + count)
             getValidateNickName(binding.etGuestName.text.toString())
         }
@@ -69,7 +69,7 @@ class GuestAddDialog(
         val secondStartIndex = SECOND_COLOR_CHANGE_START_POINT
         val secondEndIndex = SECOND_COLOR_CHANGE_END_POINT
 
-        val orangeColor = ContextCompat.getColor(context, R.color.orange_09)
+        val orangeColor = ContextCompat.getColor(context, R.color.Orange_9)
         val firstColorSpan = ForegroundColorSpan(orangeColor)
         val secondColorSpan = ForegroundColorSpan(orangeColor)
         spannableString.setSpan(
