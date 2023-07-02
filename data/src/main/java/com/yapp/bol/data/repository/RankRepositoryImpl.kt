@@ -7,8 +7,9 @@ import com.yapp.bol.domain.model.UserRankListItem
 import com.yapp.bol.domain.repository.RankRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class RankRepositoryImpl(
+class RankRepositoryImpl @Inject constructor(
     private val rankDataSource: RankDataSource
 ) : RankRepository {
 
