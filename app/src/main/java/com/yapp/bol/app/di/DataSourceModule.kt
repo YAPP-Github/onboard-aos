@@ -6,6 +6,8 @@ import com.yapp.bol.data.datasource.auth.impl.AuthDataSourceImpl
 import com.yapp.bol.data.datasource.group.GroupDataSource
 import com.yapp.bol.data.datasource.group.impl.GroupDataSourceImpl
 import com.yapp.bol.data.datasource.impl.RemoteDataSourceImpl
+import com.yapp.bol.data.datasource.rank.RankDataSource
+import com.yapp.bol.data.datasource.rank.impl.RankDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -27,4 +29,8 @@ interface DataSourceModule {
     @Binds
     @Singleton
     fun bindsGroupDatasource(groupDataSourceImpl: GroupDataSourceImpl): GroupDataSource
+
+    @Binds
+    @Singleton
+    fun bindsRankDatasource(rankDataSource: RankDataSourceImpl): RankDataSource
 }
