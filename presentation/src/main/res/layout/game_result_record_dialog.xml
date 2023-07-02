@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:src="@drawable/ic_clock"
+        android:src="@drawable/ic_time"
         app:layout_constraintBottom_toBottomOf="@+id/iv_calendar"
         app:layout_constraintStart_toEndOf="@+id/tv_calendar"
         app:layout_constraintTop_toTopOf="@+id/iv_calendar" />
