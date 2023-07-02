@@ -10,7 +10,6 @@ import com.yapp.bol.presentation.BuildConfig
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.showToast
-import com.yapp.bol.presentation.view.group.NewGroupActivity
 import com.yapp.bol.presentation.view.group.search.GroupSearchActivityTest
 import com.yapp.bol.presentation.viewmodel.login.LoginType
 import com.yapp.bol.presentation.viewmodel.login.LoginViewModel
