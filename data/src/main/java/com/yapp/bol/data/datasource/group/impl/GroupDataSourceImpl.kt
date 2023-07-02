@@ -1,7 +1,7 @@
 package com.yapp.bol.data.datasource.group.impl
 
 import com.yapp.bol.data.datasource.group.GroupDataSource
-import com.yapp.bol.data.model.group.GroupSearchApiResponse
+import com.yapp.bol.data.model.group.response.GroupSearchApiResponse
 import com.yapp.bol.data.remote.GroupApi
 import com.yapp.bol.data.utils.BaseRepository
 import com.yapp.bol.domain.model.ApiResult

@@ -67,7 +67,6 @@ class KakaoTestActivity : AppCompatActivity() {
 
     private fun subscribeObservables() {
         viewModel.loginResult.filterNotNull().collectWithLifecycle(this) {
-            if (it.accessToken == Constant.EMPTY_STRING) return@collectWithLifecycle
             val intent = Intent(this@KakaoTestActivity, NewGroupActivity::class.java)
             intent.putExtra(ACCESS_TOKEN, it.accessToken)
             startActivity(intent)

@@ -1,6 +1,5 @@
 package com.yapp.bol.presentation.view.group.search
 
-import androidx.activity.viewModels
 import androidx.fragment.app.commit
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseActivity
@@ -13,13 +12,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class GroupSearchActivityTest : BaseActivity<ActivityGroupSearchTestBinding>(R.layout.activity_group_search_test) {
 
-    private val viewModel: GroupSearchViewModel by viewModels()
-
     override fun onCreateAction() {
         super.onCreateAction()
-        binding.lifecycleOwner = this@GroupSearchActivityTest
-        viewModel
-
         supportFragmentManager.commit {
             replace(R.id.fl_test, GroupSearchFragment())
             setReorderingAllowed(true)
