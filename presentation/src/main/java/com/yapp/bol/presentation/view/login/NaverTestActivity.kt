@@ -1,5 +1,6 @@
 package com.yapp.bol.presentation.view.login
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -7,8 +8,10 @@ import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.OAuthLoginCallback
 import com.yapp.bol.presentation.BuildConfig
 import com.yapp.bol.presentation.R
+import com.yapp.bol.presentation.utils.Constant
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.showToast
+import com.yapp.bol.presentation.view.group.NewGroupActivity
 import com.yapp.bol.presentation.viewmodel.login.LoginType
 import com.yapp.bol.presentation.viewmodel.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -59,7 +62,10 @@ class NaverTestActivity : AppCompatActivity() {
 
     private fun subscribeObservables() {
         viewModel.loginResult.filterNotNull().collectWithLifecycle(this) {
-            showToast("success : $it")
+            if (it.accessToken == Constant.EMPTY_STRING) return@collectWithLifecycle
+            val intent = Intent(this@NaverTestActivity, NewGroupActivity::class.java)
+            intent.putExtra(KakaoTestActivity.ACCESS_TOKEN, it.accessToken)
+            startActivity(intent)
         }
     }
 }

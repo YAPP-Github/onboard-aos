@@ -13,17 +13,18 @@ class KeyboardVisibilityUtils(
     private val windowVisibleDisplayFrame = Rect()
     private var lastVisibleDecorViewHeight: Int = 0
 
-
     private val onGlobalLayoutListener = ViewTreeObserver.OnGlobalLayoutListener {
         window.decorView.getWindowVisibleDisplayFrame(windowVisibleDisplayFrame)
         val visibleDecorViewHeight = windowVisibleDisplayFrame.height()
-
+        val currentKeyboardHeight = window.decorView.height - windowVisibleDisplayFrame.bottom
         if (lastVisibleDecorViewHeight != 0) {
-            if (lastVisibleDecorViewHeight > visibleDecorViewHeight + MIN_KEYBOARD_HEIGHT_PX) {
-                val currentKeyboardHeight = window.decorView.height - windowVisibleDisplayFrame.bottom
-                onShowKeyboard?.let { it(currentKeyboardHeight) }
-            } else if (lastVisibleDecorViewHeight + MIN_KEYBOARD_HEIGHT_PX < visibleDecorViewHeight) {
-                onHideKeyboard?.let { it() }
+            when {
+                lastVisibleDecorViewHeight > visibleDecorViewHeight + MIN_KEYBOARD_HEIGHT_PX -> {
+                    onShowKeyboard?.let { it(currentKeyboardHeight) }
+                }
+                lastVisibleDecorViewHeight + MIN_KEYBOARD_HEIGHT_PX < visibleDecorViewHeight -> {
+                    onHideKeyboard?.let { it() }
+                }
             }
         }
         lastVisibleDecorViewHeight = visibleDecorViewHeight

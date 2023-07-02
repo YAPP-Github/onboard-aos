@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.presentation.databinding.RvGameItemBinding
-import com.yapp.bol.presentation.model.GameItem
 
 class GameSelectAdapter(
     private val gameClickListener: (String) -> Unit,
@@ -38,7 +38,7 @@ class GameSelectAdapter(
     companion object {
         private val diff = object : DiffUtil.ItemCallback<GameItem>() {
             override fun areItemsTheSame(oldItem: GameItem, newItem: GameItem): Boolean {
-                return oldItem.imageUrl == newItem.imageUrl
+                return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(oldItem: GameItem, newItem: GameItem): Boolean {
