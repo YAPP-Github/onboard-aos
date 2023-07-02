@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.kakao.sdk.auth.Constants.ACCESS_TOKEN
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.model.ClientError
@@ -14,7 +13,6 @@ import com.yapp.bol.presentation.BuildConfig
 import com.yapp.bol.presentation.databinding.ActivityKakaoTestBinding
 import com.yapp.bol.presentation.utils.Constant
 import com.yapp.bol.presentation.utils.collectWithLifecycle
-import com.yapp.bol.presentation.utils.showToast
 import com.yapp.bol.presentation.view.group.NewGroupActivity
 import com.yapp.bol.presentation.viewmodel.login.LoginType
 import com.yapp.bol.presentation.viewmodel.login.LoginViewModel
@@ -73,7 +71,6 @@ class KakaoTestActivity : AppCompatActivity() {
             val intent = Intent(this@KakaoTestActivity, NewGroupActivity::class.java)
             intent.putExtra(ACCESS_TOKEN, it.accessToken)
             startActivity(intent)
-
         }
     }
 

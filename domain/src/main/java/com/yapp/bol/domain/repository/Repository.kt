@@ -2,7 +2,7 @@ package com.yapp.bol.domain.repository
 
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.BaseItem
-import com.yapp.bol.domain.model.ErrorItem
+import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.model.NewGroupItem
 import kotlinx.coroutines.flow.Flow
@@ -30,4 +30,11 @@ interface Repository {
         accessCode: String,
         nickname: String,
     ): Flow<ApiResult<BaseItem>>
+
+    fun getGameList(groupId: Int): Flow<ApiResult<List<GameItem>>>
+
+    fun getValidateNickName(
+        groupId: Int,
+        nickname: String,
+    ): Flow<ApiResult<Boolean>>
 }

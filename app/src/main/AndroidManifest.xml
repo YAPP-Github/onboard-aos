@@ -17,7 +17,7 @@
         tools:targetApi="m">
 
         <activity
-            android:name="com.yapp.bol.presentation.view.MainActivity"
+            android:name="com.yapp.bol.presentation.view.group.GroupActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

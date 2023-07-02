@@ -35,4 +35,18 @@
     <string name="group_join_title">모임 들어가기</string>
     <string name="group_join_code_input_plz">모임 참여 코드를 입력해주세요</string>
     <string name="group_join_code_input">참여 코드 입력</string>
+
+    <string name="game_result_record">게임 결과 기록</string>
+    <string name="play_select_guide">게임을 함께 플레이 한 멤버를 선택해주세요</string>
+    <string name="player_complete_guide">플레이어 선택 완료</string>
+    <string name="member_search_hint">멤버 검색</string>
+
+    <string name="guest_add_text">임시 멤버 추가</string>
+    <string name="guest_description_text">아직 온보드에 가입하지 않은 상대를 모임에\n임시 멤버로 추가하고 게임 기록을 남겨보세요.</string>
+    <string name="guest_name_hint">임시 멤버가 사용할 닉네임을 입력해주세요.</string>
+    <string name="guest_name_set_tip">Tip :임시 멤버의 닉네임은 기억하기 쉽게 만들어주세요.\n이후 온보드에 가입할 때 기록을 연동할 수 있습니다.</string>
+
+    <string name="search_result_nothing">\'%s\'에 대한 검색 결과가 없습니다.</string>
+    <string name="search_result_nothing_guide">함께 보드게임을 플레이한 상대가 온보드에\n 아직 없다면,임시 멤버로 추가해 기록해보세요!</string>
+    <string name="guest_add_nothing">임시 멤버 추가</string>
 </resources>

@@ -13,6 +13,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -36,13 +37,13 @@ object NetworkModule {
     @Singleton
     fun provideHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
-        authInterceptor: AuthInterceptor
+        appInterceptor: AppInterceptor,
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .readTimeout(10, TimeUnit.SECONDS)
             .connectTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(15, TimeUnit.SECONDS)
-            .addInterceptor(authInterceptor)
+            .addInterceptor(appInterceptor)
             .addInterceptor(httpLoggingInterceptor)
             .build()
     }
@@ -51,7 +52,7 @@ object NetworkModule {
     @Provides
     fun provideRetrofitInstance(
         okHttpClient: OkHttpClient,
-        gsonConverterFactory: GsonConverterFactory,
+        gsonConverterFactory: GsonConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -84,4 +85,7 @@ object NetworkModule {
         return retrofit.create(GroupApi::class.java)
     }
 
+    @Provides
+    @Singleton
+    fun provideAppInterceptor(): AppInterceptor = AppInterceptor()
 }
