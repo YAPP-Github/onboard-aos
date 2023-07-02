@@ -3,13 +3,13 @@ package com.yapp.bol.data.repository
 import com.yapp.bol.data.datasource.RemoteDataSource
 import com.yapp.bol.data.mapper.MapperToDomain.fileUploadToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.gameToDomain
+import com.yapp.bol.data.mapper.MapperToDomain.memberListToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.newGroupToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.toDomain
 import com.yapp.bol.data.mapper.MapperToDomain.validToDomain
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
-import com.yapp.bol.domain.model.MemberItem
 import com.yapp.bol.domain.model.MemberItems
 import com.yapp.bol.domain.model.NewGroupItem
 import com.yapp.bol.domain.repository.Repository
@@ -62,7 +62,7 @@ class RepositoryImpl @Inject constructor(
         nickname: String?,
     ): Flow<ApiResult<MemberItems>> {
         return remoteDataSource.getMemberList(groupId, pageSize, cursor, nickname).map {
-            it.toDomain()
+            it.memberListToDomain()
         }
     }
 

@@ -74,7 +74,7 @@ class MemberSelectViewModel @Inject constructor(
 
     private suspend fun getMemberList(nickname: String? = null): List<MemberInfo> {
         var memberList = listOf<MemberInfo>()
-        matchUseCase.getMemberList(19, 20, cursor, nickname).collectLatest {
+        matchUseCase.getMemberList(groupId, 20, cursor, nickname).collectLatest {
             checkedApiResult(
                 apiResult = it,
                 success = { data ->
@@ -89,7 +89,7 @@ class MemberSelectViewModel @Inject constructor(
     }
 
     private suspend fun postGuestMember(nickname: String) {
-        matchUseCase.postGuestMember(19, nickname)
+        matchUseCase.postGuestMember(groupId, nickname)
         clearNextPage()
         getMembers()
     }

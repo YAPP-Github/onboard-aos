@@ -4,12 +4,15 @@ import com.yapp.bol.data.model.OAuthApiResponse
 import com.yapp.bol.data.model.file_upload.FileUploadResponse
 import com.yapp.bol.data.model.group.GameApiResponse
 import com.yapp.bol.data.model.group.GameDTO
+import com.yapp.bol.data.model.group.GroupSearchApiResponse
 import com.yapp.bol.data.model.group.MemberDTO
 import com.yapp.bol.data.model.group.MemberListResponse
 import com.yapp.bol.data.model.group.MemberValidApiResponse
 import com.yapp.bol.data.model.group.NewGroupApiResponse
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.GameItem
+import com.yapp.bol.domain.model.GroupItem
+import com.yapp.bol.domain.model.GroupSearchItem
 import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.model.MemberItem
 import com.yapp.bol.domain.model.MemberItems
@@ -25,6 +28,31 @@ internal object MapperToDomain {
             this.refreshToken,
         )
     }
+    fun ApiResult<GroupSearchApiResponse>.toDomain(): ApiResult<GroupSearchItem> {
+        return when (this) {
+            is ApiResult.Success -> ApiResult.Success(
+                GroupSearchItem(
+                    hasNext = this.data.hasNext,
+                    groupItemList = data.toItem(),
+                )
+            )
+            is ApiResult.Error -> ApiResult.Error(exception)
+        }
+    }
+
+    private fun GroupSearchApiResponse.toItem(): List<GroupItem> {
+        return this.content.map { groupItem ->
+            GroupItem(
+                id = groupItem.id,
+                name = groupItem.name,
+                description = groupItem.description,
+                organization = groupItem.organization,
+                profileImageUrl = groupItem.profileImageUrl,
+                memberCount = groupItem.memberCount
+            )
+        }
+    }
+
 
     private fun NewGroupApiResponse.toItem(): NewGroupItem {
         return NewGroupItem(
@@ -85,7 +113,7 @@ internal object MapperToDomain {
         }
     }
 
-    fun ApiResult<MemberListResponse>.toDomain(): ApiResult<MemberItems> {
+    fun ApiResult<MemberListResponse>.memberListToDomain(): ApiResult<MemberItems> {
         return when (this) {
             is ApiResult.Success -> ApiResult.Success(
                 MemberItems(

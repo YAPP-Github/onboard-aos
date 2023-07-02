@@ -38,7 +38,7 @@ class GuestAddDialog(
             dismiss()
         }
 
-        binding.etGuestName.doOnTextChanged { text, start, _, count ->
+        binding.etGuestName.doOnTextChanged { _, start, _, count ->
             val color = if (count == 10) Color.parseColor("#EB5555") else Color.parseColor("#8B8B8B")
             binding.tvGuestNameCount.setTextColor(color)
             binding.tvGuestNameCount.text = convertLengthToString(PROFILE_NAME_MAX_LENGTH, start + count)
