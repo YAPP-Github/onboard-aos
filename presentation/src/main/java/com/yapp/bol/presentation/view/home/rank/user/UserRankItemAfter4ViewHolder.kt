@@ -1,7 +1,10 @@
 package com.yapp.bol.presentation.view.home.rank.user
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.domain.model.UserRankItem
+import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.ItemRankAfter4Binding
 
 class UserRankItemAfter4ViewHolder(
@@ -23,5 +26,14 @@ class UserRankItemAfter4ViewHolder(
         tvName.text = userRankItem.name
         tvPlayCount.text = userRankItem.playCount.toString()
         tvWinRate.text = userRankItem.winRate.toString()
+    }
+
+    companion object {
+        fun create(parent: ViewGroup): UserRankItemAfter4ViewHolder {
+            val inflater = LayoutInflater.from(parent.context)
+            val view = inflater.inflate(R.layout.item_rank_after_4, parent, false)
+            val binding = ItemRankAfter4Binding.bind(view)
+            return UserRankItemAfter4ViewHolder(binding)
+        }
     }
 }

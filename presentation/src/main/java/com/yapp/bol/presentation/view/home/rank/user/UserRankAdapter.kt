@@ -9,17 +9,21 @@ import com.yapp.bol.presentation.model.UserRankUiModel
 
 class UserRankAdapter : ListAdapter<UserRankUiModel, RecyclerView.ViewHolder>(diff) {
 
-    private val userRankViewHolderFactory by lazy { UserRankViewHolderFactory() }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        userRankViewHolderFactory.createViewHolder(parent = parent, viewType = viewType)
+        if (viewType == R.layout.item_rank_1_to_3) {
+            UserRankItem1to3ViewHolder.create(parent)
+        } else {
+            UserRankItemAfter4ViewHolder.create(parent)
+        }
+
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val uiModel = getItem(position)
         uiModel?.let {
             when (uiModel) {
                 is UserRankUiModel.UserRank1to3 ->
-                    (holder as UserRankItem1to3ViewHolder).bind(uiModel.userRankItem)
+                    (holder as UserRankItem1to3ViewHolder).bind(uiModel.userRankItemList)
+
                 is UserRankUiModel.UserRankAfter4 ->
                     (holder as UserRankItemAfter4ViewHolder).bind(uiModel.userRankItem)
             }
@@ -40,7 +44,10 @@ class UserRankAdapter : ListAdapter<UserRankUiModel, RecyclerView.ViewHolder>(di
                 return when (oldItem) {
                     is UserRankUiModel.UserRank1to3 -> {
                         newItem is UserRankUiModel.UserRank1to3 &&
-                            oldItem.userRankItem.id == newItem.userRankItem.id
+                            oldItem.userRankItemList.size == newItem.userRankItemList.size &&
+                            oldItem.userRankItemList.indices.all { index ->
+                                oldItem.userRankItemList[index].id == newItem.userRankItemList[index].id
+                            }
                     }
 
                     is UserRankUiModel.UserRankAfter4 -> {
