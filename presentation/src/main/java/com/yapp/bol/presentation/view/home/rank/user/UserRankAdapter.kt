@@ -16,7 +16,6 @@ class UserRankAdapter : ListAdapter<UserRankUiModel, RecyclerView.ViewHolder>(di
             UserRankItemAfter4ViewHolder.create(parent)
         }
 
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val uiModel = getItem(position)
         uiModel?.let {
