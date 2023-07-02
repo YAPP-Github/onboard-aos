@@ -6,26 +6,34 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
 import android.view.WindowManager
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.LinearLayout
 import androidx.annotation.StringRes
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updateMargins
+import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import com.yapp.bol.presentation.R
+import com.yapp.bol.presentation.databinding.DialogInputBinding
 import com.yapp.bol.presentation.utils.Keyboard
+import com.yapp.bol.presentation.utils.dpToPx
+import com.yapp.bol.presentation.utils.inflate
 
 class InputDialog(
     context: Context,
 ) : Dialog(context) {
 
-    private var title: CharSequence? = null
-    private var message: CharSequence? = null
+    private val binding: DialogInputBinding by lazy {
+        context.inflate(R.layout.dialog_input, null, false)
+    }
+
     private var onLimitExceeded: ((String) -> Unit)? = null
-    private var onLimitChanged: ((Int) -> Unit)? = null
     private var onLimit: Int = 0
 
     init {
-        setContentView(R.layout.dialog_input)
+        setContentView(binding.root)
 
         window?.apply {
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -33,58 +41,61 @@ class InputDialog(
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
             )
-            attributes?.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
+            setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+        }
+        binding.root.updateLayoutParams<MarginLayoutParams> {
+            leftMargin = context.dpToPx(16)
+            rightMargin = context.dpToPx(16)
+            bottomMargin = context.dpToPx(36)
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val title = findViewById<TextView>(R.id.tv_title)
-        val message = findViewById<TextView>(R.id.tv_message)
-        val input = findViewById<EditText>(R.id.et_input)
-
-        title.text = this.title
-        message.text = this.message
         onBackPress()
 
-        input.requestFocus()
+        binding.etInput.requestFocus()
 
-        input.doAfterTextChanged { text ->
-            onLimitChanged?.invoke(text?.length ?: 0)
+        binding.etInput.doAfterTextChanged { text ->
+
+            binding.tvInputCount.text = "${text?.length ?: 0}/$onLimit"
 
             if ((text?.length ?: 0) > onLimit) {
                 onLimitExceeded?.invoke(text.toString())
-                input.setText(text?.substring(0, onLimit))
-                input.setSelection(onLimit)
+                binding.etInput.setText(text?.substring(0, onLimit))
+                binding.etInput.setSelection(onLimit)
             }
         }
+    }
 
-        Keyboard.open(context, input, WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+    fun setOnSummit(onSummit: (String) -> Unit): InputDialog {
+        binding.summitLayout.visibility = View.VISIBLE
+        binding.etLayout.updatePadding(bottom = 0)
+
+        binding.tvSummit.setOnClickListener {
+            onSummit(binding.etInput.text.toString())
+            dismiss()
+        }
+        return this
     }
 
     fun setTitle(title: CharSequence): InputDialog {
-        this.title = title
+        binding.tvTitle.text = title
         return this
     }
 
     fun setTitle(@StringRes title: Int?): InputDialog {
-        this.title = context.getString(title ?: return this)
+        binding.tvTitle.text = context.getString(title ?: return this)
         return this
     }
 
     fun setMessage(message: CharSequence): InputDialog {
-        this.message = message
+        binding.tvMessage.text = message
         return this
     }
 
     fun setMessage(@StringRes message: Int): InputDialog {
-        this.message = context.getString(message)
-        return this
-    }
-
-    fun setOnLimitChanged(onLimitChanged: (Int) -> Unit): InputDialog {
-        this.onLimitChanged = onLimitChanged
+        binding.tvMessage.text = context.getString(message)
         return this
     }
 

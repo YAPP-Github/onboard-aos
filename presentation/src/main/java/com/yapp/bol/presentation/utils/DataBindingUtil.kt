@@ -12,3 +12,11 @@ fun <T> ViewGroup.inflate(
 ): T {
     return DataBindingUtil.inflate(LayoutInflater.from(this.context), layoutRes, this, attachToRoot)
 }
+
+fun <T> Context.inflate(
+    @LayoutRes layoutRes: Int,
+    parent: ViewGroup? = null,
+    attachToRoot: Boolean = false,
+): T {
+    return DataBindingUtil.inflate(LayoutInflater.from(this), layoutRes, parent, attachToRoot)
+}

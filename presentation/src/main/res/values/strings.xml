@@ -28,6 +28,7 @@
     <string name="group_creating_text">모임을 등록하는 중..</string>
 
     <string name="game_select_guide">플레이 할 보드게임을 선택해주세요</string>
+
     <string name="member_number_explanation">멤버수</string>
     <string name="member_number">%d명</string>
     <string name="owner">관리자</string>
