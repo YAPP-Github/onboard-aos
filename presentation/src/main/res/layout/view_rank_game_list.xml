@@ -24,8 +24,13 @@
 
     <TextView
         android:id="@+id/tv_game"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="@style/Typography.Body5_R"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/Gray_10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
