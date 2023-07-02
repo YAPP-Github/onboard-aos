@@ -9,8 +9,10 @@ data class UserRankApiResponse(
 data class UserRankDTO(
     val id: Long,
     val rank: Int,
+    @SerializedName("nickname")
     val name: String,
     @SerializedName("winningPercentage")
     val winRate: Double,
+    @SerializedName("matchCount")
     val playCount: Int,
 )
