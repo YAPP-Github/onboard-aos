@@ -1,8 +1,8 @@
-package com.yapp.bol.data.model
+package com.yapp.bol.data.model.login
 
 import com.google.gson.annotations.SerializedName
 
-data class OAuthApiResponse(
+data class LoginResponse(
     @SerializedName("accessToken")
     val accessToken: String,
     @SerializedName("refreshToken")

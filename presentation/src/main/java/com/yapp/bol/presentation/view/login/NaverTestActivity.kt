@@ -8,10 +8,9 @@ import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.OAuthLoginCallback
 import com.yapp.bol.presentation.BuildConfig
 import com.yapp.bol.presentation.R
-import com.yapp.bol.presentation.utils.Constant
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.showToast
-import com.yapp.bol.presentation.view.group.NewGroupActivity
+import com.yapp.bol.presentation.view.group.search.GroupSearchActivityTest
 import com.yapp.bol.presentation.viewmodel.login.LoginType
 import com.yapp.bol.presentation.viewmodel.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,7 +48,7 @@ class NaverTestActivity : AppCompatActivity() {
             }
 
             override fun onFailure(httpStatus: Int, message: String) {
-                showToast("fail $message")
+                showToast("fail $message ")
             }
 
             override fun onError(errorCode: Int, message: String) {
@@ -62,8 +61,7 @@ class NaverTestActivity : AppCompatActivity() {
 
     private fun subscribeObservables() {
         viewModel.loginResult.filterNotNull().collectWithLifecycle(this) {
-            if (it.accessToken == Constant.EMPTY_STRING) return@collectWithLifecycle
-            val intent = Intent(this@NaverTestActivity, NewGroupActivity::class.java)
+            val intent = Intent(this@NaverTestActivity, GroupSearchActivityTest::class.java)
             intent.putExtra(KakaoTestActivity.ACCESS_TOKEN, it.accessToken)
             startActivity(intent)
         }

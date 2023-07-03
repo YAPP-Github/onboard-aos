@@ -14,7 +14,7 @@ data class MemberItem(
         parcel.readInt(),
         parcel.readString() ?: EMPTY_STRING,
         parcel.readInt(),
-        parcel.readByte() != 0.toByte()
+        parcel.readByte() != 0.toByte(),
     ) {
     }
 
