@@ -1,7 +1,9 @@
 package com.yapp.bol.data.datasource.group
 
 import com.yapp.bol.data.model.group.GroupSearchApiResponse
+import com.yapp.bol.data.model.group.JoinedGroupResponse
 import com.yapp.bol.domain.model.ApiResult
+import kotlinx.coroutines.flow.Flow
 
 interface GroupDataSource {
 
@@ -10,4 +12,6 @@ interface GroupDataSource {
         page: Int,
         pageSize: Int,
     ): ApiResult<GroupSearchApiResponse>
+
+    fun getJoinedGroup(): Flow<ApiResult<JoinedGroupResponse>>
 }

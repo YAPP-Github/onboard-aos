@@ -5,6 +5,7 @@ import com.yapp.bol.data.model.group.MemberValidApiResponse
 import com.yapp.bol.data.model.group.NewGroupApiRequest
 import com.yapp.bol.data.model.group.NewGroupApiResponse
 import com.yapp.bol.data.model.group.GroupSearchApiResponse
+import com.yapp.bol.data.model.group.JoinedGroupResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -36,4 +37,7 @@ interface GroupApi {
         @Query("pageNumber") page: String,
         @Query("pageSize") pageSize: String,
     ): Response<GroupSearchApiResponse>
+
+    @GET("/v1/user/me/group")
+    suspend fun getJoinedGroup(): Response<JoinedGroupResponse>
 }
