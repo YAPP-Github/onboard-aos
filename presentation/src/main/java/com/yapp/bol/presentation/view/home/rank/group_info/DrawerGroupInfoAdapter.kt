@@ -21,7 +21,7 @@ class DrawerGroupInfoAdapter : ListAdapter<DrawerGroupInfoUiModel, RecyclerView.
         uiModel?.let {
             when (uiModel) {
                 is DrawerGroupInfoUiModel.CurrentGroupInfo ->
-                    (holder as DrawerCurrentGroupInfoViewHolder).bind(uiModel.joinedGroupItem)
+                    (holder as DrawerCurrentGroupInfoViewHolder).bind(uiModel.groupDetailItem)
                 is DrawerGroupInfoUiModel.OtherGroupInfo ->
                     (holder as DrawerOtherGroupViewHolder).bind(uiModel.joinedGroupItem)
             }
@@ -41,7 +41,7 @@ class DrawerGroupInfoAdapter : ListAdapter<DrawerGroupInfoUiModel, RecyclerView.
                 return when (oldItem) {
                     is DrawerGroupInfoUiModel.CurrentGroupInfo -> {
                         newItem is DrawerGroupInfoUiModel.CurrentGroupInfo &&
-                            oldItem.joinedGroupItem.id == newItem.joinedGroupItem.id
+                            oldItem.groupDetailItem.id == newItem.groupDetailItem.id
                     }
 
                     is DrawerGroupInfoUiModel.OtherGroupInfo -> {
