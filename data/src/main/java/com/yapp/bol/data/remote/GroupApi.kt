@@ -1,6 +1,7 @@
 package com.yapp.bol.data.remote
 
 import com.yapp.bol.data.model.group.GameApiResponse
+import com.yapp.bol.data.model.group.GroupDetailResponse
 import com.yapp.bol.data.model.group.MemberValidApiResponse
 import com.yapp.bol.data.model.group.NewGroupApiRequest
 import com.yapp.bol.data.model.group.NewGroupApiResponse
@@ -40,4 +41,9 @@ interface GroupApi {
 
     @GET("/v1/user/me/group")
     suspend fun getJoinedGroup(): Response<JoinedGroupResponse>
+
+    @GET("/v1/group/{groupId}")
+    suspend fun getGroupDetail(
+        @Path("groupId") groupId: Long
+    ): Response<GroupDetailResponse>
 }
