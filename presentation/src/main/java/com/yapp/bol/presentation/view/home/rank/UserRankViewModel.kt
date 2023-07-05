@@ -4,8 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.UserRankItem
+import com.yapp.bol.domain.usecase.group.GetJoinedGroupUseCase
 import com.yapp.bol.domain.usecase.rank.GetUserRankGameListUseCase
 import com.yapp.bol.domain.usecase.rank.GetUserRankUseCase
+import com.yapp.bol.presentation.model.DrawerGroupInfoUiModel
 import com.yapp.bol.presentation.model.UserRankUiModel
 import com.yapp.bol.presentation.utils.checkedApiResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,15 +21,22 @@ import javax.inject.Inject
 class UserRankViewModel @Inject constructor(
     private val getUserRankGameListUseCase: GetUserRankGameListUseCase,
     private val getUserRankUseCase: GetUserRankUseCase,
+    private val getJoinedGroupUseCase: GetJoinedGroupUseCase,
 ) : ViewModel() {
+
     private val _gameListFlow = MutableStateFlow<List<GameItem>>(emptyList())
     val gameListFlow: StateFlow<List<GameItem>> = _gameListFlow
+
     private val _userListFlow = MutableStateFlow<List<UserRankUiModel>>(emptyList())
     val userListFlow: StateFlow<List<UserRankUiModel>> = _userListFlow
+
+    private val _groupListFlow = MutableStateFlow<List<DrawerGroupInfoUiModel>>(emptyList())
+    val groupListFlow: StateFlow<List<DrawerGroupInfoUiModel>> = _groupListFlow
 
     init {
         fetchGameList()
         fetchUserList()
+        fetchJoinedGroupList(1)
     }
 
     private fun fetchGameList() {
@@ -70,5 +79,30 @@ class UserRankViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    private fun fetchJoinedGroupList(currentGroup: Long) {
+        viewModelScope.launch {
+            getJoinedGroupUseCase().collectLatest {
+                checkedApiResult(
+                    apiResult = it,
+                    success = { joinedGroupItemList ->
+                        val uiModelList = joinedGroupItemList.map { joinedGroupItem ->
+                            if (joinedGroupItem.id == currentGroup) {
+                                DrawerGroupInfoUiModel.CurrentGroupInfo(joinedGroupItem)
+                            } else {
+                                DrawerGroupInfoUiModel.OtherGroupInfo(joinedGroupItem)
+                            }
+                        }
+                        _groupListFlow.value = uiModelList
+                    },
+                    error = { throwable -> throw throwable }
+                )
+            }
+        }
+    }
+
+    private fun fetchJoinedGroupDetail(groupId: Long) {
+        // TODO : 상세 확인 API 나와야 구현 가능
     }
 }
