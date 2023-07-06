@@ -9,38 +9,9 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/group_container_layout"
-            android:name="com.yapp.bol.presentation.view.group.join.GroupJoinFragment"
+            android:name="com.yapp.bol.presentation.view.group.search.GroupSearchFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
-        <LinearLayout
-            android:id="@+id/loading_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <TextView
-                android:id="@+id/tv_loading_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/profile_setting_btn_background_color"
-                tools:text="모임에 들어가는중" />
-
-            <ProgressBar
-                android:id="@+id/pb_loading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:indeterminateDrawable="@drawable/pb_loading"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

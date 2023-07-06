@@ -2,7 +2,7 @@
 <resources>
     <declare-styleable name="GroupItemUserTitle">
         <attr name="title" />
-        <attr name="detailTitle" format="reference|string" />
+        <attr name="detailTitle" format="string" />
     </declare-styleable>
 
     <declare-styleable name="GroupItemGame">

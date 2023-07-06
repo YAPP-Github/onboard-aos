@@ -4,8 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.FragmentGroupJoinBinding
 import com.yapp.bol.presentation.utils.collectWithLifecycle
@@ -15,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class GroupJoinFragment : Fragment() {
 
     private lateinit var binding: FragmentGroupJoinBinding
-    private val viewModel by activityViewModels<GroupJoinViewModel>()
+    private val viewModel by viewModels<GroupJoinViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,12 +24,17 @@ class GroupJoinFragment : Fragment() {
         savedInstanceState: Bundle?,
     ) = FragmentGroupJoinBinding.inflate(inflater, container, false).apply {
         binding = this
+        vm = viewModel
+        lifecycleOwner = viewLifecycleOwner
     }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
         subscribeObseravles()
+        viewModel.groupItem.collectWithLifecycle(viewLifecycleOwner){
+            binding.groupMemberView.setGroupItemDetailTitle("${it?.memberCount}명")
+        }
     }
 
     private fun initView() {
@@ -54,7 +60,7 @@ class GroupJoinFragment : Fragment() {
             .setMessage("모임에서 사용할 닉네임을 10자 이하로 입력해주세요.")
             .setLimitSize(10)
             .setOnSummit { nickname, dialog ->
-                viewModel.joinGroup("", code, nickname)
+                viewModel.joinGroup(code, nickname)
 
                 viewModel.successJoinGroup.collectWithLifecycle(viewLifecycleOwner) { (success, message) ->
                     if (success) {
@@ -68,5 +74,9 @@ class GroupJoinFragment : Fragment() {
     }
 
     private fun subscribeObseravles() {
+        viewModel.loading.collectWithLifecycle(this) { (isLoading, message) ->
+            binding.loadingLayout.isVisible = isLoading
+            binding.tvLoadingTitle.text = message
+        }
     }
 }

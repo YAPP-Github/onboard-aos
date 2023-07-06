@@ -53,7 +53,7 @@ interface GroupApi {
         @Query("pageSize") pageSize: String,
     ): Response<GroupSearchApiResponse>
 
-    @POST("v1/group/{groupId}/member/join")
+    @POST("v1/group/{groupId}/host")
     suspend fun joinGroup(
         @Path("groupId") groupId: String,
         @Body request: JoinGroupApiRequest,
