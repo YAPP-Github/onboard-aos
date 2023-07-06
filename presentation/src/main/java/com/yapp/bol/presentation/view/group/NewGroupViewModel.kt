@@ -1,5 +1,6 @@
 package com.yapp.bol.presentation.view.group
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,13 +23,13 @@ class NewGroupViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _groupName = MutableLiveData(EMPTY_STRING)
-    val groupName = _groupName
+    val groupName: LiveData<String> = _groupName
 
     private val _groupDescription = MutableLiveData(EMPTY_STRING)
-    val groupDescription = _groupDescription
+    val groupDescription: LiveData<String> = _groupDescription
 
     private val _successGroupDate = MutableLiveData<NewGroupItem?>(null)
-    val successGroupDate = _successGroupDate
+    val successGroupDate: LiveData<NewGroupItem?> = _successGroupDate
 
     private var groupOrganization = EMPTY_STRING
     private var imageFile = File(EMPTY_STRING)
@@ -64,7 +65,7 @@ class NewGroupViewModel @Inject constructor(
         ).collectLatest {
             checkedApiResult(
                 apiResult = it,
-                success = { data -> _successGroupDate.value = data }
+                success = { data -> _successGroupDate.value = data },
             )
         }
     }

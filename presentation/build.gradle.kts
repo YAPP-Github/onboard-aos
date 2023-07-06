@@ -56,6 +56,7 @@ android {
 dependencies {
 
     implementation(project(mapOf("path" to ":domain")))
+    implementation(project(mapOf("path" to ":designsystem")))
 
     implementation(com.yapp.bol.KTX.CORE)
     implementation(com.yapp.bol.AndroidX.APP_COMPAT)
@@ -97,6 +98,12 @@ dependencies {
 
     // Navigation
     implementation(com.yapp.bol.Navigation.NAVIGATION)
+
+    // Paging3
+    implementation(com.yapp.bol.AndroidX.PAGING)
+
+    // Shimmer
+    implementation(com.yapp.bol.Shimmer.SHIMMER)
 }
 
 fun getProperty(propertyKey: String): String {

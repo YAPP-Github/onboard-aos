@@ -2,17 +2,16 @@ package com.yapp.bol.data.datasource.impl
 
 import com.yapp.bol.data.datasource.RemoteDataSource
 import com.yapp.bol.data.datasource.mock.impl.LoginType.toDomain
-import com.yapp.bol.data.model.OAuthApiRequest
-import com.yapp.bol.data.model.OAuthApiResponse
 import com.yapp.bol.data.model.base.BaseResponse
-import com.yapp.bol.data.model.file_upload.FileUploadResponse
-import com.yapp.bol.data.model.group.GameApiResponse
 import com.yapp.bol.data.model.group.JoinGroupApiRequest
-import com.yapp.bol.data.model.group.MemberValidApiResponse
-import com.yapp.bol.data.model.group.NewGroupApiRequest
-import com.yapp.bol.data.model.group.NewGroupApiResponse
+import com.yapp.bol.data.model.login.LoginRequest
+import com.yapp.bol.data.model.login.LoginResponse
+import com.yapp.bol.data.model.group.response.ProfileUploadResponse
+import com.yapp.bol.data.model.group.response.GameApiResponse
+import com.yapp.bol.data.model.group.response.MemberValidApiResponse
+import com.yapp.bol.data.model.group.request.NewGroupApiRequest
+import com.yapp.bol.data.model.group.response.NewGroupApiResponse
 import com.yapp.bol.data.remote.GroupApi
-import com.yapp.bol.data.remote.ImageFileApi
 import com.yapp.bol.data.remote.LoginApi
 import com.yapp.bol.data.utils.Image.GROUP_IMAGE
 import com.yapp.bol.domain.handle.BaseRepository
@@ -28,24 +27,23 @@ import javax.inject.Inject
 
 class RemoteDataSourceImpl @Inject constructor(
     private val loginApi: LoginApi,
-    private val imageFileApi: ImageFileApi,
     private val groupApi: GroupApi,
 ) : BaseRepository(), RemoteDataSource {
 
-    override suspend fun login(type: String, token: String): OAuthApiResponse? {
-        return loginApi.postOAuthApi(OAuthApiRequest(type.toDomain(), token)).body()
+    override suspend fun login(type: String, token: String): LoginResponse? {
+        return loginApi.postOAuthApi(LoginRequest(type.toDomain(), token)).body()
     }
 
     override fun postFileUpload(
         token: String,
         file: File,
-    ): Flow<ApiResult<FileUploadResponse>> = flow {
-        val fileBody = RequestBody.create(MediaType.parse(MEDIA_TYPE_IMAGE), file)
+    ): Flow<ApiResult<ProfileUploadResponse>> = flow {
+        val fileBody = RequestBody.create(MediaType.parse(getMimeType(file.name)), file)
         val filePart = MultipartBody.Part.createFormData(FILE_KEY, file.name, fileBody)
-        val purpose = RequestBody.create(MediaType.parse(MEDIA_TYPE_TEXT), GROUP_IMAGE)
+        val purpose = RequestBody.create(MediaType.parse(getMimeType(file.name)), GROUP_IMAGE)
 
         val result = safeApiCall {
-            imageFileApi.postFileUpload(token = token.convertRequestToken(), file = filePart, purpose = purpose)
+            groupApi.postProfileUpload(token = token, file = filePart, purpose = purpose)
         }
         emit(result)
     }
@@ -63,15 +61,6 @@ class RemoteDataSourceImpl @Inject constructor(
         emit(result)
     }
 
-    override fun joinGroup(
-        groupId: String,
-        accessCode: String,
-        nickname: String,
-    ): Flow<ApiResult<BaseResponse>> = flow {
-        val result = safeApiCall { groupApi.joinGroup(groupId, JoinGroupApiRequest(nickname, accessCode)) }
-        emit(result)
-    }
-
     override fun getGameList(groupId: Int): Flow<ApiResult<GameApiResponse>> = flow {
         val result = safeApiCall { groupApi.getGameList(groupId) }
         emit(result)
@@ -85,17 +74,20 @@ class RemoteDataSourceImpl @Inject constructor(
         emit(result)
     }
 
-    private fun String.convertRequestToken(): String {
-        return "Bearer $this"
-    }
-
     private fun getMimeType(fileName: String): String {
         return URLConnection.guessContentTypeFromName(fileName)
     }
 
     companion object {
-        const val MEDIA_TYPE_IMAGE = "image/*"
-        const val MEDIA_TYPE_TEXT = "text/*"
         const val FILE_KEY = "file"
+    }
+
+    override fun joinGroup(
+        groupId: String,
+        accessCode: String,
+        nickname: String,
+    ): Flow<ApiResult<BaseResponse>> = flow {
+        val result = safeApiCall { groupApi.joinGroup(groupId, JoinGroupApiRequest(nickname, accessCode)) }
+        emit(result)
     }
 }

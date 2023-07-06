@@ -16,7 +16,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:adjustViewBounds="true"
-            android:textColor="@color/gray_10"
+            android:textColor="@color/Gray_10"
             android:textSize="12dp" />
 
     </merge>

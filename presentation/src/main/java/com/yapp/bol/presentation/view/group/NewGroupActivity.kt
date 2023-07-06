@@ -14,8 +14,9 @@ import com.yapp.bol.presentation.databinding.ActivityNewGroupBinding
 import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
 import com.yapp.bol.presentation.utils.Converter.convertLengthToString
 import com.yapp.bol.presentation.utils.GalleryManager
-import com.yapp.bol.presentation.utils.ImageSettingDialog
-import com.yapp.bol.presentation.utils.ProfileSettingDialog
+import com.yapp.bol.presentation.utils.convertPxToDp
+import com.yapp.bol.presentation.view.group.dialog.ImageSettingDialog
+import com.yapp.bol.presentation.view.group.dialog.ProfileSettingDialog
 import com.yapp.bol.presentation.view.group.NewGroupViewModel.Companion.NEW_GROUP_DESCRIPTION
 import com.yapp.bol.presentation.view.group.NewGroupViewModel.Companion.NEW_GROUP_NAME
 import com.yapp.bol.presentation.view.group.NewGroupViewModel.Companion.NEW_GROUP_ORGANIZATION
@@ -146,11 +147,6 @@ class NewGroupActivity : AppCompatActivity() {
         params.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
 
         binding.btnCreateGroup.layoutParams = params
-    }
-
-    private fun convertPxToDp(px: Int): Int {
-        val density = resources.displayMetrics.density
-        return (px * density).toInt()
     }
 
     private fun getScreenHeight(): Int {

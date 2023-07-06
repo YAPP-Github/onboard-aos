@@ -7,7 +7,7 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/gray_normal"
+            android:textColor="@color/Gray_7"
             android:textSize="12dp" />
 
         <TextView
@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:textColor="@color/gray_normal"
+            android:textColor="@color/Gray_7"
             android:textSize="12dp" />
     </merge>
 </layout>

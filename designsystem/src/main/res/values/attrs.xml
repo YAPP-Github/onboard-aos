@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BolRoundedButton">
+        <attr name="bolButtonType" format="enum">
+            <enum name="roundedSquareType" value="0"/>
+            <enum name="bottomRoundedType" value="1"/>
+        </attr>
+        <attr name="bolButtonColor" format="enum">
+            <enum name="orange" value="0"/>
+            <enum name="transparent" value="1"/>
+        </attr>
+        <attr name="bolButtonText" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="BolSquareButton">
+        <attr name="squareButtonText" format="string"/>
+    </declare-styleable>
+</resources>

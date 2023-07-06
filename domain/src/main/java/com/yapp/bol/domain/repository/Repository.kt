@@ -14,7 +14,7 @@ interface Repository {
 
     fun postFileUpload(
         token: String,
-        file: File,
+        file: File
     ): Flow<ApiResult<String>>
 
     fun postCreateGroup(
@@ -22,14 +22,8 @@ interface Repository {
         description: String,
         organization: String,
         profileImageUrl: String,
-        nickname: String,
+        nickname: String
     ): Flow<ApiResult<NewGroupItem>>
-
-    fun joinGroup(
-        groupId: String,
-        accessCode: String,
-        nickname: String,
-    ): Flow<ApiResult<BaseItem>>
 
     fun getGameList(groupId: Int): Flow<ApiResult<List<GameItem>>>
 
@@ -37,4 +31,10 @@ interface Repository {
         groupId: Int,
         nickname: String,
     ): Flow<ApiResult<Boolean>>
+
+    fun joinGroup(
+        groupId: String,
+        accessCode: String,
+        nickname: String,
+    ): Flow<ApiResult<BaseItem>>
 }

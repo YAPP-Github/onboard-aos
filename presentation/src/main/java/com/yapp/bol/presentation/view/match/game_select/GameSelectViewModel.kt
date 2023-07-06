@@ -30,7 +30,6 @@ class GameSelectViewModel @Inject constructor(
             checkedApiResult(
                 apiResult = it,
                 success = { data -> _gameList.value = data },
-                error = { throwable -> throw throwable },
             )
         }
     }

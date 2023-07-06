@@ -1,14 +1,16 @@
 package com.yapp.bol.data.mapper
 
-import com.yapp.bol.data.mapper.MapperToDomain.toItem
-import com.yapp.bol.data.model.OAuthApiResponse
 import com.yapp.bol.data.model.base.BaseResponse
-import com.yapp.bol.data.model.file_upload.FileUploadResponse
-import com.yapp.bol.data.model.group.GameApiResponse
-import com.yapp.bol.data.model.group.GameDTO
-import com.yapp.bol.data.model.group.MemberValidApiResponse
-import com.yapp.bol.data.model.group.NewGroupApiResponse
+import com.yapp.bol.data.model.group.response.GroupSearchApiResponse
 import com.yapp.bol.domain.model.ApiResult
+import com.yapp.bol.domain.model.GroupItem
+import com.yapp.bol.domain.model.GroupSearchItem
+import com.yapp.bol.data.model.login.LoginResponse
+import com.yapp.bol.data.model.group.response.ProfileUploadResponse
+import com.yapp.bol.data.model.group.response.GameApiResponse
+import com.yapp.bol.data.model.group.response.GameResponse
+import com.yapp.bol.data.model.group.response.MemberValidApiResponse
+import com.yapp.bol.data.model.group.response.NewGroupApiResponse
 import com.yapp.bol.domain.model.BaseItem
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
@@ -16,13 +18,39 @@ import com.yapp.bol.domain.model.NewGroupItem
 
 internal object MapperToDomain {
 
-    fun OAuthApiResponse?.toDomain(): LoginItem? = this?.toItem()
+    fun LoginResponse?.mapperToDomain(): LoginItem? = this?.toItem()
 
-    private fun OAuthApiResponse.toItem(): LoginItem {
+    private fun LoginResponse.toItem(): LoginItem {
         return LoginItem(
             this.accessToken,
             this.refreshToken,
         )
+    }
+
+    fun ApiResult<GroupSearchApiResponse>.toDomain(): ApiResult<GroupSearchItem> {
+        return when (this) {
+            is ApiResult.Success -> ApiResult.Success(
+                GroupSearchItem(
+                    hasNext = this.data.hasNext,
+                    groupItemList = data.toItem(),
+                ),
+            )
+
+            is ApiResult.Error -> ApiResult.Error(exception)
+        }
+    }
+
+    private fun GroupSearchApiResponse.toItem(): List<GroupItem> {
+        return this.content.map { groupItem ->
+            GroupItem(
+                id = groupItem.id,
+                name = groupItem.name,
+                description = groupItem.description,
+                organization = groupItem.organization,
+                profileImageUrl = groupItem.profileImageUrl,
+                memberCount = groupItem.memberCount,
+            )
+        }
     }
 
     fun NewGroupApiResponse.toItem(): NewGroupItem {
@@ -37,7 +65,7 @@ internal object MapperToDomain {
         )
     }
 
-    private fun GameDTO.toItem(): GameItem {
+    private fun GameResponse.toItem(): GameItem {
         return GameItem(
             id = this.id,
             name = this.name,
@@ -47,7 +75,7 @@ internal object MapperToDomain {
         )
     }
 
-    fun ApiResult<FileUploadResponse>.fileUploadToDomain(): ApiResult<String> {
+    fun ApiResult<ProfileUploadResponse>.fileUploadToDomain(): ApiResult<String> {
         return when (this) {
             is ApiResult.Success -> ApiResult.Success(data.url)
             is ApiResult.Error -> ApiResult.Error(exception)
@@ -68,16 +96,16 @@ internal object MapperToDomain {
         }
     }
 
-    fun ApiResult<BaseResponse>.toDomain(): ApiResult<BaseItem> {
+    fun ApiResult<MemberValidApiResponse>.validToDomain(): ApiResult<Boolean> {
         return when (this) {
-            is ApiResult.Success -> ApiResult.Success(BaseItem(data.code, data.message))
+            is ApiResult.Success -> ApiResult.Success(data.isAvailable)
             is ApiResult.Error -> ApiResult.Error(exception)
         }
     }
 
-    fun ApiResult<MemberValidApiResponse>.validToDomain(): ApiResult<Boolean> {
+    fun ApiResult<BaseResponse>.mapperToDomain(): ApiResult<BaseItem> {
         return when (this) {
-            is ApiResult.Success -> ApiResult.Success(data.isAvailable)
+            is ApiResult.Success -> ApiResult.Success(BaseItem(data.code, data.message))
             is ApiResult.Error -> ApiResult.Error(exception)
         }
     }

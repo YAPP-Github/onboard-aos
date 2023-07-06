@@ -155,6 +155,7 @@
         app:layout_constraintTop_toTopOf="@+id/btn_guest_add_nothing" />
 
     <ImageView
+        android:id="@+id/iv_plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
