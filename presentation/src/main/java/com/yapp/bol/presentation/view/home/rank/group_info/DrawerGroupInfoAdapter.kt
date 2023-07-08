@@ -7,13 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.model.DrawerGroupInfoUiModel
 
-class DrawerGroupInfoAdapter : ListAdapter<DrawerGroupInfoUiModel, RecyclerView.ViewHolder>(diff) {
+class DrawerGroupInfoAdapter(
+    private val onClick: (Long) -> Unit,
+) : ListAdapter<DrawerGroupInfoUiModel, RecyclerView.ViewHolder>(diff) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         if (viewType == R.layout.item_group_info_detail) {
             DrawerCurrentGroupInfoViewHolder.create(parent)
         } else {
-            DrawerOtherGroupViewHolder.create(parent)
+            DrawerOtherGroupViewHolder.create(parent, onClick)
         }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
