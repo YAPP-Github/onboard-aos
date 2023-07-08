@@ -1,4 +1,4 @@
-package com.yapp.bol.presentation.view.home.rank
+package com.yapp.bol.presentation.view.home.rank.game
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -7,12 +7,15 @@ import com.yapp.bol.domain.model.GameItem
 
 class UserRankGameAdapter : ListAdapter<GameItem, UserRankGameViewHolder>(diff) {
 
-    private var selectedPosition: Int? = null
+    private var selectedPosition: Int = 0
     private lateinit var onClick: (Int) -> Unit
 
     fun setOnClickListener(onClick: (Int) -> Unit) {
         this.onClick = onClick
     }
+
+    fun getSelectedPosition(): Int = selectedPosition
+
 
     fun setSelectedPosition(position: Int) {
         selectedPosition = position
