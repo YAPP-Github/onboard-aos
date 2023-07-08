@@ -21,7 +21,6 @@ import com.yapp.bol.presentation.view.group.NewGroupViewModel.Companion.NEW_GROU
 import com.yapp.bol.presentation.view.group.dialog.ImageSettingDialog
 import com.yapp.bol.presentation.view.group.dialog.NewGroupCompleteDialog
 import com.yapp.bol.presentation.view.group.dialog.ProfileSettingDialog
-import com.yapp.bol.presentation.view.login.KakaoTestActivity.Companion.ACCESS_TOKEN
 import com.yapp.bol.presentation.view.match.MatchActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,9 +29,6 @@ class NewGroupActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNewGroupBinding
     private val newGroupViewModel: NewGroupViewModel by viewModels()
-    private val accessToken by lazy {
-        intent.getStringExtra(ACCESS_TOKEN) ?: EMPTY_STRING
-    }
 
     private val profileSettingDialog by lazy {
         ProfileSettingDialog(
@@ -108,7 +104,7 @@ class NewGroupActivity : AppCompatActivity() {
 
     private fun createNewGroup(nickName: String) {
         generateProgressBar()
-        newGroupViewModel.createNewGroup(accessToken, nickName)
+        newGroupViewModel.createNewGroup(nickName)
     }
 
     private fun generateNewGroupCompleteDialog(newGroupItem: NewGroupItem) {

@@ -13,10 +13,7 @@ interface Repository {
 
     suspend fun login(type: String, token: String): LoginItem?
 
-    fun postFileUpload(
-        token: String,
-        file: File
-    ): Flow<ApiResult<String>>
+    fun postFileUpload(file: File): Flow<ApiResult<String>>
 
     fun postCreateGroup(
         name: String,

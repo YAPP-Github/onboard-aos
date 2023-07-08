@@ -1,5 +1,7 @@
 package com.yapp.bol.data.remote
 
+import com.yapp.bol.data.model.group.GuestAddApiRequest
+import com.yapp.bol.data.model.group.MemberListResponse
 import com.yapp.bol.data.model.group.response.ProfileUploadResponse
 import com.yapp.bol.data.model.group.response.GameApiResponse
 import com.yapp.bol.data.model.group.response.MemberValidApiResponse
@@ -28,7 +30,6 @@ interface GroupApi {
     @Multipart
     @POST("v1/file")
     suspend fun postProfileUpload(
-        @Header("Authorization") token: String,
         @Part file: MultipartBody.Part,
         @Part("purpose") purpose: RequestBody,
     ): Response<ProfileUploadResponse>
@@ -50,4 +51,18 @@ interface GroupApi {
         @Query("pageNumber") page: String,
         @Query("pageSize") pageSize: String,
     ): Response<GroupSearchApiResponse>
+
+    @GET("/v1/group/{groupId}/member")
+    suspend fun getMemberList(
+        @Path("groupId") groupId: Int,
+        @Query("size") pageSize: Int,
+        @Query("cursor") cursor: String?,
+        @Query("nickname") nickname: String?,
+    ): Response<MemberListResponse>
+
+    @POST("/v1/group/{groupId}/guest")
+    suspend fun postGuestMember(
+        @Path("groupId") groupId: Int,
+        @Body guestAddApiRequest: GuestAddApiRequest
+    )
 }

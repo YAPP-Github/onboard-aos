@@ -10,8 +10,8 @@ import javax.inject.Inject
 class NewGroupUseCase @Inject constructor(
     private val repository: Repository
 ) {
-    fun postFileUpload(token: String, file: File): Flow<ApiResult<String>> {
-        return repository.postFileUpload(token, file)
+    fun postFileUpload(file: File): Flow<ApiResult<String>> {
+        return repository.postFileUpload(file)
     }
 
     fun postCreateGroup(

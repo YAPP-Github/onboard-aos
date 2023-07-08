@@ -18,20 +18,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setButtonListener()
-    }
-
-    private fun setButtonListener() {
-        binding.btnGoogle.setOnClickListener {
-            Intent(this@MainActivity, GoogleTestActivity::class.java).also { startActivity(it) }
-        }
-
-        binding.btnKakao.setOnClickListener {
-            Intent(this@MainActivity, KakaoTestActivity::class.java).also { startActivity(it) }
-        }
-
-        binding.btnNaver.setOnClickListener {
-            Intent(this@MainActivity, NaverTestActivity::class.java).also { startActivity(it) }
-        }
     }
 }

@@ -1,6 +1,6 @@
 package com.yapp.bol.data.repository
 
-import com.yapp.bol.data.datasource.RemoteDataSource
+import com.yapp.bol.data.datasource.impl.RemoteDataSource
 import com.yapp.bol.data.mapper.MapperToDomain.fileUploadToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.gameToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.memberListToDomain
@@ -25,8 +25,8 @@ class RepositoryImpl @Inject constructor(
         return remoteDataSource.login(type, token).toDomain()
     }
 
-    override fun postFileUpload(token: String, file: File): Flow<ApiResult<String>> {
-        return remoteDataSource.postFileUpload(token, file).map {
+    override fun postFileUpload(file: File): Flow<ApiResult<String>> {
+        return remoteDataSource.postFileUpload(file).map {
             it.fileUploadToDomain()
         }
     }
