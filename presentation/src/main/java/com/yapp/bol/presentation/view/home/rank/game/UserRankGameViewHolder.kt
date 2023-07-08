@@ -1,9 +1,11 @@
-package com.yapp.bol.presentation.view.home.rank
+package com.yapp.bol.presentation.view.home.rank.game
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.presentation.databinding.ItemRankGameListBinding
@@ -17,7 +19,7 @@ class UserRankGameViewHolder(
     init {
         binding.viewGame.root.setOnClickListener {
             onClick.invoke(layoutPosition)
-            binding.setGameItemLayoutParamsWhenSelected()
+            binding.setLayoutWhenSelected()
         }
     }
 
@@ -35,13 +37,13 @@ class UserRankGameViewHolder(
 
     private fun showGameItemBySelectState(isSelected: Boolean) {
         if (isSelected) {
-            binding.setGameItemLayoutParamsWhenSelected()
+            binding.setLayoutWhenSelected()
         } else {
-            binding.setGameItemLayoutParamsWhenUnselected()
+            binding.setLayoutWhenUnselected()
         }
     }
 
-    private fun ItemRankGameListBinding.setGameItemLayoutParamsWhenSelected() {
+    private fun ItemRankGameListBinding.setLayoutWhenSelected() {
         val ivGameLP = viewGame.ivGame.layoutParams.apply {
             val px = dpToPx(
                 binding.root.context, 68f
@@ -57,9 +59,12 @@ class UserRankGameViewHolder(
         }
         binding.viewStartPadding.layoutParams = paddingLP
         binding.viewEndPadding.layoutParams = paddingLP
+
+        val color = ContextCompat.getColor(binding.root.context, com.yapp.bol.designsystem.R.color.Gray_1)
+        viewGame.tvGame.setTextColor(ColorStateList.valueOf(color))
     }
 
-    private fun ItemRankGameListBinding.setGameItemLayoutParamsWhenUnselected() {
+    private fun ItemRankGameListBinding.setLayoutWhenUnselected() {
         val ivGameLP = viewGame.ivGame.layoutParams
         ivGameLP.apply {
             val px = dpToPx(
@@ -77,6 +82,9 @@ class UserRankGameViewHolder(
         }
         viewStartPadding.layoutParams = paddingLP
         viewEndPadding.layoutParams = paddingLP
+
+        val color = ContextCompat.getColor(binding.root.context, com.yapp.bol.designsystem.R.color.Gray_9)
+        viewGame.tvGame.setTextColor(ColorStateList.valueOf(color))
     }
 
     private fun dpToPx(context: Context, dp: Float): Int {
