@@ -62,7 +62,7 @@ class NaverTestActivity : AppCompatActivity() {
     private fun subscribeObservables() {
         viewModel.loginResult.filterNotNull().collectWithLifecycle(this) {
             val intent = Intent(this@NaverTestActivity, GroupActivity::class.java)
-            intent.putExtra(KakaoTestActivity.ACCESS_TOKEN, it.accessToken) // ???
+            intent.putExtra(KakaoTestActivity.ACCESS_TOKEN, it.accessToken)
             startActivity(intent)
         }
     }

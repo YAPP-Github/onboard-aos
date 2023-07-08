@@ -14,6 +14,7 @@ import com.google.android.gms.common.api.ApiException
 import com.yapp.bol.presentation.BuildConfig
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.utils.collectWithLifecycle
+import com.yapp.bol.presentation.view.group.GroupActivity
 import com.yapp.bol.presentation.view.group.NewGroupActivity
 import com.yapp.bol.presentation.viewmodel.login.LoginType
 import com.yapp.bol.presentation.viewmodel.login.LoginViewModel
@@ -74,7 +75,7 @@ class GoogleTestActivity : AppCompatActivity() {
 
     private fun subscribeObservables() {
         loginViewModel.loginResult.collectWithLifecycle(this) {
-            startActivity(Intent(this@GoogleTestActivity, NewGroupActivity::class.java))
+            startActivity(Intent(this@GoogleTestActivity, GroupActivity::class.java))
         }
     }
 }
