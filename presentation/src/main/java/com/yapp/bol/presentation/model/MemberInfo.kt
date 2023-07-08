@@ -15,7 +15,7 @@ data class MemberInfo(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readInt(),
-        parcel.readByte() != 0.toByte()
+        parcel.readByte() != 0.toByte(),
     ) {
     }
 

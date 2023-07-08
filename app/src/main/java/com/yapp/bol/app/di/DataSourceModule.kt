@@ -10,21 +10,17 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 interface DataSourceModule {
 
     @Binds
-    @Singleton
     fun bindsRemoteDataSource(remoteDataSourceImpl: RemoteDataSourceImpl): RemoteDataSource
 
     @Binds
-    @Singleton
     fun bindsAuthDatasource(authDataSourceImpl: AuthDataSourceImpl): AuthDataSource
 
     @Binds
-    @Singleton
     fun bindsGroupDatasource(groupDataSourceImpl: GroupDataSourceImpl): GroupDataSource
 }

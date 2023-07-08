@@ -1,4 +1,4 @@
-package com.yapp.bol.data.model.group
+package com.yapp.bol.data.model.group.response
 
 data class GroupSearchApiResponse(
     val content: List<GroupListItem>,

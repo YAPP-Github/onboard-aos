@@ -1,33 +1,30 @@
 package com.yapp.bol.data.mapper
 
-import com.yapp.bol.data.model.OAuthApiResponse
-import com.yapp.bol.data.model.file_upload.FileUploadResponse
-import com.yapp.bol.data.model.group.GameApiResponse
-import com.yapp.bol.data.model.group.GameDTO
-import com.yapp.bol.data.model.group.GroupSearchApiResponse
-import com.yapp.bol.data.model.group.MemberDTO
-import com.yapp.bol.data.model.group.MemberListResponse
-import com.yapp.bol.data.model.group.MemberValidApiResponse
-import com.yapp.bol.data.model.group.NewGroupApiResponse
+import com.yapp.bol.data.model.group.response.GroupSearchApiResponse
 import com.yapp.bol.domain.model.ApiResult
-import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.GroupItem
 import com.yapp.bol.domain.model.GroupSearchItem
+import com.yapp.bol.data.model.login.LoginResponse
+import com.yapp.bol.data.model.group.response.ProfileUploadResponse
+import com.yapp.bol.data.model.group.response.GameApiResponse
+import com.yapp.bol.data.model.group.response.GameResponse
+import com.yapp.bol.data.model.group.response.MemberValidApiResponse
+import com.yapp.bol.data.model.group.response.NewGroupApiResponse
+import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
-import com.yapp.bol.domain.model.MemberItem
-import com.yapp.bol.domain.model.MemberItems
 import com.yapp.bol.domain.model.NewGroupItem
 
 internal object MapperToDomain {
 
-    fun OAuthApiResponse?.toDomain(): LoginItem? = this?.toItem()
+    fun LoginResponse?.toDomain(): LoginItem? = this?.toItem()
 
-    private fun OAuthApiResponse.toItem(): LoginItem {
+    private fun LoginResponse.toItem(): LoginItem {
         return LoginItem(
             this.accessToken,
             this.refreshToken,
         )
     }
+
     fun ApiResult<GroupSearchApiResponse>.toDomain(): ApiResult<GroupSearchItem> {
         return when (this) {
             is ApiResult.Success -> ApiResult.Success(
@@ -53,8 +50,7 @@ internal object MapperToDomain {
         }
     }
 
-
-    private fun NewGroupApiResponse.toItem(): NewGroupItem {
+    fun NewGroupApiResponse.toItem(): NewGroupItem {
         return NewGroupItem(
             this.id,
             this.name,
@@ -66,7 +62,7 @@ internal object MapperToDomain {
         )
     }
 
-    private fun GameDTO.toItem(): GameItem {
+    private fun GameResponse.toItem(): GameItem {
         return GameItem(
             id = this.id,
             name = this.name,
@@ -76,16 +72,7 @@ internal object MapperToDomain {
         )
     }
 
-    private fun MemberDTO.toItem(): MemberItem {
-        return MemberItem(
-            id = this.id,
-            role = this.role,
-            nickname = this.nickname,
-            level = this.level,
-        )
-    }
-
-    fun ApiResult<FileUploadResponse>.fileUploadToDomain(): ApiResult<String> {
+    fun ApiResult<ProfileUploadResponse>.fileUploadToDomain(): ApiResult<String> {
         return when (this) {
             is ApiResult.Success -> ApiResult.Success(data.url)
             is ApiResult.Error -> ApiResult.Error(exception)
@@ -109,19 +96,6 @@ internal object MapperToDomain {
     fun ApiResult<MemberValidApiResponse>.validToDomain(): ApiResult<Boolean> {
         return when (this) {
             is ApiResult.Success -> ApiResult.Success(data.isAvailable)
-            is ApiResult.Error -> ApiResult.Error(exception)
-        }
-    }
-
-    fun ApiResult<MemberListResponse>.memberListToDomain(): ApiResult<MemberItems> {
-        return when (this) {
-            is ApiResult.Success -> ApiResult.Success(
-                MemberItems(
-                    members = data.contents.map { it.toItem() },
-                    cursor = data.cursor,
-                    hasNext = data.hasNext
-                )
-            )
             is ApiResult.Error -> ApiResult.Error(exception)
         }
     }
