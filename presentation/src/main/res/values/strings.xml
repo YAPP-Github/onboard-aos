@@ -62,4 +62,6 @@
     <string name="game_result_recording_complete">%s\n점수 기록이 완료되었습니다.</string>
     <string name="game_record_complete">기록 완료</string>
     <string name="game_record_hint">0</string>
+
+    <string name="sign_up_name_hint">이름을 입력해주세요.</string>
 </resources>

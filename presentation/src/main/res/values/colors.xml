@@ -34,6 +34,11 @@
 
     <!--YELLOW-->
     <color name="Yellow">#FFBC10</color>
+    <color name="Yellow_1">#FEE40E</color>
+
+    <!--Green-->
+    <color name="Green">#03CF5D</color>
+
 
     <color name="Black">#FF000000</color>
     <color name="Black_alpha_85">#D9000000</color>
