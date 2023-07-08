@@ -1,4 +1,4 @@
-package com.yapp.bol.presentation.view.login
+package com.yapp.bol.presentation.view.login.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,7 +12,7 @@ import com.kakao.sdk.user.UserApiClient
 import com.yapp.bol.presentation.BuildConfig
 import com.yapp.bol.presentation.databinding.ActivityKakaoTestBinding
 import com.yapp.bol.presentation.utils.collectWithLifecycle
-import com.yapp.bol.presentation.view.group.NewGroupActivity
+import com.yapp.bol.presentation.view.login.LoginActivity
 import com.yapp.bol.presentation.viewmodel.login.LoginType
 import com.yapp.bol.presentation.viewmodel.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,14 +30,12 @@ class KakaoTestActivity : AppCompatActivity() {
     private val kakaoOAuthCallBack: (OAuthToken?, Throwable?) -> Unit = { token, _ ->
         token?.let { viewModel.login(LoginType.KAKAO, token.accessToken) }
     }
-
     private val isKakaoTalkInstalled
         get() = kakaoClient.isKakaoTalkLoginAvailable(this)
 
     private val isClientErrorCancelled: (Throwable?) -> Boolean = { error ->
         error is ClientError && error.reason == ClientErrorCause.Cancelled
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityKakaoTestBinding.inflate(layoutInflater)
@@ -47,7 +45,6 @@ class KakaoTestActivity : AppCompatActivity() {
         kakaoLogin()
         subscribeObservables()
     }
-
     private fun kakaoLogin() {
         if (isKakaoTalkInstalled) {
             handleKakaoTalkLoginResult()
@@ -55,7 +52,6 @@ class KakaoTestActivity : AppCompatActivity() {
             kakaoClient.loginWithKakaoAccount(this, callback = kakaoOAuthCallBack)
         }
     }
-
     private fun handleKakaoTalkLoginResult() {
         kakaoClient.loginWithKakaoTalk(this) { token, error ->
             if (isClientErrorCancelled(error)) return@loginWithKakaoTalk
@@ -63,15 +59,14 @@ class KakaoTestActivity : AppCompatActivity() {
             token?.let { viewModel.login(LoginType.KAKAO, token.accessToken) }
         }
     }
-
     private fun subscribeObservables() {
         viewModel.loginResult.filterNotNull().collectWithLifecycle(this) {
-            val intent = Intent(this@KakaoTestActivity, NewGroupActivity::class.java)
+            if (it.accessToken.isEmpty()) return@collectWithLifecycle
+            val intent = Intent(this@KakaoTestActivity, LoginActivity::class.java)
             intent.putExtra(ACCESS_TOKEN, it.accessToken)
             startActivity(intent)
         }
     }
-
     companion object {
         const val KAKAO_API_KEY = BuildConfig.KAKAO_API_KEY
         const val ACCESS_TOKEN = "Access Token"

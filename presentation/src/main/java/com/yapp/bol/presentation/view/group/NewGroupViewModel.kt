@@ -61,7 +61,7 @@ class NewGroupViewModel @Inject constructor(
             name = groupName.value ?: EMPTY_STRING,
             description = groupDescription.value ?: EMPTY_STRING,
             organization = groupOrganization,
-            profileImageUrl = imageUrl,
+            imageUrl = imageUrl,
             nickname = nickName,
         ).collectLatest {
             checkedApiResult(

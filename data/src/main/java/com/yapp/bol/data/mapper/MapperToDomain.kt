@@ -7,7 +7,7 @@ import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.GroupItem
 import com.yapp.bol.domain.model.GroupSearchItem
 import com.yapp.bol.data.model.login.LoginResponse
-import com.yapp.bol.data.model.group.response.ProfileUploadResponse
+import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
 import com.yapp.bol.data.model.group.response.GameApiResponse
 import com.yapp.bol.data.model.group.response.GameResponse
 import com.yapp.bol.data.model.group.response.MemberValidApiResponse
@@ -85,7 +85,7 @@ internal object MapperToDomain {
         )
     }
 
-    fun ApiResult<ProfileUploadResponse>.fileUploadToDomain(): ApiResult<String> {
+    fun ApiResult<ImageFileUploadResponse>.fileUploadToDomain(): ApiResult<String> {
         return when (this) {
             is ApiResult.Success -> ApiResult.Success(data.url)
             is ApiResult.Error -> ApiResult.Error(exception)

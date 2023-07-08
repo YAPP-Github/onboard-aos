@@ -4,6 +4,6 @@ data class NewGroupApiRequest(
     val name: String,
     val description: String,
     val organization: String,
-    val profileImageUrl: String,
+    val imageUrl: String,
     val nickname: String,
 )

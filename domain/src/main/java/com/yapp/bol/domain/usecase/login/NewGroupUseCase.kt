@@ -18,9 +18,9 @@ class NewGroupUseCase @Inject constructor(
         name: String,
         description: String,
         organization: String,
-        profileImageUrl: String,
+        imageUrl: String,
         nickname: String,
     ): Flow<ApiResult<NewGroupItem>> {
-        return repository.postCreateGroup(name, description, organization, profileImageUrl, nickname)
+        return repository.postCreateGroup(name, description, organization, imageUrl, nickname)
     }
 }

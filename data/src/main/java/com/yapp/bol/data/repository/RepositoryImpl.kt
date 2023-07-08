@@ -35,10 +35,10 @@ class RepositoryImpl @Inject constructor(
         name: String,
         description: String,
         organization: String,
-        profileImageUrl: String,
+        imageUrl: String,
         nickname: String
     ): Flow<ApiResult<NewGroupItem>> {
-        return remoteDataSource.postCreateGroup(name, description, organization, profileImageUrl, nickname).map {
+        return remoteDataSource.postCreateGroup(name, description, organization, imageUrl, nickname).map {
             it.newGroupToDomain()
         }
     }

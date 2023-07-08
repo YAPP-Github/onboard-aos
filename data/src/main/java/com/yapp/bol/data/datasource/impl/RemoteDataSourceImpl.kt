@@ -7,10 +7,11 @@ import com.yapp.bol.data.model.group.request.NewGroupApiRequest
 import com.yapp.bol.data.model.group.response.GameApiResponse
 import com.yapp.bol.data.model.group.response.MemberValidApiResponse
 import com.yapp.bol.data.model.group.response.NewGroupApiResponse
-import com.yapp.bol.data.model.group.response.ProfileUploadResponse
+import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
 import com.yapp.bol.data.model.login.LoginRequest
 import com.yapp.bol.data.model.login.LoginResponse
 import com.yapp.bol.data.remote.GroupApi
+import com.yapp.bol.data.remote.ImageFileApi
 import com.yapp.bol.data.remote.LoginApi
 import com.yapp.bol.data.utils.BaseRepository
 import com.yapp.bol.data.utils.Image.GROUP_IMAGE
@@ -27,19 +28,20 @@ import javax.inject.Inject
 class RemoteDataSourceImpl @Inject constructor(
     private val loginApi: LoginApi,
     private val groupApi: GroupApi,
+    private val imageApi: ImageFileApi,
 ) : BaseRepository(), RemoteDataSource {
 
     override suspend fun login(type: String, token: String): LoginResponse? {
         return loginApi.postOAuthApi(LoginRequest(type.toDomain(), token)).body()
     }
 
-    override fun postFileUpload(file: File): Flow<ApiResult<ProfileUploadResponse>> = flow {
+    override fun postFileUpload(file: File): Flow<ApiResult<ImageFileUploadResponse>> = flow {
         val fileBody = RequestBody.create(MediaType.parse(getMimeType(file.name)), file)
         val filePart = MultipartBody.Part.createFormData(FILE_KEY, file.name, fileBody)
         val purpose = RequestBody.create(MediaType.parse(getMimeType(file.name)), GROUP_IMAGE)
 
         val result = safeApiCall {
-            groupApi.postProfileUpload(file = filePart, purpose = purpose)
+            imageApi.postFileUpload(file = filePart, purpose = purpose)
         }
         emit(result)
     }
@@ -48,11 +50,11 @@ class RemoteDataSourceImpl @Inject constructor(
         name: String,
         description: String,
         organization: String,
-        profileImageUrl: String,
+        imageUrl: String,
         nickname: String
     ): Flow<ApiResult<NewGroupApiResponse>> = flow {
         val result = safeApiCall {
-            groupApi.postOAuthApi(NewGroupApiRequest(name, description, organization, profileImageUrl, nickname))
+            groupApi.postOAuthApi(NewGroupApiRequest(name, description, organization, imageUrl, nickname))
         }
         emit(result)
     }
@@ -84,11 +86,9 @@ class RemoteDataSourceImpl @Inject constructor(
         groupApi.postGuestMember(groupId, GuestAddApiRequest(nickname))
     }
 
-
     private fun getMimeType(fileName: String): String {
         return URLConnection.guessContentTypeFromName(fileName)
     }
-
 
     companion object {
         const val FILE_KEY = "file"

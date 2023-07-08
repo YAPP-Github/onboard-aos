@@ -19,7 +19,7 @@ interface Repository {
         name: String,
         description: String,
         organization: String,
-        profileImageUrl: String,
+        imageUrl: String,
         nickname: String
     ): Flow<ApiResult<NewGroupItem>>
 

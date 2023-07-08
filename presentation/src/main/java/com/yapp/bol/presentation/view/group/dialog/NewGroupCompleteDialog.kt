@@ -37,7 +37,7 @@ class NewGroupCompleteDialog(
 
     private fun setImageView() {
         val params = ConstraintLayout.LayoutParams(LayoutParams.MATCH_PARENT, context.convertPxToDp(462))
-        binding.ivGroupImage.loadImage(newGroup.profileImageUrl)
+        binding.ivGroupImage.loadImage(newGroup.imageUrl)
         binding.ivGroupImage.layoutParams = params
         binding.viewGroupImage.layoutParams = params
     }

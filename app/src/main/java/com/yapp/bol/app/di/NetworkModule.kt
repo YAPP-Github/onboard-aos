@@ -76,4 +76,10 @@ object NetworkModule {
     fun provideGroupApiService(retrofit: Retrofit): GroupApi {
         return retrofit.create(GroupApi::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun provideImageApiService(retrofit: Retrofit): ImageFileApi {
+        return retrofit.create(ImageFileApi::class.java)
+    }
 }
