@@ -16,7 +16,6 @@ class UserRankGameAdapter : ListAdapter<GameItem, UserRankGameViewHolder>(diff) 
 
     fun getSelectedPosition(): Int = selectedPosition
 
-
     fun setSelectedPosition(position: Int) {
         selectedPosition = position
     }

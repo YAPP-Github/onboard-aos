@@ -34,5 +34,4 @@ class GroupRepositoryImpl @Inject constructor(
 
     override fun getGroupDetail(groupId: Long): Flow<ApiResult<GroupDetailItem>> =
         groupDataSource.getGroupDetail(groupId).map { it.toDetailItem() }
-
 }

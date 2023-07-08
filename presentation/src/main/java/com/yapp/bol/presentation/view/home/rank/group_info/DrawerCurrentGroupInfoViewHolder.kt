@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.domain.model.GroupDetailItem
-import com.yapp.bol.domain.model.JoinedGroupItem
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.ItemGroupInfoDetailBinding
 import com.yapp.bol.presentation.utils.loadImage
