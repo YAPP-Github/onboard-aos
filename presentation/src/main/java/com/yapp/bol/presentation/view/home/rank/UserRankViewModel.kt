@@ -42,7 +42,7 @@ class UserRankViewModel @Inject constructor(
         fetchJoinedGroupList(3)
     }
 
-    private fun fetchGameList(groupId: Long) {
+    fun fetchGameList(groupId: Long) {
         viewModelScope.launch {
             getUserRankGameListUseCase(groupId.toInt()).collectLatest {
                 checkedApiResult(
@@ -54,7 +54,7 @@ class UserRankViewModel @Inject constructor(
         }
     }
 
-    private fun fetchUserList(groupId: Long, gameId: Long) {
+    fun fetchUserList(groupId: Long, gameId: Long) {
         _userListFlow.value = emptyList()
 
         viewModelScope.launch {
@@ -84,7 +84,7 @@ class UserRankViewModel @Inject constructor(
         }
     }
 
-    private fun fetchJoinedGroupList(groupId: Long) {
+    fun fetchJoinedGroupList(groupId: Long) {
         viewModelScope.launch {
             val uiModelList = mutableListOf<DrawerGroupInfoUiModel>()
 
