@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="vm"
             type="com.yapp.bol.presentation.view.group.join.GroupJoinViewModel" />
@@ -22,38 +23,39 @@
 
             <TextView
                 android:id="@+id/tv_belong_title"
+                style="@style/Typography.Label3_B"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:text="@{vm.groupItem.organization}"
-                android:textColor="@color/white"
-                android:textSize="12sp"
+                android:textColor="@color/Gray_1"
                 app:layout_constraintBottom_toTopOf="@+id/tv_group_title" />
 
             <TextView
                 android:id="@+id/tv_group_title"
+                style="@style/Typography.Headline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
+                android:layout_marginBottom="8dp"
                 android:text="@{vm.groupItem.description}"
-                android:textColor="@color/white"
-                android:textSize="24dp"
+                android:textColor="@color/Gray_1"
                 app:layout_constraintBottom_toTopOf="@+id/tv_group_description" />
 
             <TextView
                 android:id="@+id/tv_group_description"
+                style="@style/Typography.Body3_R"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="28dp"
+                android:layout_marginBottom="36dp"
                 android:text="@{vm.groupItem.description}"
-                android:textColor="#F0F0F0"
-                android:textSize="14sp"
+                android:textColor="@color/Gray_1"
                 app:layout_constraintBottom_toTopOf="@+id/group_explain_layout" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/group_explain_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="30dp"
                 android:orientation="horizontal"
                 bol:layout_constraintBottom_toTopOf="@+id/tv_group_join">
 
@@ -97,12 +99,13 @@
 
             <TextView
                 android:id="@+id/tv_group_join"
+                style="@style/Typography.Title4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="26dp"
                 android:background="@drawable/group_join_bg"
                 android:gravity="center"
-                android:paddingVertical="12dp"
+                android:paddingVertical="14dp"
                 android:text="모임 들어가기"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent" />

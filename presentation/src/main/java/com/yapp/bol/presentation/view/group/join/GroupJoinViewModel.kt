@@ -1,5 +1,6 @@
 package com.yapp.bol.presentation.view.group.join
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -30,20 +31,20 @@ class GroupJoinViewModel @Inject constructor(
     fun joinGroup(accessCode: String, nickName: String) {
         viewModelScope.launch {
             _loading.emit(true to "모임에 들어가는 중")
-            joinGroupUseCase(groupItem.value?.id.toString(), accessCode, nickName).collectLatest {
+            joinGroupUseCase(groupItem.value?.id.toString(), "8D20YS", nickName).collectLatest {
                 _loading.emit(false to "")
                 checkedApiResult(
                     apiResult = it,
                     success = {
+                        Log.d("Debug", "joinGroup: success")
                         viewModelScope.launch { // 이게 최선인가 ?
                             _successJoinGroup.emit(true to null)
                         }
                     },
                     error = {
+                        Log.d("Debug", "joinGroup: fail")
                         viewModelScope.launch {
-                            _successJoinGroup.emit(true to null)
-
-//                            _successJoinGroup.emit(false to it.message)
+                            _successJoinGroup.emit(false to it.message)
                         }
                     },
                 )

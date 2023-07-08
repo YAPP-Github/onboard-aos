@@ -20,31 +20,31 @@
 
             <TextView
                 android:id="@+id/tv_title"
+                style="@style/Typography.Label1_B"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#212121"
-                android:textSize="16dp" />
+                android:textColor="@color/Gray_15" />
 
             <TextView
                 android:id="@+id/tv_message"
+                style="@style/Typography.Body4_R"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:textColor="#7E7E7E"
-                android:textSize="12dp" />
+                android:layout_marginTop="4dp"
+                android:textColor="@color/Gray_9" />
 
             <EditText
                 android:id="@+id/et_input"
+                style="@style/Typography.Body2_M"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="닉네임을 입력해주세요."
-                android:textColorHint="#C1C1C1"
                 android:background="@drawable/bg_gray_radius_8dp"
                 android:paddingVertical="14dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="0dp"
-                android:textSize="16dp" />
+                android:textColor="@color/Gray_15"
+                android:textColorHint="@color/Gray_9" />
 
         </LinearLayout>
 
@@ -58,11 +58,12 @@
 
             <TextView
                 android:id="@+id/tv_error_message"
+                style="@style/Typography.Body5_R"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:paddingStart="18dp"
-                android:textColor="#FF0000"
+                android:textColor="@color/Red"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,8 +74,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginTop="4dp"
+                style="@style/Typography.Body5_R"
                 android:paddingStart="0dp"
                 android:paddingEnd="18dp"
+                android:textColor="@color/Gray_8"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="03/10" />
@@ -82,13 +85,14 @@
             <TextView
                 android:id="@+id/tv_summit"
                 android:layout_width="match_parent"
+                style="@style/Typography.Body3_R"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/bg_orange_enabled"
                 android:gravity="center"
                 android:paddingVertical="16dp"
                 android:text="모임 들어가기"
-                android:textColor="@color/white"
+                android:textColor="@color/Gray_1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_input_count" />
         </androidx.constraintlayout.widget.ConstraintLayout>

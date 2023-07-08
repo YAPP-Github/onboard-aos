@@ -5,17 +5,19 @@
 
         <TextView
             android:id="@+id/tv_title"
+            style="@style/Typography.Body4_R"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/Gray_7"
-            android:textSize="12dp" />
+            android:fontFamily="@font/spoqahansansneo_400"
+            android:textColor="@color/Gray_5" />
 
         <TextView
             android:id="@+id/tv_detail_title"
+            style="@style/Typography.Label4_B"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:textColor="@color/Gray_7"
-            android:textSize="12dp" />
+            android:fontFamily="@font/spoqahansansneo_700"
+            android:textColor="@color/Gray_5" />
     </merge>
 </layout>

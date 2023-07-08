@@ -1,14 +1,17 @@
 package com.yapp.bol.presentation.view.group.join
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup.MarginLayoutParams
 import android.view.WindowManager
+import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
@@ -34,25 +37,33 @@ class InputDialog(
         setContentView(binding.root)
 
         window?.apply {
+            setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE, // ktlint-disable max-line-length
+            )
+
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             setLayout(
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
             )
-            setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+            attributes?.y = context.dpToPx(100)
         }
         binding.root.updateLayoutParams<MarginLayoutParams> {
-            leftMargin = context.dpToPx(16)
-            rightMargin = context.dpToPx(16)
-            bottomMargin = context.dpToPx(36)
+            leftMargin = context.dpToPx(18)
+            rightMargin = context.dpToPx(18)
         }
     }
 
+    @SuppressLint("SetTextI18n")
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         onBackPress()
 
         binding.etInput.requestFocus()
+        binding.etInput.postDelayed({ Keyboard.open(context, binding.etInput) }, 220)
+
+        binding.tvInputCount.text = "${binding.etInput.text.length}/$onLimit"
 
         binding.etInput.doAfterTextChanged { text ->
 
@@ -62,10 +73,11 @@ class InputDialog(
             if ((text?.length ?: 0) > onLimit) {
                 onLimitExceeded?.invoke(text.toString(), this)
                 binding.etInput.setText(text?.substring(0, onLimit))
-                binding.tvInputCount.setTextColor(Color.RED)
                 binding.etInput.setSelection(onLimit)
+
+                binding.tvInputCount.setTextColor(context.getColor(R.color.Red))
             } else {
-                binding.tvInputCount.setTextColor(Color.GRAY)
+                binding.tvInputCount.setTextColor(context.getColor(R.color.Gray_8))
             }
         }
     }
@@ -83,6 +95,11 @@ class InputDialog(
 
     fun setTitle(title: CharSequence): InputDialog {
         binding.tvTitle.text = title
+        return this
+    }
+
+    fun setHintText(hint: CharSequence): InputDialog {
+        binding.etInput.hint = hint
         return this
     }
 

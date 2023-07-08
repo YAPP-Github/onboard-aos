@@ -31,8 +31,8 @@ class GroupJoinFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        subscribeObseravles()
-        viewModel.groupItem.collectWithLifecycle(viewLifecycleOwner){
+        subscribeObservables()
+        viewModel.groupItem.collectWithLifecycle(viewLifecycleOwner) {
             binding.groupMemberView.setGroupItemDetailTitle("${it?.memberCount}명")
         }
     }
@@ -44,14 +44,15 @@ class GroupJoinFragment : Fragment() {
     }
 
     private fun showRedeemInputDialog() {
-        InputDialog(requireContext())
-            .setTitle("참여 코드 입력")
-            .setMessage(getString(R.string.group_join_code_input_plz))
-            .setLimitSize(6)
-            .setOnLimit { code, dialog ->
-                showProfileSettingDialog(code)
-                dialog.dismiss()
-            }.show()
+        InputDialog(requireContext()).apply {
+            this.setTitle("참여 코드 입력")
+                .setMessage(getString(R.string.group_join_code_input_plz))
+                .setLimitSize(6)
+                .setOnLimit { code, dialog ->
+                    showProfileSettingDialog(code)
+                    dialog.dismiss()
+                }.show()
+        }
     }
 
     private fun showProfileSettingDialog(code: String) {
@@ -59,12 +60,17 @@ class GroupJoinFragment : Fragment() {
             .setTitle("프로필 설정")
             .setMessage("모임에서 사용할 닉네임을 10자 이하로 입력해주세요.")
             .setLimitSize(10)
+            .setHintText("닉네임을 입력해주세요.")
             .setOnSummit { nickname, dialog ->
                 viewModel.joinGroup(code, nickname)
 
                 viewModel.successJoinGroup.collectWithLifecycle(viewLifecycleOwner) { (success, message) ->
                     if (success) {
-                        WelcomeJoinDialog(requireContext(), nickname).show()
+                        WelcomeJoinDialog(requireContext(), nickname).apply {
+                            setOnDismissListener {
+                                // todo 랭킹 화면으로 이동
+                            }
+                        }.show()
                         dialog.dismiss()
                     } else {
                         dialog.showErrorMessage(message.orEmpty())
@@ -73,7 +79,7 @@ class GroupJoinFragment : Fragment() {
             }.show()
     }
 
-    private fun subscribeObseravles() {
+    private fun subscribeObservables() {
         viewModel.loading.collectWithLifecycle(this) { (isLoading, message) ->
             binding.loadingLayout.isVisible = isLoading
             binding.tvLoadingTitle.text = message

@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Handler
 import android.view.WindowManager
 import android.widget.TextView
 import com.yapp.bol.presentation.R
@@ -21,5 +22,9 @@ class WelcomeJoinDialog(
             WindowManager.LayoutParams.WRAP_CONTENT,
         )
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        Handler().postDelayed({
+            dismiss()
+        }, 2000)
     }
 }

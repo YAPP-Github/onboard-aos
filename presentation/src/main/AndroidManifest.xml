@@ -8,12 +8,11 @@
     <application>
         <activity
             android:name=".view.group.search.GroupSearchActivityTest"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".view.match.MatchActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.group.NewGroupCompleteActivity"
             android:exported="false" />
@@ -22,16 +21,13 @@
             android:exported="false" />
         <activity
             android:name=".view.login.GoogleTestActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".view.login.NaverTestActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".view.login.KakaoTestActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
 
         <!-- Kakao 로그인 -->
         <activity
@@ -49,7 +45,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.group.GroupActivity"/>
+        <activity
+            android:name=".view.group.GroupActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
     </application>
 
 </manifest>
