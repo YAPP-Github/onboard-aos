@@ -1,4 +1,4 @@
-package com.yapp.bol.presentation.view.login
+package com.yapp.bol.presentation.view.login.auth
 
 import android.content.Intent
 import android.os.Bundle
