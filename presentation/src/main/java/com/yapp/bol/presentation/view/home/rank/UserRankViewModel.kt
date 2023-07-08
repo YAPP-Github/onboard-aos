@@ -1,6 +1,5 @@
 package com.yapp.bol.presentation.view.home.rank
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yapp.bol.domain.model.GameItem
@@ -37,14 +36,15 @@ class UserRankViewModel @Inject constructor(
     val groupListFlow: StateFlow<List<DrawerGroupInfoUiModel>> = _groupListFlow
 
     init {
-        fetchGameList()
-        fetchUserList()
-        fetchJoinedGroupList(1)
+        // TODO : const 변경 필요
+        fetchGameList(999)
+        fetchUserList(3, 1)
+        fetchJoinedGroupList(3)
     }
 
-    private fun fetchGameList() {
+    private fun fetchGameList(groupId: Long) {
         viewModelScope.launch {
-            getUserRankGameListUseCase(999).collectLatest {
+            getUserRankGameListUseCase(groupId.toInt()).collectLatest {
                 checkedApiResult(
                     apiResult = it,
                     success = { data -> _gameListFlow.value = data },
@@ -54,11 +54,11 @@ class UserRankViewModel @Inject constructor(
         }
     }
 
-    private fun fetchUserList() {
+    private fun fetchUserList(groupId: Long, gameId: Long) {
         _userListFlow.value = emptyList()
 
         viewModelScope.launch {
-            getUserRankUseCase(90, 0).collectLatest {
+            getUserRankUseCase(groupId.toInt(), gameId.toInt()).collectLatest {
                 checkedApiResult(
                     apiResult = it,
                     success = { data ->
