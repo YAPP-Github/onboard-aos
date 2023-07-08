@@ -49,8 +49,16 @@ class GroupJoinFragment : Fragment() {
                 .setMessage(getString(R.string.group_join_code_input_plz))
                 .setLimitSize(6)
                 .setOnLimit { code, dialog ->
-                    showProfileSettingDialog(code)
-                    dialog.dismiss()
+                    viewModel.checkGroupJoinByAccessCode(code)
+
+                    viewModel.successCheckGroupAccessCode.collectWithLifecycle(viewLifecycleOwner) { (success, message) -> // ktlint-disable max-line-length
+                        if (success) {
+                            showProfileSettingDialog(code)
+                            dialog.dismiss()
+                        } else {
+                            dialog.showErrorMessage(message.orEmpty())
+                        }
+                    }
                 }.show()
         }
     }
@@ -61,6 +69,8 @@ class GroupJoinFragment : Fragment() {
             .setMessage("모임에서 사용할 닉네임을 10자 이하로 입력해주세요.")
             .setLimitSize(10)
             .setHintText("닉네임을 입력해주세요.")
+            .visibleInputCount(true)
+            .visibleSummitButton(true)
             .setOnSummit { nickname, dialog ->
                 viewModel.joinGroup(code, nickname)
 
@@ -80,9 +90,11 @@ class GroupJoinFragment : Fragment() {
     }
 
     private fun subscribeObservables() {
-        viewModel.loading.collectWithLifecycle(this) { (isLoading, message) ->
-            binding.loadingLayout.isVisible = isLoading
-            binding.tvLoadingTitle.text = message
+        with(viewModel) {
+            loading.collectWithLifecycle(viewLifecycleOwner) { (isLoading, message) ->
+                binding.loadingLayout.isVisible = isLoading
+                binding.tvLoadingTitle.text = message
+            }
         }
     }
 }

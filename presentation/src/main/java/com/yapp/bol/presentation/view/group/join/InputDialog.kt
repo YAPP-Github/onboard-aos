@@ -83,7 +83,6 @@ class InputDialog(
     }
 
     fun setOnSummit(onSummit: (String, InputDialog) -> Unit): InputDialog {
-        binding.summitLayout.visibility = View.VISIBLE
         binding.etLayout.updatePadding(bottom = 0)
         binding.etInput.setText(listOf("이승은", "차경민", "기본 이름", "랜덤 이름").random()) // todo 기획이 완료 된 후 실제 기본 이름으로 변경해야합니다.
 
@@ -100,6 +99,15 @@ class InputDialog(
 
     fun setHintText(hint: CharSequence): InputDialog {
         binding.etInput.hint = hint
+        return this
+    }
+
+    fun visibleSummitButton(visible: Boolean): InputDialog {
+        binding.tvSummit.visibility = if (visible) View.VISIBLE else View.GONE
+        return this
+    }
+    fun visibleInputCount(visible: Boolean): InputDialog {
+        binding.tvInputCount.visibility = if (visible) View.VISIBLE else View.GONE
         return this
     }
 

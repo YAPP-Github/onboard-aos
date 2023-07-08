@@ -2,6 +2,7 @@ package com.yapp.bol.domain.repository
 
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.BaseItem
+import com.yapp.bol.domain.model.CheckGroupJoinByAccessCodeItem
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.model.NewGroupItem
@@ -14,7 +15,7 @@ interface Repository {
 
     fun postFileUpload(
         token: String,
-        file: File
+        file: File,
     ): Flow<ApiResult<String>>
 
     fun postCreateGroup(
@@ -22,7 +23,7 @@ interface Repository {
         description: String,
         organization: String,
         profileImageUrl: String,
-        nickname: String
+        nickname: String,
     ): Flow<ApiResult<NewGroupItem>>
 
     fun getGameList(groupId: Int): Flow<ApiResult<List<GameItem>>>
@@ -37,4 +38,9 @@ interface Repository {
         accessCode: String,
         nickname: String,
     ): Flow<ApiResult<BaseItem>>
+
+    fun checkGroupJoinAccessCode(
+        groupId: String,
+        accessCode: String,
+    ): Flow<ApiResult<CheckGroupJoinByAccessCodeItem>>
 }

@@ -4,12 +4,14 @@ import com.yapp.bol.data.datasource.RemoteDataSource
 import com.yapp.bol.data.datasource.mock.impl.LoginType.toDomain
 import com.yapp.bol.data.model.base.BaseResponse
 import com.yapp.bol.data.model.group.JoinGroupApiRequest
+import com.yapp.bol.data.model.group.request.CheckGroupJonByAccessCodeRequest
 import com.yapp.bol.data.model.login.LoginRequest
 import com.yapp.bol.data.model.login.LoginResponse
 import com.yapp.bol.data.model.group.response.ProfileUploadResponse
 import com.yapp.bol.data.model.group.response.GameApiResponse
 import com.yapp.bol.data.model.group.response.MemberValidApiResponse
 import com.yapp.bol.data.model.group.request.NewGroupApiRequest
+import com.yapp.bol.data.model.group.response.CheckGroupJoinByAccessCodeResponse
 import com.yapp.bol.data.model.group.response.NewGroupApiResponse
 import com.yapp.bol.data.remote.GroupApi
 import com.yapp.bol.data.remote.LoginApi
@@ -32,6 +34,19 @@ class RemoteDataSourceImpl @Inject constructor(
 
     override suspend fun login(type: String, token: String): LoginResponse? {
         return loginApi.postOAuthApi(LoginRequest(type.toDomain(), token)).body()
+    }
+
+    override fun checkGroupJoinAccessCode(
+        groupId: String,
+        accessCode: String,
+    ): Flow<ApiResult<CheckGroupJoinByAccessCodeResponse>> {
+        return flow {
+            val result = safeApiCall {
+                groupApi.checkGroupJoinAccessCode(groupId, CheckGroupJonByAccessCodeRequest(accessCode))
+
+            }
+            emit(result)
+        }
     }
 
     override fun postFileUpload(
