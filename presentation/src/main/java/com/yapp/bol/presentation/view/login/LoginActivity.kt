@@ -25,7 +25,5 @@ class LoginActivity : AppCompatActivity() {
         val bundle = Bundle()
         bundle.putString(ACCESS_TOKEN, accessToken)
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.login_nav_host_fragment) as NavHostFragment
-        navHostFragment.findNavController().setGraph(R.navigation.login_nav_graph, bundle)
     }
-
 }
