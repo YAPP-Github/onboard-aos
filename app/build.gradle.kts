@@ -25,27 +25,35 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro",
+                "proguard-rules.pro"
             )
         }
         debug {
             isMinifyEnabled = false
         }
     }
+
     compileOptions {
         sourceCompatibility = com.yapp.bol.Applications.sourceCompatibilityVersion
         targetCompatibility = com.yapp.bol.Applications.targetCompatibilityVersion
     }
+
     kotlinOptions {
         jvmTarget = com.yapp.bol.Applications.jvmTarget
     }
 
     buildFeatures {
         dataBinding = true
+        viewBinding = true
     }
 }
 
 dependencies {
+
+    implementation(project(mapOf("path" to ":data")))
+    implementation(project(mapOf("path" to ":domain")))
+    implementation(project(mapOf("path" to ":presentation")))
+
     implementation(com.yapp.bol.KTX.CORE)
     implementation(com.yapp.bol.AndroidX.APP_COMPAT)
     implementation(com.yapp.bol.AndroidX.MATERIAL)
@@ -53,10 +61,6 @@ dependencies {
     implementation(com.yapp.bol.Test.JUNIT)
     implementation(com.yapp.bol.Test.TEST_RUNNER)
     implementation(com.yapp.bol.Test.ESPRESSO_CORE)
-
-    implementation(project(mapOf("path" to ":data")))
-    implementation(project(mapOf("path" to ":domain")))
-    implementation(project(mapOf("path" to ":presentation")))
 
     // Hilt
     implementation(com.yapp.bol.DaggerHilt.DAGGER_HILT)

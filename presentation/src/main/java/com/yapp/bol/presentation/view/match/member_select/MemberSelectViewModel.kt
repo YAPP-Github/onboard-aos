@@ -28,7 +28,7 @@ class MemberSelectViewModel @Inject constructor(
     private val _isNickNameValidate = MutableLiveData(false)
     val isNickNameValidate: LiveData<Boolean> = _isNickNameValidate
 
-    private val dynamicPlayers = arrayListOf<MemberItem>()
+    val dynamicPlayers = arrayListOf<MemberItem>()
 
     private var allMembers = List(20) {
         MemberItem(it, "$it. Test", 1)
@@ -46,7 +46,6 @@ class MemberSelectViewModel @Inject constructor(
                 checkedApiResult(
                     apiResult = it,
                     success = { data -> _isNickNameValidate.value = data },
-                    error = { throwable -> throw throwable }
                 )
             }
         }

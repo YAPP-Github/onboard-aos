@@ -24,8 +24,9 @@ class LoginViewModel @Inject constructor(
 
     fun login(type: String, token: String) {
         viewModelScope.launch {
-            _loginResult.emit(loginUseCase.execute(type, token))
-            _loginResult.value?.let {
+            loginUseCase.execute(type, token)?.let {
+                _loginResult.emit(it)
+
                 saveAccessToken(it.accessToken)
                 saveRefreshToken(it.refreshToken)
             }

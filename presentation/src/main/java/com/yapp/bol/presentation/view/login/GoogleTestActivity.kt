@@ -2,10 +2,10 @@ package com.yapp.bol.presentation.view.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -13,8 +13,17 @@ import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.yapp.bol.presentation.BuildConfig
 import com.yapp.bol.presentation.R
+import com.yapp.bol.presentation.utils.collectWithLifecycle
+import com.yapp.bol.presentation.view.group.GroupActivity
+import com.yapp.bol.presentation.view.group.NewGroupActivity
+import com.yapp.bol.presentation.viewmodel.login.LoginType
+import com.yapp.bol.presentation.viewmodel.login.LoginViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class GoogleTestActivity : AppCompatActivity() {
+
+    private val loginViewModel: LoginViewModel by viewModels()
 
     private val googleLoginForResult: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -26,6 +35,7 @@ class GoogleTestActivity : AppCompatActivity() {
         setContentView(R.layout.activity_google_test)
 
         startGoogleLogin()
+        subscribeObservables()
     }
 
     private fun startGoogleLogin() {
@@ -51,7 +61,8 @@ class GoogleTestActivity : AppCompatActivity() {
                     .getResult(ApiException::class.java)
                 val token = account.idToken
                 requireNotNull(token)
-                Log.d("gso check google", token)
+
+                loginViewModel.login(LoginType.GOOGLE, token)
             } catch (e: Exception) {
                 // TODO : 예외 처리 UI 작업
                 // ApiException & IllegalArgumentException 두 예외가 발생할 수 있는데
@@ -59,6 +70,12 @@ class GoogleTestActivity : AppCompatActivity() {
             }
         } else {
             // TODO : 그 외 예외 처리 UI 작업
+        }
+    }
+
+    private fun subscribeObservables() {
+        loginViewModel.loginResult.collectWithLifecycle(this) {
+            startActivity(Intent(this@GoogleTestActivity, GroupActivity::class.java))
         }
     }
 }

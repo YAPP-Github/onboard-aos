@@ -56,6 +56,7 @@ android {
 dependencies {
 
     implementation(project(mapOf("path" to ":domain")))
+    implementation(project(mapOf("path" to ":designsystem")))
 
     implementation(com.yapp.bol.KTX.CORE)
     implementation(com.yapp.bol.AndroidX.APP_COMPAT)
@@ -72,6 +73,7 @@ dependencies {
 
     // retrofit
     implementation(com.yapp.bol.Retrofit.RETROFIT)
+    implementation(com.yapp.bol.Retrofit.GSON)
     implementation(com.yapp.bol.Retrofit.CONVERTER_GSON)
     implementation(com.yapp.bol.Retrofit.CONVERTER_JAXB)
 
@@ -96,6 +98,12 @@ dependencies {
 
     // Navigation
     implementation(com.yapp.bol.Navigation.NAVIGATION)
+
+    // Paging3
+    implementation(com.yapp.bol.AndroidX.PAGING)
+
+    // Shimmer
+    implementation(com.yapp.bol.Shimmer.SHIMMER)
 }
 
 fun getProperty(propertyKey: String): String {

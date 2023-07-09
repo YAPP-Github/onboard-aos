@@ -1,11 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="gray_normal">#DDDDDD</color>
-    <color name="orange_10">#FF4D0D</color>
-    <color name="white">#FFF</color>
-    <color name="gray_10">#DADADA</color>
+    <!--Orange-->
+    <color name="Orange_10">#FF4D0D</color>
+    <color name="Orange_9">#FF5F25</color>
+    <color name="Orange_8">#FF713D</color>
+    <color name="Orange_7">#FF8256</color>
+    <color name="Orange_6">#FF946E</color>
+    <color name="Orange_5">#FFA686</color>
+    <color name="Orange_4">#FFB89E</color>
+    <color name="Orange_3">#FFCAB6</color>
+    <color name="Orange_2">#FFDBCF</color>
+    <color name="Orange_1">#FFEDE7</color>
 
+    <!--GRAY-->
+    <color name="Gray_15">#171717</color>
+    <color name="Gray_14">#242424</color>
+    <color name="Gray_13">#333333</color>
+    <color name="Gray_12">#3D3D3D</color>
+    <color name="Gray_11">#555555</color>
+    <color name="Gray_10">#6F6F6F</color>
+    <color name="Gray_9">#8B8B8B</color>
+    <color name="Gray_8">#A5A5A5</color>
+    <color name="Gray_7">#C1C1C1</color>
+    <color name="Gray_6">#DFDFDF</color>
+    <color name="Gray_5">#ECECEC</color>
+    <color name="Gray_4">#EFEFEF</color>
+    <color name="Gray_3">#F5F4F3</color>
+    <color name="Gray_2">#F7F7F7</color>
+    <color name="Gray_1">#FBFBFB</color>
+
+    <!--RED-->
+    <color name="Red">#F11414</color>
+
+    <!--YELLOW-->
+    <color name="Yellow">#FFBC10</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
     <color name="new_group_background_color">#F5F5F5</color>
     <color name="btn_complete_text_color">#A7A7A7</color>
     <color name="hint_text_color">#9B9B9B</color>
@@ -19,4 +50,6 @@
     <color name="complete_guide_text_color">#888888</color>
     <color name="complete_guide_access_text_color">#F0541C</color>
     <color name="orange_09">#FF5F25</color>
+    <color name="orange_10">#FF4D0D</color>
+    <color name="gray_03">#F5F4F3</color>
 </resources>

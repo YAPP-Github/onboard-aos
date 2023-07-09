@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="group_search_item_image_radius">8dp</dimen>
+</resources>

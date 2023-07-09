@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bol="http://schemas.android.com/apk/res-auto">
+    xmlns:bol="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.yapp.bol.presentation.view.group.join.GroupJoinViewModel" />
+    </data>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -15,38 +23,39 @@
 
             <TextView
                 android:id="@+id/tv_belong_title"
+                style="@style/Typography.Label3_B"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="홍익대학교"
-                android:textColor="@color/white"
-                android:textSize="12sp"
+                android:layout_marginBottom="8dp"
+                android:text="@{vm.groupItem.organization}"
+                android:textColor="@color/Gray_1"
                 app:layout_constraintBottom_toTopOf="@+id/tv_group_title" />
 
             <TextView
                 android:id="@+id/tv_group_title"
+                style="@style/Typography.Headline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:text="YAPP 보드게임 팟"
-                android:textColor="@color/white"
-                android:textSize="24dp"
+                android:layout_marginBottom="8dp"
+                android:text="@{vm.groupItem.description}"
+                android:textColor="@color/Gray_1"
                 app:layout_constraintBottom_toTopOf="@+id/tv_group_description" />
 
             <TextView
                 android:id="@+id/tv_group_description"
+                style="@style/Typography.Body3_R"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="28dp"
-                android:text="우리 보드게임 동아리는 최고의 보드게임 동아리 멋진 동아리 얍 최고 화이팅~ 우리 보드게임 동아리 최고"
-                android:textColor="#F0F0F0"
-                android:textSize="14sp"
+                android:layout_marginBottom="36dp"
+                android:text="@{vm.groupItem.description}"
+                android:textColor="@color/Gray_1"
                 app:layout_constraintBottom_toTopOf="@+id/group_explain_layout" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/group_explain_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="30dp"
                 android:orientation="horizontal"
                 bol:layout_constraintBottom_toTopOf="@+id/tv_group_join">
 
@@ -56,8 +65,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:title="member"
-                    bol:detailTitle="32명" />
+                    app:title="member" />
 
                 <com.yapp.bol.presentation.view.group.join.component.GroupItemUserTitle
                     android:id="@+id/group_admin_view"
@@ -91,15 +99,45 @@
 
             <TextView
                 android:id="@+id/tv_group_join"
+                style="@style/Typography.Title4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="26dp"
                 android:background="@drawable/group_join_bg"
                 android:gravity="center"
-                android:paddingVertical="12dp"
-                android:text="@string/group_join_title"
+                android:paddingVertical="14dp"
+                android:text="모임 들어가기"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/loading_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_loading_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/profile_setting_btn_background_color"
+                    tools:text="모임에 들어가는중" />
+
+                <ProgressBar
+                    android:id="@+id/pb_loading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:indeterminateDrawable="@drawable/pb_loading"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 </layout>

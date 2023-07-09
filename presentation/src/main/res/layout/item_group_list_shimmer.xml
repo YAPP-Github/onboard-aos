@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_group_list"
+    android:backgroundTint="#DFDFDF"
+    android:layout_marginBottom="12dp"
+    android:paddingStart="22dp"
+    android:paddingEnd="12dp">
+
+    <ImageView
+        android:id="@+id/iv_group_name"
+        android:layout_width="142dp"
+        android:layout_height="24dp"
+        android:background="@drawable/bg_group_list_text_shimmer"
+        android:layout_marginTop="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_group_description"
+        android:layout_width="213dp"
+        android:layout_height="12dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/bg_group_list_text_shimmer"
+        app:layout_constraintStart_toStartOf="@+id/iv_group_name"
+        app:layout_constraintTop_toBottomOf="@+id/iv_group_name" />
+
+    <ImageView
+        android:layout_width="91dp"
+        android:layout_height="12dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="18dp"
+        android:background="@drawable/bg_group_list_text_shimmer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/iv_group_name"
+        app:layout_constraintTop_toBottomOf="@+id/iv_group_description" />
+
+    <ImageView
+        android:id="@+id/iv_group_image"
+        android:layout_width="60dp"
+        android:layout_height="76dp"
+        android:background="@drawable/ic_group_list_img_shape"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

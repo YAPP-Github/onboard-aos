@@ -5,6 +5,7 @@ import com.yapp.bol.Versions.HILT_VERSION
 import com.yapp.bol.Versions.KAKAO_VERSION
 import com.yapp.bol.Versions.KOTLIN_VERSION
 import com.yapp.bol.Versions.KTLINT_VERSION
+import com.yapp.bol.Versions.PAGING_VERSION
 
 // ktlint-disable filename
 
@@ -13,6 +14,7 @@ object Versions {
     const val KTLINT_VERSION = "10.2.1"
     const val HILT_VERSION = "2.44"
     const val KAKAO_VERSION = "2.11.0"
+    const val PAGING_VERSION = "3.1.1"
     const val DATA_STORE_VERSION = "1.0.0"
 }
 
@@ -37,6 +39,8 @@ object AndroidX {
     const val ACTIVITY = "androidx.activity:activity-ktx:1.3.1"
     const val FRAGMENT = "androidx.fragment:fragment-ktx:1.3.6"
     const val COMPOSE = "androidx.activity:activity-compose:1.5.1"
+    const val PAGING = "androidx.paging:paging-runtime:$PAGING_VERSION"
+    const val PAGING_WITHOUT_ANDROID = "androidx.paging:paging-common:$PAGING_VERSION"
 }
 
 object Coroutines {
@@ -54,6 +58,7 @@ object DaggerHilt {
 object Retrofit {
     const val RETROFIT = "com.squareup.retrofit2:retrofit:2.9.0"
     const val CONVERTER_GSON = "com.squareup.retrofit2:converter-gson:2.9.0"
+    const val GSON = "com.google.code.gson:gson:2.9.0"
     const val CONVERTER_JAXB = "com.squareup.retrofit2:converter-jaxb:2.9.0"
     const val LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:4.10.0"
 }
@@ -99,4 +104,8 @@ object Glide {
 
 object Navigation {
     const val NAVIGATION = "androidx.navigation:navigation-dynamic-features-fragment:2.5.3"
+}
+
+object Shimmer {
+    const val SHIMMER = "com.facebook.shimmer:shimmer:0.5.0"
 }

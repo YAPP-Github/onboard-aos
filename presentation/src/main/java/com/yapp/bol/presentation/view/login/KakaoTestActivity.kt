@@ -11,7 +11,6 @@ import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 import com.yapp.bol.presentation.BuildConfig
 import com.yapp.bol.presentation.databinding.ActivityKakaoTestBinding
-import com.yapp.bol.presentation.utils.Constant
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.view.group.NewGroupActivity
 import com.yapp.bol.presentation.viewmodel.login.LoginType
@@ -67,7 +66,6 @@ class KakaoTestActivity : AppCompatActivity() {
 
     private fun subscribeObservables() {
         viewModel.loginResult.filterNotNull().collectWithLifecycle(this) {
-            if (it.accessToken == Constant.EMPTY_STRING) return@collectWithLifecycle
             val intent = Intent(this@KakaoTestActivity, NewGroupActivity::class.java)
             intent.putExtra(ACCESS_TOKEN, it.accessToken)
             startActivity(intent)
