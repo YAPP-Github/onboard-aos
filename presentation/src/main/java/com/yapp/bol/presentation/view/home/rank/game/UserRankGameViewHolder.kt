@@ -9,23 +9,20 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.presentation.databinding.ItemRankGameListBinding
+import com.yapp.bol.presentation.model.GameItemWithSelected
 import com.yapp.bol.presentation.utils.loadImage
 
 class UserRankGameViewHolder(
     private val binding: ItemRankGameListBinding,
-    private val onClick: (Int) -> Unit,
+    private val onClick: (position: Int, gameId: Long) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    init {
+    fun bind(gameItemWithSelected: GameItemWithSelected) {
+        showGameItemData(gameItemWithSelected.gameItem)
+        showGameItemBySelectState(gameItemWithSelected.isSelected)
         binding.viewGame.root.setOnClickListener {
-            onClick.invoke(layoutPosition)
-            binding.setLayoutWhenSelected()
+            onClick(layoutPosition, gameItemWithSelected.gameItem.id)
         }
-    }
-
-    fun bind(gameItem: GameItem, isSelected: Boolean) {
-        showGameItemData(gameItem)
-        showGameItemBySelectState(isSelected)
     }
 
     private fun showGameItemData(gameItem: GameItem) {
@@ -93,7 +90,7 @@ class UserRankGameViewHolder(
     }
 
     companion object {
-        fun create(parent: ViewGroup, onClick: (Int) -> Unit): UserRankGameViewHolder {
+        fun create(parent: ViewGroup, onClick: (position: Int, gameId: Long) -> Unit): UserRankGameViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             val binding = ItemRankGameListBinding.inflate(inflater, parent, false)
             return UserRankGameViewHolder(binding, onClick)

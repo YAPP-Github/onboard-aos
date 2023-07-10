@@ -9,6 +9,7 @@ import com.yapp.bol.domain.usecase.group.GetJoinedGroupUseCase
 import com.yapp.bol.domain.usecase.rank.GetUserRankGameListUseCase
 import com.yapp.bol.domain.usecase.rank.GetUserRankUseCase
 import com.yapp.bol.presentation.model.DrawerGroupInfoUiModel
+import com.yapp.bol.presentation.model.GameItemWithSelected
 import com.yapp.bol.presentation.model.UserRankUiModel
 import com.yapp.bol.presentation.utils.checkedApiResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,8 +27,8 @@ class UserRankViewModel @Inject constructor(
     private val getGroupDetailUseCase: GetGroupDetailUseCase
 ) : ViewModel() {
 
-    private val _gameListFlow = MutableStateFlow<List<GameItem>>(emptyList())
-    val gameListFlow: StateFlow<List<GameItem>> = _gameListFlow
+    private val _gameListFlow = MutableStateFlow<List<GameItemWithSelected>>(emptyList())
+    val gameListFlow: StateFlow<List<GameItemWithSelected>> = _gameListFlow
 
     private val _userListFlow = MutableStateFlow<List<UserRankUiModel>>(emptyList())
     val userListFlow: StateFlow<List<UserRankUiModel>> = _userListFlow
@@ -35,11 +36,28 @@ class UserRankViewModel @Inject constructor(
     private val _groupListFlow = MutableStateFlow<List<DrawerGroupInfoUiModel>>(emptyList())
     val groupListFlow: StateFlow<List<DrawerGroupInfoUiModel>> = _groupListFlow
 
+    private val _selectedPosition = MutableStateFlow<Int>(0)
+    val selectedPosition: StateFlow<Int> = _selectedPosition
+
     init {
         // TODO : const 변경 필요
         fetchGameList(999)
-        fetchUserList(3, 1)
         fetchJoinedGroupList(3)
+    }
+
+    fun setGameItemSelected(index: Int) {
+        val gameList: MutableList<GameItemWithSelected> = _gameListFlow.value.toMutableList()
+
+        selectedPosition.value.let {
+            if (_gameListFlow.value.size > it) {
+                gameList[it] = GameItemWithSelected(gameList[it].gameItem, false)
+            }
+        }
+
+        _selectedPosition.value = index
+        gameList[index] = GameItemWithSelected(gameList[index].gameItem, true)
+
+        _gameListFlow.value = gameList
     }
 
     fun fetchGameList(groupId: Long) {
@@ -47,7 +65,12 @@ class UserRankViewModel @Inject constructor(
             getUserRankGameListUseCase(groupId.toInt()).collectLatest {
                 checkedApiResult(
                     apiResult = it,
-                    success = { data -> _gameListFlow.value = data },
+                    success = { data ->
+                        _gameListFlow.value = data.map { gameItem ->
+                            GameItemWithSelected(gameItem, false)
+                        }
+                        fetchUserList(groupId, null)
+                    },
                     error = { throwable -> throw throwable },
                 )
             }
@@ -55,10 +78,24 @@ class UserRankViewModel @Inject constructor(
     }
 
     fun fetchUserList(groupId: Long, gameId: Long) {
+        val gameIdNullable: Long? = gameId
+        fetchUserList(groupId, gameIdNullable)
+    }
+
+    private fun fetchUserList(groupId: Long, gameId: Long?) {
         _userListFlow.value = emptyList()
 
+        if (gameId == null) {
+            setGameItemSelected(0)
+        }
+
+        val gameIdNotNull: Long = gameId ?: kotlin.run {
+            if (_gameListFlow.value.isNotEmpty()) { _gameListFlow.value.first().gameItem.id }
+            else { throw IllegalArgumentException("game not found") }
+        }
+
         viewModelScope.launch {
-            getUserRankUseCase(groupId.toInt(), gameId.toInt()).collectLatest {
+            getUserRankUseCase(groupId.toInt(), gameIdNotNull.toInt()).collectLatest {
                 checkedApiResult(
                     apiResult = it,
                     success = { data ->
