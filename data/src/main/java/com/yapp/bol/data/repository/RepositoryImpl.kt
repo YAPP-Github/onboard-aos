@@ -22,6 +22,7 @@ import javax.inject.Inject
 class RepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
 ) : Repository {
+
     override suspend fun login(type: String, token: String): LoginItem? {
         return remoteDataSource.login(type, token).mapperToBaseItem()
     }

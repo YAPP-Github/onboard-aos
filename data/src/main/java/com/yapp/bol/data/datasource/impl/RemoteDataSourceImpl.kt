@@ -93,10 +93,6 @@ class RemoteDataSourceImpl @Inject constructor(
         return URLConnection.guessContentTypeFromName(fileName)
     }
 
-    companion object {
-        const val FILE_KEY = "file"
-    }
-
     override fun joinGroup(
         groupId: String,
         accessCode: String,
@@ -104,5 +100,9 @@ class RemoteDataSourceImpl @Inject constructor(
     ): Flow<ApiResult<BaseResponse>> = flow {
         val result = safeApiCall { groupApi.joinGroup(groupId, JoinGroupApiRequest(nickname, accessCode)) }
         emit(result)
+    }
+
+    companion object {
+        const val FILE_KEY = "file"
     }
 }

@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewGroupViewModel @Inject constructor(
-    private val newGroupUseCase: NewGroupUseCase
+    private val newGroupUseCase: NewGroupUseCase,
 ) : ViewModel() {
 
     private val _groupName = MutableLiveData(EMPTY_STRING)

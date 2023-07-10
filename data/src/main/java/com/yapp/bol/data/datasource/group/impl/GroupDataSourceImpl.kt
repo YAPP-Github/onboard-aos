@@ -8,7 +8,7 @@ import com.yapp.bol.domain.model.ApiResult
 import javax.inject.Inject
 
 class GroupDataSourceImpl @Inject constructor(
-    private val groupApi: GroupApi
+    private val groupApi: GroupApi,
 ) : BaseRepository(), GroupDataSource {
 
     override suspend fun searchGroup(name: String, page: Int, pageSize: Int):
@@ -17,7 +17,7 @@ class GroupDataSourceImpl @Inject constructor(
             groupApi.getGroupSearchResult(
                 name = name,
                 page = page.toString(),
-                pageSize = pageSize.toString()
+                pageSize = pageSize.toString(),
             )
         }
     }

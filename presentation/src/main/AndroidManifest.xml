@@ -8,7 +8,7 @@
     <application>
         <activity
             android:name=".view.group.search.GroupSearchActivityTest"
-            android:exported="false"></activity>
+            android:exported="false"/>
         <activity
             android:name=".view.match.MatchActivity"
             android:exported="false"
@@ -21,13 +21,13 @@
             android:exported="false" />
         <activity
             android:name=".view.login.GoogleTestActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".view.login.NaverTestActivity"
-            android:exported="false"></activity>
+            android:exported="false"/>
         <activity
             android:name=".view.login.KakaoTestActivity"
-            android:exported="false"></activity>
+            android:exported="false"/>
 
         <!-- Kakao 로그인 -->
         <activity
@@ -47,7 +47,7 @@
 
         <activity
             android:name=".view.group.GroupActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>
