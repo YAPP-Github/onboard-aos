@@ -15,7 +15,7 @@ class NicknameFragment : BaseFragment<FragmentNicknameBinding>(R.layout.fragment
 
     override fun onViewCreatedAction(): Unit = with(binding) {
         btnSignUp.setOnClickListener {
-            val intent = Intent(requireActivity(),GroupSearchActivityTest::class.java)
+            val intent = Intent(requireActivity(), GroupSearchActivityTest::class.java)
             startActivity(intent)
         }
 

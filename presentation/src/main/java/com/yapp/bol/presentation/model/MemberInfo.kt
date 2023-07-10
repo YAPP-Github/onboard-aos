@@ -40,5 +40,4 @@ data class MemberInfo(
             return arrayOfNulls(size)
         }
     }
-
 }
