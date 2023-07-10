@@ -44,6 +44,9 @@ class UserRankViewModel @Inject constructor(
     private val _userUiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
     val userUiState: StateFlow<HomeUiState> = _userUiState
 
+    private val _groupUiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
+    val groupUiState: StateFlow<HomeUiState> = _groupUiState
+
     init {
         // TODO : const 변경 필요
         fetchGameList(999)
@@ -68,6 +71,8 @@ class UserRankViewModel @Inject constructor(
     }
 
     fun fetchGameList(groupId: Long) {
+        _groupUiState.value = HomeUiState.Loading
+
         viewModelScope.launch {
             getUserRankGameListUseCase(groupId.toInt()).collectLatest {
                 checkedApiResult(
@@ -82,8 +87,9 @@ class UserRankViewModel @Inject constructor(
 
                         _gameListFlow.value = gameUiList
                         fetchUserList(groupId, null)
+                        _groupUiState.value = HomeUiState.Success
                     },
-                    error = { throwable -> throw throwable },
+                    error = { throwable -> _groupUiState.value = HomeUiState.Error(throwable) },
                 )
             }
         }
@@ -114,7 +120,7 @@ class UserRankViewModel @Inject constructor(
                 firstItemId
             } else {
                 _userUiState.value = HomeUiState.Error(IllegalArgumentException("game not found"))
-                throw IllegalArgumentException("game not found")
+                0
             }
         }
 
@@ -158,7 +164,7 @@ class UserRankViewModel @Inject constructor(
                     success = { groupDetailItem ->
                         uiModelList.add(DrawerGroupInfoUiModel.CurrentGroupInfo(groupDetailItem))
                     },
-                    error = { throwable -> throw throwable }
+                    error = { throwable -> _groupUiState.value = HomeUiState.Error(throwable) }
                 )
             }
 
@@ -173,7 +179,7 @@ class UserRankViewModel @Inject constructor(
                         }
                         _groupListFlow.value = uiModelList
                     },
-                    error = { throwable -> throw throwable }
+                    error = { throwable -> _groupUiState.value = HomeUiState.Error(throwable) }
                 )
             }
         }
