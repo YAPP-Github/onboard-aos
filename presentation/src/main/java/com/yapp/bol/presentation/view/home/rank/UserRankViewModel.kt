@@ -41,10 +41,13 @@ class UserRankViewModel @Inject constructor(
     private val _selectedPosition = MutableStateFlow<Int>(0)
     val selectedPosition: StateFlow<Int> = _selectedPosition
 
+    private val _userUiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
+    val userUiState: StateFlow<HomeUiState> = _userUiState
+
     init {
         // TODO : const 변경 필요
         fetchGameList(999)
-        fetchJoinedGroupList(3)
+        fetchJoinedGroupList(90)
     }
 
     fun setGameItemSelected(index: Int) {
@@ -92,6 +95,7 @@ class UserRankViewModel @Inject constructor(
     }
 
     private fun fetchUserList(groupId: Long, gameId: Long?) {
+        _userUiState.value = HomeUiState.Loading
         _userListFlow.value = emptyList()
 
         if (gameId == null) {
@@ -109,6 +113,7 @@ class UserRankViewModel @Inject constructor(
                 }
                 firstItemId
             } else {
+                _userUiState.value = HomeUiState.Error(IllegalArgumentException("game not found"))
                 throw IllegalArgumentException("game not found")
             }
         }
@@ -133,8 +138,11 @@ class UserRankViewModel @Inject constructor(
                         resultList.addAll(userAfter4)
 
                         _userListFlow.value = resultList
+                        _userUiState.value = HomeUiState.Success
                     },
-                    error = { throwable -> throw throwable },
+                    error = { throwable ->
+                        _userUiState.value = HomeUiState.Error(IllegalArgumentException(throwable))
+                    },
                 )
             }
         }
