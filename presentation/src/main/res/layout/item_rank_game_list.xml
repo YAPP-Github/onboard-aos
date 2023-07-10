@@ -10,7 +10,7 @@
 
         <View
             android:id="@+id/view_start_padding"
-            android:layout_width="7dp"
+            android:layout_width="@dimen/home_game_padding"
             android:layout_height="match_parent" />
 
         <include
@@ -19,7 +19,7 @@
 
         <View
             android:id="@+id/view_end_padding"
-            android:layout_width="7dp"
+            android:layout_width="@dimen/home_game_padding"
             android:layout_height="match_parent" />
 
     </LinearLayout>
