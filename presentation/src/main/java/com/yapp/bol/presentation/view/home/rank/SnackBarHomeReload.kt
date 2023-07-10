@@ -13,7 +13,6 @@ class SnackBarHomeReload(
     private val onClick: () -> Unit,
 ) {
     companion object {
-
         fun make(
             view: View,
             onClick: () -> Unit,
