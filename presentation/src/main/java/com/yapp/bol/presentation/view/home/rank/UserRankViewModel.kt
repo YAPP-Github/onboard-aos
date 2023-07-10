@@ -12,6 +12,8 @@ import com.yapp.bol.presentation.model.DrawerGroupInfoUiModel
 import com.yapp.bol.presentation.model.GameItemWithSelected
 import com.yapp.bol.presentation.model.UserRankUiModel
 import com.yapp.bol.presentation.utils.checkedApiResult
+import com.yapp.bol.presentation.utils.config.HomeConfig.GAME_RV_FIRST_POSITION
+import com.yapp.bol.presentation.utils.config.HomeConfig.USER_RV_1_TO_3_UI_RANK_THRESHOLD
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -86,7 +88,7 @@ class UserRankViewModel @Inject constructor(
         _userListFlow.value = emptyList()
 
         if (gameId == null) {
-            setGameItemSelected(0)
+            setGameItemSelected(GAME_RV_FIRST_POSITION)
         }
 
         val gameIdNotNull: Long = gameId ?: kotlin.run {
@@ -103,7 +105,7 @@ class UserRankViewModel @Inject constructor(
                         val userAfter4 = mutableListOf<UserRankUiModel>()
 
                         data.userRankItemList.map { item ->
-                            if (item.rank <= 3) {
+                            if (item.rank <= USER_RV_1_TO_3_UI_RANK_THRESHOLD) {
                                 user1to3.add(item)
                             } else {
                                 userAfter4.add(UserRankUiModel.UserRankAfter4(item))
