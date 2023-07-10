@@ -9,7 +9,8 @@ import com.yapp.bol.presentation.databinding.ItemGroupInfoDetailBinding
 import com.yapp.bol.presentation.utils.loadImage
 
 class DrawerCurrentGroupInfoViewHolder(
-    private val binding: ItemGroupInfoDetailBinding
+    private val binding: ItemGroupInfoDetailBinding,
+    private val onClick: (String) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(groupDetailItem: GroupDetailItem) {
@@ -20,15 +21,21 @@ class DrawerCurrentGroupInfoViewHolder(
             tvMemberCount.text = groupDetailItem.memberCount.toString()
             tvManager.text = groupDetailItem.owner.nickname
             tvCode.text = groupDetailItem.accessCode
+            btnCopy.setOnClickListener {
+                onClick(groupDetailItem.accessCode)
+            }
         }
     }
 
     companion object {
-        fun create(parent: ViewGroup): DrawerCurrentGroupInfoViewHolder {
+        fun create(
+            parent: ViewGroup,
+            onClick: (String) -> Unit,
+        ): DrawerCurrentGroupInfoViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             val view = inflater.inflate(R.layout.item_group_info_detail, parent, false)
             val binding = ItemGroupInfoDetailBinding.bind(view)
-            return DrawerCurrentGroupInfoViewHolder(binding)
+            return DrawerCurrentGroupInfoViewHolder(binding, onClick)
         }
     }
 }

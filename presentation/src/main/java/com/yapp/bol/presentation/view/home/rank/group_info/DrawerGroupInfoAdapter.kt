@@ -8,14 +8,15 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.model.DrawerGroupInfoUiModel
 
 class DrawerGroupInfoAdapter(
-    private val onClick: (Long) -> Unit,
+    private val otherGroupOnClick: (Long) -> Unit,
+    private val copyButtonOnClick: (String) -> Unit,
 ) : ListAdapter<DrawerGroupInfoUiModel, RecyclerView.ViewHolder>(diff) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         if (viewType == R.layout.item_group_info_detail) {
-            DrawerCurrentGroupInfoViewHolder.create(parent)
+            DrawerCurrentGroupInfoViewHolder.create(parent, copyButtonOnClick)
         } else {
-            DrawerOtherGroupViewHolder.create(parent, onClick)
+            DrawerOtherGroupViewHolder.create(parent, otherGroupOnClick)
         }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
