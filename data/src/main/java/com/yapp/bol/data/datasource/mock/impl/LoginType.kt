@@ -7,7 +7,7 @@ object LoginType {
 
     private const val NAVER_REQUEST_TYPE = "NAVER_ACCESS_TOKEN"
     private const val KAKAO_REQUEST_TYPE = "KAKAO_ACCESS_TOKEN"
-    private const val GOOGLE_REQUEST_TYPE = "GOOGLE"
+    private const val GOOGLE_REQUEST_TYPE = "GOOGLE_ID_TOKEN"
 
     fun String.toDomain(): String {
         return when (this) {

@@ -7,7 +7,9 @@ import com.yapp.bol.domain.usecase.auth.SaveAccessTokenUseCase
 import com.yapp.bol.domain.usecase.auth.SaveRefreshTokenUseCase
 import com.yapp.bol.domain.usecase.login.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,8 +21,8 @@ class LoginViewModel @Inject constructor(
     private val saveRefreshTokenUseCase: SaveRefreshTokenUseCase,
 ) : ViewModel() {
 
-    private val _loginResult = MutableStateFlow<LoginItem?>(null)
-    val loginResult = _loginResult.asStateFlow()
+    private val _loginResult = MutableSharedFlow<LoginItem?>()
+    val loginResult = _loginResult.asSharedFlow()
 
     fun login(type: String, token: String) {
         viewModelScope.launch {
