@@ -47,7 +47,7 @@ class GroupJoinFragment : Fragment() {
         InputDialog(requireContext()).apply {
             this.setTitle("참여 코드 입력")
                 .setMessage(getString(R.string.group_join_code_input_plz))
-                .setLimitSize(6)
+                .setLimitSize(5)
                 .setOnLimit { code, dialog ->
                     viewModel.checkGroupJoinByAccessCode(code)
 

@@ -1,6 +1,5 @@
 package com.yapp.bol.presentation.view.group.join
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -56,7 +55,6 @@ class GroupJoinViewModel @Inject constructor(
     }
 
     fun checkGroupJoinByAccessCode(accessCode: String) {
-        Log.d("Debug", "checkGroupJoinByAccessCode: $accessCode")
         viewModelScope.launch {
             checkGroupAccessCodeUseCase(groupItem.value?.id.toString(), accessCode).collectLatest {
                 checkedApiResult(

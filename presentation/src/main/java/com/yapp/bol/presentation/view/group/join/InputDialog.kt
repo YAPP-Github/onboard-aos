@@ -32,6 +32,7 @@ class InputDialog(
 
     private var onLimitExceeded: ((String, InputDialog) -> Unit)? = null
     private var onLimit: Int = 0
+    private var inputText = ""
 
     init {
         setContentView(binding.root)
@@ -72,7 +73,10 @@ class InputDialog(
 
             if ((text?.length ?: 0) > onLimit) {
                 onLimitExceeded?.invoke(text.toString(), this)
-                binding.etInput.setText(text?.substring(0, onLimit))
+                text?.substring(0, onLimit).let {
+                    binding.etInput.setText(it)
+                    inputText = it.toString()
+                }
                 binding.etInput.setSelection(onLimit)
 
                 binding.tvInputCount.setTextColor(context.getColor(R.color.Red))
@@ -87,7 +91,7 @@ class InputDialog(
         binding.etInput.setText(listOf("이승은", "차경민", "기본 이름", "랜덤 이름").random()) // todo 기획이 완료 된 후 실제 기본 이름으로 변경해야합니다.
 
         binding.tvSummit.setOnClickListener {
-            onSummit(binding.etInput.text.toString(), this)
+            onSummit(inputText, this)
         }
         return this
     }
@@ -106,6 +110,7 @@ class InputDialog(
         binding.tvSummit.visibility = if (visible) View.VISIBLE else View.GONE
         return this
     }
+
     fun visibleInputCount(visible: Boolean): InputDialog {
         binding.tvInputCount.visibility = if (visible) View.VISIBLE else View.GONE
         return this
