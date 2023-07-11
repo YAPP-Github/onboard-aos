@@ -12,7 +12,7 @@ data class UserRankDTO(
     @SerializedName("nickname")
     val name: String,
     @SerializedName("winningPercentage")
-    val winRate: Double,
+    val winRate: Double?,
     @SerializedName("matchCount")
-    val playCount: Int,
+    val playCount: Int?,
 )

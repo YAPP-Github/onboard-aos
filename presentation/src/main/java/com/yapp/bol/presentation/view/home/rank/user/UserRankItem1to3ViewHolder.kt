@@ -9,6 +9,8 @@ import com.yapp.bol.presentation.databinding.ItemRank1To3Binding
 import com.yapp.bol.presentation.databinding.ViewRank1stBinding
 import com.yapp.bol.presentation.databinding.ViewRank2ndBinding
 import com.yapp.bol.presentation.databinding.ViewRank3rdBinding
+import com.yapp.bol.presentation.utils.Converter.convertPlayCount
+import com.yapp.bol.presentation.utils.Converter.convertWinRate
 
 class UserRankItem1to3ViewHolder(
     private val binding: ItemRank1To3Binding
@@ -40,22 +42,22 @@ class UserRankItem1to3ViewHolder(
     private fun ViewRank1stBinding.setItems(userRankItem: UserRankItem, rank: Ordinal) {
         tvRank.text = rank.presentData
         tvName.text = userRankItem.name
-        tvPlayCount.text = userRankItem.playCount.toString()
-        tvWinRate.text = userRankItem.winRate.toString()
+        tvPlayCount.text = userRankItem.playCount.convertPlayCount()
+        tvWinRate.text = userRankItem.winRate.convertWinRate()
     }
 
     private fun ViewRank2ndBinding.setItems(userRankItem: UserRankItem, rank: Ordinal) {
         tvRank.text = rank.presentData
         tvName.text = userRankItem.name
-        tvPlayCount.text = userRankItem.playCount.toString()
-        tvWinRate.text = userRankItem.winRate.toString()
+        tvPlayCount.text = userRankItem.playCount.convertPlayCount()
+        tvWinRate.text = userRankItem.winRate.convertWinRate()
     }
 
     private fun ViewRank3rdBinding.setItems(userRankItem: UserRankItem, rank: Ordinal) {
         tvRank.text = rank.presentData
         tvName.text = userRankItem.name
-        tvPlayCount.text = userRankItem.playCount.toString()
-        tvWinRate.text = userRankItem.winRate.toString()
+        tvPlayCount.text = userRankItem.playCount.convertPlayCount()
+        tvWinRate.text = userRankItem.winRate.convertWinRate()
     }
 
     companion object {
