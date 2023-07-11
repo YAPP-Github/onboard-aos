@@ -22,6 +22,7 @@ class KeyboardVisibilityUtils(
                 lastVisibleDecorViewHeight > visibleDecorViewHeight + MIN_KEYBOARD_HEIGHT_PX -> {
                     onShowKeyboard?.let { it(currentKeyboardHeight) }
                 }
+
                 lastVisibleDecorViewHeight + MIN_KEYBOARD_HEIGHT_PX < visibleDecorViewHeight -> {
                     onHideKeyboard?.let { it() }
                 }
