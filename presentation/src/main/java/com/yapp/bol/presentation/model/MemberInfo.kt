@@ -16,8 +16,7 @@ data class MemberInfo(
         parcel.readString() ?: "",
         parcel.readInt(),
         parcel.readByte() != 0.toByte(),
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
@@ -40,5 +39,4 @@ data class MemberInfo(
             return arrayOfNulls(size)
         }
     }
-
 }
