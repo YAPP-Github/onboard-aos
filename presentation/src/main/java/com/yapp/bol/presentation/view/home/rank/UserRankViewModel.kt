@@ -47,12 +47,6 @@ class UserRankViewModel @Inject constructor(
     private val _groupUiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
     val groupUiState: StateFlow<HomeUiState> = _groupUiState
 
-    init {
-        // TODO : const 변경 필요
-        fetchGameList(999)
-        fetchJoinedGroupList(90)
-    }
-
     fun setGameItemSelected(index: Int) {
         val gameUiList: MutableList<HomeGameItemUiModel> = _gameListFlow.value.toMutableList()
 
