@@ -3,6 +3,7 @@ package com.yapp.bol.domain.handle
 import com.google.gson.Gson
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.ErrorItem
+import com.yapp.bol.domain.model.ErrorItem.Companion.NETWORK_ERROR_CODE
 import retrofit2.Response
 import java.io.IOException
 
@@ -15,10 +16,12 @@ abstract class BaseRepository {
         } catch (e: Exception) {
             return when (e) {
                 is IOException -> {
-                    throw IOException("Network Error")
+                    ApiResult.Error(
+                        ErrorItem(code = NETWORK_ERROR_CODE.toString(), message = e.message ?: "Internet error runs"),
+                    )
                 }
 
-                else -> throw Exception(e.message)
+                else -> ApiResult.Error(ErrorItem(message = e.message.toString()))
             }
         }
 
