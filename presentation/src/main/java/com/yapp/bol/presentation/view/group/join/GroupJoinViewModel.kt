@@ -40,7 +40,7 @@ class GroupJoinViewModel @Inject constructor(
                 checkedApiResult(
                     apiResult = it,
                     success = {
-                        viewModelScope.launch { // 이게 최선인가 ?
+                        viewModelScope.launch {
                             _successJoinGroup.emit(true to null)
                         }
                     },

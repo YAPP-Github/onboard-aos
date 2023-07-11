@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.text.InputFilter
 import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup.MarginLayoutParams
@@ -32,7 +33,6 @@ class InputDialog(
 
     private var onLimitExceeded: ((String, InputDialog) -> Unit)? = null
     private var onLimit: Int = 0
-    private var inputText = ""
 
     init {
         setContentView(binding.root)
@@ -66,19 +66,16 @@ class InputDialog(
 
         binding.tvInputCount.text = "${binding.etInput.text.length}/$onLimit"
 
-        binding.etInput.doAfterTextChanged { text ->
+        binding.etInput.filters = arrayOf(InputFilter.LengthFilter(onLimit))
 
+        binding.etInput.doAfterTextChanged { text ->
             binding.tvInputCount.text = "${text?.length ?: 0}/$onLimit"
             binding.tvSummit.isEnabled = true
 
-            if ((text?.length ?: 0) > onLimit) {
-                onLimitExceeded?.invoke(text.toString(), this)
-                text?.substring(0, onLimit).let {
-                    binding.etInput.setText(it)
-                    inputText = it.toString()
+            if ((text?.count()) == onLimit) {
+                text.substring(0, onLimit).let {
+                    onLimitExceeded?.invoke(it, this)
                 }
-                binding.etInput.setSelection(onLimit)
-
                 binding.tvInputCount.setTextColor(context.getColor(R.color.Red))
             } else {
                 binding.tvInputCount.setTextColor(context.getColor(R.color.Gray_8))
@@ -88,10 +85,17 @@ class InputDialog(
 
     fun setOnSummit(onSummit: (String, InputDialog) -> Unit): InputDialog {
         binding.etLayout.updatePadding(bottom = 0)
-        binding.etInput.setText(listOf("이승은", "차경민", "기본 이름", "랜덤 이름").random()) // todo 기획이 완료 된 후 실제 기본 이름으로 변경해야합니다.
+        binding.etInput.setText(
+            listOf(
+                "이승은",
+                "차경민",
+                "기본 이름",
+                "랜덤 이름",
+            ).random(),
+        ) // todo 기획이 완료 된 후 실제 기본 이름으로 변경해야합니다.
 
         binding.tvSummit.setOnClickListener {
-            onSummit(inputText, this)
+            onSummit(binding.etInput.text.toString(), this)
         }
         return this
     }
