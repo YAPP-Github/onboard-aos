@@ -38,8 +38,7 @@ class UserRankViewModel @Inject constructor(
     private val _groupListFlow = MutableStateFlow<List<DrawerGroupInfoUiModel>>(emptyList())
     val groupListFlow: StateFlow<List<DrawerGroupInfoUiModel>> = _groupListFlow
 
-    private val _selectedPosition = MutableStateFlow<Int>(0)
-    val selectedPosition: StateFlow<Int> = _selectedPosition
+    private var selectedPosition: Int = 0
 
     private val _userUiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
     val userUiState: StateFlow<HomeUiState> = _userUiState
@@ -47,19 +46,19 @@ class UserRankViewModel @Inject constructor(
     private val _groupUiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
     val groupUiState: StateFlow<HomeUiState> = _groupUiState
 
-    fun setGameItemSelected(index: Int) {
+    fun setGameItemSelected(position: Int) {
         val gameUiList: MutableList<HomeGameItemUiModel> = _gameListFlow.value.toMutableList()
 
-        selectedPosition.value.let {
+        selectedPosition.let {
             if (_gameListFlow.value.size > it && gameUiList[it] is HomeGameItemUiModel.GameItem) {
                 val gameItem = (gameUiList[it] as HomeGameItemUiModel.GameItem).item.gameItem
                 gameUiList[it] = HomeGameItemUiModel.GameItem(GameItemWithSelected(gameItem, false))
             }
         }
 
-        _selectedPosition.value = index
-        val gameItem = (gameUiList[index] as HomeGameItemUiModel.GameItem).item.gameItem
-        gameUiList[index] = HomeGameItemUiModel.GameItem(GameItemWithSelected(gameItem, true))
+        selectedPosition = position
+        val gameItem = (gameUiList[position] as HomeGameItemUiModel.GameItem).item.gameItem
+        gameUiList[position] = HomeGameItemUiModel.GameItem(GameItemWithSelected(gameItem, true))
 
         _gameListFlow.value = gameUiList
     }
