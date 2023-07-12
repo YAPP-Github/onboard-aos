@@ -67,4 +67,6 @@
     <string name="rank_play_count">플레이 %d회</string>
     <string name="rank_default">-</string>
     <string name="rank_default_play_count">플레이 0회</string>
+
+    <string name="copy_access_code">참여 코드가 복사되었습니다.</string>
 </resources>
