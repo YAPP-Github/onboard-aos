@@ -4,4 +4,5 @@ object HomeConfig {
     const val GAME_RV_FIRST_POSITION = 1
     const val USER_RV_1_TO_3_UI_RANK_THRESHOLD = 3
     const val NO_RANK_THRESHOLD = 1
+    const val MILLISECONDS_PER_INCH = 100f
 }

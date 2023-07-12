@@ -6,6 +6,7 @@ import android.util.DisplayMetrics
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
+import com.yapp.bol.presentation.utils.config.HomeConfig.MILLISECONDS_PER_INCH
 
 class UserRankGameLayoutManager : LinearLayoutManager {
     constructor(context: Context) : super(context)
@@ -41,8 +42,4 @@ class UserRankGameLayoutManager : LinearLayoutManager {
         }
     }
 
-    companion object {
-        // This number controls the speed of smooth scroll
-        private const val MILLISECONDS_PER_INCH = 150f
-    }
 }
