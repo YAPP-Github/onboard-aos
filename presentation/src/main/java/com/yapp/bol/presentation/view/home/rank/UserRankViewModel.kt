@@ -13,8 +13,10 @@ import com.yapp.bol.presentation.model.HomeGameItemUiModel
 import com.yapp.bol.presentation.model.UserRankUiModel
 import com.yapp.bol.presentation.utils.checkedApiResult
 import com.yapp.bol.presentation.utils.config.HomeConfig.GAME_RV_FIRST_POSITION
+import com.yapp.bol.presentation.utils.config.HomeConfig.USER_RANK_LOAD_FORCE_DELAY
 import com.yapp.bol.presentation.utils.config.HomeConfig.USER_RV_1_TO_3_UI_RANK_THRESHOLD
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -118,6 +120,8 @@ class UserRankViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
+            delay(USER_RANK_LOAD_FORCE_DELAY)
+
             getUserRankUseCase(groupId.toInt(), gameIdNotNull.toInt()).collectLatest {
                 checkedApiResult(
                     apiResult = it,

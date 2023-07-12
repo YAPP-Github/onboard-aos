@@ -5,4 +5,5 @@ object HomeConfig {
     const val USER_RV_1_TO_3_UI_RANK_THRESHOLD = 3
     const val NO_RANK_THRESHOLD = 1
     const val MILLISECONDS_PER_INCH = 100f
+    const val USER_RANK_LOAD_FORCE_DELAY = 500L
 }
