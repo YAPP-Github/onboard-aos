@@ -2,23 +2,27 @@ package com.yapp.bol.presentation.utils
 
 import android.app.Activity
 import android.view.WindowManager
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 import androidx.core.view.WindowInsetsControllerCompat
 
-fun setSystemUi(activity: Activity, color: Int) {
-    setStatusBarColor(activity, color)
-    setNavigationBarColor(activity, color)
-}
-
-fun setStatusBarColor(activity: Activity, color: Int) {
+fun setStatusBarColor(
+    activity: Activity,
+    @ColorRes color: Int,
+    isIconBlack: Boolean
+) {
     activity.window.apply {
         addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        statusBarColor = color
-        WindowInsetsControllerCompat(this, this.decorView).isAppearanceLightStatusBars = false
+        statusBarColor = ContextCompat.getColor(activity, color)
+        WindowInsetsControllerCompat(this, this.decorView).isAppearanceLightStatusBars = isIconBlack
     }
 }
 
-fun setNavigationBarColor(activity: Activity, color: Int) {
+fun setNavigationBarColor(
+    activity: Activity,
+    @ColorRes color: Int,
+) {
     activity.window.apply {
-        navigationBarColor = color
+        navigationBarColor = ContextCompat.getColor(activity, color)
     }
 }
