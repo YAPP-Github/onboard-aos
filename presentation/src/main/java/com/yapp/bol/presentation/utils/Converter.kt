@@ -7,7 +7,7 @@ object Converter {
 
     fun Double?.convertWinRate(): String {
         return this?.let {
-            String.format("$.1f%%", this)
+            String.format("%.1f%%", this)
         } ?: kotlin.run { "-" }
     }
 
