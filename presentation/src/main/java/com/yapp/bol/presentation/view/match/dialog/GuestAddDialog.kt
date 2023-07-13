@@ -11,7 +11,7 @@ import android.view.Gravity
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
-import com.yapp.bol.presentation.R
+import com.yapp.bol.designsystem.R
 import com.yapp.bol.presentation.databinding.GuestAddDialogBinding
 import com.yapp.bol.presentation.utils.Converter.convertLengthToString
 import com.yapp.bol.presentation.utils.dialogWidthResize
