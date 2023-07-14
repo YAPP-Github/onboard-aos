@@ -15,12 +15,13 @@ import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
 import com.yapp.bol.presentation.utils.Converter.convertLengthToString
 import com.yapp.bol.presentation.utils.GalleryManager
 import com.yapp.bol.presentation.utils.convertPxToDp
-import com.yapp.bol.presentation.view.group.dialog.ImageSettingDialog
-import com.yapp.bol.presentation.view.group.dialog.ProfileSettingDialog
 import com.yapp.bol.presentation.view.group.NewGroupViewModel.Companion.NEW_GROUP_DESCRIPTION
 import com.yapp.bol.presentation.view.group.NewGroupViewModel.Companion.NEW_GROUP_NAME
 import com.yapp.bol.presentation.view.group.NewGroupViewModel.Companion.NEW_GROUP_ORGANIZATION
-import com.yapp.bol.presentation.view.login.KakaoTestActivity.Companion.ACCESS_TOKEN
+import com.yapp.bol.presentation.view.group.dialog.ImageSettingDialog
+import com.yapp.bol.presentation.view.group.dialog.NewGroupCompleteDialog
+import com.yapp.bol.presentation.view.group.dialog.ProfileSettingDialog
+import com.yapp.bol.presentation.view.match.MatchActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,9 +29,6 @@ class NewGroupActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNewGroupBinding
     private val newGroupViewModel: NewGroupViewModel by viewModels()
-    private val accessToken by lazy {
-        intent.getStringExtra(ACCESS_TOKEN) ?: EMPTY_STRING
-    }
 
     private val profileSettingDialog by lazy {
         ProfileSettingDialog(
@@ -39,19 +37,17 @@ class NewGroupActivity : AppCompatActivity() {
         )
     }
 
-    private val keyboardVisibilityUtils by lazy {
-        KeyboardVisibilityUtils(
-            window = window,
-            onShowKeyboard = ::moveScroll,
-        )
-    }
+    private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNewGroupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        keyboardVisibilityUtils
+        keyboardVisibilityUtils = KeyboardVisibilityUtils(
+            window = window,
+            onShowKeyboard = ::moveScroll,
+        )
         setTextChangeListener()
         setCreateGroupButton()
         setClickListener()
@@ -102,20 +98,22 @@ class NewGroupActivity : AppCompatActivity() {
 
         newGroupViewModel.successGroupDate.observe(this) {
             if (it == null) return@observe
-            moveNewGroupComplete(it)
+            generateNewGroupCompleteDialog(it)
         }
     }
 
     private fun createNewGroup(nickName: String) {
         generateProgressBar()
-        newGroupViewModel.createNewGroup(accessToken, nickName)
+        newGroupViewModel.createNewGroup(nickName)
     }
 
-    private fun moveNewGroupComplete(newGroupItem: NewGroupItem) {
-        val intent = Intent(this, NewGroupCompleteActivity::class.java)
-        intent.putExtra(ACCESS_CODE_KEY, newGroupItem)
-        startActivity(intent)
-        finish()
+    private fun generateNewGroupCompleteDialog(newGroupItem: NewGroupItem) {
+        stopProgressBar()
+        NewGroupCompleteDialog(
+            context = this,
+            newGroup = newGroupItem,
+            moveHome = { groupId -> moveMatchActivity(groupId) }
+        ).show()
     }
 
     private fun moveScroll(keyboardHeight: Int) {
@@ -131,6 +129,11 @@ class NewGroupActivity : AppCompatActivity() {
         binding.loadingBackground.visibility = View.VISIBLE
         binding.tvLoadingText.visibility = View.VISIBLE
         binding.pbLoading.visibility = View.VISIBLE
+    }
+
+    private fun stopProgressBar() {
+        binding.tvLoadingText.visibility = View.GONE
+        binding.pbLoading.visibility = View.GONE
     }
 
     private fun setCreateGroupButton() {
@@ -157,18 +160,25 @@ class NewGroupActivity : AppCompatActivity() {
         return dpHeight.toInt()
     }
 
+    private fun moveMatchActivity(groupId: Int) {
+        val intent = Intent(this, MatchActivity::class.java)
+        intent.putExtra(GROUP_ID, groupId)
+        startActivity(intent)
+        finish()
+    }
+
     override fun onDestroy() {
         keyboardVisibilityUtils.detachKeyboardListeners()
         super.onDestroy()
     }
 
     companion object {
-        const val ACCESS_CODE_KEY = "Access Code"
         const val NAVE_MAX_LENGTH = 14
         const val DESCRIPTION_MAX_LENGTH = 72
         const val ORGANIZATION_MAX_LENGTH = 15
         const val BASE_DEVICE_HEIGHT = 760
         const val BASE_MARGIN_TOP = 55
         const val BASE_MARGIN_HORIZONTAL = 18
+        const val GROUP_ID = "Group Id"
     }
 }

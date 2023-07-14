@@ -14,6 +14,7 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.RvPlayerMatchItemBinding
 import com.yapp.bol.presentation.model.MemberResultItem
 import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
+import com.yapp.bol.presentation.view.match.MatchActivity.Companion.GUEST
 
 class GameResultAdapter(
     private val context: Context,
@@ -50,6 +51,12 @@ class GameResultAdapter(
             setTextView(item)
             setClickListener(position)
             setTextChangeListener(position)
+            setImageView(item)
+        }
+
+        private fun setImageView(item: MemberResultItem) {
+            val image = if (item.role == GUEST) R.drawable.img_dice_empty_large else R.mipmap.ic_member_full_level
+            binding.ivMemberLevelIcon.setImageResource(image)
         }
 
         private fun setTextView(item: MemberResultItem) {
@@ -57,7 +64,7 @@ class GameResultAdapter(
                 String.format(context.resources.getString(R.string.game_result_rank), item.rank + 1)
             val textColor = if (item.rank == 0) Color.parseColor("#FF4D0D") else Color.GRAY
             binding.tvMemberRank.setTextColor(textColor)
-            binding.tvMemberName.text = item.name
+            binding.tvMemberName.text = item.nickname
             val score = if (item.score == null) EMPTY_STRING else item.score.toString()
             binding.etGameScore.setText(score)
         }

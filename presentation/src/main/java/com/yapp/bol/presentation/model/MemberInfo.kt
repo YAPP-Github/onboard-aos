@@ -2,25 +2,26 @@ package com.yapp.bol.presentation.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
 
-data class MemberItem(
+data class MemberInfo(
     val id: Int,
-    val name: String,
+    val role: String,
+    val nickname: String,
     val level: Int,
     var isChecked: Boolean = false,
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
-        parcel.readString() ?: EMPTY_STRING,
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
         parcel.readInt(),
         parcel.readByte() != 0.toByte(),
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
-        parcel.writeString(name)
+        parcel.writeString(role)
+        parcel.writeString(nickname)
         parcel.writeInt(level)
         parcel.writeByte(if (isChecked) 1 else 0)
     }
@@ -29,12 +30,12 @@ data class MemberItem(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<MemberItem> {
-        override fun createFromParcel(parcel: Parcel): MemberItem {
-            return MemberItem(parcel)
+    companion object CREATOR : Parcelable.Creator<MemberInfo> {
+        override fun createFromParcel(parcel: Parcel): MemberInfo {
+            return MemberInfo(parcel)
         }
 
-        override fun newArray(size: Int): Array<MemberItem?> {
+        override fun newArray(size: Int): Array<MemberInfo?> {
             return arrayOfNulls(size)
         }
     }

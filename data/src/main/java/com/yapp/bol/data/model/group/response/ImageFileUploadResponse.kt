@@ -1,5 +1,5 @@
 package com.yapp.bol.data.model.group.response
 
-data class ProfileUploadResponse(
+data class ImageFileUploadResponse(
     val url: String
 )

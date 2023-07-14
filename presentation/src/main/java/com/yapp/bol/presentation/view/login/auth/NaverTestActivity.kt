@@ -1,4 +1,4 @@
-package com.yapp.bol.presentation.view.login
+package com.yapp.bol.presentation.view.login.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,8 @@ import com.yapp.bol.presentation.BuildConfig
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.showToast
-import com.yapp.bol.presentation.view.group.search.GroupSearchActivityTest
+import com.yapp.bol.presentation.view.login.LoginActivity
+
 import com.yapp.bol.presentation.viewmodel.login.LoginType
 import com.yapp.bol.presentation.viewmodel.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -61,7 +62,8 @@ class NaverTestActivity : AppCompatActivity() {
 
     private fun subscribeObservables() {
         viewModel.loginResult.filterNotNull().collectWithLifecycle(this) {
-            val intent = Intent(this@NaverTestActivity, GroupSearchActivityTest::class.java)
+            if (it.accessToken.isEmpty()) return@collectWithLifecycle
+            val intent = Intent(this@NaverTestActivity, LoginActivity::class.java)
             intent.putExtra(KakaoTestActivity.ACCESS_TOKEN, it.accessToken)
             startActivity(intent)
         }
