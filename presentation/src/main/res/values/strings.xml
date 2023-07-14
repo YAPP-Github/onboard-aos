@@ -63,6 +63,8 @@
     <string name="game_record_complete">기록 완료</string>
     <string name="game_record_hint">0</string>
 
+    <string name="sign_up_name_hint">이름을 입력해주세요.</string>
+
     <string name="member_number_explanation">멤버수</string>
     <string name="member_number">%d명</string>
     <string name="owner">관리자</string>

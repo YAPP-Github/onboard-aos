@@ -1,28 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="bottom"
-    android:layout_marginBottom="30dp"
-    android:padding="30dp"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_kakao"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/login_nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="kakao" />
+        android:layout_height="match_parent" />
 
-    <Button
-        android:id="@+id/btn_naver"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="naver" />
-
-    <Button
-        android:id="@+id/btn_google"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="google" />
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

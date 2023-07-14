@@ -1,13 +1,15 @@
 package com.yapp.bol.data.mapper
 
 import com.yapp.bol.data.model.base.BaseResponse
+import com.yapp.bol.data.model.group.MemberDTO
+import com.yapp.bol.data.model.group.MemberListResponse
 import com.yapp.bol.data.model.group.response.CheckGroupJoinByAccessCodeResponse
 import com.yapp.bol.data.model.group.response.GroupSearchApiResponse
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.GroupItem
 import com.yapp.bol.domain.model.GroupSearchItem
 import com.yapp.bol.data.model.login.LoginResponse
-import com.yapp.bol.data.model.group.response.ProfileUploadResponse
+import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
 import com.yapp.bol.data.model.group.response.GameApiResponse
 import com.yapp.bol.data.model.group.response.GameResponse
 import com.yapp.bol.data.model.group.response.MemberValidApiResponse
@@ -16,11 +18,13 @@ import com.yapp.bol.domain.model.BaseItem
 import com.yapp.bol.domain.model.CheckGroupJoinByAccessCodeItem
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
+import com.yapp.bol.domain.model.MemberItem
+import com.yapp.bol.domain.model.MemberItems
 import com.yapp.bol.domain.model.NewGroupItem
 
 internal object MapperToDomain {
 
-    fun LoginResponse?.mapperToBaseItem(): LoginItem? = this?.toItem()
+    fun LoginResponse?.toDomain(): LoginItem? = this?.toItem()
 
     private fun LoginResponse.toItem(): LoginItem {
         return LoginItem(
@@ -77,7 +81,16 @@ internal object MapperToDomain {
         )
     }
 
-    fun ApiResult<ProfileUploadResponse>.fileUploadToDomain(): ApiResult<String> {
+    private fun MemberDTO.toItem(): MemberItem {
+        return MemberItem(
+            id = this.id,
+            role = this.role,
+            nickname = this.nickname,
+            level = this.level,
+        )
+    }
+
+    fun ApiResult<ImageFileUploadResponse>.fileUploadToDomain(): ApiResult<String> {
         return when (this) {
             is ApiResult.Success -> ApiResult.Success(data.url)
             is ApiResult.Error -> ApiResult.Error(exception)
@@ -101,6 +114,20 @@ internal object MapperToDomain {
     fun ApiResult<MemberValidApiResponse>.validToDomain(): ApiResult<Boolean> {
         return when (this) {
             is ApiResult.Success -> ApiResult.Success(data.isAvailable)
+            is ApiResult.Error -> ApiResult.Error(exception)
+        }
+    }
+
+    fun ApiResult<MemberListResponse>.memberListToDomain(): ApiResult<MemberItems> {
+        return when (this) {
+            is ApiResult.Success -> ApiResult.Success(
+                MemberItems(
+                    members = data.contents.map { it.toItem() },
+                    cursor = data.cursor,
+                    hasNext = data.hasNext,
+                ),
+            )
+
             is ApiResult.Error -> ApiResult.Error(exception)
         }
     }

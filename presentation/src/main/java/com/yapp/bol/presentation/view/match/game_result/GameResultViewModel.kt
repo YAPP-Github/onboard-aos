@@ -3,7 +3,7 @@ package com.yapp.bol.presentation.view.match.game_result
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.yapp.bol.presentation.model.MemberItem
+import com.yapp.bol.presentation.model.MemberInfo
 import com.yapp.bol.presentation.model.MemberResultItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -20,9 +20,16 @@ class GameResultViewModel @Inject constructor() : ViewModel() {
     private val _recordCompleteIsEnabled = MutableLiveData(false)
     val recordCompleteIsEnabled: LiveData<Boolean> = _recordCompleteIsEnabled
 
-    fun initPlayers(player: ArrayList<MemberItem>) {
+    fun initPlayers(player: ArrayList<MemberInfo>) {
         val newPlayers = player.mapIndexed { index, memberItem ->
-            MemberResultItem(memberItem.id, memberItem.name, null, index)
+            MemberResultItem(
+                memberItem.id,
+                memberItem.role,
+                memberItem.nickname,
+                memberItem.level,
+                null,
+                index,
+            )
         }
         dynamicPlayers.addAll(newPlayers)
         updatePlayers()

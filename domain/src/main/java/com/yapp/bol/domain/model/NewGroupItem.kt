@@ -8,6 +8,6 @@ data class NewGroupItem(
     val description: String,
     val owner: String,
     val organization: String,
-    val profileImageUrl: String,
+    val imageUrl: String,
     val accessCode: String,
 ) : Serializable

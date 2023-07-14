@@ -15,6 +15,11 @@ class MatchViewModel @Inject constructor() : ViewModel() {
     val toolBarTitle: LiveData<String> = _toolBarTitle
 
     var gameName = EMPTY_STRING
+    var groupId = 0
+
+    fun updateGroupId(id: Int) {
+        groupId = id
+    }
 
     fun updateToolBarTitle(title: String) {
         _toolBarTitle.value = title
