@@ -139,7 +139,8 @@ internal object MapperToDomain {
         }
     }
 
-    fun ApiResult<CheckGroupJoinByAccessCodeResponse>.mapperToCheckGroupJoinByAccessCodeItem(): ApiResult<CheckGroupJoinByAccessCodeItem> {
+    fun ApiResult<CheckGroupJoinByAccessCodeResponse>.mapperToCheckGroupJoinByAccessCodeItem():
+        ApiResult<CheckGroupJoinByAccessCodeItem> {
         return when (this) {
             is ApiResult.Success -> ApiResult.Success(CheckGroupJoinByAccessCodeItem(data.isNewMember))
             is ApiResult.Error -> ApiResult.Error(exception)
