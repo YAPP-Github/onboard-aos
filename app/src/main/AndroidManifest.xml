@@ -16,8 +16,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
-            android:name="com.yapp.bol.presentation.view.login.LoginActivity"
-            android:exported="true">
+            android:name="com.yapp.bol.presentation.view.login.SplashActivity"
+            android:exported="true"
+            tools:replace="android:exported">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

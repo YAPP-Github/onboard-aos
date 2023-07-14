@@ -11,7 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class GameResultViewModel @Inject constructor() : ViewModel() {
 
-    val dynamicPlayers = ArrayList<MemberResultItem>()
+    private val dynamicPlayers = ArrayList<MemberResultItem>()
     private var currentRank = 0
 
     private val _players = MutableLiveData(dynamicPlayers.toList())

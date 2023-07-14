@@ -8,8 +8,11 @@ import com.yapp.bol.data.model.group.response.GameApiResponse
 import com.yapp.bol.data.model.group.response.MemberValidApiResponse
 import com.yapp.bol.data.model.group.response.NewGroupApiResponse
 import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
+import com.yapp.bol.data.model.login.TermsResponse
 import com.yapp.bol.data.model.login.LoginRequest
 import com.yapp.bol.data.model.login.LoginResponse
+import com.yapp.bol.data.model.login.OnBoardResponse
+import com.yapp.bol.data.model.login.TermsRequest
 import com.yapp.bol.data.remote.GroupApi
 import com.yapp.bol.data.remote.ImageFileApi
 import com.yapp.bol.data.remote.LoginApi
@@ -84,6 +87,20 @@ class RemoteDataSourceImpl @Inject constructor(
 
     override suspend fun postGuestMember(groupId: Int, nickname: String) {
         groupApi.postGuestMember(groupId, GuestAddApiRequest(nickname))
+    }
+
+    override fun geTerms(): Flow<ApiResult<TermsResponse>> = flow {
+        val result = safeApiCall { loginApi.getTerms() }
+        emit(result)
+    }
+
+    override suspend fun postTerms(termsRequest: TermsRequest) {
+        loginApi.postTerms(termsRequest)
+    }
+
+    override fun getOnBoard(): Flow<ApiResult<OnBoardResponse>> = flow {
+        val result = safeApiCall { loginApi.getOnboard() }
+        emit(result)
     }
 
     private fun getMimeType(fileName: String): String {

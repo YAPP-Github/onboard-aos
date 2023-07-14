@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.R
+import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentGameResultBinding
 import com.yapp.bol.presentation.model.MemberInfo
 import com.yapp.bol.presentation.model.ResultRecordItem
@@ -25,10 +26,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class GameResultFragment : Fragment() {
-
-    private var _binding: FragmentGameResultBinding? = null
-    private val binding get() = checkNotNull(_binding)
+class GameResultFragment : BaseFragment<FragmentGameResultBinding>(R.layout.fragment_game_result) {
 
     private val gameResultViewModel: GameResultViewModel by viewModels()
     private val matchViewModel: MatchViewModel by activityViewModels()
@@ -75,16 +73,7 @@ class GameResultFragment : Fragment() {
         )
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentGameResultBinding.inflate(inflater, container, false)
-        return _binding?.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreatedAction() {
         val players = arguments?.getParcelableArrayList<MemberInfo>(PLAYERS)
         gameResultViewModel.initPlayers(players ?: arrayListOf())
         binding.rvPlayers.adapter = gameResultAdapter
@@ -170,7 +159,6 @@ class GameResultFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        _binding = null
         keyboardVisibilityUtils.detachKeyboardListeners()
         super.onDestroyView()
     }

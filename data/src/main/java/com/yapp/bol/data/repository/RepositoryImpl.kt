@@ -5,13 +5,18 @@ import com.yapp.bol.data.mapper.MapperToDomain.fileUploadToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.gameToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.memberListToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.newGroupToDomain
+import com.yapp.bol.data.mapper.MapperToDomain.toBoardDomain
 import com.yapp.bol.data.mapper.MapperToDomain.toDomain
+import com.yapp.bol.data.mapper.MapperToDomain.toImageDomain
+import com.yapp.bol.data.mapper.MapperToDomain.toTermsDomain
 import com.yapp.bol.data.mapper.MapperToDomain.validToDomain
+import com.yapp.bol.data.model.login.TermsRequest
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.model.MemberItems
 import com.yapp.bol.domain.model.NewGroupItem
+import com.yapp.bol.domain.model.TermsList
 import com.yapp.bol.domain.repository.Repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -69,4 +74,17 @@ class RepositoryImpl @Inject constructor(
     override suspend fun postGuestMember(groupId: Int, nickname: String) {
         remoteDataSource.postGuestMember(groupId, nickname)
     }
+
+    override fun geTerms(): Flow<ApiResult<TermsList>> {
+        return remoteDataSource.geTerms().map { it.toTermsDomain() }
+    }
+
+    override suspend fun postTerms(agree: List<String>, disagree: List<String>) {
+        remoteDataSource.postTerms(TermsRequest(agree,disagree))
+    }
+
+    override fun getOnBoard(): Flow<ApiResult<List<String>>> {
+        return remoteDataSource.getOnBoard().map { it.toBoardDomain() }
+    }
+
 }

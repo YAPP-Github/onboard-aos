@@ -5,6 +5,7 @@ import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.model.MemberItems
 import com.yapp.bol.domain.model.NewGroupItem
+import com.yapp.bol.domain.model.TermsList
 import kotlinx.coroutines.flow.Flow
 import java.io.File
 
@@ -37,4 +38,10 @@ interface Repository {
     ): Flow<ApiResult<MemberItems>>
 
     suspend fun postGuestMember(groupId: Int, nickname: String)
+
+    fun geTerms(): Flow<ApiResult<TermsList>>
+
+    suspend fun postTerms(agree: List<String>, disagree: List<String>)
+
+    fun getOnBoard(): Flow<ApiResult<List<String>>>
 }

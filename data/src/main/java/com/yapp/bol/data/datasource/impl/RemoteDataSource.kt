@@ -5,7 +5,10 @@ import com.yapp.bol.data.model.group.response.GameApiResponse
 import com.yapp.bol.data.model.group.response.MemberValidApiResponse
 import com.yapp.bol.data.model.group.response.NewGroupApiResponse
 import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
+import com.yapp.bol.data.model.login.TermsResponse
 import com.yapp.bol.data.model.login.LoginResponse
+import com.yapp.bol.data.model.login.OnBoardResponse
+import com.yapp.bol.data.model.login.TermsRequest
 import com.yapp.bol.domain.model.ApiResult
 import kotlinx.coroutines.flow.Flow
 import java.io.File
@@ -40,4 +43,10 @@ interface RemoteDataSource {
     ): Flow<ApiResult<MemberListResponse>>
 
     suspend fun postGuestMember(groupId: Int, nickname: String)
+
+    fun geTerms(): Flow<ApiResult<TermsResponse>>
+
+    suspend fun postTerms(termsRequest: TermsRequest)
+
+    fun getOnBoard(): Flow<ApiResult<OnBoardResponse>>
 }

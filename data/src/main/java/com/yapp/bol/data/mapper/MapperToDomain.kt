@@ -12,11 +12,17 @@ import com.yapp.bol.data.model.group.response.GameApiResponse
 import com.yapp.bol.data.model.group.response.GameResponse
 import com.yapp.bol.data.model.group.response.MemberValidApiResponse
 import com.yapp.bol.data.model.group.response.NewGroupApiResponse
+import com.yapp.bol.data.model.group.response.RandomImageResponse
+import com.yapp.bol.data.model.login.OnBoardResponse
+import com.yapp.bol.data.model.login.TermsDTO
+import com.yapp.bol.data.model.login.TermsResponse
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.model.MemberItem
 import com.yapp.bol.domain.model.MemberItems
 import com.yapp.bol.domain.model.NewGroupItem
+import com.yapp.bol.domain.model.TermsItem
+import com.yapp.bol.domain.model.TermsList
 
 internal object MapperToDomain {
 
@@ -37,6 +43,7 @@ internal object MapperToDomain {
                     groupItemList = data.toItem(),
                 )
             )
+
             is ApiResult.Error -> ApiResult.Error(exception)
         }
     }
@@ -85,6 +92,15 @@ internal object MapperToDomain {
         )
     }
 
+    private fun TermsDTO.toItem(): TermsItem {
+        return TermsItem(
+            code = this.code,
+            title = this.title,
+            url = this.url,
+            isRequired = this.isRequired
+        )
+    }
+
     fun ApiResult<ImageFileUploadResponse>.fileUploadToDomain(): ApiResult<String> {
         return when (this) {
             is ApiResult.Success -> ApiResult.Success(data.url)
@@ -122,6 +138,30 @@ internal object MapperToDomain {
                     hasNext = data.hasNext
                 )
             )
+
+            is ApiResult.Error -> ApiResult.Error(exception)
+        }
+    }
+
+    fun ApiResult<TermsResponse>.toTermsDomain(): ApiResult<TermsList> {
+        return when (this) {
+            is ApiResult.Success -> {
+                ApiResult.Success(TermsList(data.contents.map { it.toItem() }))
+            }
+
+            is ApiResult.Error -> {
+                ApiResult.Error(exception)
+            }
+        }
+    }
+
+    fun ApiResult<OnBoardResponse>.toBoardDomain(): ApiResult<List<String>>{
+        return when(this) {
+            is ApiResult.Success -> ApiResult.Success(data.onboarding)
+            is ApiResult.Error -> ApiResult.Error(exception)
+        }
+    }
+
             is ApiResult.Error -> ApiResult.Error(exception)
         }
     }

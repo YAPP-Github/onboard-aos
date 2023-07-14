@@ -6,30 +6,30 @@
 
     <application>
         <activity
-            android:name=".view.home.HomeActivity"
+            android:name=".view.login.SplashActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.login.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".view.group.search.GroupSearchActivityTest"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".view.match.MatchActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".view.group.NewGroupCompleteActivity"
-            android:exported="false" />
-        <activity
             android:name=".view.group.NewGroupActivity"
             android:exported="false" />
         <activity
             android:name=".view.login.auth.GoogleTestActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".view.login.auth.NaverTestActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".view.login.auth.KakaoTestActivity"
-            android:exported="false"></activity> <!-- Kakao 로그인 -->
+            android:exported="false" /> <!-- Kakao 로그인 -->
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
