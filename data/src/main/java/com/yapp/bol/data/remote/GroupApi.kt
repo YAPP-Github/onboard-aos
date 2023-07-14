@@ -7,6 +7,7 @@ import com.yapp.bol.data.model.group.response.MemberValidApiResponse
 import com.yapp.bol.data.model.group.request.NewGroupApiRequest
 import com.yapp.bol.data.model.group.response.NewGroupApiResponse
 import com.yapp.bol.data.model.group.response.GroupSearchApiResponse
+import com.yapp.bol.data.model.group.response.RandomImageResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -31,6 +32,9 @@ interface GroupApi {
         @Query("groupId") groupId: Int,
         @Query("nickname") nickName: String,
     ): Response<MemberValidApiResponse>
+
+    @GET("/v1/group/default-image")
+    suspend fun getRandomImage(): Response<RandomImageResponse>
 
     @GET("/v1/group")
     suspend fun getGroupSearchResult(

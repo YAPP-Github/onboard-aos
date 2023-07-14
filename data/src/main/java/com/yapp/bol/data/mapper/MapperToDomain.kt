@@ -162,6 +162,9 @@ internal object MapperToDomain {
         }
     }
 
+    fun ApiResult<RandomImageResponse>.toImageDomain(): ApiResult<String> {
+        return when(this) {
+            is ApiResult.Success -> ApiResult.Success(data.url)
             is ApiResult.Error -> ApiResult.Error(exception)
         }
     }

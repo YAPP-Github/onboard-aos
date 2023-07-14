@@ -5,6 +5,7 @@ import com.yapp.bol.data.model.group.response.GameApiResponse
 import com.yapp.bol.data.model.group.response.MemberValidApiResponse
 import com.yapp.bol.data.model.group.response.NewGroupApiResponse
 import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
+import com.yapp.bol.data.model.group.response.RandomImageResponse
 import com.yapp.bol.data.model.login.TermsResponse
 import com.yapp.bol.data.model.login.LoginResponse
 import com.yapp.bol.data.model.login.OnBoardResponse
@@ -49,4 +50,6 @@ interface RemoteDataSource {
     suspend fun postTerms(termsRequest: TermsRequest)
 
     fun getOnBoard(): Flow<ApiResult<OnBoardResponse>>
+
+    fun getRandomImage(): Flow<ApiResult<RandomImageResponse>>
 }

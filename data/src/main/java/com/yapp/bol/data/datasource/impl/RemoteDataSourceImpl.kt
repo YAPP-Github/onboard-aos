@@ -8,6 +8,7 @@ import com.yapp.bol.data.model.group.response.GameApiResponse
 import com.yapp.bol.data.model.group.response.MemberValidApiResponse
 import com.yapp.bol.data.model.group.response.NewGroupApiResponse
 import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
+import com.yapp.bol.data.model.group.response.RandomImageResponse
 import com.yapp.bol.data.model.login.TermsResponse
 import com.yapp.bol.data.model.login.LoginRequest
 import com.yapp.bol.data.model.login.LoginResponse
@@ -100,6 +101,11 @@ class RemoteDataSourceImpl @Inject constructor(
 
     override fun getOnBoard(): Flow<ApiResult<OnBoardResponse>> = flow {
         val result = safeApiCall { loginApi.getOnboard() }
+        emit(result)
+    }
+
+    override fun getRandomImage(): Flow<ApiResult<RandomImageResponse>> = flow {
+        val result = safeApiCall { groupApi.getRandomImage() }
         emit(result)
     }
 

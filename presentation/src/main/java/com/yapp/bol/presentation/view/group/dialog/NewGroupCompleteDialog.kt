@@ -30,38 +30,25 @@ class NewGroupCompleteDialog(
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         context.dialogWidthResize(this, 0.9f)
         this.setCancelable(false)
-        setImageView()
-        setTextView()
-        setClickListener()
+        binding.setText()
+        binding.setImage()
+        binding.setOnClick()
+
     }
 
-    private fun setImageView() {
+    private fun NewGroupCompleteDialogBinding.setText() {
+        this.tvGroupTitle.text = newGroup.name
+        this.tvGroupDescription.text = newGroup.description
+        this.tvGroupAccessCodeValue.text = newGroup.accessCode
+        this.tvGroupOrganizationValue.text = newGroup.organization
+        this.tvGroupOwnerValue.text = newGroup.owner
+    }
+
+    private fun NewGroupCompleteDialogBinding.setImage() {
         val params = ConstraintLayout.LayoutParams(LayoutParams.MATCH_PARENT, context.convertPxToDp(462))
-        binding.ivGroupImage.loadImage(newGroup.imageUrl)
-        binding.ivGroupImage.layoutParams = params
-        binding.viewGroupImage.layoutParams = params
-    }
-
-    private fun setTextView() {
-        binding.tvGroupTitle.text = newGroup.name
-        binding.tvGroupDescription.text = newGroup.description
-        binding.tvGroupAccessCodeValue.text = newGroup.accessCode
-        binding.tvGroupOrganizationValue.text = newGroup.organization
-        binding.tvGroupOwnerValue.text = newGroup.owner
-    }
-
-    private fun setClickListener() {
-        binding.btnGroupComplete.setOnClickListener {
-            dismiss()
-            moveHome(newGroup.id)
-        }
-
-        binding.tvGroupAccessCodeValue.setOnClickListener {
-            generateCopy(newGroup.accessCode)
-        }
-        binding.ibCopyBtn.setOnClickListener {
-            generateCopy(newGroup.accessCode)
-        }
+        this.ivGroupImage.loadImage(newGroup.imageUrl)
+        this.ivGroupImage.layoutParams = params
+        this.viewGroupImage.layoutParams = params
     }
 
     private fun generateCopy(accessCode: String) {
@@ -69,6 +56,20 @@ class NewGroupCompleteDialog(
         val clip = ClipData.newPlainText(COPY_ACCESS_CODE_KEY, accessCode)
         clipboard.setPrimaryClip(clip)
         Toast.makeText(context, COPY_SUCCESS_MESSAGE, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun NewGroupCompleteDialogBinding.setOnClick() {
+        this.btnGroupComplete.setOnClickListener {
+            dismiss()
+            moveHome(newGroup.id)
+        }
+
+        this.tvGroupAccessCodeValue.setOnClickListener {
+            generateCopy(newGroup.accessCode)
+        }
+        this.ibCopyBtn.setOnClickListener {
+            generateCopy(newGroup.accessCode)
+        }
     }
 
     companion object {

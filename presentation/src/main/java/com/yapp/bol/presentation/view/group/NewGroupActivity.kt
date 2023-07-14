@@ -15,6 +15,7 @@ import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
 import com.yapp.bol.presentation.utils.Converter.convertLengthToString
 import com.yapp.bol.presentation.utils.GalleryManager
 import com.yapp.bol.presentation.utils.convertPxToDp
+import com.yapp.bol.presentation.utils.loadImage
 import com.yapp.bol.presentation.view.group.NewGroupViewModel.Companion.NEW_GROUP_DESCRIPTION
 import com.yapp.bol.presentation.view.group.NewGroupViewModel.Companion.NEW_GROUP_NAME
 import com.yapp.bol.presentation.view.group.NewGroupViewModel.Companion.NEW_GROUP_ORGANIZATION
@@ -100,6 +101,10 @@ class NewGroupActivity : AppCompatActivity() {
             if (it == null) return@observe
             generateNewGroupCompleteDialog(it)
         }
+
+        newGroupViewModel.groupRandomImage.observe(this) {
+            binding.ivImage.loadImage(it)
+        }
     }
 
     private fun createNewGroup(nickName: String) {
@@ -121,7 +126,7 @@ class NewGroupActivity : AppCompatActivity() {
     }
 
     private fun generateImageSettingDialog(checkedGalleryAccess: () -> Unit) {
-        val dialog = ImageSettingDialog(this, checkedGalleryAccess)
+        val dialog = ImageSettingDialog(this, checkedGalleryAccess, newGroupViewModel::getRandomImage)
         dialog.show()
     }
 

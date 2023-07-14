@@ -87,4 +87,7 @@ class RepositoryImpl @Inject constructor(
         return remoteDataSource.getOnBoard().map { it.toBoardDomain() }
     }
 
+    override fun getRandomImage(): Flow<ApiResult<String>> {
+        return remoteDataSource.getRandomImage().map { it.toImageDomain() }
+    }
 }

@@ -31,11 +31,18 @@ class NewGroupViewModel @Inject constructor(
     private val _successGroupDate = MutableLiveData<NewGroupItem?>(null)
     val successGroupDate: LiveData<NewGroupItem?> = _successGroupDate
 
+    private val _groupRandomImage = MutableLiveData("")
+    val groupRandomImage: LiveData<String> = _groupRandomImage
+
     private var groupOrganization = EMPTY_STRING
     private var imageFile = File(EMPTY_STRING)
 
     val isCompleteButtonActivation
         get() = isInputTextValid(groupName.value) && isInputTextValid(groupDescription.value)
+
+    init {
+        getRandomImage()
+    }
 
     fun createNewGroup(nickName: String) {
         viewModelScope.launch {
@@ -69,6 +76,18 @@ class NewGroupViewModel @Inject constructor(
                 success = { data -> _successGroupDate.value = data },
                 error = { throwable -> throw throwable }
             )
+        }
+    }
+
+    fun getRandomImage() {
+        viewModelScope.launch {
+            newGroupUseCase.getRandomImage().collectLatest {
+                checkedApiResult(
+                    apiResult = it,
+                    success = { data -> _groupRandomImage.value = data },
+                    error = { }
+                )
+            }
         }
     }
 

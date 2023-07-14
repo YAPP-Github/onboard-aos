@@ -11,6 +11,7 @@ import com.yapp.bol.presentation.utils.dialogWidthResize
 class ImageSettingDialog(
     private val context: Context,
     private val checkedGalleryAccess: () -> Unit,
+    private val setRandomImage: () -> Unit,
 ) : Dialog(context) {
 
     private lateinit var binding: ImageSettingDialogBinding
@@ -25,6 +26,10 @@ class ImageSettingDialog(
         binding.btnMoveGallery.setOnClickListener {
             dismiss()
             checkedGalleryAccess()
+        }
+        binding.btnRandomImage.setOnClickListener {
+            dismiss()
+            setRandomImage()
         }
     }
 }

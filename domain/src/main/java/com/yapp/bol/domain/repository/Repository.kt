@@ -44,4 +44,6 @@ interface Repository {
     suspend fun postTerms(agree: List<String>, disagree: List<String>)
 
     fun getOnBoard(): Flow<ApiResult<List<String>>>
+
+    fun getRandomImage(): Flow<ApiResult<String>>
 }

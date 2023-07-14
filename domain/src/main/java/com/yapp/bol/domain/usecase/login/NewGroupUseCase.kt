@@ -23,4 +23,6 @@ class NewGroupUseCase @Inject constructor(
     ): Flow<ApiResult<NewGroupItem>> {
         return repository.postCreateGroup(name, description, organization, imageUrl, nickname)
     }
+
+    fun getRandomImage() = repository.getRandomImage()
 }
