@@ -81,7 +81,6 @@ class MemberSelectViewModel @Inject constructor(
                     cursor = data.cursor
                     hasNext = data.hasNext
                 },
-                error = { throwable -> throw throwable }
             )
         }
         return memberList
