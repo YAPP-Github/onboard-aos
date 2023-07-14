@@ -41,5 +41,4 @@ class UserRankGameLayoutManager : LinearLayoutManager {
             return MILLISECONDS_PER_INCH / displayMetrics.densityDpi
         }
     }
-
 }
