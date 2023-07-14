@@ -18,6 +18,7 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.FragmentMemberSelectBinding
 import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
 import com.yapp.bol.presentation.utils.KeyboardManager
+import com.yapp.bol.presentation.view.match.MatchActivity.Companion.MEMBER_SELECT
 import com.yapp.bol.presentation.view.match.MatchViewModel
 import com.yapp.bol.presentation.view.match.dialog.GuestAddDialog
 import com.yapp.bol.presentation.view.match.game_select.GameSelectFragment.Companion.GAME_NAME
@@ -67,6 +68,7 @@ class MemberSelectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val gameName = arguments?.getString(GAME_NAME) ?: EMPTY_STRING
         matchViewModel.updateToolBarTitle(gameName)
+        matchViewModel.updateCurrentPage(MEMBER_SELECT)
         memberSelectViewModel.updateGroupId(matchViewModel.groupId)
 
         binding.rvMemberSelect.adapter = memberSelectAdapter

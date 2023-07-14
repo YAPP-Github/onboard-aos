@@ -80,7 +80,7 @@ class RepositoryImpl @Inject constructor(
     }
 
     override suspend fun postTerms(agree: List<String>, disagree: List<String>) {
-        remoteDataSource.postTerms(TermsRequest(agree,disagree))
+        remoteDataSource.postTerms(TermsRequest(agree, disagree.ifEmpty { null }))
     }
 
     override fun getOnBoard(): Flow<ApiResult<List<String>>> {

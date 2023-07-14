@@ -1,12 +1,8 @@
 package com.yapp.bol.presentation.view.match.game_result
 
 import KeyboardVisibilityUtils
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -17,6 +13,7 @@ import com.yapp.bol.presentation.databinding.FragmentGameResultBinding
 import com.yapp.bol.presentation.model.MemberInfo
 import com.yapp.bol.presentation.model.ResultRecordItem
 import com.yapp.bol.presentation.utils.KeyboardManager
+import com.yapp.bol.presentation.view.match.MatchActivity.Companion.GAME_RESULT
 import com.yapp.bol.presentation.view.match.MatchViewModel
 import com.yapp.bol.presentation.view.match.dialog.result_record.ResultRecordDialog
 import com.yapp.bol.presentation.view.match.member_select.MemberSelectFragment.Companion.PLAYERS
@@ -83,6 +80,7 @@ class GameResultFragment : BaseFragment<FragmentGameResultBinding>(R.layout.frag
         setScrollListener()
 
         matchViewModel.updateToolBarTitle(GAME_RESULT_TITLE)
+        matchViewModel.updateCurrentPage(GAME_RESULT)
         keyboardVisibilityUtils = KeyboardVisibilityUtils(
             window = activity?.window ?: throw Exception(),
             onHideKeyboard = gameResultViewModel::updatePlayers,

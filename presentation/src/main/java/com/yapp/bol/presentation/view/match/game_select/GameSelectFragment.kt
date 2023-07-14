@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.FragmentGameSeleteBinding
+import com.yapp.bol.presentation.view.match.MatchActivity.Companion.GAME_SELECT
 import com.yapp.bol.presentation.view.match.MatchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -48,6 +49,7 @@ class GameSelectFragment : Fragment() {
             gameSelectAdapter.submitList(it)
         }
         matchViewModel.updateToolBarTitle(requireContext().resources.getString(R.string.game_result_record))
+        matchViewModel.updateCurrentPage(GAME_SELECT)
 
         gameSelectViewModel.updateGroupId(matchViewModel.groupId)
     }
