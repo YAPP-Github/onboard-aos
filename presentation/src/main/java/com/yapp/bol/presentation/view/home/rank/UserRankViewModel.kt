@@ -16,6 +16,7 @@ import com.yapp.bol.presentation.utils.config.HomeConfig.GAME_RV_FIRST_POSITION
 import com.yapp.bol.presentation.utils.config.HomeConfig.USER_RANK_LOAD_FORCE_DELAY
 import com.yapp.bol.presentation.utils.config.HomeConfig.USER_RV_1_TO_3_UI_RANK_THRESHOLD
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -36,6 +37,7 @@ class UserRankViewModel @Inject constructor(
 
     private val _userListFlow = MutableStateFlow<List<UserRankUiModel>>(emptyList())
     val userListFlow: StateFlow<List<UserRankUiModel>> = _userListFlow
+    private var userListFetchJob: Job? = null
 
     private val _groupListFlow = MutableStateFlow<List<DrawerGroupInfoUiModel>>(emptyList())
     val groupListFlow: StateFlow<List<DrawerGroupInfoUiModel>> = _groupListFlow
@@ -48,20 +50,27 @@ class UserRankViewModel @Inject constructor(
     private val _groupUiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
     val groupUiState: StateFlow<HomeUiState> = _groupUiState
 
-    fun setGameItemSelected(position: Int) {
+    fun setGameItemSelected(newPosition: Int) {
         val gameUiList: MutableList<HomeGameItemUiModel> = _gameListFlow.value.toMutableList()
+        val beforePosition = selectedPosition
 
-        selectedPosition.let {
-            if (_gameListFlow.value.size > it && gameUiList[it] is HomeGameItemUiModel.GameItem) {
-                val gameItem = (gameUiList[it] as HomeGameItemUiModel.GameItem).item.gameItem
-                gameUiList[it] = HomeGameItemUiModel.GameItem(GameItemWithSelected(gameItem, false))
-            }
+        if (beforePosition == newPosition) { return }
+
+        val beforeItem = gameUiList.getOrNull(beforePosition) as? HomeGameItemUiModel.GameItem
+        beforeItem?.let {
+            gameUiList[beforePosition] = HomeGameItemUiModel.GameItem(
+                GameItemWithSelected(it.item.gameItem, false)
+            )
         }
 
-        selectedPosition = position
-        val gameItem = (gameUiList[position] as HomeGameItemUiModel.GameItem).item.gameItem
-        gameUiList[position] = HomeGameItemUiModel.GameItem(GameItemWithSelected(gameItem, true))
+        val newItem = gameUiList.getOrNull(newPosition) as? HomeGameItemUiModel.GameItem
+        newItem?.let {
+            gameUiList[newPosition] = HomeGameItemUiModel.GameItem(
+                GameItemWithSelected(it.item.gameItem, true)
+            )
+        }
 
+        selectedPosition = newPosition
         _gameListFlow.value = gameUiList
     }
 
@@ -97,6 +106,7 @@ class UserRankViewModel @Inject constructor(
 
     private fun fetchUserList(groupId: Long, gameId: Long?) {
         _userUiState.value = HomeUiState.Loading
+        userListFetchJob?.cancel()
         _userListFlow.value = emptyList()
 
         if (gameId == null) {
@@ -119,7 +129,7 @@ class UserRankViewModel @Inject constructor(
             }
         }
 
-        viewModelScope.launch {
+        userListFetchJob = viewModelScope.launch {
             delay(USER_RANK_LOAD_FORCE_DELAY)
 
             getUserRankUseCase(groupId.toInt(), gameIdNotNull.toInt()).collectLatest {
