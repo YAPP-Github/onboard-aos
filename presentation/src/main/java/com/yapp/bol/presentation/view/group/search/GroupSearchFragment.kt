@@ -12,9 +12,11 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentGroupSearchBinding
 import com.yapp.bol.presentation.utils.loseFocusOnAction
+import com.yapp.bol.presentation.utils.moveFragment
 import com.yapp.bol.presentation.utils.textChangesToFlow
 import com.yapp.bol.presentation.utils.withLoadStateAdapters
 import com.yapp.bol.presentation.view.group.NewGroupActivity
+import com.yapp.bol.presentation.view.group.join.GroupJoinFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collectLatest
@@ -35,7 +37,12 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
     }
 
     private fun setAdapter() {
-        val adapter = GroupListAdapter()
+        val adapter = GroupListAdapter(
+            showJoinGroupDialog = {
+                moveFragment(GroupJoinFragment(), "groupItem" to it)
+            },
+        )
+
         initPaging(adapter)
         binding.initSearchView(adapter)
         adapter.addOnPagesUpdatedListener {

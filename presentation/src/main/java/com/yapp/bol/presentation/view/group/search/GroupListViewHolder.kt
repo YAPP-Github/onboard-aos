@@ -11,23 +11,22 @@ import com.yapp.bol.domain.model.GroupItem
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.ItemGroupListBinding
 
-class GroupListViewHolder(private val binding: ItemGroupListBinding) : RecyclerView.ViewHolder(binding.root) {
+class GroupListViewHolder(
+    private val binding: ItemGroupListBinding,
+) : RecyclerView.ViewHolder(binding.root) {
     private val glide by lazy { Glide.with(binding.root) }
 
-    init {
-        binding.root.setOnClickListener {
-
-            // TODO : 다음 fragment 로 전환 코드 필요
-        }
-    }
-
-    fun bind(groupItem: GroupItem) {
+    fun bind(groupItem: GroupItem, showJoinGroupDialog: (GroupItem) -> Unit) {
         binding.apply {
             tvGroupDescription.text = groupItem.description
             tvGroupName.text = groupItem.name
             tvGroupOrganization.text = groupItem.organization
             "${groupItem.memberCount}명".also { tvGroupSize.text = it }
             ivGroupImage.setImageWithGlide(groupItem.profileImageUrl)
+
+            binding.root.setOnClickListener {
+                showJoinGroupDialog(groupItem)
+            }
         }
     }
 
@@ -37,7 +36,7 @@ class GroupListViewHolder(private val binding: ItemGroupListBinding) : RecyclerV
             .load(uri)
             .transform(
                 CenterCrop(),
-                RoundedCorners(resources.getDimension(R.dimen.group_search_item_image_radius).toInt())
+                RoundedCorners(resources.getDimension(R.dimen.group_search_item_image_radius).toInt()),
             )
             .into(this)
     }

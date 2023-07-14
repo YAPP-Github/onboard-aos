@@ -9,12 +9,11 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.yapp.bol.presentation.BuildConfig
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.utils.collectWithLifecycle
-import com.yapp.bol.presentation.view.group.NewGroupActivity
+import com.yapp.bol.presentation.view.group.GroupActivity
 import com.yapp.bol.presentation.viewmodel.login.LoginType
 import com.yapp.bol.presentation.viewmodel.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,9 +45,7 @@ class GoogleTestActivity : AppCompatActivity() {
                 GoogleSignIn.getClient(this@GoogleTestActivity, it).signInIntent
             }
 
-        findViewById<SignInButton>(R.id.btn_login).setOnClickListener {
-            googleLoginForResult.launch(googleLoginClientIntent)
-        }
+        googleLoginForResult.launch(googleLoginClientIntent)
     }
 
     // 구글 로그인 작업 수행
@@ -74,7 +71,7 @@ class GoogleTestActivity : AppCompatActivity() {
 
     private fun subscribeObservables() {
         loginViewModel.loginResult.collectWithLifecycle(this) {
-            startActivity(Intent(this@GoogleTestActivity, NewGroupActivity::class.java))
+            startActivity(Intent(this@GoogleTestActivity, GroupActivity::class.java))
         }
     }
 }

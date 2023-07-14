@@ -66,7 +66,6 @@ class MemberSelectViewModel @Inject constructor(
                 checkedApiResult(
                     apiResult = it,
                     success = { data -> _isNickNameValidate.value = data },
-                    error = { throwable -> throw throwable }
                 )
             }
         }
@@ -82,7 +81,6 @@ class MemberSelectViewModel @Inject constructor(
                     cursor = data.cursor
                     hasNext = data.hasNext
                 },
-                error = { throwable -> throw throwable }
             )
         }
         return memberList

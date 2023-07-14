@@ -1,10 +1,14 @@
 package com.yapp.bol.data.remote
 
+import com.yapp.bol.data.model.base.BaseResponse
 import com.yapp.bol.data.model.group.GuestAddApiRequest
+import com.yapp.bol.data.model.group.JoinGroupApiRequest
 import com.yapp.bol.data.model.group.MemberListResponse
+import com.yapp.bol.data.model.group.request.CheckGroupJonByAccessCodeRequest
 import com.yapp.bol.data.model.group.response.GameApiResponse
 import com.yapp.bol.data.model.group.response.MemberValidApiResponse
 import com.yapp.bol.data.model.group.request.NewGroupApiRequest
+import com.yapp.bol.data.model.group.response.CheckGroupJoinByAccessCodeResponse
 import com.yapp.bol.data.model.group.response.NewGroupApiResponse
 import com.yapp.bol.data.model.group.response.GroupSearchApiResponse
 import retrofit2.Response
@@ -50,6 +54,18 @@ interface GroupApi {
     @POST("/v1/group/{groupId}/guest")
     suspend fun postGuestMember(
         @Path("groupId") groupId: Int,
-        @Body guestAddApiRequest: GuestAddApiRequest
+        @Body guestAddApiRequest: GuestAddApiRequest,
     )
+
+    @POST("v1/group/{groupId}/accessCode")
+    suspend fun checkGroupJoinAccessCode(
+        @Path("groupId") groupId: String,
+        @Body accessCode: CheckGroupJonByAccessCodeRequest,
+    ): Response<CheckGroupJoinByAccessCodeResponse>
+
+    @POST("v1/group/{groupId}/host")
+    suspend fun joinGroup(
+        @Path("groupId") groupId: String,
+        @Body request: JoinGroupApiRequest,
+    ): Response<BaseResponse>
 }

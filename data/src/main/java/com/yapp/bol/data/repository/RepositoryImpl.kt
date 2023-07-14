@@ -3,11 +3,15 @@ package com.yapp.bol.data.repository
 import com.yapp.bol.data.datasource.impl.RemoteDataSource
 import com.yapp.bol.data.mapper.MapperToDomain.fileUploadToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.gameToDomain
+import com.yapp.bol.data.mapper.MapperToDomain.mapperToBaseItem
+import com.yapp.bol.data.mapper.MapperToDomain.mapperToCheckGroupJoinByAccessCodeItem
 import com.yapp.bol.data.mapper.MapperToDomain.memberListToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.newGroupToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.toDomain
 import com.yapp.bol.data.mapper.MapperToDomain.validToDomain
 import com.yapp.bol.domain.model.ApiResult
+import com.yapp.bol.domain.model.BaseItem
+import com.yapp.bol.domain.model.CheckGroupJoinByAccessCodeItem
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.model.MemberItems
@@ -19,7 +23,7 @@ import java.io.File
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
-    private val remoteDataSource: RemoteDataSource
+    private val remoteDataSource: RemoteDataSource,
 ) : Repository {
     override suspend fun login(type: String, token: String): LoginItem? {
         return remoteDataSource.login(type, token).toDomain()
@@ -36,7 +40,7 @@ class RepositoryImpl @Inject constructor(
         description: String,
         organization: String,
         imageUrl: String,
-        nickname: String
+        nickname: String,
     ): Flow<ApiResult<NewGroupItem>> {
         return remoteDataSource.postCreateGroup(name, description, organization, imageUrl, nickname).map {
             it.newGroupToDomain()
@@ -68,5 +72,18 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun postGuestMember(groupId: Int, nickname: String) {
         remoteDataSource.postGuestMember(groupId, nickname)
+    }
+
+    override fun joinGroup(groupId: String, accessCode: String, nickname: String): Flow<ApiResult<BaseItem>> {
+        return remoteDataSource.joinGroup(groupId, accessCode, nickname).map { it.mapperToBaseItem() }
+    }
+
+    override fun checkGroupJoinAccessCode(
+        groupId: String,
+        accessCode: String,
+    ): Flow<ApiResult<CheckGroupJoinByAccessCodeItem>> {
+        return remoteDataSource.checkGroupJoinAccessCode(groupId, accessCode).map {
+            it.mapperToCheckGroupJoinByAccessCodeItem()
+        }
     }
 }

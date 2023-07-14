@@ -4,15 +4,21 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.yapp.bol.domain.model.GroupItem
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.data.GroupSearchUiModel
 
-class GroupListAdapter : PagingDataAdapter<GroupSearchUiModel, RecyclerView.ViewHolder>(GROUP_LIST_COMPARATOR) {
+class GroupListAdapter(
+    private val showJoinGroupDialog: (GroupItem) -> Unit,
+) : PagingDataAdapter<GroupSearchUiModel, RecyclerView.ViewHolder>(GROUP_LIST_COMPARATOR) {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val uiModel = getItem(position)
         uiModel?.let {
             when (uiModel) {
-                is GroupSearchUiModel.GroupList -> (holder as GroupListViewHolder).bind(uiModel.groupItem)
+                is GroupSearchUiModel.GroupList -> (holder as GroupListViewHolder).bind(
+                    uiModel.groupItem,
+                    showJoinGroupDialog
+                )
                 is GroupSearchUiModel.GroupNotFound -> (holder as GroupListNotFoundViewHolder).bind(uiModel.keyword)
             }
         }
@@ -20,7 +26,7 @@ class GroupListAdapter : PagingDataAdapter<GroupSearchUiModel, RecyclerView.View
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ): RecyclerView.ViewHolder {
         return if (viewType == R.layout.item_group_list) {
             GroupListViewHolder.create(parent)

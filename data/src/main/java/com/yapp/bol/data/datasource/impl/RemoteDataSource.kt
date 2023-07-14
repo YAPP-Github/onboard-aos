@@ -1,6 +1,8 @@
 package com.yapp.bol.data.datasource.impl
 
+import com.yapp.bol.data.model.base.BaseResponse
 import com.yapp.bol.data.model.group.MemberListResponse
+import com.yapp.bol.data.model.group.response.CheckGroupJoinByAccessCodeResponse
 import com.yapp.bol.data.model.group.response.GameApiResponse
 import com.yapp.bol.data.model.group.response.MemberValidApiResponse
 import com.yapp.bol.data.model.group.response.NewGroupApiResponse
@@ -13,8 +15,9 @@ import java.io.File
 interface RemoteDataSource {
 
     suspend fun login(type: String, token: String): LoginResponse?
+
     fun postFileUpload(
-        file: File
+        file: File,
     ): Flow<ApiResult<ImageFileUploadResponse>>
 
     fun postCreateGroup(
@@ -40,4 +43,15 @@ interface RemoteDataSource {
     ): Flow<ApiResult<MemberListResponse>>
 
     suspend fun postGuestMember(groupId: Int, nickname: String)
+
+    fun checkGroupJoinAccessCode(
+        groupId: String,
+        accessCode: String,
+    ): Flow<ApiResult<CheckGroupJoinByAccessCodeResponse>>
+
+    fun joinGroup(
+        groupId: String,
+        accessCode: String,
+        nickname: String,
+    ): Flow<ApiResult<BaseResponse>>
 }
