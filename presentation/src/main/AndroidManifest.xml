@@ -6,13 +6,16 @@
 
     <application>
         <activity
+            android:name=".view.home.HomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.group.search.GroupSearchActivityTest"
             android:exported="false">
         </activity>
         <activity
             android:name=".view.match.MatchActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.group.NewGroupCompleteActivity"
             android:exported="false" />
@@ -31,7 +34,6 @@
             android:name=".view.login.KakaoTestActivity"
             android:exported="false">
         </activity>
-
         <!-- Kakao 로그인 -->
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
