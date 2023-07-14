@@ -20,12 +20,23 @@ class TermsDialog(
         fun onClickLikeAll(isChecked: Boolean)
         fun dismissAction(state: Boolean)
         fun onClickSignUp()
+        fun onClickTermsDetail(url: String)
     }
 
     private lateinit var binding: TermsDialogBinding
 
     val termsAdapter by lazy {
-        TermsAdapter(onClickTermsListener::onClickLike)
+        TermsAdapter(
+            object : TermsAdapter.OnClickItemListener {
+                override fun onClickLike(position: Int, isChecked: Boolean) {
+                    onClickTermsListener.onClickLike(position,isChecked)
+                }
+
+                override fun onClickTermsDetail(url: String) {
+                    onClickTermsListener.onClickTermsDetail(url)
+                }
+            }
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

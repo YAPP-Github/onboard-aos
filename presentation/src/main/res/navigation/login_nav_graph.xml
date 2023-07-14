@@ -18,5 +18,5 @@
         android:id="@+id/signUpNicknameFragment"
         android:name="com.yapp.bol.presentation.view.login.NicknameFragment"
         android:label="SignUpNicknameFragment"
-        tools:layout="@layout/fragment_nickname"/>
+        tools:layout="@layout/fragment_nickname" />
 </navigation>

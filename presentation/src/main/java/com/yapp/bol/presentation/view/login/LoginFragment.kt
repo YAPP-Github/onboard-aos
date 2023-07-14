@@ -1,6 +1,7 @@
 package com.yapp.bol.presentation.view.login
 
 import android.content.Intent
+import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kakao.sdk.auth.Constants.ACCESS_TOKEN
@@ -13,6 +14,7 @@ import com.yapp.bol.presentation.view.login.auth.GoogleTestActivity
 import com.yapp.bol.presentation.view.login.auth.KakaoTestActivity
 import com.yapp.bol.presentation.view.login.auth.NaverTestActivity
 import com.yapp.bol.presentation.view.login.dialog.TermsDialog
+import com.yapp.bol.presentation.view.match.game_select.GameSelectFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,6 +37,10 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
                 override fun onClickSignUp() {
                     if (loginViewModel.onboardState.value?.size == NONE_AGREE) moveSingUp()
                     else moveGroupSearch()
+                }
+
+                override fun onClickTermsDetail(url: String) {
+                    moveTermsDetail(url)
                 }
 
                 override fun dismissAction(state: Boolean) {
@@ -114,11 +120,19 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
         requireActivity().finish()
     }
 
+    private fun moveTermsDetail(url: String) {
+        val intent = Intent(requireActivity(), TermsWebViewActivity::class.java).apply {
+            putExtra(WEB_VIEW_KEY, url)
+        }
+        startActivity(intent)
+    }
+
     companion object {
         const val ONBOARD_TERMS = "TERMS"
         const val ONBOARD_NICKNAME = "NICKNAME"
         const val ALL_AGREE = 0
         const val PARTIAL_AGREE = 1
         const val NONE_AGREE = 2
+        const val WEB_VIEW_KEY = "web view"
     }
 }

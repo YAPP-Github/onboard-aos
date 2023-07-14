@@ -12,6 +12,9 @@
             android:name=".view.login.LoginActivity"
             android:exported="false" />
         <activity
+            android:name=".view.login.TermsWebViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.group.search.GroupSearchActivityTest"
             android:exported="false" />
         <activity

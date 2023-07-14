@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.login.TermsWebViewActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tb_top"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/ib_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@+id/tb_top"
+            app:layout_constraintStart_toStartOf="@+id/tb_top"
+            app:layout_constraintTop_toTopOf="@+id/tb_top" />
+
+        <TextView
+            android:id="@+id/tv_page_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_marginStart="16dp"
+            android:text="서비스 이용약관"
+            app:layout_constraintBottom_toBottomOf="@+id/tb_top"
+            app:layout_constraintStart_toEndOf="@+id/ib_back_button"
+            app:layout_constraintTop_toTopOf="@+id/tb_top" />
+
+        <WebView
+            android:id="@+id/wv_terms"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="28dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tb_top" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

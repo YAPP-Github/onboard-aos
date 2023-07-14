@@ -9,13 +9,18 @@ import com.yapp.bol.domain.model.TermsItem
 import com.yapp.bol.presentation.databinding.RvTermsItemBinding
 
 class TermsAdapter(
-    private val onClickLike: (Int, Boolean) -> Unit,
+    private val onClickItemListener: OnClickItemListener,
 ) : ListAdapter<TermsItem, TermsAdapter.TermsViewHolder>(diff) {
+
+    interface OnClickItemListener {
+        fun onClickLike(position: Int, isChecked: Boolean)
+        fun onClickTermsDetail(url: String)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TermsViewHolder {
         val binding =
             RvTermsItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TermsViewHolder(binding, onClickLike)
+        return TermsViewHolder(binding, onClickItemListener)
     }
 
     override fun onBindViewHolder(holder: TermsViewHolder, position: Int) {
@@ -24,7 +29,7 @@ class TermsAdapter(
 
     class TermsViewHolder(
         private val binding: RvTermsItemBinding,
-        private val onClickLike: (Int, Boolean) -> Unit,
+        private val onClickItemListener: OnClickItemListener,
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: TermsItem, position: Int) {
@@ -34,7 +39,10 @@ class TermsAdapter(
                 // 웹뷰 띄우기
             }
             binding.cbService.setOnClickListener {
-                onClickLike(position, binding.cbService.isChecked)
+                onClickItemListener.onClickLike(position, binding.cbService.isChecked)
+            }
+            binding.tvServiceDetail.setOnClickListener {
+                onClickItemListener.onClickTermsDetail(item.url)
             }
         }
 
