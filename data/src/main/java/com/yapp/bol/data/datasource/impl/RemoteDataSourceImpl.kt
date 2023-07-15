@@ -18,6 +18,7 @@ import com.yapp.bol.data.model.login.LoginResponse
 import com.yapp.bol.data.model.login.OnBoardResponse
 import com.yapp.bol.data.model.login.TermsRequest
 import com.yapp.bol.data.model.login.TermsResponse
+import com.yapp.bol.data.model.login.UserRequest
 import com.yapp.bol.data.remote.GroupApi
 import com.yapp.bol.data.remote.ImageFileApi
 import com.yapp.bol.data.remote.LoginApi
@@ -132,6 +133,10 @@ class RemoteDataSourceImpl @Inject constructor(
     ): Flow<ApiResult<BaseResponse>> = flow {
         val result = safeApiCall { groupApi.joinGroup(groupId, JoinGroupApiRequest(nickname, accessCode)) }
         emit(result)
+    }
+
+    override suspend fun putUserName(userRequest: UserRequest) {
+        loginApi.putUserName(userRequest)
     }
 
 

@@ -21,7 +21,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         splashViewModel.accessToken.observe(this) {
             if (it == null) return@observe
             val targetActivity = if (it.isEmpty()) LoginActivity::class.java else GroupSearchActivityTest::class.java
-            startActivity(Intent(this, LoginActivity::class.java))
+            startActivity(Intent(this, targetActivity))
             finish()
         }
     }

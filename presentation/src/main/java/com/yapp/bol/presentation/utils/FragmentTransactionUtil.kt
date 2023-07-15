@@ -13,6 +13,6 @@ fun Fragment.moveFragment(fragment: Fragment, vararg bundleData: Pair<String, An
     fragment.arguments = bundle
 
     parentFragmentManager.beginTransaction()
-        .replace(R.id.group_container_layout, fragment)
+        .replace(R.id.fl_test, fragment)
         .commit()
 }

@@ -20,4 +20,6 @@ class LoginUseCase @Inject constructor(
     suspend fun postTerms(agree: List<String>, disagree: List<String>) = repository.postTerms(agree,disagree)
 
     fun getOnBoard() = repository.getOnBoard()
+
+    suspend fun putUserName(nickName: String) = repository.putUserName(nickName)
 }

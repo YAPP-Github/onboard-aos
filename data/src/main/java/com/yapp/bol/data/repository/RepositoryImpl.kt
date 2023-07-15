@@ -13,6 +13,7 @@ import com.yapp.bol.data.mapper.MapperToDomain.toImageDomain
 import com.yapp.bol.data.mapper.MapperToDomain.toTermsDomain
 import com.yapp.bol.data.mapper.MapperToDomain.validToDomain
 import com.yapp.bol.data.model.login.TermsRequest
+import com.yapp.bol.data.model.login.UserRequest
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.BaseItem
 import com.yapp.bol.domain.model.CheckGroupJoinByAccessCodeItem
@@ -106,5 +107,9 @@ class RepositoryImpl @Inject constructor(
         return remoteDataSource.checkGroupJoinAccessCode(groupId, accessCode).map {
             it.mapperToCheckGroupJoinByAccessCodeItem()
         }
+    }
+
+    override suspend fun putUserName(nickName: String) {
+        remoteDataSource.putUserName(UserRequest(nickName))
     }
 }

@@ -60,4 +60,5 @@ interface Repository {
         accessCode: String,
     ): Flow<ApiResult<CheckGroupJoinByAccessCodeItem>>
 
+    suspend fun putUserName(nickName: String)
 }

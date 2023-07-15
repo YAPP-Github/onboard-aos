@@ -41,6 +41,12 @@ class TermsAdapter(
             binding.cbService.setOnClickListener {
                 onClickItemListener.onClickLike(position, binding.cbService.isChecked)
             }
+
+            binding.root.setOnClickListener {
+                binding.cbService.isChecked = item.isChecked.not()
+                onClickItemListener.onClickLike(position, binding.cbService.isChecked)
+            }
+
             binding.tvServiceDetail.setOnClickListener {
                 onClickItemListener.onClickTermsDetail(item.url)
             }
