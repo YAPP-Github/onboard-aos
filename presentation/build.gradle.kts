@@ -73,6 +73,7 @@ dependencies {
 
     // retrofit
     implementation(com.yapp.bol.Retrofit.RETROFIT)
+    implementation(com.yapp.bol.Retrofit.GSON)
     implementation(com.yapp.bol.Retrofit.CONVERTER_GSON)
     implementation(com.yapp.bol.Retrofit.CONVERTER_JAXB)
 
