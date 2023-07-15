@@ -1,7 +1,9 @@
 package com.yapp.bol.data.mapper
 
+import com.yapp.bol.data.model.base.BaseResponse
 import com.yapp.bol.data.model.group.MemberDTO
 import com.yapp.bol.data.model.group.MemberListResponse
+import com.yapp.bol.data.model.group.response.CheckGroupJoinByAccessCodeResponse
 import com.yapp.bol.data.model.group.response.GroupSearchApiResponse
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.GroupItem
@@ -16,6 +18,8 @@ import com.yapp.bol.data.model.group.response.RandomImageResponse
 import com.yapp.bol.data.model.login.OnBoardResponse
 import com.yapp.bol.data.model.login.TermsDTO
 import com.yapp.bol.data.model.login.TermsResponse
+import com.yapp.bol.domain.model.BaseItem
+import com.yapp.bol.domain.model.CheckGroupJoinByAccessCodeItem
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.model.MemberItem
@@ -168,4 +172,21 @@ internal object MapperToDomain {
             is ApiResult.Error -> ApiResult.Error(exception)
         }
     }
+
+
+    fun ApiResult<BaseResponse>.mapperToBaseItem(): ApiResult<BaseItem> {
+        return when (this) {
+            is ApiResult.Success -> ApiResult.Success(BaseItem(data.code, data.message))
+            is ApiResult.Error -> ApiResult.Error(exception)
+        }
+    }
+
+    fun ApiResult<CheckGroupJoinByAccessCodeResponse>.mapperToCheckGroupJoinByAccessCodeItem():
+        ApiResult<CheckGroupJoinByAccessCodeItem> {
+        return when (this) {
+            is ApiResult.Success -> ApiResult.Success(CheckGroupJoinByAccessCodeItem(data.isNewMember))
+            is ApiResult.Error -> ApiResult.Error(exception)
+        }
+    }
+
 }

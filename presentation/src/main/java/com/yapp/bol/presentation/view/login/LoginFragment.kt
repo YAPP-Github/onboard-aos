@@ -1,7 +1,6 @@
 package com.yapp.bol.presentation.view.login
 
 import android.content.Intent
-import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kakao.sdk.auth.Constants.ACCESS_TOKEN
@@ -14,7 +13,6 @@ import com.yapp.bol.presentation.view.login.auth.GoogleTestActivity
 import com.yapp.bol.presentation.view.login.auth.KakaoTestActivity
 import com.yapp.bol.presentation.view.login.auth.NaverTestActivity
 import com.yapp.bol.presentation.view.login.dialog.TermsDialog
-import com.yapp.bol.presentation.view.match.game_select.GameSelectFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

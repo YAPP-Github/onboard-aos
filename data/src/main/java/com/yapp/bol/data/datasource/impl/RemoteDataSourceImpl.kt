@@ -1,24 +1,28 @@
 package com.yapp.bol.data.datasource.impl
 
 import com.yapp.bol.data.datasource.mock.impl.LoginType.toDomain
+import com.yapp.bol.data.model.base.BaseResponse
 import com.yapp.bol.data.model.group.GuestAddApiRequest
+import com.yapp.bol.data.model.group.JoinGroupApiRequest
 import com.yapp.bol.data.model.group.MemberListResponse
+import com.yapp.bol.data.model.group.request.CheckGroupJonByAccessCodeRequest
 import com.yapp.bol.data.model.group.request.NewGroupApiRequest
+import com.yapp.bol.data.model.group.response.CheckGroupJoinByAccessCodeResponse
 import com.yapp.bol.data.model.group.response.GameApiResponse
+import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
 import com.yapp.bol.data.model.group.response.MemberValidApiResponse
 import com.yapp.bol.data.model.group.response.NewGroupApiResponse
-import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
 import com.yapp.bol.data.model.group.response.RandomImageResponse
-import com.yapp.bol.data.model.login.TermsResponse
 import com.yapp.bol.data.model.login.LoginRequest
 import com.yapp.bol.data.model.login.LoginResponse
 import com.yapp.bol.data.model.login.OnBoardResponse
 import com.yapp.bol.data.model.login.TermsRequest
+import com.yapp.bol.data.model.login.TermsResponse
 import com.yapp.bol.data.remote.GroupApi
 import com.yapp.bol.data.remote.ImageFileApi
 import com.yapp.bol.data.remote.LoginApi
-import com.yapp.bol.data.utils.BaseRepository
 import com.yapp.bol.data.utils.Image.GROUP_IMAGE
+import com.yapp.bol.domain.handle.BaseRepository
 import com.yapp.bol.domain.model.ApiResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -108,6 +112,28 @@ class RemoteDataSourceImpl @Inject constructor(
         val result = safeApiCall { groupApi.getRandomImage() }
         emit(result)
     }
+
+    override fun checkGroupJoinAccessCode(
+        groupId: String,
+        accessCode: String,
+    ): Flow<ApiResult<CheckGroupJoinByAccessCodeResponse>> {
+        return flow {
+            val result = safeApiCall {
+                groupApi.checkGroupJoinAccessCode(groupId, CheckGroupJonByAccessCodeRequest(accessCode))
+            }
+            emit(result)
+        }
+    }
+
+    override fun joinGroup(
+        groupId: String,
+        accessCode: String,
+        nickname: String,
+    ): Flow<ApiResult<BaseResponse>> = flow {
+        val result = safeApiCall { groupApi.joinGroup(groupId, JoinGroupApiRequest(nickname, accessCode)) }
+        emit(result)
+    }
+
 
     private fun getMimeType(fileName: String): String {
         return URLConnection.guessContentTypeFromName(fileName)

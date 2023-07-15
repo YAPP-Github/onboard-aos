@@ -3,6 +3,8 @@ package com.yapp.bol.data.repository
 import com.yapp.bol.data.datasource.impl.RemoteDataSource
 import com.yapp.bol.data.mapper.MapperToDomain.fileUploadToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.gameToDomain
+import com.yapp.bol.data.mapper.MapperToDomain.mapperToBaseItem
+import com.yapp.bol.data.mapper.MapperToDomain.mapperToCheckGroupJoinByAccessCodeItem
 import com.yapp.bol.data.mapper.MapperToDomain.memberListToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.newGroupToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.toBoardDomain
@@ -12,6 +14,8 @@ import com.yapp.bol.data.mapper.MapperToDomain.toTermsDomain
 import com.yapp.bol.data.mapper.MapperToDomain.validToDomain
 import com.yapp.bol.data.model.login.TermsRequest
 import com.yapp.bol.domain.model.ApiResult
+import com.yapp.bol.domain.model.BaseItem
+import com.yapp.bol.domain.model.CheckGroupJoinByAccessCodeItem
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.model.MemberItems
@@ -89,5 +93,18 @@ class RepositoryImpl @Inject constructor(
 
     override fun getRandomImage(): Flow<ApiResult<String>> {
         return remoteDataSource.getRandomImage().map { it.toImageDomain() }
+    }
+
+    override fun joinGroup(groupId: String, accessCode: String, nickname: String): Flow<ApiResult<BaseItem>> {
+        return remoteDataSource.joinGroup(groupId, accessCode, nickname).map { it.mapperToBaseItem() }
+    }
+
+    override fun checkGroupJoinAccessCode(
+        groupId: String,
+        accessCode: String,
+    ): Flow<ApiResult<CheckGroupJoinByAccessCodeItem>> {
+        return remoteDataSource.checkGroupJoinAccessCode(groupId, accessCode).map {
+            it.mapperToCheckGroupJoinByAccessCodeItem()
+        }
     }
 }
