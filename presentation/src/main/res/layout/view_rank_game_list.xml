@@ -14,6 +14,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/iv_game"
+        app:layout_constraintEnd_toEndOf="@id/iv_game"
+        app:layout_constraintTop_toTopOf="@id/iv_game"
+        app:layout_constraintBottom_toBottomOf="@id/iv_game"
+        android:src="@drawable/ic_game_outline"/>
+
+    <ImageView
+        android:id="@+id/iv_overlap"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/iv_game"
+        app:layout_constraintEnd_toEndOf="@id/iv_game"
+        app:layout_constraintTop_toTopOf="@id/iv_game"
+        app:layout_constraintBottom_toBottomOf="@id/iv_game"
+        android:src="@color/Black_TRANSPARENT_50"/>
+
     <View
         android:id="@+id/view_middle_padding"
         android:layout_width="0dp"
