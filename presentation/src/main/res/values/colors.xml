@@ -35,6 +35,9 @@
     <!--YELLOW-->
     <color name="Yellow">#FFBC10</color>
 
+    <!--BLACK-->
+    <color name="Black_TRANSPARENT_50">#80000000</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="new_group_background_color">#F5F5F5</color>
