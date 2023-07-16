@@ -31,9 +31,9 @@ interface GroupApi {
         @Path("groupId") groupId: Int,
     ): Response<GameApiResponse>
 
-    @GET("/v1/group/1/member/validateNickname")
+    @GET("/v1/group/{groupId}/member/validateNickname")
     suspend fun getValidateNickName(
-        @Query("groupId") groupId: Int,
+        @Path("groupId") groupId: Int,
         @Query("nickname") nickName: String,
     ): Response<MemberValidApiResponse>
 

@@ -50,7 +50,7 @@ class MemberSelectFragment : Fragment() {
         GuestAddDialog(
             context = requireContext(),
             addGuest = { nickname -> memberSelectViewModel.addGuestMember(nickname) },
-            getValidateNickName = { nickname -> memberSelectViewModel.getValidateNickName(10, nickname) },
+            getValidateNickName = { nickname -> memberSelectViewModel.getValidateNickName(matchViewModel.groupId, nickname) },
         )
     }
 
