@@ -12,7 +12,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/Gray_14">
+            android:background="@color/Gray_15">
 
             <LinearLayout
                 android:id="@+id/btn_group_name"
