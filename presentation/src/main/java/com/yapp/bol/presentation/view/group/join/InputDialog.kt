@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.text.InputFilter
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup.MarginLayoutParams
@@ -70,7 +71,7 @@ class InputDialog(
 
         binding.etInput.doAfterTextChanged { text ->
             binding.tvInputCount.text = "${text?.length ?: 0}/$onLimit"
-            binding.tvSummit.isEnabled = true
+            binding.tvSummit.isEnabled = !text.isNullOrEmpty()
 
             if ((text?.count()) == onLimit) {
                 text.substring(0, onLimit).let {
@@ -149,7 +150,7 @@ class InputDialog(
         binding.tvErrorMessage.visibility = View.VISIBLE
         binding.tvErrorMessage.text = message
 
-        binding.tvSummit.isEnabled = false
+        binding.tvSummit.isEnabled = true
     }
 
     private fun onBackPress() {
