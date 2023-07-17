@@ -8,7 +8,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.text.InputFilter
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup.MarginLayoutParams
@@ -144,6 +143,11 @@ class InputDialog(
 
     fun setOnLimit(onLimitExceeded: (String, InputDialog) -> Unit): InputDialog {
         this.onLimitExceeded = onLimitExceeded
+        return this
+    }
+
+    fun setSingleLine(isSingleLine: Boolean): InputDialog {
+        binding.etInput.isSingleLine = isSingleLine
         return this
     }
 
