@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:title="member" />
+                    app:title="멤버수" />
 
                 <com.yapp.bol.presentation.view.group.join.component.GroupItemUserTitle
                     android:id="@+id/group_admin_view"
@@ -74,7 +74,7 @@
                     android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="@id/group_member_view"
                     app:layout_constraintTop_toBottomOf="@id/group_member_view"
-                    app:title="owner"
+                    app:title="관리자"
                     bol:detailTitle="승은" />
 
                 <com.yapp.bol.presentation.view.group.join.component.GroupItemGame
