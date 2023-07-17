@@ -72,6 +72,7 @@ class InputDialog(
         binding.etInput.doAfterTextChanged { text ->
             binding.tvInputCount.text = "${text?.length ?: 0}/$onLimit"
             binding.tvSummit.isEnabled = !text.isNullOrEmpty()
+            binding.tvErrorMessage.visibility = View.GONE
 
             if ((text?.count()) == onLimit) {
                 text.substring(0, onLimit).let {
