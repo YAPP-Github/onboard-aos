@@ -18,12 +18,27 @@
             android:paddingTop="26dp"
             android:paddingBottom="36dp">
 
-            <TextView
-                android:id="@+id/tv_title"
-                style="@style/Typography.Label1_B"
+            <LinearLayout
+                android:id="@+id/ll_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/Gray_15" />
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_title_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    style="@style/Typography.Label1_B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="참여 코드 입력"
+                    android:textColor="@color/Gray_15" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_message"

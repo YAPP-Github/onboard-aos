@@ -10,6 +10,8 @@ import androidx.fragment.app.viewModels
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.FragmentGroupJoinBinding
 import com.yapp.bol.presentation.utils.collectWithLifecycle
+import com.yapp.bol.presentation.utils.dpToPx
+import com.yapp.bol.presentation.view.group.join.data.Margin
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -48,13 +50,19 @@ class GroupJoinFragment : Fragment() {
             this.setTitle("참여 코드 입력")
                 .setMessage(getString(R.string.group_join_code_input_plz))
                 .setLimitSize(6)
+                .setSingleLine(true)
+                .setTitleIcon(
+                    icon = R.drawable.ic_lock,
+                    size = context.dpToPx(20),
+                    margin = Margin(rightMargin = context.dpToPx(8)),
+                )
                 .setOnLimit { code, dialog ->
                     viewModel.checkGroupJoinByAccessCode(code)
 
                     viewModel.successCheckGroupAccessCode.collectWithLifecycle(viewLifecycleOwner) { (success, message) -> // ktlint-disable max-line-length
                         if (success) {
                             showProfileSettingDialog(code)
-                            dialog.dismiss()
+                            dismiss()
                         } else {
                             dialog.showErrorMessage(message.orEmpty())
                         }
