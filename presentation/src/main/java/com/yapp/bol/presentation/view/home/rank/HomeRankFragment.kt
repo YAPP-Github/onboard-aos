@@ -1,13 +1,14 @@
 package com.yapp.bol.presentation.view.home.rank
 
 import android.annotation.SuppressLint
-import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentHomeRankBinding
@@ -15,7 +16,6 @@ import com.yapp.bol.presentation.model.DrawerGroupInfoUiModel
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.config.HomeConfig
 import com.yapp.bol.presentation.utils.copyToClipboard
-import com.yapp.bol.presentation.utils.setNavigationBarColor
 import com.yapp.bol.presentation.utils.setStatusBarColor
 import com.yapp.bol.presentation.utils.showToast
 import com.yapp.bol.presentation.view.home.rank.UserRankViewModel.Companion.RV_SELECTED_POSITION_RESET
@@ -45,7 +45,6 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
         observeGameUiState()
 
         setStatusBarColor(this@HomeRankFragment.requireActivity(), designsystemR.color.Gray_14, isIconBlack = false)
-        setNavigationBarColor(this@HomeRankFragment.requireActivity(), designsystemR.color.Gray_14)
 
         scrollCenterWhenUserRankTouchDown()
     }
@@ -180,7 +179,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
         viewModel.userUiState.collectWithLifecycle(this) { uiState ->
             when (uiState) {
                 is HomeUiState.Success -> {
-                    if (RV_SELECTED_POSITION_RESET != viewModel.getGameItemSelectedPosition()) {
+                    if (isSelectedPositionValid()) {
                         binding.rvGameList.smoothScrollToPosition(viewModel.getGameItemSelectedPosition())
                     }
                     binding.viewRankLoading.visibility = View.GONE
@@ -231,13 +230,16 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
     @SuppressLint("ClickableViewAccessibility")
     private fun scrollCenterWhenUserRankTouchDown() {
-        binding.rvUserRank.setOnTouchListener { _, motionEvent ->
-            if (motionEvent.actionMasked == MotionEvent.ACTION_DOWN) {
-                if (RV_SELECTED_POSITION_RESET != viewModel.getGameItemSelectedPosition()) {
+        binding.rvUserRank.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                if (newState != SCROLL_STATE_IDLE && isSelectedPositionValid()) {
                     binding.rvGameList.smoothScrollToPosition(viewModel.getGameItemSelectedPosition())
                 }
             }
-            true
-        }
+        })
+    }
+
+    private fun isSelectedPositionValid(): Boolean {
+        return RV_SELECTED_POSITION_RESET != viewModel.getGameItemSelectedPosition()
     }
 }
