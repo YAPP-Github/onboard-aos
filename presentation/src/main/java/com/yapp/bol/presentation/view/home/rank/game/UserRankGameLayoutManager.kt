@@ -6,7 +6,7 @@ import android.util.DisplayMetrics
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
-import com.yapp.bol.presentation.utils.config.HomeConfig.MILLISECONDS_PER_INCH
+import com.yapp.bol.presentation.utils.config.HomeConfig.SCROLL_MILLISECONDS_PER_INCH
 
 class UserRankGameLayoutManager : LinearLayoutManager {
     constructor(context: Context) : super(context)
@@ -38,7 +38,7 @@ class UserRankGameLayoutManager : LinearLayoutManager {
         ): Int = (boxStart + (boxEnd - boxStart) / 2) - (viewStart + (viewEnd - viewStart) / 2)
 
         override fun calculateSpeedPerPixel(displayMetrics: DisplayMetrics): Float {
-            return MILLISECONDS_PER_INCH / displayMetrics.densityDpi
+            return SCROLL_MILLISECONDS_PER_INCH / displayMetrics.densityDpi
         }
     }
 }
