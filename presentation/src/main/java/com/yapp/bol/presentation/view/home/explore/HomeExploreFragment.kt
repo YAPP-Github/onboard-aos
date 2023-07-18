@@ -3,6 +3,7 @@ package com.yapp.bol.presentation.view.home.explore
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ImageButton
+import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.viewModels
@@ -106,7 +107,7 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
     }
 
     // search view의 edittext typing 여부에 따른 우측 아이콘 변경
-    private fun ImageButton.setImageButtonByState(isTyping: Boolean) =
+    private fun ImageView.setImageButtonByState(isTyping: Boolean) =
         viewLifecycleOwner.lifecycleScope.launch {
             when (isTyping) {
                 true -> setImageDrawable(
