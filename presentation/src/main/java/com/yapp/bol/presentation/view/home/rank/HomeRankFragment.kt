@@ -46,6 +46,8 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
         setStatusBarColor(this@HomeRankFragment.requireActivity(), designsystemR.color.Gray_14, isIconBlack = false)
         setNavigationBarColor(this@HomeRankFragment.requireActivity(), designsystemR.color.Gray_14)
+
+        scrollCenterWhenUserRankTouchDown()
     }
 
     private fun initViewModel() {
