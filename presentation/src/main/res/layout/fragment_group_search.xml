@@ -16,9 +16,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="37dp"
             android:layout_marginBottom="26dp"
-            android:textColor="#171717"
+            android:textColor="@color/Gray_15"
             android:text="@string/group_search_title"
-            android:textSize="20dp"
+            android:textAppearance="@style/Typography.Title1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
