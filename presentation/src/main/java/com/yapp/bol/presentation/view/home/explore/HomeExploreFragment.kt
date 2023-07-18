@@ -2,7 +2,6 @@ package com.yapp.bol.presentation.view.home.explore
 
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.content.res.AppCompatResources
@@ -11,7 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.paging.PagingData
 import com.yapp.bol.presentation.R
-import com.yapp.bol.designsystem.R as designsystemR
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentHomeExploreBinding
 import com.yapp.bol.presentation.utils.loseFocusOnAction
@@ -28,6 +26,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import com.yapp.bol.designsystem.R as designsystemR
 
 @AndroidEntryPoint
 class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fragment_home_explore) {

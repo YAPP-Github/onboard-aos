@@ -1,7 +1,6 @@
 package com.yapp.bol.presentation.view.home.rank.game
 
 import android.content.res.ColorStateList
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,6 @@ import com.yapp.bol.presentation.model.GameItemWithSelected
 import com.yapp.bol.presentation.utils.createScaleAnimator
 import com.yapp.bol.presentation.utils.loadImage
 import com.yapp.bol.designsystem.R as designR
-
 
 class UserRankGameViewHolder(
     private val binding: ItemRankGameListBinding,
@@ -31,7 +29,6 @@ class UserRankGameViewHolder(
         binding.viewGame.root.setOnClickListener {
             onClick(layoutPosition, gameItemWithSelected.gameItem.id)
         }
-
     }
 
     private fun showGameItemData(gameItem: GameItem) {
