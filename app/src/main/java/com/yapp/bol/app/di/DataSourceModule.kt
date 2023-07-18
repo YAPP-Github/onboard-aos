@@ -6,6 +6,8 @@ import com.yapp.bol.data.datasource.auth.impl.AuthDataSourceImpl
 import com.yapp.bol.data.datasource.group.GroupDataSource
 import com.yapp.bol.data.datasource.group.impl.GroupDataSourceImpl
 import com.yapp.bol.data.datasource.impl.RemoteDataSourceImpl
+import com.yapp.bol.data.datasource.user.UserDataSource
+import com.yapp.bol.data.datasource.user.impl.UserDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -23,4 +25,7 @@ interface DataSourceModule {
 
     @Binds
     fun bindsGroupDatasource(groupDataSourceImpl: GroupDataSourceImpl): GroupDataSource
+
+    @Binds
+    fun bindUserDataSource(userDataSourceImpl: UserDataSourceImpl): UserDataSource
 }

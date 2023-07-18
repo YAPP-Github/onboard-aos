@@ -1,6 +1,7 @@
 package com.yapp.bol.presentation.view.group.join
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,9 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.FragmentGroupJoinBinding
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.dpToPx
+import com.yapp.bol.presentation.utils.showToast
 import com.yapp.bol.presentation.view.group.join.data.Margin
+import com.yapp.bol.presentation.viewmodel.login.MyGroupList
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,7 +44,13 @@ class GroupJoinFragment : Fragment() {
 
     private fun initView() {
         binding.tvGroupJoin.setOnClickListener {
-            showRedeemInputDialog()
+            if (MyGroupList.findMyGroup(viewModel.groupItem.value?.id) != null) {
+                Log.d("Debug", "initView: home 화면으로 이동")
+                requireContext().showToast("홈 화면으로 이동해야합니다.")
+                // todo home 화면으로 이동
+            } else {
+                showRedeemInputDialog()
+            }
         }
     }
 
