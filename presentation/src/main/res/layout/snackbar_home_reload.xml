@@ -30,7 +30,7 @@
                 android:background="@android:color/transparent"
                 android:text="새로고침"
                 android:textAppearance="@style/Typography.Body3_M"
-                android:textColor="@color/Orange_8"
+                android:textColor="@color/selector_snackbar_button_text_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
