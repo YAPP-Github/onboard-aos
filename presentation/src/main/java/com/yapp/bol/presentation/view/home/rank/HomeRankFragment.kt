@@ -214,13 +214,11 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
         viewModel.groupUiState.collectWithLifecycle(this) { uiState ->
             when (uiState) {
                 is HomeUiState.Success -> {
-                    binding.viewGameLoading.visibility = View.GONE
                     binding.rvGameList.visibility = View.VISIBLE
                     gameSnackBar.dismiss()
                 }
 
                 is HomeUiState.Loading -> {
-                    binding.viewGameLoading.visibility = View.VISIBLE
                     binding.rvGameList.visibility = View.GONE
                 }
 
@@ -233,7 +231,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
     @SuppressLint("ClickableViewAccessibility")
     private fun scrollCenterWhenUserRankTouchDown() {
-        binding.rvUserRank.setOnTouchListener { view, motionEvent ->
+        binding.rvUserRank.setOnTouchListener { _, motionEvent ->
             if (motionEvent.actionMasked == MotionEvent.ACTION_DOWN) {
                 if (RV_SELECTED_POSITION_RESET != viewModel.getGameItemSelectedPosition()) {
                     binding.rvGameList.smoothScrollToPosition(viewModel.getGameItemSelectedPosition())
