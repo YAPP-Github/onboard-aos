@@ -1,6 +1,5 @@
 package com.yapp.bol.presentation.viewmodel.login
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yapp.bol.domain.model.LoginItem
@@ -34,7 +33,6 @@ class LoginViewModel @Inject constructor(
                     checkedApiResult(
                         apiResult = it,
                         success = { data -> MyGroupList.setMyGroupList(data) },
-                        error = { error -> Log.d("Debug", "login: ${error.message}") },
                     )
                 }
 
