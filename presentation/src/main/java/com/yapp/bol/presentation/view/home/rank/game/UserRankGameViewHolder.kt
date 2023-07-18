@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -74,6 +75,10 @@ class UserRankGameViewHolder(
         lpTv.apply {
             width = selectedTvPx
         }.also { viewGame.tvGame.layoutParams = lpTv }
+
+        viewGame.ivGameOutline.setImageDrawable(
+            AppCompatResources.getDrawable(binding.root.context,R.drawable.ic_game_outline_selected)
+        )
     }
 
     private fun ItemRankGameListBinding.setLayoutWhenUnselected() {
@@ -96,6 +101,10 @@ class UserRankGameViewHolder(
         lpTv.apply {
             width = unSelectedTvPx
         }.also { viewGame.tvGame.layoutParams = lpTv }
+
+        viewGame.ivGameOutline.setImageDrawable(
+            AppCompatResources.getDrawable(binding.root.context,R.drawable.ic_game_outline_unselected)
+        )
     }
 
     private fun ItemRankGameListBinding.startAnimationWhenSelected() {
