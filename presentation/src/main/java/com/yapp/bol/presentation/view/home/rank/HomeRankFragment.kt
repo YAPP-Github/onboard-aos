@@ -1,12 +1,13 @@
 package com.yapp.bol.presentation.view.home.rank
 
+import android.annotation.SuppressLint
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentHomeRankBinding
@@ -17,6 +18,7 @@ import com.yapp.bol.presentation.utils.copyToClipboard
 import com.yapp.bol.presentation.utils.setNavigationBarColor
 import com.yapp.bol.presentation.utils.setStatusBarColor
 import com.yapp.bol.presentation.utils.showToast
+import com.yapp.bol.presentation.view.home.rank.UserRankViewModel.Companion.RV_SELECTED_POSITION_RESET
 import com.yapp.bol.presentation.view.home.rank.game.UserRankGameAdapter
 import com.yapp.bol.presentation.view.home.rank.game.UserRankGameLayoutManager
 import com.yapp.bol.presentation.view.home.rank.group_info.DrawerGroupInfoAdapter
@@ -61,12 +63,14 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
     private fun setGameAdapter() {
         val onClick: (position: Int, gameId: Long) -> Unit = { position, gameId ->
             this.gameId = gameId
-            binding.rvGameList.smoothScrollToPosition(position)
             // TODO : 넘어오는 값으로 groupId 변경 필요
             viewModel.setGameItemSelected(position)
             viewModel.fetchUserList(groupId, gameId)
         }
-        val userRankGameAdapter = UserRankGameAdapter(onClick)
+        val scrollAnimation: () -> Unit = {
+            binding.rvGameList.smoothScrollToPosition(viewModel.getGameItemSelectedPosition())
+        }
+        val userRankGameAdapter = UserRankGameAdapter(onClick, scrollAnimation)
 
         viewModel.gameListFlow.collectWithLifecycle(this) { gameList ->
             userRankGameAdapter.submitList(gameList)
@@ -98,19 +102,6 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
                 userRankAdapter.submitList(userList)
             }
         }
-    }
-
-    private fun setGameRvObserver() {
-        val onScrollListener: RecyclerView.OnScrollListener = object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                when (newState) {
-                    RecyclerView.SCROLL_STATE_IDLE -> {
-                        viewModel.setGameItemSelected(4)
-                    }
-                }
-            }
-        }
-        binding.rvGameList.addOnScrollListener(onScrollListener)
     }
 
     private fun setDrawer() {
@@ -187,6 +178,9 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
         viewModel.userUiState.collectWithLifecycle(this) { uiState ->
             when (uiState) {
                 is HomeUiState.Success -> {
+                    if (RV_SELECTED_POSITION_RESET != viewModel.getGameItemSelectedPosition()) {
+                        binding.rvGameList.smoothScrollToPosition(viewModel.getGameItemSelectedPosition())
+                    }
                     binding.viewRankLoading.visibility = View.GONE
                     userRankSnackBar.dismiss()
                 }
@@ -232,6 +226,18 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
                     gameSnackBar.show()
                 }
             }
+        }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun scrollCenterWhenUserRankTouchDown() {
+        binding.rvUserRank.setOnTouchListener { view, motionEvent ->
+            if (motionEvent.actionMasked == MotionEvent.ACTION_DOWN) {
+                if (RV_SELECTED_POSITION_RESET != viewModel.getGameItemSelectedPosition()) {
+                    binding.rvGameList.smoothScrollToPosition(viewModel.getGameItemSelectedPosition())
+                }
+            }
+            true
         }
     }
 }
