@@ -8,12 +8,13 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.model.HomeGameItemUiModel
 
 class UserRankGameAdapter(
-    private val onClick: (position: Int, gameId: Long) -> Unit
+    private val onClick: (position: Int, gameId: Long) -> Unit,
+    private val scrollAnimation: () -> Unit,
 ) : ListAdapter<HomeGameItemUiModel, RecyclerView.ViewHolder>(diff) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         if (viewType == R.layout.item_rank_game_list) {
-            UserRankGameViewHolder.create(parent, onClick)
+            UserRankGameViewHolder.create(parent, onClick, scrollAnimation)
         } else {
             UserRankGamePaddingViewHolder.create(parent)
         }
@@ -22,8 +23,13 @@ class UserRankGameAdapter(
         val uiModel = getItem(position)
         uiModel?.let {
             when (uiModel) {
-                is HomeGameItemUiModel.GameItem ->
-                    (holder as UserRankGameViewHolder).bind(uiModel.item)
+                is HomeGameItemUiModel.GameItem -> {
+                    if (uiModel.item.isSelected) {
+                        (holder as UserRankGameViewHolder).showGameItemBySelectState(true)
+                    } else { (holder as UserRankGameViewHolder).showGameItemBySelectState(false) }
+
+                    holder.bind(uiModel.item)
+                }
 
                 is HomeGameItemUiModel.Padding ->
                     (holder as UserRankGamePaddingViewHolder).bind()

@@ -21,6 +21,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -42,7 +43,7 @@ class UserRankViewModel @Inject constructor(
     private val _groupListFlow = MutableStateFlow<List<DrawerGroupInfoUiModel>>(emptyList())
     val groupListFlow: StateFlow<List<DrawerGroupInfoUiModel>> = _groupListFlow
 
-    private var selectedPosition: Int = 0
+    private var selectedPosition: Int = RV_SELECTED_POSITION_RESET
 
     private val _userUiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
     val userUiState: StateFlow<HomeUiState> = _userUiState
@@ -74,6 +75,8 @@ class UserRankViewModel @Inject constructor(
         _gameListFlow.value = gameUiList
     }
 
+    fun getGameItemSelectedPosition(): Int = selectedPosition
+
     fun fetchGameList(groupId: Long) {
         _groupUiState.value = HomeUiState.Loading
 
@@ -104,25 +107,29 @@ class UserRankViewModel @Inject constructor(
         fetchUserList(groupId, gameIdNullable)
     }
 
+    private fun getMediumGameIndex(): Int {
+        var gameItemsSize = 0
+        _gameListFlow.value.map {
+            if (it is HomeGameItemUiModel.GameItem) {
+                gameItemsSize++
+            }
+        }
+        return gameItemsSize / 2
+    }
+
     private fun fetchUserList(groupId: Long, gameId: Long?) {
         _userUiState.value = HomeUiState.Loading
         userListFetchJob?.cancel()
         _userListFlow.value = emptyList()
 
         if (gameId == null) {
-            setGameItemSelected(GAME_RV_FIRST_POSITION)
+            selectedPosition = RV_SELECTED_POSITION_RESET
+            setGameItemSelected(getMediumGameIndex())
         }
 
         val gameIdNotNull: Long = gameId ?: kotlin.run {
             if (_gameListFlow.value.isNotEmpty()) {
-                var firstItemId: Long = 0
-                _gameListFlow.value.map {
-                    if (it is HomeGameItemUiModel.GameItem) {
-                        firstItemId = it.item.gameItem.id
-                        return@map
-                    }
-                }
-                firstItemId
+                (_gameListFlow.value[getMediumGameIndex()] as HomeGameItemUiModel.GameItem).item.gameItem.id
             } else {
                 _userUiState.value = HomeUiState.Error(IllegalArgumentException("game not found"))
                 0
@@ -190,5 +197,9 @@ class UserRankViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    companion object {
+        const val RV_SELECTED_POSITION_RESET = -1
     }
 }
