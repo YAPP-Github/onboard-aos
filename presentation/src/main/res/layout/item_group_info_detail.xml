@@ -165,6 +165,7 @@
                 android:id="@+id/btn_copy"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
+                android:layout_marginStart="2dp"
                 android:padding="2dp"
                 app:layout_constraintStart_toEndOf="@id/tv_code"
                 android:src="@drawable/ic_copy"
