@@ -55,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="@{vm.groupItem.description}"
+                android:text="@{vm.groupItem.name}"
                 android:textColor="@color/Gray_1"
                 app:layout_constraintBottom_toTopOf="@+id/tv_group_description" />
 
