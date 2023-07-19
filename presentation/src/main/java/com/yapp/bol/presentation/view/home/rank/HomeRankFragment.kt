@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
+import com.yapp.bol.presentation.view.home.HomeUiState
 import com.yapp.bol.presentation.databinding.FragmentHomeRankBinding
 import com.yapp.bol.presentation.model.DrawerGroupInfoUiModel
+import com.yapp.bol.presentation.model.UserRankUiModel
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.config.HomeConfig
 import com.yapp.bol.presentation.utils.copyToClipboard
@@ -40,8 +42,6 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
         setHomeRecyclerView()
         setDrawer()
-
-        observeUserRankUiState()
         observeGameUiState()
 
         setStatusBarColor(this@HomeRankFragment.requireActivity(), designsystemR.color.Gray_14, isIconBlack = false)
@@ -90,19 +90,8 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
     private fun setUserAdapter() {
         val userRankAdapter = UserRankAdapter()
-
         binding.rvUserRank.adapter = userRankAdapter
-
-        viewModel.userListFlow.collectWithLifecycle(this) { userList ->
-            if (userList.size == HomeConfig.NO_RANK_THRESHOLD) {
-                binding.viewRankNotFound.root.visibility = View.VISIBLE
-                binding.rvUserRank.visibility = View.GONE
-            } else {
-                binding.viewRankNotFound.root.visibility = View.GONE
-                binding.rvUserRank.visibility = View.VISIBLE
-                userRankAdapter.submitList(userList)
-            }
-        }
+        observeUserRankUiState(userRankAdapter)
     }
 
     private fun setDrawer() {
@@ -175,21 +164,33 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
         )
     }
 
-    private fun observeUserRankUiState() {
+    private fun observeUserRankUiState(userRankAdapter: UserRankAdapter) {
         viewModel.userUiState.collectWithLifecycle(this) { uiState ->
+            fun List<UserRankUiModel>.isSizeNoRankThreshold(): Boolean = this.size == HomeConfig.NO_RANK_THRESHOLD
+
             when (uiState) {
                 is HomeUiState.Success -> {
-                    if (isSelectedPositionValid()) {
-                        binding.rvGameList.smoothScrollToPosition(viewModel.getGameItemSelectedPosition())
-                    }
-                    binding.viewRankLoading.visibility = View.GONE
                     userRankSnackBar.dismiss()
+                    val isNoRank: Boolean = uiState.data.isSizeNoRankThreshold()
+
+                    binding.apply {
+                        if (isSelectedPositionValid()) {
+                            rvGameList.smoothScrollToPosition(viewModel.getGameItemSelectedPosition())
+                        }
+                        viewRankLoading.visibility = View.GONE
+                        viewRankNotFound.root.visibility = if (isNoRank) { View.VISIBLE } else { View.GONE }
+                        rvUserRank.visibility = if (isNoRank) { View.GONE } else { View.VISIBLE }
+                    }
+
+                    if (!isNoRank) { userRankAdapter.submitList(uiState.data) }
                 }
 
                 is HomeUiState.Loading -> {
-                    binding.rvUserRank.visibility = View.GONE
-                    binding.viewRankNotFound.root.visibility = View.GONE
-                    binding.viewRankLoading.visibility = View.VISIBLE
+                    binding.apply {
+                        rvUserRank.visibility = View.GONE
+                        viewRankNotFound.root.visibility = View.GONE
+                        viewRankLoading.visibility = View.VISIBLE
+                    }
                 }
 
                 is HomeUiState.Error -> {
@@ -212,16 +213,16 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
     private fun observeGameUiState() {
         viewModel.groupUiState.collectWithLifecycle(this) { uiState ->
             when (uiState) {
-                is HomeUiState.Success -> {
+                is HomeUiStateNeedRefactor.Success -> {
                     binding.rvGameList.visibility = View.VISIBLE
                     gameSnackBar.dismiss()
                 }
 
-                is HomeUiState.Loading -> {
+                is HomeUiStateNeedRefactor.Loading -> {
                     binding.rvGameList.visibility = View.GONE
                 }
 
-                is HomeUiState.Error -> {
+                is HomeUiStateNeedRefactor.Error -> {
                     gameSnackBar.show()
                 }
             }

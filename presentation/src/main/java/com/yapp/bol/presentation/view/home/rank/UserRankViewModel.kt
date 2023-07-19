@@ -7,6 +7,7 @@ import com.yapp.bol.domain.usecase.group.GetGroupDetailUseCase
 import com.yapp.bol.domain.usecase.group.GetJoinedGroupUseCase
 import com.yapp.bol.domain.usecase.rank.GetUserRankGameListUseCase
 import com.yapp.bol.domain.usecase.rank.GetUserRankUseCase
+import com.yapp.bol.presentation.view.home.HomeUiState
 import com.yapp.bol.presentation.model.DrawerGroupInfoUiModel
 import com.yapp.bol.presentation.model.GameItemWithSelected
 import com.yapp.bol.presentation.model.HomeGameItemUiModel
@@ -34,8 +35,7 @@ class UserRankViewModel @Inject constructor(
     private val _gameListFlow = MutableStateFlow<List<HomeGameItemUiModel>>(emptyList())
     val gameListFlow: StateFlow<List<HomeGameItemUiModel>> = _gameListFlow
 
-    private val _userListFlow = MutableStateFlow<List<UserRankUiModel>>(emptyList())
-    val userListFlow: StateFlow<List<UserRankUiModel>> = _userListFlow
+
     private var userListFetchJob: Job? = null
 
     private val _groupListFlow = MutableStateFlow<List<DrawerGroupInfoUiModel>>(emptyList())
@@ -43,11 +43,11 @@ class UserRankViewModel @Inject constructor(
 
     private var selectedPosition: Int = RV_SELECTED_POSITION_RESET
 
-    private val _userUiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
-    val userUiState: StateFlow<HomeUiState> = _userUiState
+    private val _userUiState = MutableStateFlow<HomeUiState<List<UserRankUiModel>>>(HomeUiState.Loading)
+    val userUiState: StateFlow<HomeUiState<List<UserRankUiModel>>> = _userUiState
 
-    private val _groupUiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
-    val groupUiState: StateFlow<HomeUiState> = _groupUiState
+    private val _groupUiState = MutableStateFlow<HomeUiStateNeedRefactor>(HomeUiStateNeedRefactor.Loading)
+    val groupUiState: StateFlow<HomeUiStateNeedRefactor> = _groupUiState
 
     fun setGameItemSelected(newPosition: Int) {
         val gameUiList: MutableList<HomeGameItemUiModel> = _gameListFlow.value.toMutableList()
@@ -76,7 +76,7 @@ class UserRankViewModel @Inject constructor(
     fun getGameItemSelectedPosition(): Int = selectedPosition
 
     fun fetchGameList(groupId: Long) {
-        _groupUiState.value = HomeUiState.Loading
+        _groupUiState.value = HomeUiStateNeedRefactor.Loading
 
         viewModelScope.launch {
             getUserRankGameListUseCase(groupId.toInt()).collectLatest {
@@ -92,9 +92,9 @@ class UserRankViewModel @Inject constructor(
 
                         _gameListFlow.value = gameUiList
                         fetchUserList(groupId, null)
-                        _groupUiState.value = HomeUiState.Success
+                        _groupUiState.value = HomeUiStateNeedRefactor.Success
                     },
-                    error = { throwable -> _groupUiState.value = HomeUiState.Error(throwable) },
+                    error = { throwable -> _groupUiState.value = HomeUiStateNeedRefactor.Error(throwable) },
                 )
             }
         }
@@ -118,7 +118,7 @@ class UserRankViewModel @Inject constructor(
     private fun fetchUserList(groupId: Long, gameId: Long?) {
         _userUiState.value = HomeUiState.Loading
         userListFetchJob?.cancel()
-        _userListFlow.value = emptyList()
+//        _userListFlow.value = emptyList()
 
         if (gameId == null) {
             selectedPosition = RV_SELECTED_POSITION_RESET
@@ -155,8 +155,7 @@ class UserRankViewModel @Inject constructor(
                         val resultList = mutableListOf<UserRankUiModel>(UserRankUiModel.UserRank1to3(user1to3))
                         resultList.addAll(userAfter4)
 
-                        _userListFlow.value = resultList
-                        _userUiState.value = HomeUiState.Success
+                        _userUiState.value = HomeUiState.Success(resultList)
                     },
                     error = { throwable ->
                         _userUiState.value = HomeUiState.Error(IllegalArgumentException(throwable))
@@ -176,7 +175,7 @@ class UserRankViewModel @Inject constructor(
                     success = { groupDetailItem ->
                         uiModelList.add(DrawerGroupInfoUiModel.CurrentGroupInfo(groupDetailItem))
                     },
-                    error = { throwable -> _groupUiState.value = HomeUiState.Error(throwable) }
+                    error = { throwable -> _groupUiState.value = HomeUiStateNeedRefactor.Error(throwable) }
                 )
             }
 
@@ -191,7 +190,7 @@ class UserRankViewModel @Inject constructor(
                         }
                         _groupListFlow.value = uiModelList
                     },
-                    error = { throwable -> _groupUiState.value = HomeUiState.Error(throwable) }
+                    error = { throwable -> _groupUiState.value = HomeUiStateNeedRefactor.Error(throwable) }
                 )
             }
         }
