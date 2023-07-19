@@ -35,7 +35,6 @@ class UserRankViewModel @Inject constructor(
     private val _gameListFlow = MutableStateFlow<List<HomeGameItemUiModel>>(emptyList())
     val gameListFlow: StateFlow<List<HomeGameItemUiModel>> = _gameListFlow
 
-
     private var userListFetchJob: Job? = null
 
     private val _groupListFlow = MutableStateFlow<List<DrawerGroupInfoUiModel>>(emptyList())
