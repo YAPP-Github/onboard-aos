@@ -77,7 +77,7 @@ class UserRankGameViewHolder(
         }.also { viewGame.tvGame.layoutParams = lpTv }
 
         viewGame.ivGameOutline.setImageDrawable(
-            AppCompatResources.getDrawable(binding.root.context,R.drawable.ic_game_outline_selected)
+            AppCompatResources.getDrawable(binding.root.context, R.drawable.ic_game_outline_selected)
         )
     }
 
@@ -103,7 +103,7 @@ class UserRankGameViewHolder(
         }.also { viewGame.tvGame.layoutParams = lpTv }
 
         viewGame.ivGameOutline.setImageDrawable(
-            AppCompatResources.getDrawable(binding.root.context,R.drawable.ic_game_outline_unselected)
+            AppCompatResources.getDrawable(binding.root.context, R.drawable.ic_game_outline_unselected)
         )
     }
 
