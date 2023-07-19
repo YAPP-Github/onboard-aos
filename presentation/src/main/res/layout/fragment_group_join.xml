@@ -13,6 +13,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
+        android:fitsSystemWindows="true"
         android:layout_height="match_parent"
         android:background="@drawable/bg_group_join_mock"> <!-- todo 게임 데이터 연동 시 이미지를 제거해야 합니다. -->
 
@@ -20,6 +21,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="18dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/btn_back"
+                    app:tint="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_back" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_belong_title"
@@ -81,7 +99,7 @@
                     android:id="@+id/group_item_game_view_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="18dp"
+                    android:layout_marginEnd="10dp"
                     app:gameTitle="가이아 프로..."
                     app:layout_constraintEnd_toStartOf="@id/group_item_game_view_2"
                     app:layout_constraintTop_toTopOf="parent"

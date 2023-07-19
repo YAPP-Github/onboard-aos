@@ -1,15 +1,17 @@
 package com.yapp.bol.presentation.view.group.join
 
+import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.FragmentGroupJoinBinding
+import com.yapp.bol.presentation.utils.backFragment
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.dpToPx
 import com.yapp.bol.presentation.utils.showToast
@@ -22,6 +24,11 @@ class GroupJoinFragment : Fragment() {
 
     private lateinit var binding: FragmentGroupJoinBinding
     private val viewModel by viewModels<GroupJoinViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStatusBarColorTransparent()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,12 +52,22 @@ class GroupJoinFragment : Fragment() {
     private fun initView() {
         binding.tvGroupJoin.setOnClickListener {
             if (MyGroupList.findMyGroup(viewModel.groupItem.value?.id) != null) {
-                Log.d("Debug", "initView: home 화면으로 이동")
                 requireContext().showToast("홈 화면으로 이동해야합니다.")
                 // todo home 화면으로 이동
             } else {
                 showRedeemInputDialog()
             }
+        }
+        binding.btnBack.setOnClickListener {
+            backFragment()
+        }
+    }
+
+    private fun setStatusBarColorTransparent() {
+       requireActivity().window.apply {
+            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            statusBarColor = Color.TRANSPARENT
+            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         }
     }
 
