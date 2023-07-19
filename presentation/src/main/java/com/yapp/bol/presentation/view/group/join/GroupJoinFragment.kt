@@ -64,7 +64,7 @@ class GroupJoinFragment : Fragment() {
     }
 
     private fun setStatusBarColorTransparent() {
-       requireActivity().window.apply {
+        requireActivity().window.apply {
             addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             statusBarColor = Color.TRANSPARENT
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -102,6 +102,7 @@ class GroupJoinFragment : Fragment() {
             .setTitle("프로필 설정")
             .setMessage("모임에서 사용할 닉네임을 10자 이하로 입력해주세요.")
             .setLimitSize(10)
+            .setSingleLine(true)
             .setHintText("닉네임을 입력해주세요.")
             .visibleInputCount(true)
             .visibleSummitButton(true)
