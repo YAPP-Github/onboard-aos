@@ -31,7 +31,7 @@ class UserRankItem1to3ViewHolder(
 
     fun bind(userRankItemList: List<UserRankItem>) {
         userRankItemList.forEachIndexed { index, userRankItem ->
-            when(index) {
+            when (index) {
                 First.index -> binding.viewRank1.setItems(userRankItem, First)
                 Second.index -> binding.viewRank2.setItems(userRankItem, Second)
                 Third.index -> binding.viewRank3.setItems(userRankItem, Third)

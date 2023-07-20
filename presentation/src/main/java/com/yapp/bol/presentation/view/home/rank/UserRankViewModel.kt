@@ -2,7 +2,6 @@ package com.yapp.bol.presentation.view.home.rank
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yapp.bol.domain.model.UserRankItem
 import com.yapp.bol.domain.usecase.group.GetGroupDetailUseCase
 import com.yapp.bol.domain.usecase.group.GetJoinedGroupUseCase
 import com.yapp.bol.domain.usecase.rank.GetUserRankGameListUseCase
@@ -14,7 +13,6 @@ import com.yapp.bol.presentation.model.HomeGameItemUiModel
 import com.yapp.bol.presentation.model.UserRankUiModel
 import com.yapp.bol.presentation.utils.checkedApiResult
 import com.yapp.bol.presentation.utils.config.HomeConfig.USER_RANK_LOAD_FORCE_DELAY
-import com.yapp.bol.presentation.utils.config.HomeConfig.USER_RV_1_TO_3_UI_RANK_THRESHOLD
 import com.yapp.bol.presentation.view.home.HomeUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -57,7 +55,8 @@ class UserRankViewModel @Inject constructor(
         }
 
     fun setGameItemSelected(newPosition: Int) {
-        val gameUiList: MutableList<HomeGameItemUiModel> = gameAndGroupUiState.value._data?.game?.toMutableList() ?: return
+        val gameUiList: MutableList<HomeGameItemUiModel> =
+            gameAndGroupUiState.value._data?.game?.toMutableList() ?: return
         val groupUiList: List<DrawerGroupInfoUiModel> = gameAndGroupUiState.value._data?.group ?: return
 
         val beforePosition = selectedPosition
