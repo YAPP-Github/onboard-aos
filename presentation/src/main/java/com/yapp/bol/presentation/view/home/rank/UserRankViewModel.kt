@@ -7,6 +7,7 @@ import com.yapp.bol.domain.usecase.group.GetGroupDetailUseCase
 import com.yapp.bol.domain.usecase.group.GetJoinedGroupUseCase
 import com.yapp.bol.domain.usecase.rank.GetUserRankGameListUseCase
 import com.yapp.bol.domain.usecase.rank.GetUserRankUseCase
+import com.yapp.bol.presentation.mapper.HomeMapper.toUserRankUiModel
 import com.yapp.bol.presentation.model.DrawerGroupInfoUiModel
 import com.yapp.bol.presentation.model.GameItemWithSelected
 import com.yapp.bol.presentation.model.HomeGameItemUiModel
@@ -154,23 +155,7 @@ class UserRankViewModel @Inject constructor(
             getUserRankUseCase(groupId.toInt(), gameId.toInt()).collectLatest {
                 checkedApiResult(
                     apiResult = it,
-                    success = { data ->
-                        val user1to3 = mutableListOf<UserRankItem>()
-                        val userAfter4 = mutableListOf<UserRankUiModel>()
-
-                        data.userRankItemList.map { item ->
-                            if (item.rank <= USER_RV_1_TO_3_UI_RANK_THRESHOLD) {
-                                user1to3.add(item)
-                            } else {
-                                userAfter4.add(UserRankUiModel.UserRankAfter4(item))
-                            }
-                        }
-
-                        val resultList = mutableListOf<UserRankUiModel>(UserRankUiModel.UserRank1to3(user1to3))
-                        resultList.addAll(userAfter4)
-
-                        _userUiState.value = HomeUiState.Success(resultList)
-                    },
+                    success = { data -> _userUiState.value = HomeUiState.Success(data.toUserRankUiModel()) },
                     error = { throwable ->
                         _userUiState.value = HomeUiState.Error(IllegalArgumentException(throwable))
                     },
