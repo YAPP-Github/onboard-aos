@@ -41,13 +41,13 @@ class UserRankViewModel @Inject constructor(
     private val _userUiState = MutableStateFlow<HomeUiState<List<UserRankUiModel>>>(HomeUiState.Loading)
     val userUiState: StateFlow<HomeUiState<List<UserRankUiModel>>> = _userUiState
 
-    private val _uiState = MutableStateFlow<HomeUiState<GameAndGroup>>(HomeUiState.Loading)
-    val uiState: StateFlow<HomeUiState<GameAndGroup>> = _uiState
+    private val _gameAndGroupUiState = MutableStateFlow<HomeUiState<GameAndGroup>>(HomeUiState.Loading)
+    val gameAndGroupUiState: StateFlow<HomeUiState<GameAndGroup>> = _gameAndGroupUiState
 
 
     fun setGameItemSelected(newPosition: Int) {
-        val gameUiList: MutableList<HomeGameItemUiModel> = uiState.value._data?.game?.toMutableList() ?: return
-        val groupUiList: List<DrawerGroupInfoUiModel> = uiState.value._data?.group ?: return
+        val gameUiList: MutableList<HomeGameItemUiModel> = gameAndGroupUiState.value._data?.game?.toMutableList() ?: return
+        val groupUiList: List<DrawerGroupInfoUiModel> = gameAndGroupUiState.value._data?.group ?: return
 
         val beforePosition = selectedPosition
 
@@ -66,12 +66,12 @@ class UserRankViewModel @Inject constructor(
         }
 
         selectedPosition = newPosition
-        _uiState.value = HomeUiState.Success(GameAndGroup(gameUiList, groupUiList))
+        _gameAndGroupUiState.value = HomeUiState.Success(GameAndGroup(gameUiList, groupUiList))
     }
 
-    fun fetchGameAndGroup(groupId: Long) {
+    fun fetchAll(groupId: Long) {
         viewModelScope.launch {
-            _uiState.value = HomeUiState.Loading
+            _gameAndGroupUiState.value = HomeUiState.Loading
 
             val gameItemFlow = getUserRankGameListUseCase(groupId = groupId.toInt())
             val currentGroupFlow = getGroupDetailUseCase(groupId)
@@ -119,9 +119,9 @@ class UserRankViewModel @Inject constructor(
                         error = { throwable -> throw throwable }
                     )
                 }
-                .catch { _uiState.value = HomeUiState.Error(it) }
+                .catch { _gameAndGroupUiState.value = HomeUiState.Error(it) }
                 .collectLatest {
-                    _uiState.value = HomeUiState.Success(GameAndGroup(game, group))
+                    _gameAndGroupUiState.value = HomeUiState.Success(GameAndGroup(game, group))
                     fetchUserList(groupId, gameId)
                     setGameItemSelected(gameIndex)
                 }

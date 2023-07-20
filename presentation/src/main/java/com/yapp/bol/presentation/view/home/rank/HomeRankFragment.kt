@@ -44,7 +44,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
         setHomeRecyclerView()
         setDrawer()
-        observeGameUiState(drawerGroupInfoAdapter, userRankGameAdapter)
+        observeGameAndGroupUiState(drawerGroupInfoAdapter, userRankGameAdapter)
 
         setStatusBarColor(this@HomeRankFragment.requireActivity(), designsystemR.color.Gray_14, isIconBlack = false)
 
@@ -53,7 +53,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
     private fun initViewModel() {
         viewModel.apply {
-            fetchGameAndGroup(groupId)
+            fetchAll(groupId)
         }
     }
 
@@ -108,7 +108,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
             viewModel.apply {
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
                 groupId = id
-                viewModel.fetchGameAndGroup(groupId)
+                viewModel.fetchAll(groupId)
             }
         }
 
@@ -132,12 +132,14 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
     private fun setCurrentGroupInfo(currentGroupInfo: DrawerGroupInfoUiModel.CurrentGroupInfo) {
         binding.apply {
-            viewHeader.tvGroupName.text = currentGroupInfo.groupDetailItem.name
-            tvGroupName.text = currentGroupInfo.groupDetailItem.name
-            viewRankNotFound.tvCode.text = currentGroupInfo.groupDetailItem.accessCode
-            viewRankNotFound.btnCodeCopy.setOnClickListener {
-                currentGroupInfo.groupDetailItem.accessCode.copyToClipboard(root.context)
-                binding.root.context.showToast(R.string.copy_access_code, Toast.LENGTH_SHORT)
+            currentGroupInfo.groupDetailItem.let { item ->
+                viewHeader.tvGroupName.text = item.name
+                tvGroupName.text = item.name
+                viewRankNotFound.tvCode.text = item.accessCode
+                viewRankNotFound.btnCodeCopy.setOnClickListener {
+                    item.accessCode.copyToClipboard(root.context)
+                    root.context.showToast(R.string.copy_access_code, Toast.LENGTH_SHORT)
+                }
             }
         }
     }
@@ -191,17 +193,16 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
         SnackBarHomeReload.make(
             view = binding.root,
             onClick = {
-
-                viewModel.fetchGameAndGroup(groupId)
+                viewModel.fetchAll(groupId)
             }
         )
     }
 
-    private fun observeGameUiState(
+    private fun observeGameAndGroupUiState(
         drawerGroupInfoAdapter: DrawerGroupInfoAdapter,
         userRankGameAdapter: UserRankGameAdapter,
     ) {
-        viewModel.uiState.collectWithLifecycle(this) { uiState ->
+        viewModel.gameAndGroupUiState.collectWithLifecycle(this) { uiState ->
             when (uiState) {
                 is HomeUiState.Success -> {
                     uiState.data.group.map { uiModel ->
