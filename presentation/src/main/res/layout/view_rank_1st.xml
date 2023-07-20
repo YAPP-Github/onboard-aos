@@ -50,6 +50,15 @@
             app:layout_constraintTop_toBottomOf="@+id/img_dice_bottom"
             android:layout_marginTop="14dp" />
 
+        <View
+            android:id="@+id/iv_recent_user"
+            android:layout_width="4dp"
+            android:layout_height="4dp"
+            android:background="@drawable/ic_is_recent_user"
+            app:layout_constraintTop_toTopOf="@id/tv_name"
+            app:layout_constraintStart_toEndOf="@id/tv_name"
+            android:visibility="gone"/>
+
         <LinearLayout
             android:id="@+id/ll_win_rate"
             android:layout_width="84dp"

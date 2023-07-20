@@ -1,6 +1,7 @@
 package com.yapp.bol.presentation.view.home.rank.user
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.domain.model.UserRankItem
@@ -24,10 +25,15 @@ class UserRankItemAfter4ViewHolder(
     }
 
     private fun ItemRankAfter4Binding.setItems(userRankItem: UserRankItem) {
-        tvRank.text = userRankItem.rank.toString()
-        tvName.text = userRankItem.name
-        tvPlayCount.text = userRankItem.playCount.convertPlayCount()
-        tvWinRate.text = userRankItem.winRate.convertWinRate()
+        userRankItem.apply {
+            tvRank.text = rank.toString()
+            tvName.text = name
+            tvPlayCount.text = playCount.convertPlayCount()
+            tvWinRate.text = winRate.convertWinRate()
+            ivRecentUser.visibility = if (isChangeRecent) {
+                View.VISIBLE
+            } else { View.GONE }
+        }
     }
 
     companion object {

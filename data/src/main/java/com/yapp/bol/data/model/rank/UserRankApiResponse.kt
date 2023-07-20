@@ -15,4 +15,6 @@ data class UserRankDTO(
     val winRate: Double?,
     @SerializedName("matchCount")
     val playCount: Int?,
+    @SerializedName("isChangeRecent")
+    val isChangeRecent: Boolean,
 )

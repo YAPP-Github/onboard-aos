@@ -10,4 +10,5 @@ data class UserRankItem(
     val name: String,
     val winRate: Double?,
     val playCount: Int?,
+    val isChangeRecent: Boolean,
 )

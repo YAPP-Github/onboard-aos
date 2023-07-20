@@ -1,6 +1,7 @@
 package com.yapp.bol.presentation.view.home.rank.user
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.domain.model.UserRankItem
@@ -41,23 +42,38 @@ class UserRankItem1to3ViewHolder(
 
     private fun ViewRank1stBinding.setItems(userRankItem: UserRankItem, rank: Ordinal) {
         tvRank.text = rank.presentData
-        tvName.text = userRankItem.name
-        tvPlayCount.text = userRankItem.playCount.convertPlayCount()
-        tvWinRate.text = userRankItem.winRate.convertWinRate()
+        userRankItem.apply {
+            tvName.text = name
+            tvPlayCount.text = playCount.convertPlayCount()
+            tvWinRate.text = winRate.convertWinRate()
+            ivRecentUser.visibility = if (isChangeRecent) {
+                View.VISIBLE
+            } else { View.GONE }
+        }
     }
 
     private fun ViewRank2ndBinding.setItems(userRankItem: UserRankItem, rank: Ordinal) {
         tvRank.text = rank.presentData
-        tvName.text = userRankItem.name
-        tvPlayCount.text = userRankItem.playCount.convertPlayCount()
-        tvWinRate.text = userRankItem.winRate.convertWinRate()
+        userRankItem.apply {
+            tvName.text = name
+            tvPlayCount.text = playCount.convertPlayCount()
+            tvWinRate.text = winRate.convertWinRate()
+            ivRecentUser.visibility = if (isChangeRecent) {
+                View.VISIBLE
+            } else { View.GONE }
+        }
     }
 
     private fun ViewRank3rdBinding.setItems(userRankItem: UserRankItem, rank: Ordinal) {
         tvRank.text = rank.presentData
-        tvName.text = userRankItem.name
-        tvPlayCount.text = userRankItem.playCount.convertPlayCount()
-        tvWinRate.text = userRankItem.winRate.convertWinRate()
+        userRankItem.apply {
+            tvName.text = name
+            tvPlayCount.text = playCount.convertPlayCount()
+            tvWinRate.text = winRate.convertWinRate()
+            ivRecentUser.visibility = if (isChangeRecent) {
+                View.VISIBLE
+            } else { View.GONE }
+        }
     }
 
     companion object {
