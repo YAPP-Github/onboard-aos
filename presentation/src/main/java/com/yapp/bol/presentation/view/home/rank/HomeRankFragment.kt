@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
-import com.yapp.bol.presentation.view.home.HomeUiState
 import com.yapp.bol.presentation.databinding.FragmentHomeRankBinding
 import com.yapp.bol.presentation.model.DrawerGroupInfoUiModel
 import com.yapp.bol.presentation.model.UserRankUiModel
@@ -20,6 +19,7 @@ import com.yapp.bol.presentation.utils.config.HomeConfig
 import com.yapp.bol.presentation.utils.copyToClipboard
 import com.yapp.bol.presentation.utils.setStatusBarColor
 import com.yapp.bol.presentation.utils.showToast
+import com.yapp.bol.presentation.view.home.HomeUiState
 import com.yapp.bol.presentation.view.home.rank.UserRankViewModel.Companion.RV_SELECTED_POSITION_RESET
 import com.yapp.bol.presentation.view.home.rank.game.UserRankGameAdapter
 import com.yapp.bol.presentation.view.home.rank.game.UserRankGameLayoutManager
@@ -34,6 +34,8 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
     private var groupId: Long = 90
     private var gameId: Long = 0
+    private lateinit var drawerGroupInfoAdapter: DrawerGroupInfoAdapter
+    private lateinit var userRankGameAdapter: UserRankGameAdapter
 
     override fun onViewCreatedAction() {
         super.onViewCreatedAction()
@@ -42,7 +44,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
         setHomeRecyclerView()
         setDrawer()
-        observeGameUiState()
+        observeGameUiState(drawerGroupInfoAdapter, userRankGameAdapter)
 
         setStatusBarColor(this@HomeRankFragment.requireActivity(), designsystemR.color.Gray_14, isIconBlack = false)
 
@@ -51,8 +53,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
     private fun initViewModel() {
         viewModel.apply {
-            fetchGameList(groupId)
-            fetchJoinedGroupList(groupId)
+            fetchGameAndGroup(groupId)
         }
     }
 
@@ -66,16 +67,12 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
             this.gameId = gameId
             // TODO : 넘어오는 값으로 groupId 변경 필요
             viewModel.setGameItemSelected(position)
-            viewModel.fetchUserList(groupId, gameId)
+            viewModel.fetchUserList2(groupId, gameId)
         }
         val scrollAnimation: () -> Unit = {
             binding.rvGameList.smoothScrollToPosition(viewModel.getGameItemSelectedPosition())
         }
-        val userRankGameAdapter = UserRankGameAdapter(onClick, scrollAnimation)
-
-        viewModel.gameListFlow.collectWithLifecycle(this) { gameList ->
-            userRankGameAdapter.submitList(gameList)
-        }
+        userRankGameAdapter = UserRankGameAdapter(onClick, scrollAnimation)
 
         binding.rvGameList.apply {
             layoutManager = UserRankGameLayoutManager(
@@ -111,8 +108,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
             viewModel.apply {
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
                 groupId = id
-                fetchGameList(groupId = id)
-                fetchJoinedGroupList(id)
+                viewModel.fetchGameAndGroup(groupId)
             }
         }
 
@@ -121,20 +117,11 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
             it.copyToClipboard(binding.root.context)
         }
 
-        val drawerGroupInfoAdapter = DrawerGroupInfoAdapter(
+        drawerGroupInfoAdapter = DrawerGroupInfoAdapter(
             otherGroupOnClick = otherGroupOnClick,
             copyButtonOnClick = copyButtonOnClick,
         )
         binding.rvGroupInfo.adapter = drawerGroupInfoAdapter
-
-        viewModel.groupListFlow.collectWithLifecycle(this) { uiModelList ->
-            drawerGroupInfoAdapter.submitList(uiModelList)
-            uiModelList.map { uiModel ->
-                if (uiModel is DrawerGroupInfoUiModel.CurrentGroupInfo) {
-                    setCurrentGroupInfo(uiModel)
-                }
-            }
-        }
     }
 
     private fun bindExploreButton() {
@@ -159,7 +146,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
         SnackBarHomeReload.make(
             view = binding.root,
             onClick = {
-                viewModel.fetchUserList(groupId, gameId)
+                viewModel.fetchUserList2(groupId, gameId)
             }
         )
     }
@@ -204,25 +191,36 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
         SnackBarHomeReload.make(
             view = binding.root,
             onClick = {
-                viewModel.fetchGameList(groupId)
-                viewModel.fetchJoinedGroupList(groupId)
+
+                viewModel.fetchGameAndGroup(groupId)
             }
         )
     }
 
-    private fun observeGameUiState() {
-        viewModel.groupUiState.collectWithLifecycle(this) { uiState ->
+    private fun observeGameUiState(
+        drawerGroupInfoAdapter: DrawerGroupInfoAdapter,
+        userRankGameAdapter: UserRankGameAdapter,
+    ) {
+        viewModel.uiState.collectWithLifecycle(this) { uiState ->
             when (uiState) {
-                is HomeUiStateNeedRefactor.Success -> {
+                is HomeUiState.Success -> {
+                    uiState.data.group.map { uiModel ->
+                        if (uiModel is DrawerGroupInfoUiModel.CurrentGroupInfo) {
+                            setCurrentGroupInfo(uiModel)
+                        }
+                    }
+                    drawerGroupInfoAdapter.submitList(uiState.data.group)
+                    userRankGameAdapter.submitList(uiState.data.game)
+
                     binding.rvGameList.visibility = View.VISIBLE
                     gameSnackBar.dismiss()
                 }
 
-                is HomeUiStateNeedRefactor.Loading -> {
+                is HomeUiState.Loading -> {
                     binding.rvGameList.visibility = View.GONE
                 }
 
-                is HomeUiStateNeedRefactor.Error -> {
+                is HomeUiState.Error -> {
                     gameSnackBar.show()
                 }
             }

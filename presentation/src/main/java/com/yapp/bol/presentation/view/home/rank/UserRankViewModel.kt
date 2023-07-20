@@ -7,7 +7,6 @@ import com.yapp.bol.domain.usecase.group.GetGroupDetailUseCase
 import com.yapp.bol.domain.usecase.group.GetJoinedGroupUseCase
 import com.yapp.bol.domain.usecase.rank.GetUserRankGameListUseCase
 import com.yapp.bol.domain.usecase.rank.GetUserRankUseCase
-import com.yapp.bol.presentation.view.home.HomeUiState
 import com.yapp.bol.presentation.model.DrawerGroupInfoUiModel
 import com.yapp.bol.presentation.model.GameItemWithSelected
 import com.yapp.bol.presentation.model.HomeGameItemUiModel
@@ -15,12 +14,15 @@ import com.yapp.bol.presentation.model.UserRankUiModel
 import com.yapp.bol.presentation.utils.checkedApiResult
 import com.yapp.bol.presentation.utils.config.HomeConfig.USER_RANK_LOAD_FORCE_DELAY
 import com.yapp.bol.presentation.utils.config.HomeConfig.USER_RV_1_TO_3_UI_RANK_THRESHOLD
+import com.yapp.bol.presentation.view.home.HomeUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,27 +34,21 @@ class UserRankViewModel @Inject constructor(
     private val getGroupDetailUseCase: GetGroupDetailUseCase
 ) : ViewModel() {
 
-    private val _gameListFlow = MutableStateFlow<List<HomeGameItemUiModel>>(emptyList())
-    val gameListFlow: StateFlow<List<HomeGameItemUiModel>> = _gameListFlow
-
     private var userListFetchJob: Job? = null
-
-    private val _groupListFlow = MutableStateFlow<List<DrawerGroupInfoUiModel>>(emptyList())
-    val groupListFlow: StateFlow<List<DrawerGroupInfoUiModel>> = _groupListFlow
 
     private var selectedPosition: Int = RV_SELECTED_POSITION_RESET
 
     private val _userUiState = MutableStateFlow<HomeUiState<List<UserRankUiModel>>>(HomeUiState.Loading)
     val userUiState: StateFlow<HomeUiState<List<UserRankUiModel>>> = _userUiState
 
-    private val _groupUiState = MutableStateFlow<HomeUiStateNeedRefactor>(HomeUiStateNeedRefactor.Loading)
-    val groupUiState: StateFlow<HomeUiStateNeedRefactor> = _groupUiState
+    private val _uiState = MutableStateFlow<HomeUiState<GameAndGroup>>(HomeUiState.Loading)
+    val uiState: StateFlow<HomeUiState<GameAndGroup>> = _uiState
+
 
     fun setGameItemSelected(newPosition: Int) {
-        val gameUiList: MutableList<HomeGameItemUiModel> = _gameListFlow.value.toMutableList()
-        val beforePosition = selectedPosition
+        val gameUiList: MutableList<HomeGameItemUiModel> = uiState.value._data?.game?.toMutableList() ?: return
 
-        if (beforePosition == newPosition) { return }
+        val beforePosition = selectedPosition
 
         val beforeItem = gameUiList.getOrNull(beforePosition) as? HomeGameItemUiModel.GameItem
         beforeItem?.let {
@@ -69,74 +65,83 @@ class UserRankViewModel @Inject constructor(
         }
 
         selectedPosition = newPosition
-        _gameListFlow.value = gameUiList
+        _uiState.value = HomeUiState.Success(GameAndGroup(gameUiList, _uiState.value._data!!.group))
+    }
+
+    fun fetchGameAndGroup(groupId: Long) {
+        viewModelScope.launch {
+            _uiState.value = HomeUiState.Loading
+
+            val gameItemFlow = getUserRankGameListUseCase(groupId = groupId.toInt())
+            val currentGroupFlow = getGroupDetailUseCase(groupId)
+            val joinedGroupFlow = getJoinedGroupUseCase()
+            val game: MutableList<HomeGameItemUiModel> = mutableListOf()
+            val group: MutableList<DrawerGroupInfoUiModel> = mutableListOf()
+            var gameIndex = -1
+            var gameId = -1L
+
+            gameItemFlow
+                .combine(currentGroupFlow) { gameItem, currentGroup ->
+                    checkedApiResult(
+                        apiResult = gameItem,
+                        success = { data ->
+                            data.map {
+                                game.add(HomeGameItemUiModel.GameItem(GameItemWithSelected(it, false)))
+                            }
+                            game.add(0, HomeGameItemUiModel.Padding)
+                            game.add(HomeGameItemUiModel.Padding)
+
+                            gameIndex = data.size / 2
+                            gameId = data[data.size / 2].id
+                        },
+                        error = { throwable -> throw throwable }
+                    )
+
+                    checkedApiResult(
+                        apiResult = currentGroup,
+                        success = { data ->
+                            group.add(DrawerGroupInfoUiModel.CurrentGroupInfo(data))
+                        },
+                        error = { throwable -> throw throwable }
+                    )
+                }
+                .combine(joinedGroupFlow) { _, joinedGroup ->
+                    checkedApiResult(
+                        apiResult = joinedGroup,
+                        success = { data ->
+                            data.map { joinedGroupItem ->
+                                if (joinedGroupItem.id != groupId) {
+                                    group.add(DrawerGroupInfoUiModel.OtherGroupInfo(joinedGroupItem))
+                                }
+                            }
+                        },
+                        error = { throwable -> throw throwable }
+                    )
+                }
+                .catch { _uiState.value = HomeUiState.Error(it) }
+                .collectLatest {
+                    _uiState.value = HomeUiState.Success(GameAndGroup(game, group))
+                    fetchUserList(groupId, gameId)
+                    setGameItemSelected(gameIndex)
+                }
+        }
     }
 
     fun getGameItemSelectedPosition(): Int = selectedPosition
 
-    fun fetchGameList(groupId: Long) {
-        _groupUiState.value = HomeUiStateNeedRefactor.Loading
-
-        viewModelScope.launch {
-            getUserRankGameListUseCase(groupId.toInt()).collectLatest {
-                checkedApiResult(
-                    apiResult = it,
-                    success = { data ->
-                        val gameUiList: MutableList<HomeGameItemUiModel> = data.map { gameItem ->
-                            HomeGameItemUiModel.GameItem(GameItemWithSelected(gameItem, false))
-                        }.toMutableList()
-
-                        gameUiList.add(0, HomeGameItemUiModel.Padding)
-                        gameUiList.add(HomeGameItemUiModel.Padding)
-
-                        _gameListFlow.value = gameUiList
-                        fetchUserList(groupId, null)
-                        _groupUiState.value = HomeUiStateNeedRefactor.Success
-                    },
-                    error = { throwable -> _groupUiState.value = HomeUiStateNeedRefactor.Error(throwable) },
-                )
-            }
-        }
-    }
-
-    fun fetchUserList(groupId: Long, gameId: Long) {
+    fun fetchUserList2(groupId: Long, gameId: Long) {
         val gameIdNullable: Long? = gameId
-        fetchUserList(groupId, gameIdNullable)
+        fetchUserList(groupId, gameId)
     }
 
-    private fun getMediumGameIndex(): Int {
-        var gameItemsSize = 0
-        _gameListFlow.value.map {
-            if (it is HomeGameItemUiModel.GameItem) {
-                gameItemsSize++
-            }
-        }
-        return gameItemsSize / 2
-    }
-
-    private fun fetchUserList(groupId: Long, gameId: Long?) {
+    private fun fetchUserList(groupId: Long, gameId: Long) {
         _userUiState.value = HomeUiState.Loading
         userListFetchJob?.cancel()
-//        _userListFlow.value = emptyList()
-
-        if (gameId == null) {
-            selectedPosition = RV_SELECTED_POSITION_RESET
-            setGameItemSelected(getMediumGameIndex())
-        }
-
-        val gameIdNotNull: Long = gameId ?: kotlin.run {
-            if (_gameListFlow.value.isNotEmpty()) {
-                (_gameListFlow.value[getMediumGameIndex()] as HomeGameItemUiModel.GameItem).item.gameItem.id
-            } else {
-                _userUiState.value = HomeUiState.Error(IllegalArgumentException("game not found"))
-                0
-            }
-        }
 
         userListFetchJob = viewModelScope.launch {
             delay(USER_RANK_LOAD_FORCE_DELAY)
 
-            getUserRankUseCase(groupId.toInt(), gameIdNotNull.toInt()).collectLatest {
+            getUserRankUseCase(groupId.toInt(), gameId.toInt()).collectLatest {
                 checkedApiResult(
                     apiResult = it,
                     success = { data ->
@@ -148,6 +153,7 @@ class UserRankViewModel @Inject constructor(
                                 user1to3.add(item)
                             } else {
                                 userAfter4.add(UserRankUiModel.UserRankAfter4(item))
+                                userAfter4.add(UserRankUiModel.UserRankAfter4(UserRankItem(5L, 5, gameId.toString(), 0.34213, 1)))
                             }
                         }
 
@@ -164,38 +170,12 @@ class UserRankViewModel @Inject constructor(
         }
     }
 
-    fun fetchJoinedGroupList(groupId: Long) {
-        viewModelScope.launch {
-            val uiModelList = mutableListOf<DrawerGroupInfoUiModel>()
-
-            getGroupDetailUseCase(groupId).collectLatest {
-                checkedApiResult(
-                    apiResult = it,
-                    success = { groupDetailItem ->
-                        uiModelList.add(DrawerGroupInfoUiModel.CurrentGroupInfo(groupDetailItem))
-                    },
-                    error = { throwable -> _groupUiState.value = HomeUiStateNeedRefactor.Error(throwable) }
-                )
-            }
-
-            getJoinedGroupUseCase().collectLatest {
-                checkedApiResult(
-                    apiResult = it,
-                    success = { joinedGroupItemList ->
-                        joinedGroupItemList.map { joinedGroupItem ->
-                            if (joinedGroupItem.id != groupId) {
-                                uiModelList.add(DrawerGroupInfoUiModel.OtherGroupInfo(joinedGroupItem))
-                            }
-                        }
-                        _groupListFlow.value = uiModelList
-                    },
-                    error = { throwable -> _groupUiState.value = HomeUiStateNeedRefactor.Error(throwable) }
-                )
-            }
-        }
-    }
-
     companion object {
         const val RV_SELECTED_POSITION_RESET = -1
     }
 }
+
+data class GameAndGroup(
+    val game: List<HomeGameItemUiModel>,
+    val group: List<DrawerGroupInfoUiModel>,
+)
