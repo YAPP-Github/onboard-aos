@@ -26,7 +26,9 @@ class UserRankItemAfter4ViewHolder(
 
     private fun ItemRankAfter4Binding.setItems(userRankItem: UserRankItem) {
         userRankItem.apply {
-            tvRank.text = rank.toString()
+            if (rank != null) {
+                tvRank.text = rank.toString()
+            } else { tvRank.text = "-" }
             tvName.text = name
             tvPlayCount.text = playCount.convertPlayCount()
             tvWinRate.text = winRate.convertWinRate()

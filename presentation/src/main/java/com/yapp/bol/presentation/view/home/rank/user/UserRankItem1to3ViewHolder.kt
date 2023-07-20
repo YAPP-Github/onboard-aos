@@ -30,19 +30,20 @@ class UserRankItem1to3ViewHolder(
     }
 
     fun bind(userRankItemList: List<UserRankItem>) {
-        userRankItemList.map {
-            when (it.rank) {
-                First.data -> binding.viewRank1.setItems(it, First)
-                Second.data -> binding.viewRank2.setItems(it, Second)
-                Third.data -> binding.viewRank3.setItems(it, Third)
-                else -> binding.viewRank1.setItems(it, First)
+        userRankItemList.forEachIndexed { index, userRankItem ->
+            when(index) {
+                First.index -> binding.viewRank1.setItems(userRankItem, First)
+                Second.index -> binding.viewRank2.setItems(userRankItem, Second)
+                Third.index -> binding.viewRank3.setItems(userRankItem, Third)
             }
         }
     }
 
     private fun ViewRank1stBinding.setItems(userRankItem: UserRankItem, rank: Ordinal) {
-        tvRank.text = rank.presentData
         userRankItem.apply {
+            if (this.rank != null) {
+                tvRank.text = rank.presentData
+            } else { tvRank.text = "-" }
             tvName.text = name
             tvPlayCount.text = playCount.convertPlayCount()
             tvWinRate.text = winRate.convertWinRate()
@@ -53,8 +54,10 @@ class UserRankItem1to3ViewHolder(
     }
 
     private fun ViewRank2ndBinding.setItems(userRankItem: UserRankItem, rank: Ordinal) {
-        tvRank.text = rank.presentData
         userRankItem.apply {
+            if (this.rank != null) {
+                tvRank.text = rank.presentData
+            } else { tvRank.text = "-" }
             tvName.text = name
             tvPlayCount.text = playCount.convertPlayCount()
             tvWinRate.text = winRate.convertWinRate()
@@ -65,8 +68,10 @@ class UserRankItem1to3ViewHolder(
     }
 
     private fun ViewRank3rdBinding.setItems(userRankItem: UserRankItem, rank: Ordinal) {
-        tvRank.text = rank.presentData
         userRankItem.apply {
+            if (this.rank != null) {
+                tvRank.text = rank.presentData
+            } else { tvRank.text = "-" }
             tvName.text = name
             tvPlayCount.text = playCount.convertPlayCount()
             tvWinRate.text = winRate.convertWinRate()
@@ -76,12 +81,12 @@ class UserRankItem1to3ViewHolder(
         }
     }
 
-    companion object {
-        sealed class Ordinal(val data: Int, val presentData: String)
-        object First : Ordinal(1, "1st")
-        object Second : Ordinal(2, "2nd")
-        object Third : Ordinal(3, "3rd")
+    sealed class Ordinal(val index: Int, val presentData: String)
+    object First : Ordinal(0, "1st")
+    object Second : Ordinal(1, "2nd")
+    object Third : Ordinal(2, "3rd")
 
+    companion object {
         fun create(parent: ViewGroup): UserRankItem1to3ViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             val view = inflater.inflate(R.layout.item_rank_1_to_3, parent, false)
