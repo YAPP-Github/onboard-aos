@@ -7,13 +7,13 @@ object Converter {
 
     fun Double?.convertWinRate(): String {
         return this?.let {
-            String.format("%.1f%%", this)
+            String.format(format = "%.1f%%", it)
         } ?: kotlin.run { "-" }
     }
 
     fun Int?.convertPlayCount(): String {
         return this?.let {
-            "${this}회"
+            "${it}회"
         } ?: kotlin.run { "-" }
     }
 }
