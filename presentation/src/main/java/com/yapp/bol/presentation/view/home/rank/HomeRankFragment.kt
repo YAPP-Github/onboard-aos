@@ -32,8 +32,6 @@ import com.yapp.bol.designsystem.R as designsystemR
 class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment_home_rank) {
     private val viewModel: UserRankViewModel by viewModels()
 
-    private var groupId: Long = 90
-    private var gameId: Long = 0
     private lateinit var drawerGroupInfoAdapter: DrawerGroupInfoAdapter
     private lateinit var userRankGameAdapter: UserRankGameAdapter
 
@@ -52,9 +50,8 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
     }
 
     private fun initViewModel() {
-        viewModel.apply {
-            fetchAll(groupId)
-        }
+        // TODO : Home 넘어오는 값으로 변경 필요
+        viewModel.groupId = 90
     }
 
     private fun setHomeRecyclerView() {
@@ -64,10 +61,8 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
     private fun setGameAdapter() {
         val onClick: (position: Int, gameId: Long) -> Unit = { position, gameId ->
-            this.gameId = gameId
-            // TODO : 넘어오는 값으로 groupId 변경 필요
             viewModel.setGameItemSelected(position)
-            viewModel.fetchUserList(groupId, gameId)
+            viewModel.gameId = gameId
         }
         val scrollAnimation: () -> Unit = {
             binding.rvGameList.smoothScrollToPosition(viewModel.getGameItemSelectedPosition())
@@ -108,7 +103,6 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
             viewModel.apply {
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
                 groupId = id
-                viewModel.fetchAll(groupId)
             }
         }
 
@@ -147,9 +141,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
     private val userRankSnackBar: SnackBarHomeReload by lazy {
         SnackBarHomeReload.make(
             view = binding.root,
-            onClick = {
-                viewModel.fetchUserList(groupId, gameId)
-            }
+            onClick = { viewModel.fetchUserList() }
         )
     }
 
@@ -192,9 +184,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
     private val gameSnackBar: SnackBarHomeReload by lazy {
         SnackBarHomeReload.make(
             view = binding.root,
-            onClick = {
-                viewModel.fetchAll(groupId)
-            }
+            onClick = { viewModel.fetchAll() }
         )
     }
 
