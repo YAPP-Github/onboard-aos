@@ -1,6 +1,7 @@
 package com.yapp.bol.presentation.view.home.rank
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.GravityCompat
@@ -107,8 +108,8 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
         }
 
         val copyButtonOnClick: (String) -> Unit = {
-            binding.root.context.showToast(R.string.copy_access_code, Toast.LENGTH_SHORT)
             it.copyToClipboard(binding.root.context)
+            showToastForAndroid13Below()
         }
 
         drawerGroupInfoAdapter = DrawerGroupInfoAdapter(
@@ -132,7 +133,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
                 viewRankNotFound.tvCode.text = item.accessCode
                 viewRankNotFound.btnCodeCopy.setOnClickListener {
                     item.accessCode.copyToClipboard(root.context)
-                    root.context.showToast(R.string.copy_access_code, Toast.LENGTH_SHORT)
+                    showToastForAndroid13Below()
                 }
             }
         }
@@ -227,6 +228,12 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
                 }
             }
         })
+    }
+
+    private fun showToastForAndroid13Below() {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S) {
+            binding.root.context.showToast(R.string.copy_access_code, Toast.LENGTH_SHORT)
+        }
     }
 
     private fun isSelectedPositionValid(): Boolean {
