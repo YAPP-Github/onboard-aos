@@ -6,6 +6,8 @@ import com.yapp.bol.domain.usecase.group.GetGroupDetailUseCase
 import com.yapp.bol.domain.usecase.group.GetJoinedGroupUseCase
 import com.yapp.bol.domain.usecase.rank.GetUserRankGameListUseCase
 import com.yapp.bol.domain.usecase.rank.GetUserRankUseCase
+import com.yapp.bol.presentation.mapper.HomeMapper.toHomeGameItemUiModelList
+import com.yapp.bol.presentation.mapper.HomeMapper.toOtherGroupInfoUiModel
 import com.yapp.bol.presentation.mapper.HomeMapper.toUserRankUiModel
 import com.yapp.bol.presentation.model.DrawerGroupInfoUiModel
 import com.yapp.bol.presentation.model.GameItemWithSelected
@@ -98,11 +100,7 @@ class UserRankViewModel @Inject constructor(
                     checkedApiResult(
                         apiResult = gameItem,
                         success = { data ->
-                            data.map {
-                                game.add(HomeGameItemUiModel.GameItem(GameItemWithSelected(it, false)))
-                            }
-                            game.add(0, HomeGameItemUiModel.Padding)
-                            game.add(HomeGameItemUiModel.Padding)
+                            game.addAll(data.toHomeGameItemUiModelList())
 
                             gameIndex = data.size / 2
                             gameId = data[data.size / 2].id
@@ -112,22 +110,14 @@ class UserRankViewModel @Inject constructor(
 
                     checkedApiResult(
                         apiResult = currentGroup,
-                        success = { data ->
-                            group.add(DrawerGroupInfoUiModel.CurrentGroupInfo(data))
-                        },
+                        success = { data -> group.add(DrawerGroupInfoUiModel.CurrentGroupInfo(data)) },
                         error = { throwable -> throw throwable }
                     )
                 }
                 .combine(joinedGroupFlow) { _, joinedGroup ->
                     checkedApiResult(
                         apiResult = joinedGroup,
-                        success = { data ->
-                            data.map { joinedGroupItem ->
-                                if (joinedGroupItem.id != groupId) {
-                                    group.add(DrawerGroupInfoUiModel.OtherGroupInfo(joinedGroupItem))
-                                }
-                            }
-                        },
+                        success = { data -> group.addAll(data.toOtherGroupInfoUiModel(currentGroupId = groupId)) },
                         error = { throwable -> throw throwable }
                     )
                 }
