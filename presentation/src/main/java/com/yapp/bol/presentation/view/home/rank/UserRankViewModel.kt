@@ -47,6 +47,7 @@ class UserRankViewModel @Inject constructor(
 
     fun setGameItemSelected(newPosition: Int) {
         val gameUiList: MutableList<HomeGameItemUiModel> = uiState.value._data?.game?.toMutableList() ?: return
+        val groupUiList: List<DrawerGroupInfoUiModel> = uiState.value._data?.group ?: return
 
         val beforePosition = selectedPosition
 
@@ -65,7 +66,7 @@ class UserRankViewModel @Inject constructor(
         }
 
         selectedPosition = newPosition
-        _uiState.value = HomeUiState.Success(GameAndGroup(gameUiList, _uiState.value._data!!.group))
+        _uiState.value = HomeUiState.Success(GameAndGroup(gameUiList, groupUiList))
     }
 
     fun fetchGameAndGroup(groupId: Long) {
@@ -129,12 +130,7 @@ class UserRankViewModel @Inject constructor(
 
     fun getGameItemSelectedPosition(): Int = selectedPosition
 
-    fun fetchUserList2(groupId: Long, gameId: Long) {
-        val gameIdNullable: Long? = gameId
-        fetchUserList(groupId, gameId)
-    }
-
-    private fun fetchUserList(groupId: Long, gameId: Long) {
+    fun fetchUserList(groupId: Long, gameId: Long) {
         _userUiState.value = HomeUiState.Loading
         userListFetchJob?.cancel()
 

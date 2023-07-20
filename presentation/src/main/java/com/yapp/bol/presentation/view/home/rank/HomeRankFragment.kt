@@ -67,7 +67,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
             this.gameId = gameId
             // TODO : 넘어오는 값으로 groupId 변경 필요
             viewModel.setGameItemSelected(position)
-            viewModel.fetchUserList2(groupId, gameId)
+            viewModel.fetchUserList(groupId, gameId)
         }
         val scrollAnimation: () -> Unit = {
             binding.rvGameList.smoothScrollToPosition(viewModel.getGameItemSelectedPosition())
@@ -146,7 +146,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
         SnackBarHomeReload.make(
             view = binding.root,
             onClick = {
-                viewModel.fetchUserList2(groupId, gameId)
+                viewModel.fetchUserList(groupId, gameId)
             }
         )
     }
