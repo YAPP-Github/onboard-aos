@@ -10,7 +10,7 @@
             android:id="@+id/tv_rank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1st"
+            android:text="@string/rank_default"
             android:textAppearance="@style/Typography.Label3_B"
             android:textColor="@color/Yellow"
             app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +61,7 @@
 
         <LinearLayout
             android:id="@+id/ll_win_rate"
-            android:layout_width="84dp"
+            android:layout_width="wrap_content"
             android:layout_height="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -91,7 +91,7 @@
             android:id="@+id/tv_play_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/rank_default_play_count"
+            android:text="@string/rank_default"
             android:textColor="@color/Gray_8"
             android:textAppearance="@style/Typography.Body5_R"
             app:layout_constraintEnd_toEndOf="parent"
