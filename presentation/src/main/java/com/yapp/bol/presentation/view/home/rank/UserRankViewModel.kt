@@ -149,7 +149,6 @@ class UserRankViewModel @Inject constructor(
                                 user1to3.add(item)
                             } else {
                                 userAfter4.add(UserRankUiModel.UserRankAfter4(item))
-                                userAfter4.add(UserRankUiModel.UserRankAfter4(UserRankItem(5L, 5, gameId.toString(), 0.34213, 1)))
                             }
                         }
 
