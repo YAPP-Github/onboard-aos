@@ -16,7 +16,6 @@ import com.yapp.bol.presentation.databinding.FragmentHomeRankBinding
 import com.yapp.bol.presentation.model.DrawerGroupInfoUiModel
 import com.yapp.bol.presentation.model.UserRankUiModel
 import com.yapp.bol.presentation.utils.collectWithLifecycle
-import com.yapp.bol.presentation.utils.config.HomeConfig
 import com.yapp.bol.presentation.utils.copyToClipboard
 import com.yapp.bol.presentation.utils.setStatusBarColor
 import com.yapp.bol.presentation.utils.showToast
@@ -148,12 +147,12 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
     private fun observeUserRankUiState(userRankAdapter: UserRankAdapter) {
         viewModel.userUiState.collectWithLifecycle(this) { uiState ->
-            fun List<UserRankUiModel>.isSizeNoRankThreshold(): Boolean = this.size == HomeConfig.NO_RANK_THRESHOLD
+            fun List<UserRankUiModel>.isNoRank(): Boolean = this.isEmpty()
 
             when (uiState) {
                 is HomeUiState.Success -> {
                     userRankSnackBar.dismiss()
-                    val isNoRank: Boolean = uiState.data.isSizeNoRankThreshold()
+                    val isNoRank: Boolean = uiState.data.isNoRank()
 
                     binding.apply {
                         if (isSelectedPositionValid()) {
