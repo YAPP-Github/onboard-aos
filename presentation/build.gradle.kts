@@ -104,6 +104,9 @@ dependencies {
 
     // Shimmer
     implementation(com.yapp.bol.Shimmer.SHIMMER)
+
+    // Lottie
+    implementation(com.yapp.bol.LOTTIE.LOTTIE)
 }
 
 fun getProperty(propertyKey: String): String {

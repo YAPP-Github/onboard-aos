@@ -109,3 +109,7 @@ object Navigation {
 object Shimmer {
     const val SHIMMER = "com.facebook.shimmer:shimmer:0.5.0"
 }
+
+object LOTTIE {
+    const val LOTTIE = "com.airbnb.android:lottie:5.2.0"
+}

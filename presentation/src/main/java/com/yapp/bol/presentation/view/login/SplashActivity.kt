@@ -18,10 +18,15 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     }
 
     private fun subscribeObservables() {
+        splashViewModel.animationState.observe(this) {
+            if(it.not()) return@observe
+            splashViewModel.getAccessToken()
+        }
+
         splashViewModel.accessToken.observe(this) {
             if (it == null) return@observe
             val targetActivity = if (it.isEmpty()) LoginActivity::class.java else GroupSearchActivityTest::class.java
-            startActivity(Intent(this, targetActivity))
+            startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
     }
