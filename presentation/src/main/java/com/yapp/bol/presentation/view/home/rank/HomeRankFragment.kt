@@ -90,6 +90,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
         setDrawerOpen()
         setDrawerAdapter()
         bindExploreButton()
+        bindSettingButton()
     }
 
     private fun setDrawerOpen() {
@@ -121,6 +122,12 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
     private fun bindExploreButton() {
         binding.viewFooter.llBtnExplore.setOnClickListener {
             binding.root.findNavController().navigate(R.id.action_homeRankFragment_to_homeExploreFragment)
+        }
+    }
+
+    private fun bindSettingButton() {
+        binding.viewFooter.btnSetting.setOnClickListener {
+            binding.root.findNavController().navigate(R.id.action_homeRankFragment_to_settingFragment)
         }
     }
 
