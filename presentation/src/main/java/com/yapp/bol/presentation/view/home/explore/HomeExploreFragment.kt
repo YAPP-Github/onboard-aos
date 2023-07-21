@@ -37,7 +37,6 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
         super.onViewCreatedAction()
         binding.viewGroupListLoading.root.visibility = View.GONE
         setAdapter()
-        backToHomeRank()
         setStatusBarColor(this@HomeExploreFragment.requireActivity(), designsystemR.color.Gray_1, isIconBlack = true)
         setNavigationBarColor(this@HomeExploreFragment.requireActivity(), designsystemR.color.Gray_1)
     }
@@ -119,18 +118,4 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
             }
         }
 
-    private fun backToHomeRank() {
-        binding.btnBack.setOnClickListener {
-            binding.root.findNavController().popBackStack()
-        }
-
-        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                view?.let {
-                    binding.root.findNavController().popBackStack()
-                }
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-    }
 }
