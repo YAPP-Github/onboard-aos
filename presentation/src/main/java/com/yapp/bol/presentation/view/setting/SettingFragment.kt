@@ -21,7 +21,6 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
         binding.apply {
             btnQuit.setOnClickListener {
                 findNavController().navigate(R.id.action_settingFragment_to_quitFragment)
-
             }
             btnTermsPrivacy.setOnClickListener {
                 val isPrivacyTerm = true

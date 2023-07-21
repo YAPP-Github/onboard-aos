@@ -123,5 +123,4 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
             binding.root.findNavController().popBackStack()
         }
     }
-
 }
