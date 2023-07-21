@@ -104,6 +104,12 @@ dependencies {
 
     // Shimmer
     implementation(com.yapp.bol.Shimmer.SHIMMER)
+
+    implementation(com.yapp.bol.Firebase.GMS_CLASSPATH)
+    implementation(com.yapp.bol.Firebase.ANALYSICES)
+    implementation(com.yapp.bol.Firebase.CRASHLYTICES)
+    implementation(com.yapp.bol.Firebase.FIREBASE_BOM)
+    implementation(com.yapp.bol.Firebase.GMS_CLASSPATH)
 }
 
 fun getProperty(propertyKey: String): String {

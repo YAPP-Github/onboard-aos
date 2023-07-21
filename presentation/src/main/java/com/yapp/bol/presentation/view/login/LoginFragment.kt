@@ -7,6 +7,7 @@ import com.kakao.sdk.auth.Constants.ACCESS_TOKEN
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentMainBinding
+import com.yapp.bol.presentation.firebase.analysis.GA
 import com.yapp.bol.presentation.utils.Constant
 import com.yapp.bol.presentation.view.login.auth.GoogleTestActivity
 import com.yapp.bol.presentation.view.login.auth.KakaoTestActivity
@@ -57,6 +58,8 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
         if (accessToken.isNotEmpty()) dialog.show()
         setButtonListener()
     }
+
+    override fun getScreenName(): String = GA.Screen.LOGIN
 
     private fun setButtonListener() {
         binding.btnGoogle.setOnClickListener {

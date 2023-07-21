@@ -5,6 +5,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.yapp.bol.presentation.firebase.analysis.Tracer
 
 abstract class BaseActivity<VD : ViewDataBinding>(@LayoutRes val layoutRes: Int) : AppCompatActivity() {
 
@@ -29,7 +30,17 @@ abstract class BaseActivity<VD : ViewDataBinding>(@LayoutRes val layoutRes: Int)
         onResumeAction()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
     protected open fun onCreateAction() {}
     protected open fun onStartAction() {}
     protected open fun onResumeAction() {}
+
+    private fun sendScreen() {
+        Tracer.screen(this, getScreenName())
+    }
+
+    abstract fun getScreenName(): String
 }

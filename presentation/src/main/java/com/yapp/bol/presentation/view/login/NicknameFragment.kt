@@ -5,6 +5,7 @@ import androidx.core.widget.doOnTextChanged
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentNicknameBinding
+import com.yapp.bol.presentation.firebase.analysis.GA
 import com.yapp.bol.presentation.utils.Converter
 import com.yapp.bol.presentation.view.group.NewGroupActivity
 import com.yapp.bol.presentation.view.group.search.GroupSearchActivityTest
@@ -25,4 +26,6 @@ class NicknameFragment : BaseFragment<FragmentNicknameBinding>(R.layout.fragment
             btnSignUp.isEnabled = (start + count) > 0
         }
     }
+
+    override fun getScreenName(): String  = GA.Screen.NICKNAME
 }

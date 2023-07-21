@@ -17,6 +17,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        throw RuntimeException("테스트 입니다") // Force a crash
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

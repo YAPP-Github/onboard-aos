@@ -20,4 +20,6 @@ class GroupSearchActivityTest : BaseActivity<ActivityGroupSearchTestBinding>(R.l
             addToBackStack("")
         }
     }
+
+    override fun getScreenName(): String = "GroupSearchActivityTest"
 }

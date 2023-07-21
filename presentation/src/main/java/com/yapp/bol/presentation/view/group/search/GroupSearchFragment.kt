@@ -120,4 +120,6 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
                 )
             }
         }
+
+    override fun getScreenName(): String = "GroupSearch"
 }

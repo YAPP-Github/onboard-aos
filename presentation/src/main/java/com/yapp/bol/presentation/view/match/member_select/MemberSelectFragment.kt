@@ -2,20 +2,19 @@ package com.yapp.bol.presentation.view.match.member_select
 
 import KeyboardVisibilityUtils
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.R
+import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentMemberSelectBinding
+import com.yapp.bol.presentation.firebase.analysis.GA
 import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
 import com.yapp.bol.presentation.utils.KeyboardManager
 import com.yapp.bol.presentation.view.match.MatchViewModel
@@ -24,10 +23,7 @@ import com.yapp.bol.presentation.view.match.game_select.GameSelectFragment.Compa
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MemberSelectFragment : Fragment() {
-
-    private var _binding: FragmentMemberSelectBinding? = null
-    private val binding get() = checkNotNull(_binding)
+class MemberSelectFragment : BaseFragment<FragmentMemberSelectBinding>(R.layout.fragment_member_select) {
 
     private val matchViewModel: MatchViewModel by activityViewModels()
     private val memberSelectViewModel: MemberSelectViewModel by viewModels()
@@ -54,15 +50,6 @@ class MemberSelectFragment : Fragment() {
     }
 
     private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        _binding = FragmentMemberSelectBinding.inflate(inflater, container, false)
-        return _binding?.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val gameName = arguments?.getString(GAME_NAME) ?: EMPTY_STRING
@@ -183,10 +170,11 @@ class MemberSelectFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        _binding = null
         keyboardVisibilityUtils.detachKeyboardListeners()
         super.onDestroyView()
     }
+
+    override fun getScreenName(): String = GA.Screen.MEMBER_SELECT
 
     companion object {
         const val PLAYERS = "Players"

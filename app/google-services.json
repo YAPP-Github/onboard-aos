@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "407255596267",
-    "project_id": "bol-yapp",
-    "storage_bucket": "bol-yapp.appspot.com"
+    "project_number": "499798963911",
+    "project_id": "onboard-ac873",
+    "storage_bucket": "onboard-ac873.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:407255596267:android:4c019570245194ce9c12ae",
+        "mobilesdk_app_id": "1:499798963911:android:1131f9fdf65121f94f30e2",
         "android_client_info": {
           "package_name": "com.yapp.bol.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "407255596267-pmr88ej2sarf4pga749rkd87ou0abt0m.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.yapp.bol.app",
-            "certificate_hash": "4f74bc1ae3696a7472c30ac68a2e30efa83818a2"
-          }
-        },
-        {
-          "client_id": "407255596267-oh8srvr5ddpv0qd53kdceeu8e7thjeld.apps.googleusercontent.com",
+          "client_id": "499798963911-qebacefq6dn8rbjj3krfbvd1ufdgsgdq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD3Jdmkogwo6YQP03yJMp6oJ8PTb7QSR94"
+          "current_key": "AIzaSyA02oiogyldJ61eBP4H0iPKznSr1c-YFf4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "407255596267-oh8srvr5ddpv0qd53kdceeu8e7thjeld.apps.googleusercontent.com",
+              "client_id": "499798963911-qebacefq6dn8rbjj3krfbvd1ufdgsgdq.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
