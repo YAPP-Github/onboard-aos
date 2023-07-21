@@ -13,9 +13,31 @@
             app:destination="@id/homeExploreFragment"
             app:enterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_homeRankFragment_to_settingFragment"
+            app:destination="@id/settingFragment"/>
     </fragment>
     <fragment
         android:id="@+id/homeExploreFragment"
         android:name="com.yapp.bol.presentation.view.home.explore.HomeExploreFragment"
         android:label="HomeExploreFragment" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.yapp.bol.presentation.view.setting.SettingFragment"
+        android:label="SettingFragment" >
+        <action
+            android:id="@+id/action_settingFragment_to_quitFragment"
+            app:destination="@id/quitFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_termFragment"
+            app:destination="@id/termFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/quitFragment"
+        android:name="com.yapp.bol.presentation.view.setting.QuitFragment"
+        android:label="QuitFragment" />
+    <fragment
+        android:id="@+id/termFragment"
+        android:name="com.yapp.bol.presentation.view.setting.TermFragment"
+        android:label="TermFragment" />
 </navigation>
