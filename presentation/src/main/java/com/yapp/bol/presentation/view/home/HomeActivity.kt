@@ -9,11 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
 
-    private lateinit var homeRankFragment: HomeRankFragment
-
     override fun onCreateAction() {
         super.onCreateAction()
-
-        homeRankFragment = HomeRankFragment()
     }
 }
