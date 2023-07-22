@@ -48,15 +48,15 @@ class BolRoundedButton(
     }
 
     private fun setEnableButton() {
+        binding.bgBtn.background = getRoundedButtonDrawableState(
+            context = binding.root.context,
+            type = buttonType,
+            color = buttonColor,
+            duration = animationDuration,
+        )
         binding.btnBol.apply {
             text = buttonText
             setTextColor(getEnableTextColor(buttonColor))
-            background = getRoundedButtonDrawableState(
-                context = binding.root.context,
-                type = buttonType,
-                color = buttonColor,
-                duration = animationDuration,
-            )
         }
     }
 
