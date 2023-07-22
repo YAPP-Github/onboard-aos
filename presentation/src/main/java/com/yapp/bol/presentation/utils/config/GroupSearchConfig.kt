@@ -1,4 +1,4 @@
-package com.yapp.bol.presentation.data
+package com.yapp.bol.presentation.utils.config
 
 object GroupSearchConfig {
     const val DEFAULT_QUERY = ""
