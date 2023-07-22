@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/home_navigation"
+    app:startDestination="@id/homeRankFragment">
+
+    <fragment
+        android:id="@+id/homeRankFragment"
+        android:name="com.yapp.bol.presentation.view.home.rank.HomeRankFragment"
+        android:label="HomeRankFragment" >
+        <action
+            android:id="@+id/action_homeRankFragment_to_homeExploreFragment"
+            app:destination="@id/homeExploreFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeExploreFragment"
+        android:name="com.yapp.bol.presentation.view.home.explore.HomeExploreFragment"
+        android:label="HomeExploreFragment" >
+        <action
+            android:id="@+id/action_homeExploreFragment_to_homeRankFragment"
+            app:destination="@id/homeRankFragment" />
+    </fragment>
+</navigation>

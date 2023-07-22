@@ -41,6 +41,7 @@ object AndroidX {
     const val COMPOSE = "androidx.activity:activity-compose:1.5.1"
     const val PAGING = "androidx.paging:paging-runtime:$PAGING_VERSION"
     const val PAGING_WITHOUT_ANDROID = "androidx.paging:paging-common:$PAGING_VERSION"
+    const val VIEW_PAGER = "androidx.viewpager2:viewpager2:1.0.0"
 }
 
 object Coroutines {

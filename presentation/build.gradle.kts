@@ -82,6 +82,7 @@ dependencies {
     implementation(com.yapp.bol.AndroidX.ACTIVITY)
     implementation(com.yapp.bol.AndroidX.FRAGMENT)
     implementation(com.yapp.bol.AndroidX.COMPOSE)
+    implementation(com.yapp.bol.AndroidX.VIEW_PAGER)
 
     // Coroutines
     implementation(com.yapp.bol.Coroutines.COROUTINES)
