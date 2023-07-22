@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:text="2nd"
             android:textAppearance="@style/Typography.Label4_B"
-            android:textColor="@color/Orange_6"
+            android:textColor="@color/Gray_8"
             android:layout_marginTop="39dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +67,7 @@
             <ImageView
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:src="@drawable/ic_3rd" />
+                android:src="@drawable/ic_2nd" />
 
             <TextView
                 android:id="@+id/tv_win_rate"
@@ -76,7 +76,7 @@
                 android:textAppearance="@style/Typography.Label3_B"
                 android:layout_marginStart="1dp"
                 tools:text="@string/rank_default"
-                android:textColor="@color/Orange_6" />
+                android:textColor="@color/Gray_8" />
 
         </LinearLayout>
 
