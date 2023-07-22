@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="324dp"
+        android:layout_height="68dp"
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/bg_item_rank_after_4">
+
+        <TextView
+            android:id="@+id/tv_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rank_default"
+            android:textAppearance="@style/Typography.Body4_M"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="23dp"/>
+
+        <ImageView
+            android:id="@+id/img_dice"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/img_dice"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="47dp"/>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="SAMPLE NAME"
+            app:layout_constraintStart_toEndOf="@id/img_dice"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:textAppearance="@style/Typography.Body3_M"
+            android:textColor="@color/Gray_14"/>
+
+        <TextView
+            android:id="@+id/tv_play_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rank_default_play_count"
+            app:layout_constraintStart_toStartOf="@id/tv_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_name"
+            android:layout_marginTop="2dp"
+            android:textAppearance="@style/Typography.Body5_R"
+            android:textColor="@color/Gray_8"/>
+
+        <TextView
+            android:id="@+id/tv_win_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rank_default"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_name"
+            android:layout_marginEnd="24dp"
+            android:textAppearance="@style/Typography.Body3_M"
+            android:textColor="@color/Gray_14"/>
+
+        <TextView
+            android:id="@+id/tv_play_count_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="승률"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_play_count"
+            android:layout_marginEnd="24dp"
+            android:textAppearance="@style/Typography.Body5_R"
+            android:textColor="@color/Gray_8"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
