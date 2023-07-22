@@ -1,5 +1,6 @@
 package com.yapp.bol.data.datasource.group
 
+import com.yapp.bol.data.model.group.GroupDetailResponse
 import com.yapp.bol.data.model.group.GroupSearchApiResponse
 import com.yapp.bol.data.model.group.JoinedGroupResponse
 import com.yapp.bol.domain.model.ApiResult
@@ -14,4 +15,6 @@ interface GroupDataSource {
     ): ApiResult<GroupSearchApiResponse>
 
     fun getJoinedGroup(): Flow<ApiResult<JoinedGroupResponse>>
+
+    fun getGroupDetail(groupId: Long): Flow<ApiResult<GroupDetailResponse>>
 }
