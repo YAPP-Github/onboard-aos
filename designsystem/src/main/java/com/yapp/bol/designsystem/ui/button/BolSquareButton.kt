@@ -15,13 +15,15 @@ class BolSquareButton constructor(
     attrs: AttributeSet
 ) : ConstraintLayout(context, attrs), BolBaseButton {
 
-    init {
-        if (!isInEditMode) { getAttrsValue(context, attrs) }
-    }
-
     private val binding: BolSquareButtonBinding by lazy {
         BolSquareButtonBinding.inflate(LayoutInflater.from(context), this, true)
     }
+
+    init {
+        binding
+        getAttrsValue(context, attrs)
+    }
+
     private var buttonText: String? = null
 
     private fun getAttrsValue(context: Context, attrs: AttributeSet) {
