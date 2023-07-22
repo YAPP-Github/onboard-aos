@@ -37,6 +37,7 @@
         android:id="@+id/btn_setting"
         android:layout_width="22dp"
         android:layout_height="22dp"
+        android:paddingHorizontal="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/ll_btn_explore"
         app:layout_constraintBottom_toBottomOf="@id/ll_btn_explore"
