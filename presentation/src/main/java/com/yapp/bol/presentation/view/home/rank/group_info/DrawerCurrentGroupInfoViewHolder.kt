@@ -15,16 +15,23 @@ class DrawerCurrentGroupInfoViewHolder(
 
     fun bind(groupDetailItem: GroupDetailItem) {
         binding.apply {
-            ivGroup.loadImage(groupDetailItem.profileImageUrl)
-            tvGroupDescription.text = groupDetailItem.description
-            tvGroupOrganization.text = groupDetailItem.organization
-            tvMemberCount.text = groupDetailItem.memberCount.toString()
-            tvManager.text = groupDetailItem.owner.nickname
-            tvCode.text = groupDetailItem.accessCode
-            btnCopy.setOnClickListener {
-                onClick(groupDetailItem.accessCode)
-            }
+            bindData(groupDetailItem)
+            setOnClickListener(groupDetailItem)
         }
+    }
+
+    private fun ItemGroupInfoDetailBinding.bindData(groupDetailItem: GroupDetailItem) {
+        ivGroup.loadImage(groupDetailItem.profileImageUrl)
+        tvGroupDescription.text = groupDetailItem.description
+        tvGroupOrganization.text = groupDetailItem.organization
+        tvMemberCount.text = groupDetailItem.memberCount.toString()
+        tvManager.text = groupDetailItem.owner.nickname
+        tvCode.text = groupDetailItem.accessCode
+    }
+
+    private fun ItemGroupInfoDetailBinding.setOnClickListener(groupDetailItem: GroupDetailItem) {
+        btnCopy.setOnClickListener { onClick(groupDetailItem.accessCode) }
+        tvCode.setOnClickListener { onClick(groupDetailItem.accessCode) }
     }
 
     companion object {

@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.domain.model.UserRankItem
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.ItemRankAfter4Binding
+import com.yapp.bol.presentation.utils.Converter.convertPlayCount
+import com.yapp.bol.presentation.utils.Converter.convertWinRate
 
 class UserRankItemAfter4ViewHolder(
     private val binding: ItemRankAfter4Binding
@@ -24,8 +26,8 @@ class UserRankItemAfter4ViewHolder(
     private fun ItemRankAfter4Binding.setItems(userRankItem: UserRankItem) {
         tvRank.text = userRankItem.rank.toString()
         tvName.text = userRankItem.name
-        tvPlayCount.text = userRankItem.playCount.toString()
-        tvWinRate.text = userRankItem.winRate.toString()
+        tvPlayCount.text = userRankItem.playCount.convertPlayCount()
+        tvWinRate.text = userRankItem.winRate.convertWinRate()
     }
 
     companion object {
