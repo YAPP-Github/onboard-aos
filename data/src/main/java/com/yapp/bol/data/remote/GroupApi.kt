@@ -9,6 +9,7 @@ import com.yapp.bol.data.model.group.response.GameApiResponse
 import com.yapp.bol.data.model.group.response.MemberValidApiResponse
 import com.yapp.bol.data.model.group.request.NewGroupApiRequest
 import com.yapp.bol.data.model.group.response.CheckGroupJoinByAccessCodeResponse
+import com.yapp.bol.data.model.group.response.GetGroupResponse
 import com.yapp.bol.data.model.group.response.NewGroupApiResponse
 import com.yapp.bol.data.model.group.response.GroupSearchApiResponse
 import retrofit2.Response
@@ -30,11 +31,16 @@ interface GroupApi {
         @Path("groupId") groupId: Int,
     ): Response<GameApiResponse>
 
-    @GET("/v1/group/1/member/validateNickname")
+    @GET("v1/group/{groupId}/member/validateNickname")
     suspend fun getValidateNickName(
-        @Query("groupId") groupId: Int,
+        @Path("groupId") groupId: Int,
         @Query("nickname") nickName: String,
     ): Response<MemberValidApiResponse>
+
+    @GET("v1/group/{groupId}")
+    suspend fun getGroupInfo(
+        @Path("groupId") groupId: Int,
+    ): Response<GetGroupResponse>
 
     @GET("/v1/group")
     suspend fun getGroupSearchResult(

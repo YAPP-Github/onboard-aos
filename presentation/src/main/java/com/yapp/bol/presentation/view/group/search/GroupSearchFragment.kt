@@ -39,7 +39,7 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
     private fun setAdapter() {
         val adapter = GroupListAdapter(
             showJoinGroupDialog = {
-                moveFragment(GroupJoinFragment(), "groupItem" to it)
+                moveFragment(GroupJoinFragment(), "groupId" to it.id)
             },
         )
 

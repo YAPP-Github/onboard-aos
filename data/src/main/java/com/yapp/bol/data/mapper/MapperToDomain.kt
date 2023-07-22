@@ -12,6 +12,7 @@ import com.yapp.bol.data.model.login.LoginResponse
 import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
 import com.yapp.bol.data.model.group.response.GameApiResponse
 import com.yapp.bol.data.model.group.response.GameResponse
+import com.yapp.bol.data.model.group.response.GetGroupResponse
 import com.yapp.bol.data.model.group.response.MemberValidApiResponse
 import com.yapp.bol.data.model.group.response.NewGroupApiResponse
 import com.yapp.bol.data.model.user.GetMyGroupListResponse
@@ -22,6 +23,8 @@ import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.model.MemberItem
 import com.yapp.bol.domain.model.MemberItems
 import com.yapp.bol.domain.model.NewGroupItem
+import com.yapp.bol.domain.model.OwnerItem
+import com.yapp.bol.domain.model.user.group.GetGroupItem
 import com.yapp.bol.domain.model.user.group.MyGroupItem
 
 internal object MapperToDomain {
@@ -165,5 +168,32 @@ internal object MapperToDomain {
             is ApiResult.Success -> ApiResult.Success(CheckGroupJoinByAccessCodeItem(data.isNewMember))
             is ApiResult.Error -> ApiResult.Error(exception)
         }
+    }
+
+    fun ApiResult<GetGroupResponse>.mapperToGetGroupItem():
+        ApiResult<GetGroupItem> {
+        return when (this) {
+            is ApiResult.Success -> ApiResult.Success(data.toItem())
+            is ApiResult.Error -> ApiResult.Error(exception)
+        }
+    }
+
+    private fun GetGroupResponse.toItem(): GetGroupItem {
+        return GetGroupItem(
+            id = this.id,
+            name = this.name,
+            description = this.description,
+            organization = this.organization,
+            profileImageUrl = this.profileImageUrl,
+            accessCode = this.accessCode,
+            memberCount = this.memberCount,
+            owner = OwnerItem(
+                id = this.owner.id,
+                level = this.owner.level,
+                nickname = this.owner.nickname,
+                role = this.owner.role,
+            ),
+
+        )
     }
 }

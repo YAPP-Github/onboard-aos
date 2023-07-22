@@ -9,6 +9,7 @@ import com.yapp.bol.data.model.group.request.CheckGroupJonByAccessCodeRequest
 import com.yapp.bol.data.model.group.request.NewGroupApiRequest
 import com.yapp.bol.data.model.group.response.CheckGroupJoinByAccessCodeResponse
 import com.yapp.bol.data.model.group.response.GameApiResponse
+import com.yapp.bol.data.model.group.response.GetGroupResponse
 import com.yapp.bol.data.model.group.response.MemberValidApiResponse
 import com.yapp.bol.data.model.group.response.NewGroupApiResponse
 import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
@@ -105,6 +106,13 @@ class RemoteDataSourceImpl @Inject constructor(
     ): Flow<ApiResult<BaseResponse>> = flow {
         val result = safeApiCall { groupApi.joinGroup(groupId, JoinGroupApiRequest(nickname, accessCode)) }
         emit(result)
+    }
+
+    override fun getGroupInfo(groupId: Int): Flow<ApiResult<GetGroupResponse>> {
+        return flow {
+            val result = safeApiCall { groupApi.getGroupInfo(groupId) }
+            emit(result)
+        }
     }
 
     override suspend fun postGuestMember(groupId: Int, nickname: String) {
