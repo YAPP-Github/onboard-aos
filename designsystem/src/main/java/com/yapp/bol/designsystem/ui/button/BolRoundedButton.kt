@@ -15,13 +15,15 @@ class BolRoundedButton(
     attrs: AttributeSet
 ) : ConstraintLayout(context, attrs), BolBaseButton {
 
-    init {
-        if (!isInEditMode) { getAttrsValue(context, attrs) }
-    }
-
     private val binding: BolRoundedButtonBinding by lazy {
         BolRoundedButtonBinding.inflate(LayoutInflater.from(context), this, true)
     }
+
+    init {
+        binding
+        getAttrsValue(context, attrs)
+    }
+
     private var buttonType: ButtonType = ButtonType.RoundedSquareType
     private var buttonColor: ButtonColor = ButtonColor.Orange
     private var buttonText: String? = null
