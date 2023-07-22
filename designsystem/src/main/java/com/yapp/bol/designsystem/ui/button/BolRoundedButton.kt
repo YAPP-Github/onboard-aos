@@ -70,7 +70,7 @@ class BolRoundedButton(
         ContextCompat.getColor(binding.root.context, R.color.Gray_7)
 
     /**
-     * Bol[Bottom]RoundedButton 비활성화 함수 
+     * Bol[Bottom]RoundedButton 비활성화 함수
      */
     override fun disableButton() {
         if (!binding.bgBtn.isEnabled) {
