@@ -1,41 +1,59 @@
 package com.yapp.bol.presentation.view.home.rank.game
 
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.yapp.bol.domain.model.GameItem
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.yapp.bol.presentation.R
+import com.yapp.bol.presentation.model.HomeGameItemUiModel
 
-class UserRankGameAdapter : ListAdapter<GameItem, UserRankGameViewHolder>(diff) {
+class UserRankGameAdapter(
+    private val onClick: (position: Int, gameId: Long) -> Unit
+) : ListAdapter<HomeGameItemUiModel, RecyclerView.ViewHolder>(diff) {
 
-    private var selectedPosition: Int = 0
-    private lateinit var onClick: (Int) -> Unit
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+        if (viewType == R.layout.item_rank_game_list) {
+            UserRankGameViewHolder.create(parent, onClick)
+        } else {
+            UserRankGamePaddingViewHolder.create(parent)
+        }
 
-    fun setOnClickListener(onClick: (Int) -> Unit) {
-        this.onClick = onClick
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val uiModel = getItem(position)
+        uiModel?.let {
+            when (uiModel) {
+                is HomeGameItemUiModel.GameItem ->
+                    (holder as UserRankGameViewHolder).bind(uiModel.item)
+
+                is HomeGameItemUiModel.Padding ->
+                    (holder as UserRankGamePaddingViewHolder).bind()
+            }
+        }
     }
 
-    fun getSelectedPosition(): Int = selectedPosition
-
-    fun setSelectedPosition(position: Int) {
-        selectedPosition = position
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserRankGameViewHolder =
-        UserRankGameViewHolder.create(parent, onClick)
-
-    override fun onBindViewHolder(holder: UserRankGameViewHolder, position: Int) {
-        getItem(position)?.let {
-            holder.bind(it, position == selectedPosition)
+    override fun getItemViewType(position: Int): Int {
+        return when (getItem(position)) {
+            is HomeGameItemUiModel.GameItem -> R.layout.item_rank_game_list
+            is HomeGameItemUiModel.Padding -> R.layout.item_rank_game_padding
         }
     }
 
     companion object {
-        private val diff = object : DiffUtil.ItemCallback<GameItem>() {
-            override fun areItemsTheSame(oldItem: GameItem, newItem: GameItem): Boolean {
-                return oldItem.id == newItem.id
+        private val diff = object : DiffUtil.ItemCallback<HomeGameItemUiModel>() {
+            override fun areItemsTheSame(oldItem: HomeGameItemUiModel, newItem: HomeGameItemUiModel): Boolean {
+                return when (oldItem) {
+                    is HomeGameItemUiModel.GameItem -> {
+                        newItem is HomeGameItemUiModel.GameItem &&
+                            oldItem.item.gameItem.id == newItem.item.gameItem.id
+                    }
+
+                    is HomeGameItemUiModel.Padding -> {
+                        newItem is HomeGameItemUiModel.Padding
+                    }
+                }
             }
 
-            override fun areContentsTheSame(oldItem: GameItem, newItem: GameItem): Boolean {
+            override fun areContentsTheSame(oldItem: HomeGameItemUiModel, newItem: HomeGameItemUiModel): Boolean {
                 return oldItem == newItem
             }
         }

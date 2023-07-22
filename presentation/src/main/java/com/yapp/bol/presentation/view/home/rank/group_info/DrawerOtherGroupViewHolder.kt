@@ -8,23 +8,26 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.ItemGroupInfoGroupNameBinding
 
 class DrawerOtherGroupViewHolder(
-    private val binding: ItemGroupInfoGroupNameBinding
+    private val binding: ItemGroupInfoGroupNameBinding,
+    private val onClick: (Long) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
-
-    init {
-        // TODO: Fragment 새로 생성 후..? or 현재거 갈아치우기?
-    }
 
     fun bind(joinedGroupItem: JoinedGroupItem) {
         binding.tvGroupName.text = joinedGroupItem.name
+        binding.root.setOnClickListener {
+            onClick(joinedGroupItem.id)
+        }
     }
 
     companion object {
-        fun create(parent: ViewGroup): DrawerOtherGroupViewHolder {
+        fun create(
+            parent: ViewGroup,
+            onClick: (Long) -> Unit
+        ): DrawerOtherGroupViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             val view = inflater.inflate(R.layout.item_group_info_group_name, parent, false)
             val binding = ItemGroupInfoGroupNameBinding.bind(view)
-            return DrawerOtherGroupViewHolder(binding)
+            return DrawerOtherGroupViewHolder(binding, onClick)
         }
     }
 }
