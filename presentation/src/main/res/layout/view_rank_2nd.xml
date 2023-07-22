@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/rank_default"
-            android:textAppearance="@style/Typography.Title4"
+            android:textAppearance="@style/Typography.Title5"
             android:textColor="@color/Gray_15"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,27 +64,27 @@
         <LinearLayout
             android:id="@+id/ll_win_rate"
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_name"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:layout_marginTop="2dp"
             android:orientation="horizontal"
             android:paddingHorizontal="8dp">
 
             <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:src="@drawable/ic_2nd" />
 
             <TextView
                 android:id="@+id/tv_win_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/Typography.Label3_B"
                 android:layout_marginStart="1dp"
                 android:text="@string/rank_default"
+                android:textAppearance="@style/Typography.Label4_B"
                 android:textColor="@color/Gray_8" />
 
         </LinearLayout>
