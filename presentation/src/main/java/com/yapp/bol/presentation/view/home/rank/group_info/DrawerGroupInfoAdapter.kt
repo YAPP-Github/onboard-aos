@@ -42,6 +42,7 @@ class DrawerGroupInfoAdapter : ListAdapter<DrawerGroupInfoUiModel, RecyclerView.
                     is DrawerGroupInfoUiModel.CurrentGroupInfo -> {
                         newItem is DrawerGroupInfoUiModel.CurrentGroupInfo &&
                             oldItem.groupDetailItem.id == newItem.groupDetailItem.id
+
                     }
 
                     is DrawerGroupInfoUiModel.OtherGroupInfo -> {
