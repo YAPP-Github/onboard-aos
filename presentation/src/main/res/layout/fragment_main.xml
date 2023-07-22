@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/onboard"
+            app:layout_constraintBottom_toTopOf="@+id/btn_kakao"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/img_dice"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_logo"
+            app:layout_constraintEnd_toEndOf="@+id/iv_logo"
+            app:layout_constraintStart_toStartOf="@+id/iv_logo"
+            app:layout_constraintTop_toTopOf="@+id/iv_logo" />
+
+        <TextView
+            android:id="@+id/tv_onboard_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            android:letterSpacing="-0.04"
+            android:text="보드게임을 더 즐겁게"
+            android:textAppearance="@style/Typography.Title2"
+            app:layout_constraintBottom_toTopOf="@+id/iv_logo"
+            app:layout_constraintEnd_toEndOf="@+id/iv_logo"
+            app:layout_constraintStart_toStartOf="@+id/iv_logo" />
+
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:letterSpacing="-0.04"
+            android:text="보드게임 랭킹 서비스"
+            android:textAppearance="@style/Typography.Body3_R"
+            android:textColor="@color/Gray_13"
+            app:layout_constraintEnd_toEndOf="@+id/iv_logo"
+            app:layout_constraintStart_toStartOf="@+id/iv_logo"
+            app:layout_constraintTop_toBottomOf="@+id/iv_logo" />
+
+        <ImageView
+            android:layout_width="156dp"
+            android:layout_height="156dp"
+            android:layout_marginEnd="-65dp"
+            android:rotation="25.21"
+            android:src="@drawable/img_dice"
+            app:layout_constraintBottom_toTopOf="@+id/tv_onboard_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="106dp"
+            android:layout_height="106dp"
+            android:layout_marginStart="-48dp"
+            android:rotation="-50.28"
+            android:src="@drawable/img_dice"
+            app:layout_constraintBottom_toTopOf="@+id/btn_kakao"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <TextView
+            android:id="@+id/btn_kakao"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginHorizontal="18dp"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/bg_yellow_8dp"
+            android:gravity="center"
+            android:text="카카오로 로그인"
+            android:textAppearance="@style/Typography.Body3_M"
+            android:textColor="@color/Gray_14"
+            app:layout_constraintBottom_toTopOf="@+id/btn_naver"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_logokakao"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_kakao"
+            app:layout_constraintStart_toStartOf="@+id/btn_kakao"
+            app:layout_constraintTop_toTopOf="@+id/btn_kakao" />
+
+        <TextView
+            android:id="@+id/btn_naver"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginHorizontal="18dp"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/bg_green_8dp"
+            android:gravity="center"
+            android:text="네이버로 로그인"
+            android:textAppearance="@style/Typography.Body3_M"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/btn_google"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_logonaver"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_naver"
+            app:layout_constraintStart_toStartOf="@+id/btn_naver"
+            app:layout_constraintTop_toTopOf="@+id/btn_naver" />
+
+        <TextView
+            android:id="@+id/btn_google"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginHorizontal="18dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/bg_white_radius_gary_9_8dp"
+            android:gravity="center"
+            android:text="Google로 로그인"
+            android:textAppearance="@style/Typography.Body3_M"
+            android:textColor="@color/Gray_9"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_logogoogle"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_google"
+            app:layout_constraintStart_toStartOf="@+id/btn_google"
+            app:layout_constraintTop_toTopOf="@+id/btn_google" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

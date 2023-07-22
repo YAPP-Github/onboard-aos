@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewGroupViewModel @Inject constructor(
-    private val newGroupUseCase: NewGroupUseCase
+    private val newGroupUseCase: NewGroupUseCase,
 ) : ViewModel() {
 
     private val _groupName = MutableLiveData(EMPTY_STRING)
@@ -37,20 +37,19 @@ class NewGroupViewModel @Inject constructor(
     val isCompleteButtonActivation
         get() = isInputTextValid(groupName.value) && isInputTextValid(groupDescription.value)
 
-    fun createNewGroup(token: String, nickName: String) {
+    fun createNewGroup(nickName: String) {
         viewModelScope.launch {
-            val imageUrl = withContext(Dispatchers.IO) { postFileUpload(token) }
+            val imageUrl = withContext(Dispatchers.IO) { postFileUpload() }
             postCreateGroup(nickName, imageUrl)
         }
     }
 
-    private suspend fun postFileUpload(token: String): String {
+    private suspend fun postFileUpload(): String {
         var imageUrl = EMPTY_STRING
-        newGroupUseCase.postFileUpload(token, imageFile).collectLatest {
+        newGroupUseCase.postFileUpload(imageFile).collectLatest {
             checkedApiResult(
                 apiResult = it,
                 success = { data -> imageUrl = data },
-                error = { throwable -> throw throwable }
             )
         }
         return imageUrl
@@ -61,13 +60,12 @@ class NewGroupViewModel @Inject constructor(
             name = groupName.value ?: EMPTY_STRING,
             description = groupDescription.value ?: EMPTY_STRING,
             organization = groupOrganization,
-            profileImageUrl = imageUrl,
+            imageUrl = imageUrl,
             nickname = nickName,
         ).collectLatest {
             checkedApiResult(
                 apiResult = it,
                 success = { data -> _successGroupDate.value = data },
-                error = { throwable -> throw throwable }
             )
         }
     }

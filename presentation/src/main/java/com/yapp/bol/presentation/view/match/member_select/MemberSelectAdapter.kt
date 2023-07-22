@@ -5,12 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.RvMemberSelectItemBinding
-import com.yapp.bol.presentation.model.MemberItem
+import com.yapp.bol.presentation.model.MemberInfo
+import com.yapp.bol.presentation.view.match.MatchActivity.Companion.GUEST
 
 class MemberSelectAdapter(
-    private val memberDeleteClickListener: (MemberItem) -> Unit,
-) : ListAdapter<MemberItem, MemberSelectAdapter.MemberSelectViewHolder>(diff) {
+    private val memberDeleteClickListener: (MemberInfo) -> Unit,
+) : ListAdapter<MemberInfo, MemberSelectAdapter.MemberSelectViewHolder>(diff) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemberSelectViewHolder {
         val binding =
@@ -26,11 +28,12 @@ class MemberSelectAdapter(
 
     class MemberSelectViewHolder(
         private val binding: RvMemberSelectItemBinding,
-        private val memberDeleteClickListener: (MemberItem) -> Unit,
+        private val memberDeleteClickListener: (MemberInfo) -> Unit,
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: MemberItem) {
-            binding.tvMemberName.text = item.name
+        fun bind(item: MemberInfo) {
+            binding.tvMemberName.text = item.nickname
+            setImageView(item)
             binding.btnMemberDelete.setOnClickListener {
                 memberDeleteClickListener(item)
             }
@@ -39,15 +42,20 @@ class MemberSelectAdapter(
                 memberDeleteClickListener(item)
             }
         }
+
+        private fun setImageView(item: MemberInfo) {
+            val image = if (item.role == GUEST) R.drawable.img_dice_empty_large else R.mipmap.ic_member_full_level
+            binding.ivMemberLevel.setImageResource(image)
+        }
     }
 
     companion object {
-        private val diff = object : DiffUtil.ItemCallback<MemberItem>() {
-            override fun areItemsTheSame(oldItem: MemberItem, newItem: MemberItem): Boolean {
-                return oldItem.name == newItem.name
+        private val diff = object : DiffUtil.ItemCallback<MemberInfo>() {
+            override fun areItemsTheSame(oldItem: MemberInfo, newItem: MemberInfo): Boolean {
+                return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: MemberItem, newItem: MemberItem): Boolean {
+            override fun areContentsTheSame(oldItem: MemberInfo, newItem: MemberInfo): Boolean {
                 return oldItem == newItem
             }
         }

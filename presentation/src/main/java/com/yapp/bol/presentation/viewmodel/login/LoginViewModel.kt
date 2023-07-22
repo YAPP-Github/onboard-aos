@@ -1,14 +1,18 @@
 package com.yapp.bol.presentation.viewmodel.login
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.usecase.auth.SaveAccessTokenUseCase
 import com.yapp.bol.domain.usecase.auth.SaveRefreshTokenUseCase
 import com.yapp.bol.domain.usecase.login.LoginUseCase
+import com.yapp.bol.domain.usecase.user.GetMyGroupListUseCase
+import com.yapp.bol.presentation.utils.checkedApiResult
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,15 +21,25 @@ class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val saveAccessTokenUseCase: SaveAccessTokenUseCase,
     private val saveRefreshTokenUseCase: SaveRefreshTokenUseCase,
+    private val getMyGroupListUseCase: GetMyGroupListUseCase,
 ) : ViewModel() {
 
-    private val _loginResult = MutableStateFlow<LoginItem?>(null)
-    val loginResult = _loginResult.asStateFlow()
+    private val _loginResult = MutableSharedFlow<LoginItem?>()
+    val loginResult = _loginResult.asSharedFlow()
 
     fun login(type: String, token: String) {
         viewModelScope.launch {
-            _loginResult.emit(loginUseCase.execute(type, token))
-            _loginResult.value?.let {
+            loginUseCase.execute(type, token)?.let {
+                getMyGroupListUseCase.execute().collectLatest {
+                    checkedApiResult(
+                        apiResult = it,
+                        success = { data -> MyGroupList.setMyGroupList(data) },
+                        error = { error -> Log.d("Debug", "login: ${error.message}") },
+                    )
+                }
+
+                _loginResult.emit(it)
+
                 saveAccessToken(it.accessToken)
                 saveRefreshToken(it.refreshToken)
             }

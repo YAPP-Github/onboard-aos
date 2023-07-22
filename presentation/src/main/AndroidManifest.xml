@@ -14,24 +14,27 @@
         </activity>
         <activity
             android:name=".view.match.MatchActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:exported="false" />
         <activity
             android:name=".view.group.NewGroupCompleteActivity"
             android:exported="false" />
         <activity
+            android:name=".view.group.GroupActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
             android:name=".view.group.NewGroupActivity"
             android:exported="false" />
         <activity
-            android:name=".view.login.GoogleTestActivity"
+            android:name=".view.login.auth.GoogleTestActivity"
             android:exported="false">
         </activity>
         <activity
-            android:name=".view.login.NaverTestActivity"
+            android:name=".view.login.auth.NaverTestActivity"
             android:exported="false">
         </activity>
         <activity
-            android:name=".view.login.KakaoTestActivity"
+            android:name=".view.login.auth.KakaoTestActivity"
             android:exported="false">
         </activity>
         <!-- Kakao 로그인 -->

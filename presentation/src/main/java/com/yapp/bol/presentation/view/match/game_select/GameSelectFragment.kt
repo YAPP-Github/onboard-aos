@@ -48,6 +48,8 @@ class GameSelectFragment : Fragment() {
             gameSelectAdapter.submitList(it)
         }
         matchViewModel.updateToolBarTitle(requireContext().resources.getString(R.string.game_result_record))
+
+        gameSelectViewModel.updateGroupId(matchViewModel.groupId)
     }
 
     override fun onDestroyView() {

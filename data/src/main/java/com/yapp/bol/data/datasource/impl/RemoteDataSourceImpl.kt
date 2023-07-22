@@ -1,18 +1,23 @@
 package com.yapp.bol.data.datasource.impl
 
-import com.yapp.bol.data.datasource.RemoteDataSource
 import com.yapp.bol.data.datasource.mock.impl.LoginType.toDomain
-import com.yapp.bol.data.model.OAuthApiRequest
-import com.yapp.bol.data.model.OAuthApiResponse
-import com.yapp.bol.data.model.file_upload.FileUploadResponse
-import com.yapp.bol.data.model.group.GameApiResponse
-import com.yapp.bol.data.model.group.MemberValidApiResponse
-import com.yapp.bol.data.model.group.NewGroupApiRequest
-import com.yapp.bol.data.model.group.NewGroupApiResponse
+import com.yapp.bol.data.model.base.BaseResponse
+import com.yapp.bol.data.model.group.GuestAddApiRequest
+import com.yapp.bol.data.model.group.JoinGroupApiRequest
+import com.yapp.bol.data.model.group.MemberListResponse
+import com.yapp.bol.data.model.group.request.CheckGroupJonByAccessCodeRequest
+import com.yapp.bol.data.model.group.request.NewGroupApiRequest
+import com.yapp.bol.data.model.group.response.CheckGroupJoinByAccessCodeResponse
+import com.yapp.bol.data.model.group.response.GameApiResponse
+import com.yapp.bol.data.model.group.response.MemberValidApiResponse
+import com.yapp.bol.data.model.group.response.NewGroupApiResponse
+import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
+import com.yapp.bol.data.model.login.LoginRequest
+import com.yapp.bol.data.model.login.LoginResponse
 import com.yapp.bol.data.remote.GroupApi
 import com.yapp.bol.data.remote.ImageFileApi
 import com.yapp.bol.data.remote.LoginApi
-import com.yapp.bol.data.utils.BaseRepository
+import com.yapp.bol.domain.handle.BaseRepository
 import com.yapp.bol.data.utils.Image.GROUP_IMAGE
 import com.yapp.bol.domain.model.ApiResult
 import kotlinx.coroutines.flow.Flow
@@ -26,24 +31,21 @@ import javax.inject.Inject
 
 class RemoteDataSourceImpl @Inject constructor(
     private val loginApi: LoginApi,
-    private val imageFileApi: ImageFileApi,
     private val groupApi: GroupApi,
+    private val imageApi: ImageFileApi,
 ) : BaseRepository(), RemoteDataSource {
 
-    override suspend fun login(type: String, token: String): OAuthApiResponse? {
-        return loginApi.postOAuthApi(OAuthApiRequest(type.toDomain(), token)).body()
+    override suspend fun login(type: String, token: String): LoginResponse? {
+        return loginApi.postOAuthApi(LoginRequest(type.toDomain(), token)).body()
     }
 
-    override fun postFileUpload(
-        token: String,
-        file: File
-    ): Flow<ApiResult<FileUploadResponse>> = flow {
+    override fun postFileUpload(file: File): Flow<ApiResult<ImageFileUploadResponse>> = flow {
         val fileBody = RequestBody.create(MediaType.parse(getMimeType(file.name)), file)
         val filePart = MultipartBody.Part.createFormData(FILE_KEY, file.name, fileBody)
         val purpose = RequestBody.create(MediaType.parse(getMimeType(file.name)), GROUP_IMAGE)
 
         val result = safeApiCall {
-            imageFileApi.postFileUpload(token = token.convertRequestToken(), file = filePart, purpose = purpose)
+            imageApi.postFileUpload(file = filePart, purpose = purpose)
         }
         emit(result)
     }
@@ -52,11 +54,11 @@ class RemoteDataSourceImpl @Inject constructor(
         name: String,
         description: String,
         organization: String,
-        profileImageUrl: String,
-        nickname: String
+        imageUrl: String,
+        nickname: String,
     ): Flow<ApiResult<NewGroupApiResponse>> = flow {
         val result = safeApiCall {
-            groupApi.postOAuthApi(NewGroupApiRequest(name, description, organization, profileImageUrl, nickname))
+            groupApi.postOAuthApi(NewGroupApiRequest(name, description, organization, imageUrl, nickname))
         }
         emit(result)
     }
@@ -74,8 +76,39 @@ class RemoteDataSourceImpl @Inject constructor(
         emit(result)
     }
 
-    private fun String.convertRequestToken(): String {
-        return "Bearer $this"
+    override fun getMemberList(
+        groupId: Int,
+        pageSize: Int,
+        cursor: String?,
+        nickname: String?,
+    ): Flow<ApiResult<MemberListResponse>> = flow {
+        val result = safeApiCall { groupApi.getMemberList(groupId, pageSize, cursor, nickname) }
+        emit(result)
+    }
+
+    override fun checkGroupJoinAccessCode(
+        groupId: String,
+        accessCode: String,
+    ): Flow<ApiResult<CheckGroupJoinByAccessCodeResponse>> {
+        return flow {
+            val result = safeApiCall {
+                groupApi.checkGroupJoinAccessCode(groupId, CheckGroupJonByAccessCodeRequest(accessCode))
+            }
+            emit(result)
+        }
+    }
+
+    override fun joinGroup(
+        groupId: String,
+        accessCode: String,
+        nickname: String,
+    ): Flow<ApiResult<BaseResponse>> = flow {
+        val result = safeApiCall { groupApi.joinGroup(groupId, JoinGroupApiRequest(nickname, accessCode)) }
+        emit(result)
+    }
+
+    override suspend fun postGuestMember(groupId: Int, nickname: String) {
+        groupApi.postGuestMember(groupId, GuestAddApiRequest(nickname))
     }
 
     private fun getMimeType(fileName: String): String {

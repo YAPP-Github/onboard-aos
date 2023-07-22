@@ -1,5 +1,6 @@
 package com.yapp.bol.presentation.view.group.search
 
+import android.content.Intent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
@@ -11,9 +12,13 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentGroupSearchBinding
 import com.yapp.bol.presentation.utils.loseFocusOnAction
+import com.yapp.bol.presentation.utils.moveFragment
 import com.yapp.bol.presentation.utils.textChangesToFlow
 import com.yapp.bol.presentation.utils.withLoadStateAdapters
+import com.yapp.bol.presentation.view.group.NewGroupActivity
+import com.yapp.bol.presentation.view.group.join.GroupJoinFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
@@ -33,7 +38,12 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
     }
 
     private fun setAdapter() {
-        val adapter = GroupListAdapter()
+        val adapter = GroupListAdapter(
+            showJoinGroupDialog = {
+                moveFragment(GroupJoinFragment(), "groupItem" to it)
+            },
+        )
+
         initPaging(adapter)
         binding.initSearchView(adapter)
         adapter.addOnPagesUpdatedListener {
@@ -44,7 +54,7 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
     private fun initPaging(adapter: GroupListAdapter) {
         val concatAdapter = adapter.withLoadStateAdapters(
             header = GroupListLoadStateAdapter { adapter.retry() },
-            footer = GroupListLoadStateAdapter { adapter.retry() }
+            footer = GroupListLoadStateAdapter { adapter.retry() },
         )
         binding.rvGroupList.adapter = concatAdapter
     }
@@ -65,11 +75,12 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
         editText.loseFocusOnAction(EditorInfo.IME_ACTION_SEARCH, this.root.context)
 
         binding.viewGroupSearch.btnCreateGroup.setOnClickListener {
-            // TODO : create transition
+            startActivity(Intent(requireContext(), NewGroupActivity::class.java))
         }
     }
 
     // search view의 edittext 세팅
+    @OptIn(FlowPreview::class)
     private fun FragmentGroupSearchBinding.initEditText(adapter: GroupListAdapter) {
         viewLifecycleOwner.lifecycleScope.launch {
             val editTextFlow = viewGroupSearch.etGroupSearch.textChangesToFlow()
@@ -101,10 +112,11 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
         viewLifecycleOwner.lifecycleScope.launch {
             when (isTyping) {
                 true -> setImageDrawable(
-                    AppCompatResources.getDrawable(binding.root.context, designsystemR.drawable.ic_x)
+                    AppCompatResources.getDrawable(binding.root.context, designsystemR.drawable.ic_x),
                 )
+
                 false -> setImageDrawable(
-                    AppCompatResources.getDrawable(binding.root.context, designsystemR.drawable.ic_search)
+                    AppCompatResources.getDrawable(binding.root.context, designsystemR.drawable.ic_search),
                 )
             }
         }

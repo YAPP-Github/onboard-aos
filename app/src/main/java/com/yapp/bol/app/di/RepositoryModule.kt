@@ -6,8 +6,10 @@ import com.yapp.bol.domain.repository.AuthRepository
 import com.yapp.bol.domain.repository.Repository
 import com.yapp.bol.data.repository.GroupRepositoryImpl
 import com.yapp.bol.data.repository.RankRepositoryImpl
+import com.yapp.bol.data.repository.user.UserRepositoryImpl
 import com.yapp.bol.domain.repository.GroupRepository
 import com.yapp.bol.domain.repository.RankRepository
+import com.yapp.bol.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -28,4 +30,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun bindRankRepository(repository: RankRepositoryImpl): RankRepository
+
+    @Binds
+    abstract fun bindUserRepository(repository: UserRepositoryImpl): UserRepository
 }

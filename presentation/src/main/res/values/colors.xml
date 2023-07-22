@@ -34,12 +34,21 @@
 
     <!--YELLOW-->
     <color name="Yellow">#FFBC10</color>
+    <color name="Yellow_1">#FEE40E</color>
+
+    <!--Green-->
+    <color name="Green">#03CF5D</color>
 
     <!--BLACK-->
     <color name="Black_TRANSPARENT_50">#80000000</color>
 
     <color name="black">#FF000000</color>
+
+    <color name="Black">#FF000000</color>
+    <color name="Black_alpha_85">#D9000000</color>
+    <color name="Black_alpha_50">#CC000000</color>
     <color name="white">#FFFFFFFF</color>
+
     <color name="new_group_background_color">#F5F5F5</color>
     <color name="btn_complete_text_color">#A7A7A7</color>
     <color name="hint_text_color">#9B9B9B</color>
@@ -55,4 +64,5 @@
     <color name="orange_09">#FF5F25</color>
     <color name="orange_10">#FF4D0D</color>
     <color name="gray_03">#F5F4F3</color>
+
 </resources>
