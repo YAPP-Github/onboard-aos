@@ -39,11 +39,11 @@ class BolSquareButton constructor(
     }
 
     private fun setEnableButton() {
-        binding.btnBol.apply {
+        binding.tvBtn.apply {
             text = buttonText
             setTextColor(getEnableTextColor())
-            background = getSquareButtonDrawableState(context, animationDuration)
         }
+        binding.bgBtn.background = getSquareButtonDrawableState(context, animationDuration)
     }
 
     private fun getEnableTextColor(): Int =
@@ -53,29 +53,32 @@ class BolSquareButton constructor(
         ContextCompat.getColor(binding.root.context, R.color.Gray_7)
 
     override fun disableButton() {
-        if (!binding.btnBol.isEnabled) {
+        if (!binding.bgBtn.isEnabled) {
             return
         }
 
-        binding.btnBol.apply {
+        binding.tvBtn.apply {
+            setTextColor(getDisableTextColor())
+        }
+
+        binding.bgBtn.apply {
             isEnabled = false
             background = AppCompatResources.getDrawable(context, R.drawable.bg_square_btn_disable)
-            setTextColor(getDisableTextColor())
         }
     }
 
     override fun setOnClickListener(onClick: () -> Unit) {
-        binding.btnBol.setOnClickListener {
+        binding.bgBtn.setOnClickListener {
             onClick()
         }
     }
 
     override fun enableButton() {
-        if (binding.btnBol.isEnabled) {
+        if (binding.bgBtn.isEnabled) {
             return
         }
 
-        binding.btnBol.isEnabled = true
+        binding.bgBtn.isEnabled = true
         setEnableButton()
     }
 }
