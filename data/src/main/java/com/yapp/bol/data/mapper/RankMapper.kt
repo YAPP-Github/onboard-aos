@@ -25,6 +25,7 @@ internal object RankMapper {
                 name = userRankDTO.name,
                 winRate = userRankDTO.winRate,
                 playCount = userRankDTO.playCount,
+                isChangeRecent = userRankDTO.isChangeRecent,
             )
         }
 }

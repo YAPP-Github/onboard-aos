@@ -1,6 +1,7 @@
 package com.yapp.bol.presentation.view.home.rank
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.GravityCompat
@@ -11,15 +12,14 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
-import com.yapp.bol.presentation.view.home.HomeUiState
 import com.yapp.bol.presentation.databinding.FragmentHomeRankBinding
 import com.yapp.bol.presentation.model.DrawerGroupInfoUiModel
 import com.yapp.bol.presentation.model.UserRankUiModel
 import com.yapp.bol.presentation.utils.collectWithLifecycle
-import com.yapp.bol.presentation.utils.config.HomeConfig
 import com.yapp.bol.presentation.utils.copyToClipboard
 import com.yapp.bol.presentation.utils.setStatusBarColor
 import com.yapp.bol.presentation.utils.showToast
+import com.yapp.bol.presentation.view.home.HomeUiState
 import com.yapp.bol.presentation.view.home.rank.UserRankViewModel.Companion.RV_SELECTED_POSITION_RESET
 import com.yapp.bol.presentation.view.home.rank.game.UserRankGameAdapter
 import com.yapp.bol.presentation.view.home.rank.game.UserRankGameLayoutManager
@@ -32,8 +32,8 @@ import com.yapp.bol.designsystem.R as designsystemR
 class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment_home_rank) {
     private val viewModel: UserRankViewModel by viewModels()
 
-    private var groupId: Long = 90
-    private var gameId: Long = 0
+    private lateinit var drawerGroupInfoAdapter: DrawerGroupInfoAdapter
+    private lateinit var userRankGameAdapter: UserRankGameAdapter
 
     override fun onViewCreatedAction() {
         super.onViewCreatedAction()
@@ -42,7 +42,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
         setHomeRecyclerView()
         setDrawer()
-        observeGameUiState()
+        observeGameAndGroupUiState(drawerGroupInfoAdapter, userRankGameAdapter)
 
         setStatusBarColor(this@HomeRankFragment.requireActivity(), designsystemR.color.Gray_14, isIconBlack = false)
 
@@ -50,10 +50,8 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
     }
 
     private fun initViewModel() {
-        viewModel.apply {
-            fetchGameList(groupId)
-            fetchJoinedGroupList(groupId)
-        }
+        // TODO : Home 넘어오는 값으로 변경 필요
+        viewModel.groupId = 90
     }
 
     private fun setHomeRecyclerView() {
@@ -63,19 +61,13 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
     private fun setGameAdapter() {
         val onClick: (position: Int, gameId: Long) -> Unit = { position, gameId ->
-            this.gameId = gameId
-            // TODO : 넘어오는 값으로 groupId 변경 필요
             viewModel.setGameItemSelected(position)
-            viewModel.fetchUserList(groupId, gameId)
+            viewModel.gameId = gameId
         }
         val scrollAnimation: () -> Unit = {
             binding.rvGameList.smoothScrollToPosition(viewModel.getGameItemSelectedPosition())
         }
-        val userRankGameAdapter = UserRankGameAdapter(onClick, scrollAnimation)
-
-        viewModel.gameListFlow.collectWithLifecycle(this) { gameList ->
-            userRankGameAdapter.submitList(gameList)
-        }
+        userRankGameAdapter = UserRankGameAdapter(onClick, scrollAnimation)
 
         binding.rvGameList.apply {
             layoutManager = UserRankGameLayoutManager(
@@ -111,30 +103,19 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
             viewModel.apply {
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
                 groupId = id
-                fetchGameList(groupId = id)
-                fetchJoinedGroupList(id)
             }
         }
 
         val copyButtonOnClick: (String) -> Unit = {
-            binding.root.context.showToast(R.string.copy_access_code, Toast.LENGTH_SHORT)
             it.copyToClipboard(binding.root.context)
+            showToastForAndroid13Below()
         }
 
-        val drawerGroupInfoAdapter = DrawerGroupInfoAdapter(
+        drawerGroupInfoAdapter = DrawerGroupInfoAdapter(
             otherGroupOnClick = otherGroupOnClick,
             copyButtonOnClick = copyButtonOnClick,
         )
         binding.rvGroupInfo.adapter = drawerGroupInfoAdapter
-
-        viewModel.groupListFlow.collectWithLifecycle(this) { uiModelList ->
-            drawerGroupInfoAdapter.submitList(uiModelList)
-            uiModelList.map { uiModel ->
-                if (uiModel is DrawerGroupInfoUiModel.CurrentGroupInfo) {
-                    setCurrentGroupInfo(uiModel)
-                }
-            }
-        }
     }
 
     private fun bindExploreButton() {
@@ -145,12 +126,14 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
     private fun setCurrentGroupInfo(currentGroupInfo: DrawerGroupInfoUiModel.CurrentGroupInfo) {
         binding.apply {
-            viewHeader.tvGroupName.text = currentGroupInfo.groupDetailItem.name
-            tvGroupName.text = currentGroupInfo.groupDetailItem.name
-            viewRankNotFound.tvCode.text = currentGroupInfo.groupDetailItem.accessCode
-            viewRankNotFound.btnCodeCopy.setOnClickListener {
-                currentGroupInfo.groupDetailItem.accessCode.copyToClipboard(root.context)
-                binding.root.context.showToast(R.string.copy_access_code, Toast.LENGTH_SHORT)
+            currentGroupInfo.groupDetailItem.let { item ->
+                viewHeader.tvGroupName.text = item.name
+                tvGroupName.text = item.name
+                viewRankNotFound.tvCode.text = item.accessCode
+                viewRankNotFound.btnCodeCopy.setOnClickListener {
+                    item.accessCode.copyToClipboard(root.context)
+                    showToastForAndroid13Below()
+                }
             }
         }
     }
@@ -158,20 +141,18 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
     private val userRankSnackBar: SnackBarHomeReload by lazy {
         SnackBarHomeReload.make(
             view = binding.root,
-            onClick = {
-                viewModel.fetchUserList(groupId, gameId)
-            }
+            onClick = { viewModel.fetchUserList() }
         )
     }
 
     private fun observeUserRankUiState(userRankAdapter: UserRankAdapter) {
         viewModel.userUiState.collectWithLifecycle(this) { uiState ->
-            fun List<UserRankUiModel>.isSizeNoRankThreshold(): Boolean = this.size == HomeConfig.NO_RANK_THRESHOLD
+            fun List<UserRankUiModel>.isNoRank(): Boolean = this.isEmpty()
 
             when (uiState) {
                 is HomeUiState.Success -> {
                     userRankSnackBar.dismiss()
-                    val isNoRank: Boolean = uiState.data.isSizeNoRankThreshold()
+                    val isNoRank: Boolean = uiState.data.isNoRank()
 
                     binding.apply {
                         if (isSelectedPositionValid()) {
@@ -203,26 +184,34 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
     private val gameSnackBar: SnackBarHomeReload by lazy {
         SnackBarHomeReload.make(
             view = binding.root,
-            onClick = {
-                viewModel.fetchGameList(groupId)
-                viewModel.fetchJoinedGroupList(groupId)
-            }
+            onClick = { viewModel.fetchAll() }
         )
     }
 
-    private fun observeGameUiState() {
-        viewModel.groupUiState.collectWithLifecycle(this) { uiState ->
+    private fun observeGameAndGroupUiState(
+        drawerGroupInfoAdapter: DrawerGroupInfoAdapter,
+        userRankGameAdapter: UserRankGameAdapter,
+    ) {
+        viewModel.gameAndGroupUiState.collectWithLifecycle(this) { uiState ->
             when (uiState) {
-                is HomeUiStateNeedRefactor.Success -> {
+                is HomeUiState.Success -> {
+                    uiState.data.group.map { uiModel ->
+                        if (uiModel is DrawerGroupInfoUiModel.CurrentGroupInfo) {
+                            setCurrentGroupInfo(uiModel)
+                        }
+                    }
+                    drawerGroupInfoAdapter.submitList(uiState.data.group)
+                    userRankGameAdapter.submitList(uiState.data.game)
+
                     binding.rvGameList.visibility = View.VISIBLE
                     gameSnackBar.dismiss()
                 }
 
-                is HomeUiStateNeedRefactor.Loading -> {
+                is HomeUiState.Loading -> {
                     binding.rvGameList.visibility = View.GONE
                 }
 
-                is HomeUiStateNeedRefactor.Error -> {
+                is HomeUiState.Error -> {
                     gameSnackBar.show()
                 }
             }
@@ -238,6 +227,12 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
                 }
             }
         })
+    }
+
+    private fun showToastForAndroid13Below() {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S) {
+            binding.root.context.showToast(R.string.copy_access_code, Toast.LENGTH_SHORT)
+        }
     }
 
     private fun isSelectedPositionValid(): Boolean {

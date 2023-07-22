@@ -42,6 +42,16 @@
             android:textAppearance="@style/Typography.Body3_M"
             android:textColor="@color/Gray_14"/>
 
+        <View
+            android:id="@+id/iv_recent_user"
+            android:layout_width="4dp"
+            android:layout_height="4dp"
+            android:layout_marginStart="2dp"
+            android:background="@drawable/ic_is_recent_user"
+            app:layout_constraintTop_toTopOf="@id/tv_name"
+            app:layout_constraintStart_toEndOf="@id/tv_name"
+            android:visibility="gone"/>
+
         <TextView
             android:id="@+id/tv_play_count"
             android:layout_width="wrap_content"
