@@ -44,7 +44,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
         setDrawer()
         observeGameAndGroupUiState(drawerGroupInfoAdapter, userRankGameAdapter)
 
-        setStatusBarColor(this@HomeRankFragment.requireActivity(), designsystemR.color.Gray_14, isIconBlack = false)
+        setStatusBarColor(this@HomeRankFragment.requireActivity(), designsystemR.color.Gray_15, isIconBlack = false)
 
         scrollCenterWhenUserRankTouchDown()
     }
