@@ -23,10 +23,12 @@ class GameSelectFragment : Fragment() {
     private val matchViewModel: MatchViewModel by activityViewModels()
     private val gameSelectViewModel: GameSelectViewModel by viewModels()
 
-    private val gameSelectAdapter = GameSelectAdapter { gameName ->
-        matchViewModel.updateGameName(gameName)
+    private val gameSelectAdapter = GameSelectAdapter { gameItem ->
+        matchViewModel.updateGameName(gameItem.name)
         val bundle = Bundle().apply {
-            putString(GAME_NAME, gameName)
+            putString(GAME_NAME, gameItem.name)
+            putInt(MAX_PLAYER, gameItem.maxMember)
+            putInt(MIN_PLAYER, gameItem.minMember)
         }
         findNavController().navigate(
             R.id.action_gameSelectFragment_to_memberSelectFragment, bundle
@@ -61,5 +63,7 @@ class GameSelectFragment : Fragment() {
 
     companion object {
         const val GAME_NAME = "Game Name"
+        const val MAX_PLAYER = "max player"
+        const val MIN_PLAYER = "min player"
     }
 }

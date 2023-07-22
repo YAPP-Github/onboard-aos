@@ -14,7 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.yapp.bol.presentation.R
+import com.yapp.bol.designsystem.R
 import com.yapp.bol.presentation.databinding.FragmentMemberSelectBinding
 import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
 import com.yapp.bol.presentation.utils.KeyboardManager
@@ -22,6 +22,8 @@ import com.yapp.bol.presentation.view.match.MatchActivity.Companion.MEMBER_SELEC
 import com.yapp.bol.presentation.view.match.MatchViewModel
 import com.yapp.bol.presentation.view.match.dialog.GuestAddDialog
 import com.yapp.bol.presentation.view.match.game_select.GameSelectFragment.Companion.GAME_NAME
+import com.yapp.bol.presentation.view.match.game_select.GameSelectFragment.Companion.MAX_PLAYER
+import com.yapp.bol.presentation.view.match.game_select.GameSelectFragment.Companion.MIN_PLAYER
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,14 +35,20 @@ class MemberSelectFragment : Fragment() {
     private val matchViewModel: MatchViewModel by activityViewModels()
     private val memberSelectViewModel: MemberSelectViewModel by viewModels()
 
-    private val memberSelectAdapter = MemberSelectAdapter { member ->
-        memberSelectViewModel.checkedSelectMembers(member)
-        memberSelectViewModel.clearMembers(member.id)
-    }
-    private val membersAdapter = MembersAdapter { member, position, isChecked ->
-        memberSelectViewModel.checkedSelectMembers(member)
-        memberSelectViewModel.updateMemberIsChecked(position, isChecked)
-    }
+    private val memberSelectAdapter = MemberSelectAdapter(
+        memberDeleteClickListener = { member ->
+            memberSelectViewModel.checkedSelectMembers(member)
+            memberSelectViewModel.clearMembers(member.id)
+        },
+    )
+    private val membersAdapter = MembersAdapter(
+        memberClickListener = { member, position, isChecked ->
+            memberSelectViewModel.checkedSelectMembers(member)
+            memberSelectViewModel.updateMemberIsChecked(position, isChecked)
+        },
+        checkedMaxPlayer = { memberSelectViewModel.checkedMaxPlayers() },
+        setMaxPlayerText = ::setPlayerGuide
+    )
 
     private val keyboardManager by lazy {
         KeyboardManager(requireActivity())
@@ -50,7 +58,12 @@ class MemberSelectFragment : Fragment() {
         GuestAddDialog(
             context = requireContext(),
             addGuest = { nickname -> memberSelectViewModel.addGuestMember(nickname) },
-            getValidateNickName = { nickname -> memberSelectViewModel.getValidateNickName(matchViewModel.groupId, nickname) },
+            getValidateNickName = { nickname ->
+                memberSelectViewModel.getValidateNickName(
+                    matchViewModel.groupId,
+                    nickname
+                )
+            },
         )
     }
 
@@ -67,9 +80,14 @@ class MemberSelectFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val gameName = arguments?.getString(GAME_NAME) ?: EMPTY_STRING
+        val maxPlayer = arguments?.getInt(MAX_PLAYER) ?: 0
+        val minPlayer = arguments?.getInt(MIN_PLAYER) ?: 0
+
         matchViewModel.updateToolBarTitle(gameName)
         matchViewModel.updateCurrentPage(MEMBER_SELECT)
         memberSelectViewModel.updateGroupId(matchViewModel.groupId)
+        memberSelectViewModel.setMaxPlayers(maxPlayer)
+        memberSelectViewModel.setMinPlayers(minPlayer)
 
         binding.rvMemberSelect.adapter = memberSelectAdapter
         binding.rvMembers.adapter = membersAdapter
@@ -166,7 +184,10 @@ class MemberSelectFragment : Fragment() {
             val bundle = Bundle().apply {
                 putParcelableArrayList(PLAYERS, memberSelectViewModel.dynamicPlayers)
             }
-            findNavController().navigate(R.id.action_memberSelectFragment_to_gameResultFragment, bundle)
+            findNavController().navigate(
+                com.yapp.bol.presentation.R.id.action_memberSelectFragment_to_gameResultFragment,
+                bundle
+            )
         }
     }
 
@@ -182,6 +203,24 @@ class MemberSelectFragment : Fragment() {
 
     private fun getInputTextValue(): String {
         return binding.etSearchMember.text.toString()
+    }
+
+    private fun setPlayerGuide() {
+        var text = ""
+        var color = 0
+        val isMaxPlayers = memberSelectViewModel.checkedMaxPlayers()
+        if (isMaxPlayers) {
+            text = getString(R.string.play_select_guide)
+            color = R.color.Gray_10
+        } else {
+            text = String.format(
+                requireContext().resources.getString(R.string.max_player_guide),
+                memberSelectViewModel.players.value?.size
+            )
+            color = R.color.Orange_10
+        }
+        binding.tvMemberSelectGuide.text = text
+        binding.tvMemberSelectGuide.setTextColor(ContextCompat.getColor(requireContext(), color))
     }
 
     override fun onDestroyView() {
