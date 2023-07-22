@@ -11,8 +11,6 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.showToast
 import com.yapp.bol.presentation.view.group.GroupActivity
-import com.yapp.bol.presentation.view.login.LoginActivity
-
 import com.yapp.bol.presentation.viewmodel.login.LoginType
 import com.yapp.bol.presentation.viewmodel.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
