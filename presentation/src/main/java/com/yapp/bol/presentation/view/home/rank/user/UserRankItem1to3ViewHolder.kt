@@ -1,7 +1,10 @@
-package com.yapp.bol.presentation.view.home.rank
+package com.yapp.bol.presentation.view.home.rank.user
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.domain.model.UserRankItem
+import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.ItemRank1To3Binding
 import com.yapp.bol.presentation.databinding.ViewRank1stBinding
 import com.yapp.bol.presentation.databinding.ViewRank2ndBinding
@@ -23,11 +26,14 @@ class UserRankItem1to3ViewHolder(
         }
     }
 
-    fun bind(userRankItem: UserRankItem) {
-        when (userRankItem.rank) {
-            First.data -> binding.viewRank1.setItems(userRankItem, First)
-            Second.data -> binding.viewRank2.setItems(userRankItem, Second)
-            else -> binding.viewRank3.setItems(userRankItem, Third)
+    fun bind(userRankItemList: List<UserRankItem>) {
+        userRankItemList.map {
+            when (it.rank) {
+                First.data -> binding.viewRank1.setItems(it, First)
+                Second.data -> binding.viewRank2.setItems(it, Second)
+                Third.data -> binding.viewRank3.setItems(it, Third)
+                else -> binding.viewRank1.setItems(it, First)
+            }
         }
     }
 
@@ -57,5 +63,12 @@ class UserRankItem1to3ViewHolder(
         object First : Ordinal(1, "1st")
         object Second : Ordinal(2, "2nd")
         object Third : Ordinal(3, "3rd")
+
+        fun create(parent: ViewGroup): UserRankItem1to3ViewHolder {
+            val inflater = LayoutInflater.from(parent.context)
+            val view = inflater.inflate(R.layout.item_rank_1_to_3, parent, false)
+            val binding = ItemRank1To3Binding.bind(view)
+            return UserRankItem1to3ViewHolder(binding)
+        }
     }
 }
