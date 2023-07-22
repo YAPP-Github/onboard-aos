@@ -120,7 +120,6 @@ class UserRankViewModel @Inject constructor(
                 firstItemId
             } else {
                 _userUiState.value = HomeUiState.Error(IllegalArgumentException("game not found"))
-                0
             }
         }
 
