@@ -52,7 +52,6 @@ class BolSquareButton constructor(
     private fun getDisableTextColor(): Int =
         ContextCompat.getColor(binding.root.context, R.color.Gray_7)
 
-
     /**
      * BolSquareButton 비활성화 함수
      */
