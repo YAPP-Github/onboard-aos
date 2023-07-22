@@ -69,6 +69,9 @@ class BolRoundedButton(
     private fun getDisableTextColor(): Int =
         ContextCompat.getColor(binding.root.context, R.color.Gray_7)
 
+    /**
+     * Bol[Bottom]RoundedButton 비활성화 함수 
+     */
     override fun disableButton() {
         if (!binding.bgBtn.isEnabled) {
             return
@@ -91,12 +94,19 @@ class BolRoundedButton(
         }
     }
 
+    /**
+     * Bol[Bottom]RoundedButton 클릭 시 수행할 작업 구현하는 함수
+     * @param onClick type: () -> Unit
+     */
     override fun setOnClickListener(onClick: () -> Unit) {
         binding.bgBtn.setOnClickListener {
             onClick()
         }
     }
 
+    /**
+     * Bol[Bottom]RoundedButton 활성화 함수
+     */
     override fun enableButton() {
         if (binding.bgBtn.isEnabled) {
             return
