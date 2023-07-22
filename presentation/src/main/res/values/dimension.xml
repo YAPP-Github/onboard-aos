@@ -2,5 +2,9 @@
 <resources>
     <dimen name="group_search_item_image_radius">8dp</dimen>
     <dimen name="home_game_image_size">52dp</dimen>
-    <dimen name="home_game_padding">7dp</dimen>
+    <dimen name="home_game_padding">5dp</dimen>
+    <dimen name="home_game_unselected_iv">52dp</dimen>
+    <dimen name="home_game_selected_iv">68dp</dimen>
+    <dimen name="home_game_unselected_tv">52dp</dimen>
+    <dimen name="home_game_selected_tv">80dp</dimen>
 </resources>

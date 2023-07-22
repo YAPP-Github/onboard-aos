@@ -34,7 +34,7 @@ interface GroupApi {
 
     @GET("/v1/group")
     suspend fun getGroupSearchResult(
-        @Query("name") name: String,
+        @Query("keyword") name: String,
         @Query("pageNumber") page: String,
         @Query("pageSize") pageSize: String,
     ): Response<GroupSearchApiResponse>

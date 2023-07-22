@@ -20,7 +20,7 @@ class SnackBarHomeReload(
     }
 
     private val context = view.context
-    private val snackbar = Snackbar.make(view, "", 5000)
+    private val snackbar = Snackbar.make(view, "", Int.MAX_VALUE)
     private val snackbarLayout = snackbar.view as Snackbar.SnackbarLayout
 
     private val inflater = LayoutInflater.from(context)

@@ -2,13 +2,12 @@ package com.yapp.bol.presentation.view.group.search
 
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.ImageButton
+import android.widget.ImageView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import com.yapp.bol.presentation.R
-import com.yapp.bol.designsystem.R as designsystemR
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentGroupSearchBinding
 import com.yapp.bol.presentation.utils.loseFocusOnAction
@@ -20,6 +19,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import com.yapp.bol.designsystem.R as designsystemR
 
 @AndroidEntryPoint
 class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fragment_group_search) {
@@ -97,8 +97,7 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
         }
     }
 
-    // search view의 edittext typing 여부에 따른 우측 아이콘 변경
-    private fun ImageButton.setImageButtonByState(isTyping: Boolean) =
+    private fun ImageView.setImageButtonByState(isTyping: Boolean) =
         viewLifecycleOwner.lifecycleScope.launch {
             when (isTyping) {
                 true -> setImageDrawable(

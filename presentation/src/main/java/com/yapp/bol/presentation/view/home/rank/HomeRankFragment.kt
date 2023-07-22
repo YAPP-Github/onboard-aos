@@ -1,5 +1,6 @@
 package com.yapp.bol.presentation.view.home.rank
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.GravityCompat
@@ -7,16 +8,19 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
+import com.yapp.bol.presentation.view.home.HomeUiState
 import com.yapp.bol.presentation.databinding.FragmentHomeRankBinding
 import com.yapp.bol.presentation.model.DrawerGroupInfoUiModel
+import com.yapp.bol.presentation.model.UserRankUiModel
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.config.HomeConfig
 import com.yapp.bol.presentation.utils.copyToClipboard
-import com.yapp.bol.presentation.utils.setNavigationBarColor
 import com.yapp.bol.presentation.utils.setStatusBarColor
 import com.yapp.bol.presentation.utils.showToast
+import com.yapp.bol.presentation.view.home.rank.UserRankViewModel.Companion.RV_SELECTED_POSITION_RESET
 import com.yapp.bol.presentation.view.home.rank.game.UserRankGameAdapter
 import com.yapp.bol.presentation.view.home.rank.game.UserRankGameLayoutManager
 import com.yapp.bol.presentation.view.home.rank.group_info.DrawerGroupInfoAdapter
@@ -38,12 +42,11 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
         setHomeRecyclerView()
         setDrawer()
-
-        observeUserRankUiState()
         observeGameUiState()
 
         setStatusBarColor(this@HomeRankFragment.requireActivity(), designsystemR.color.Gray_14, isIconBlack = false)
-        setNavigationBarColor(this@HomeRankFragment.requireActivity(), designsystemR.color.Gray_14)
+
+        scrollCenterWhenUserRankTouchDown()
     }
 
     private fun initViewModel() {
@@ -61,12 +64,14 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
     private fun setGameAdapter() {
         val onClick: (position: Int, gameId: Long) -> Unit = { position, gameId ->
             this.gameId = gameId
-            binding.rvGameList.smoothScrollToPosition(position)
             // TODO : 넘어오는 값으로 groupId 변경 필요
             viewModel.setGameItemSelected(position)
             viewModel.fetchUserList(groupId, gameId)
         }
-        val userRankGameAdapter = UserRankGameAdapter(onClick)
+        val scrollAnimation: () -> Unit = {
+            binding.rvGameList.smoothScrollToPosition(viewModel.getGameItemSelectedPosition())
+        }
+        val userRankGameAdapter = UserRankGameAdapter(onClick, scrollAnimation)
 
         viewModel.gameListFlow.collectWithLifecycle(this) { gameList ->
             userRankGameAdapter.submitList(gameList)
@@ -85,32 +90,8 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
     private fun setUserAdapter() {
         val userRankAdapter = UserRankAdapter()
-
         binding.rvUserRank.adapter = userRankAdapter
-
-        viewModel.userListFlow.collectWithLifecycle(this) { userList ->
-            if (userList.size == HomeConfig.NO_RANK_THRESHOLD) {
-                binding.viewRankNotFound.root.visibility = View.VISIBLE
-                binding.rvUserRank.visibility = View.GONE
-            } else {
-                binding.viewRankNotFound.root.visibility = View.GONE
-                binding.rvUserRank.visibility = View.VISIBLE
-                userRankAdapter.submitList(userList)
-            }
-        }
-    }
-
-    private fun setGameRvObserver() {
-        val onScrollListener: RecyclerView.OnScrollListener = object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                when (newState) {
-                    RecyclerView.SCROLL_STATE_IDLE -> {
-                        viewModel.setGameItemSelected(4)
-                    }
-                }
-            }
-        }
-        binding.rvGameList.addOnScrollListener(onScrollListener)
+        observeUserRankUiState(userRankAdapter)
     }
 
     private fun setDrawer() {
@@ -183,18 +164,33 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
         )
     }
 
-    private fun observeUserRankUiState() {
+    private fun observeUserRankUiState(userRankAdapter: UserRankAdapter) {
         viewModel.userUiState.collectWithLifecycle(this) { uiState ->
+            fun List<UserRankUiModel>.isSizeNoRankThreshold(): Boolean = this.size == HomeConfig.NO_RANK_THRESHOLD
+
             when (uiState) {
                 is HomeUiState.Success -> {
-                    binding.viewRankLoading.visibility = View.GONE
                     userRankSnackBar.dismiss()
+                    val isNoRank: Boolean = uiState.data.isSizeNoRankThreshold()
+
+                    binding.apply {
+                        if (isSelectedPositionValid()) {
+                            rvGameList.smoothScrollToPosition(viewModel.getGameItemSelectedPosition())
+                        }
+                        viewRankLoading.visibility = View.GONE
+                        viewRankNotFound.root.visibility = if (isNoRank) { View.VISIBLE } else { View.GONE }
+                        rvUserRank.visibility = if (isNoRank) { View.GONE } else { View.VISIBLE }
+                    }
+
+                    if (!isNoRank) { userRankAdapter.submitList(uiState.data) }
                 }
 
                 is HomeUiState.Loading -> {
-                    binding.rvUserRank.visibility = View.GONE
-                    binding.viewRankNotFound.root.visibility = View.GONE
-                    binding.viewRankLoading.visibility = View.VISIBLE
+                    binding.apply {
+                        rvUserRank.visibility = View.GONE
+                        viewRankNotFound.root.visibility = View.GONE
+                        viewRankLoading.visibility = View.VISIBLE
+                    }
                 }
 
                 is HomeUiState.Error -> {
@@ -217,21 +213,34 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
     private fun observeGameUiState() {
         viewModel.groupUiState.collectWithLifecycle(this) { uiState ->
             when (uiState) {
-                is HomeUiState.Success -> {
-                    binding.viewGameLoading.visibility = View.GONE
+                is HomeUiStateNeedRefactor.Success -> {
                     binding.rvGameList.visibility = View.VISIBLE
                     gameSnackBar.dismiss()
                 }
 
-                is HomeUiState.Loading -> {
-                    binding.viewGameLoading.visibility = View.VISIBLE
+                is HomeUiStateNeedRefactor.Loading -> {
                     binding.rvGameList.visibility = View.GONE
                 }
 
-                is HomeUiState.Error -> {
+                is HomeUiStateNeedRefactor.Error -> {
                     gameSnackBar.show()
                 }
             }
         }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun scrollCenterWhenUserRankTouchDown() {
+        binding.rvUserRank.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                if (newState != SCROLL_STATE_IDLE && isSelectedPositionValid()) {
+                    binding.rvGameList.smoothScrollToPosition(viewModel.getGameItemSelectedPosition())
+                }
+            }
+        })
+    }
+
+    private fun isSelectedPositionValid(): Boolean {
+        return RV_SELECTED_POSITION_RESET != viewModel.getGameItemSelectedPosition()
     }
 }
