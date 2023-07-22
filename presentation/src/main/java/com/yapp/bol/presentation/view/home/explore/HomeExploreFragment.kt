@@ -3,7 +3,6 @@ package com.yapp.bol.presentation.view.home.explore
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -37,7 +36,7 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
         super.onViewCreatedAction()
         binding.viewGroupListLoading.root.visibility = View.GONE
         setAdapter()
-        backToHomeRank()
+        setBackButton()
         setStatusBarColor(this@HomeExploreFragment.requireActivity(), designsystemR.color.Gray_1, isIconBlack = true)
         setNavigationBarColor(this@HomeExploreFragment.requireActivity(), designsystemR.color.Gray_1)
     }
@@ -119,18 +118,9 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
             }
         }
 
-    private fun backToHomeRank() {
+    private fun setBackButton() {
         binding.btnBack.setOnClickListener {
             binding.root.findNavController().popBackStack()
         }
-
-        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                view?.let {
-                    binding.root.findNavController().popBackStack()
-                }
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 }

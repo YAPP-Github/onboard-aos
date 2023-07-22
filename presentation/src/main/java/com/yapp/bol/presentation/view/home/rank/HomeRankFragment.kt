@@ -44,9 +44,11 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
         setDrawer()
         observeGameAndGroupUiState(drawerGroupInfoAdapter, userRankGameAdapter)
 
-        setStatusBarColor(this@HomeRankFragment.requireActivity(), designsystemR.color.Gray_14, isIconBlack = false)
+        setStatusBarColor(this@HomeRankFragment.requireActivity(), designsystemR.color.Gray_15, isIconBlack = false)
 
         scrollCenterWhenUserRankTouchDown()
+
+        setFloatingButton()
     }
 
     private fun initViewModel() {
@@ -90,6 +92,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
         setDrawerOpen()
         setDrawerAdapter()
         bindExploreButton()
+        bindSettingButton()
     }
 
     private fun setDrawerOpen() {
@@ -121,6 +124,12 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
     private fun bindExploreButton() {
         binding.viewFooter.llBtnExplore.setOnClickListener {
             binding.root.findNavController().navigate(R.id.action_homeRankFragment_to_homeExploreFragment)
+        }
+    }
+
+    private fun bindSettingButton() {
+        binding.viewFooter.btnSetting.setOnClickListener {
+            binding.root.findNavController().navigate(R.id.action_homeRankFragment_to_settingFragment)
         }
     }
 
@@ -203,11 +212,16 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
                     drawerGroupInfoAdapter.submitList(uiState.data.group)
                     userRankGameAdapter.submitList(uiState.data.game)
 
+                    binding.btnGroupName.visibility = View.VISIBLE
+                    binding.loadingGroupName.visibility = View.INVISIBLE
                     binding.rvGameList.visibility = View.VISIBLE
+
                     gameSnackBar.dismiss()
                 }
 
                 is HomeUiState.Loading -> {
+                    binding.btnGroupName.visibility = View.INVISIBLE
+                    binding.loadingGroupName.visibility = View.VISIBLE
                     binding.rvGameList.visibility = View.GONE
                 }
 
@@ -237,5 +251,11 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
     private fun isSelectedPositionValid(): Boolean {
         return RV_SELECTED_POSITION_RESET != viewModel.getGameItemSelectedPosition()
+    }
+
+    private fun setFloatingButton() {
+        binding.btnCreateGroup.setOnClickListener {
+            // todo create match code needed
+        }
     }
 }

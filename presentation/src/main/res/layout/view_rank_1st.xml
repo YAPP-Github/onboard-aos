@@ -62,25 +62,25 @@
         <LinearLayout
             android:id="@+id/ll_win_rate"
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_name"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:layout_marginTop="2dp"
             android:orientation="horizontal"
             android:paddingHorizontal="8dp">
 
             <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/ic_1st" />
 
             <TextView
                 android:id="@+id/tv_win_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/Typography.Label2_B"
+                android:textAppearance="@style/Typography.Title4"
                 android:layout_marginStart="2dp"
                 android:text="@string/rank_default"
                 android:textColor="@color/Yellow" />

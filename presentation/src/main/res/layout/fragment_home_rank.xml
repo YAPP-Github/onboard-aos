@@ -40,6 +40,21 @@
 
             </LinearLayout>
 
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/loading_group_name"
+                android:layout_width="78dp"
+                android:layout_height="17dp"
+                app:layout_constraintStart_toStartOf="@id/btn_group_name"
+                app:layout_constraintTop_toTopOf="@id/btn_group_name">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/Gray_14"
+                    android:background="@drawable/bg_home_game_shimmer_radius_4dp"/>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_game_list"
                 android:layout_width="match_parent"
@@ -53,7 +68,7 @@
                 android:id="@+id/view_rv_bg"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="159dp"
+                android:layout_marginTop="165dp"
                 android:background="@drawable/bg_home_ranking_list"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -116,6 +131,30 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/view_rv_bg" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_create_group"
+                android:background="@drawable/bg_home_floating_btn"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="18dp"
+                android:layout_marginEnd="22dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_plus_variant2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
