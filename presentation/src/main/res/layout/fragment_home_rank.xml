@@ -117,6 +117,30 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/view_rv_bg" />
 
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_create_group"
+                android:background="@drawable/bg_home_floating_btn"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="18dp"
+                android:layout_marginEnd="22dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_plus_variant2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.navigation.NavigationView

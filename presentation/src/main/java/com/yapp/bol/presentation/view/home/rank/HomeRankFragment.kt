@@ -47,6 +47,8 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
         setStatusBarColor(this@HomeRankFragment.requireActivity(), designsystemR.color.Gray_15, isIconBlack = false)
 
         scrollCenterWhenUserRankTouchDown()
+
+        setFloatingButton()
     }
 
     private fun initViewModel() {
@@ -244,5 +246,11 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
     private fun isSelectedPositionValid(): Boolean {
         return RV_SELECTED_POSITION_RESET != viewModel.getGameItemSelectedPosition()
+    }
+
+    private fun setFloatingButton() {
+        binding.btnCreateGroup.setOnClickListener {
+            // todo create match code needed
+        }
     }
 }
