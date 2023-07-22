@@ -19,9 +19,11 @@ import com.yapp.bol.data.model.login.OnBoardResponse
 import com.yapp.bol.data.model.login.TermsRequest
 import com.yapp.bol.data.model.login.TermsResponse
 import com.yapp.bol.data.model.login.UserRequest
+import com.yapp.bol.data.model.match.MatchApiRequest
 import com.yapp.bol.data.remote.GroupApi
 import com.yapp.bol.data.remote.ImageFileApi
 import com.yapp.bol.data.remote.LoginApi
+import com.yapp.bol.data.remote.MatchApi
 import com.yapp.bol.data.utils.Image.GROUP_IMAGE
 import com.yapp.bol.domain.handle.BaseRepository
 import com.yapp.bol.domain.model.ApiResult
@@ -38,6 +40,7 @@ class RemoteDataSourceImpl @Inject constructor(
     private val loginApi: LoginApi,
     private val groupApi: GroupApi,
     private val imageApi: ImageFileApi,
+    private val matchApi: MatchApi,
 ) : BaseRepository(), RemoteDataSource {
 
     override suspend fun login(type: String, token: String): LoginResponse? {
@@ -139,6 +142,9 @@ class RemoteDataSourceImpl @Inject constructor(
         loginApi.putUserName(userRequest)
     }
 
+    override suspend fun postMatch(matchApiRequest: MatchApiRequest) {
+        matchApi.postMatch(matchApiRequest)
+    }
 
     private fun getMimeType(fileName: String): String {
         return URLConnection.guessContentTypeFromName(fileName)

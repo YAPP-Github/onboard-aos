@@ -4,15 +4,16 @@ import com.yapp.bol.data.model.base.BaseResponse
 import com.yapp.bol.data.model.group.MemberListResponse
 import com.yapp.bol.data.model.group.response.CheckGroupJoinByAccessCodeResponse
 import com.yapp.bol.data.model.group.response.GameApiResponse
+import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
 import com.yapp.bol.data.model.group.response.MemberValidApiResponse
 import com.yapp.bol.data.model.group.response.NewGroupApiResponse
-import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
 import com.yapp.bol.data.model.group.response.RandomImageResponse
-import com.yapp.bol.data.model.login.TermsResponse
 import com.yapp.bol.data.model.login.LoginResponse
 import com.yapp.bol.data.model.login.OnBoardResponse
 import com.yapp.bol.data.model.login.TermsRequest
+import com.yapp.bol.data.model.login.TermsResponse
 import com.yapp.bol.data.model.login.UserRequest
+import com.yapp.bol.data.model.match.MatchApiRequest
 import com.yapp.bol.domain.model.ApiResult
 import kotlinx.coroutines.flow.Flow
 import java.io.File
@@ -68,4 +69,6 @@ interface RemoteDataSource {
     ): Flow<ApiResult<BaseResponse>>
 
     suspend fun putUserName(userRequest: UserRequest)
+
+    suspend fun postMatch(matchApiRequest: MatchApiRequest)
 }

@@ -4,6 +4,7 @@ import com.yapp.bol.app.BuildConfig
 import com.yapp.bol.data.remote.GroupApi
 import com.yapp.bol.data.remote.ImageFileApi
 import com.yapp.bol.data.remote.LoginApi
+import com.yapp.bol.data.remote.MatchApi
 import com.yapp.bol.data.utils.Utils.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -13,6 +14,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -82,5 +84,11 @@ object NetworkModule {
     @Singleton
     fun provideImageApiService(retrofit: Retrofit): ImageFileApi {
         return retrofit.create(ImageFileApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMatchApiService(retrofit: Retrofit): MatchApi {
+        return retrofit.create(MatchApi::class.java)
     }
 }

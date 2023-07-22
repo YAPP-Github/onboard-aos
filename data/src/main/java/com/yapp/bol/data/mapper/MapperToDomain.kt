@@ -4,24 +4,28 @@ import com.yapp.bol.data.model.base.BaseResponse
 import com.yapp.bol.data.model.group.MemberDTO
 import com.yapp.bol.data.model.group.MemberListResponse
 import com.yapp.bol.data.model.group.response.CheckGroupJoinByAccessCodeResponse
-import com.yapp.bol.data.model.group.response.GroupSearchApiResponse
-import com.yapp.bol.domain.model.ApiResult
-import com.yapp.bol.domain.model.GroupItem
-import com.yapp.bol.domain.model.GroupSearchItem
-import com.yapp.bol.data.model.login.LoginResponse
-import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
 import com.yapp.bol.data.model.group.response.GameApiResponse
 import com.yapp.bol.data.model.group.response.GameResponse
+import com.yapp.bol.data.model.group.response.GroupSearchApiResponse
+import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
 import com.yapp.bol.data.model.group.response.MemberValidApiResponse
 import com.yapp.bol.data.model.group.response.NewGroupApiResponse
 import com.yapp.bol.data.model.group.response.RandomImageResponse
+import com.yapp.bol.data.model.login.LoginResponse
 import com.yapp.bol.data.model.login.OnBoardResponse
 import com.yapp.bol.data.model.login.TermsDTO
 import com.yapp.bol.data.model.login.TermsResponse
+import com.yapp.bol.data.model.match.MatchApiRequest
+import com.yapp.bol.data.model.match.MatchMemberDTO
+import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.BaseItem
 import com.yapp.bol.domain.model.CheckGroupJoinByAccessCodeItem
 import com.yapp.bol.domain.model.GameItem
+import com.yapp.bol.domain.model.GroupItem
+import com.yapp.bol.domain.model.GroupSearchItem
 import com.yapp.bol.domain.model.LoginItem
+import com.yapp.bol.domain.model.MatchItem
+import com.yapp.bol.domain.model.MatchMemberItem
 import com.yapp.bol.domain.model.MemberItem
 import com.yapp.bol.domain.model.MemberItems
 import com.yapp.bol.domain.model.NewGroupItem
@@ -159,15 +163,15 @@ internal object MapperToDomain {
         }
     }
 
-    fun ApiResult<OnBoardResponse>.toBoardDomain(): ApiResult<List<String>>{
-        return when(this) {
+    fun ApiResult<OnBoardResponse>.toBoardDomain(): ApiResult<List<String>> {
+        return when (this) {
             is ApiResult.Success -> ApiResult.Success(data.onboarding)
             is ApiResult.Error -> ApiResult.Error(exception)
         }
     }
 
     fun ApiResult<RandomImageResponse>.toImageDomain(): ApiResult<String> {
-        return when(this) {
+        return when (this) {
             is ApiResult.Success -> ApiResult.Success(data.url)
             is ApiResult.Error -> ApiResult.Error(exception)
         }
@@ -189,4 +193,20 @@ internal object MapperToDomain {
         }
     }
 
+    private fun MatchMemberItem.toMatchItem(): MatchMemberDTO {
+        return MatchMemberDTO(
+            this.memberId,
+            this.score,
+            this.ranking
+        )
+    }
+
+    fun MatchItem.toMatchDomain(): MatchApiRequest {
+        return MatchApiRequest(
+            this.gameId,
+            this.groupId,
+            this.matchedDate,
+            this.matchMembers.map { it.toMatchItem() }
+        )
+    }
 }

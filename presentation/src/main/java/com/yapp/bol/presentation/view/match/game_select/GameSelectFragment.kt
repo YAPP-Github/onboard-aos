@@ -25,6 +25,7 @@ class GameSelectFragment : Fragment() {
 
     private val gameSelectAdapter = GameSelectAdapter { gameItem ->
         matchViewModel.updateGameName(gameItem.name)
+        matchViewModel.updateGameId(gameItem.id)
         val bundle = Bundle().apply {
             putString(GAME_NAME, gameItem.name)
             putInt(MAX_PLAYER, gameItem.maxMember)

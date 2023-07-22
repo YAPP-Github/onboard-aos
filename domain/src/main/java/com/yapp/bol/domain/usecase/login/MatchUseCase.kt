@@ -2,6 +2,7 @@ package com.yapp.bol.domain.usecase.login
 
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.GameItem
+import com.yapp.bol.domain.model.MatchItem
 import com.yapp.bol.domain.model.MemberItems
 import com.yapp.bol.domain.repository.Repository
 import kotlinx.coroutines.flow.Flow
@@ -30,4 +31,6 @@ class MatchUseCase @Inject constructor(
     suspend fun postGuestMember(groupId: Int, nickname: String) {
         repository.postGuestMember(groupId, nickname)
     }
+
+    suspend fun postMatch(matchItem: MatchItem) = repository.postMatch(matchItem)
 }

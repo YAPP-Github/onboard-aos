@@ -14,7 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.yapp.bol.designsystem.R
+import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.FragmentMemberSelectBinding
 import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
 import com.yapp.bol.presentation.utils.KeyboardManager
@@ -185,7 +185,7 @@ class MemberSelectFragment : Fragment() {
                 putParcelableArrayList(PLAYERS, memberSelectViewModel.dynamicPlayers)
             }
             findNavController().navigate(
-                com.yapp.bol.presentation.R.id.action_memberSelectFragment_to_gameResultFragment,
+                R.id.action_memberSelectFragment_to_gameResultFragment,
                 bundle
             )
         }

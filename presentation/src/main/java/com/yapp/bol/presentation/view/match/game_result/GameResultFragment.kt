@@ -17,12 +17,14 @@ import com.yapp.bol.presentation.view.match.MatchActivity.Companion.GAME_RESULT
 import com.yapp.bol.presentation.view.match.MatchViewModel
 import com.yapp.bol.presentation.view.match.dialog.result_record.ResultRecordDialog
 import com.yapp.bol.presentation.view.match.member_select.MemberSelectFragment.Companion.PLAYERS
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+@AndroidEntryPoint
 class GameResultFragment : BaseFragment<FragmentGameResultBinding>(R.layout.fragment_game_result) {
 
     private val gameResultViewModel: GameResultViewModel by viewModels()
@@ -42,10 +44,12 @@ class GameResultFragment : BaseFragment<FragmentGameResultBinding>(R.layout.frag
             ResultRecordItem(
                 gameName = matchViewModel.gameName,
                 player = gameResultViewModel.players.value ?: listOf(),
-                currentTime = currentTime,
+                currentTime = List(2) { currentTime.split(DATE_DELIMITERS)[it] },
                 resultRecording = ::resultRecording
             )
-        )
+        ) {
+            gameResultViewModel.postMatch(matchViewModel.gameId.toInt(),matchViewModel.groupId, matchViewModel.currentTime)
+        }
 
     private val gameResultAdapter by lazy {
         GameResultAdapter(
@@ -81,6 +85,7 @@ class GameResultFragment : BaseFragment<FragmentGameResultBinding>(R.layout.frag
 
         matchViewModel.updateToolBarTitle(GAME_RESULT_TITLE)
         matchViewModel.updateCurrentPage(GAME_RESULT)
+        matchViewModel.updateCurrentTime(currentTime)
         keyboardVisibilityUtils = KeyboardVisibilityUtils(
             window = activity?.window ?: throw Exception(),
             onHideKeyboard = gameResultViewModel::updatePlayers,
@@ -100,8 +105,9 @@ class GameResultFragment : BaseFragment<FragmentGameResultBinding>(R.layout.frag
     private fun setTextView() {
         binding.tvGameRecordGuide.text =
             String.format(requireContext().resources.getString(R.string.game_record_guide), matchViewModel.gameName)
-        binding.tvCalendar.text = currentTime[0]
-        binding.tvClock.text = currentTime[1]
+        val temp = currentTime.split(DATE_DELIMITERS)
+        binding.tvCalendar.text = temp[0]
+        binding.tvClock.text = temp[1]
     }
 
     private fun setClickListener() {
@@ -119,12 +125,11 @@ class GameResultFragment : BaseFragment<FragmentGameResultBinding>(R.layout.frag
         binding.rvPlayers.addOnScrollListener(scrollListener)
     }
 
-    private fun getCurrentTime(): List<String> {
+    private fun getCurrentTime(): String {
         val now = System.currentTimeMillis()
         val date = Date(now)
         val stringFormat = SimpleDateFormat(DATE_FORMAT, Locale.KOREA)
-        val time = stringFormat.format(date)
-        return time.split(DATE_DELIMITERS)
+        return stringFormat.format(date)
     }
 
     private fun moveScrollNextPosition(position: Int) {

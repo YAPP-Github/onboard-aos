@@ -18,7 +18,13 @@ class MatchViewModel @Inject constructor() : ViewModel() {
     val currentPage: LiveData<Int> = _currentPage
 
     var gameName = EMPTY_STRING
+    var gameId = 0L
     var groupId = 0
+    var currentTime = ""
+
+    fun updateGameId(id: Long) {
+        gameId = id
+    }
 
     fun updateGroupId(id: Int) {
         groupId = id
@@ -34,5 +40,9 @@ class MatchViewModel @Inject constructor() : ViewModel() {
 
     fun updateCurrentPage(page: Int) {
         _currentPage.value = page
+    }
+
+    fun updateCurrentTime(time: String) {
+        currentTime = time
     }
 }

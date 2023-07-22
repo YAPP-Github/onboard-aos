@@ -10,6 +10,7 @@ import com.yapp.bol.data.mapper.MapperToDomain.newGroupToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.toBoardDomain
 import com.yapp.bol.data.mapper.MapperToDomain.toDomain
 import com.yapp.bol.data.mapper.MapperToDomain.toImageDomain
+import com.yapp.bol.data.mapper.MapperToDomain.toMatchDomain
 import com.yapp.bol.data.mapper.MapperToDomain.toTermsDomain
 import com.yapp.bol.data.mapper.MapperToDomain.validToDomain
 import com.yapp.bol.data.model.login.TermsRequest
@@ -19,6 +20,7 @@ import com.yapp.bol.domain.model.BaseItem
 import com.yapp.bol.domain.model.CheckGroupJoinByAccessCodeItem
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
+import com.yapp.bol.domain.model.MatchItem
 import com.yapp.bol.domain.model.MemberItems
 import com.yapp.bol.domain.model.NewGroupItem
 import com.yapp.bol.domain.model.TermsList
@@ -111,5 +113,9 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun putUserName(nickName: String) {
         remoteDataSource.putUserName(UserRequest(nickName))
+    }
+
+    override suspend fun postMatch(matchItem: MatchItem) {
+        remoteDataSource.postMatch(matchItem.toMatchDomain())
     }
 }
