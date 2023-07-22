@@ -212,11 +212,16 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
                     drawerGroupInfoAdapter.submitList(uiState.data.group)
                     userRankGameAdapter.submitList(uiState.data.game)
 
+                    binding.btnGroupName.visibility = View.VISIBLE
+                    binding.loadingGroupName.visibility = View.INVISIBLE
                     binding.rvGameList.visibility = View.VISIBLE
+
                     gameSnackBar.dismiss()
                 }
 
                 is HomeUiState.Loading -> {
+                    binding.btnGroupName.visibility = View.INVISIBLE
+                    binding.loadingGroupName.visibility = View.VISIBLE
                     binding.rvGameList.visibility = View.GONE
                 }
 

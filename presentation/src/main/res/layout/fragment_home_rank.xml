@@ -40,6 +40,21 @@
 
             </LinearLayout>
 
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/loading_group_name"
+                android:layout_width="78dp"
+                android:layout_height="17dp"
+                app:layout_constraintStart_toStartOf="@id/btn_group_name"
+                app:layout_constraintTop_toTopOf="@id/btn_group_name">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/Gray_14"
+                    android:background="@drawable/bg_home_game_shimmer_radius_4dp"/>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_game_list"
                 android:layout_width="match_parent"
