@@ -5,6 +5,10 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application>
+
+        <activity
+            android:name=".view.home.HomeActivity"
+            android:exported="false" />
         <activity
             android:name=".view.login.SplashActivity"
             android:exported="false" />
@@ -17,6 +21,9 @@
         <activity
             android:name=".view.group.search.GroupSearchActivityTest"
             android:exported="false" />
+        <activity
+            android:name=".view.group.GroupActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.match.MatchActivity"
             android:exported="false"

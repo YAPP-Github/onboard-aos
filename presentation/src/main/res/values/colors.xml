@@ -39,6 +39,10 @@
     <!--Green-->
     <color name="Green">#03CF5D</color>
 
+    <!--BLACK-->
+    <color name="Black_TRANSPARENT_50">#80000000</color>
+
+    <color name="black">#FF000000</color>
 
     <color name="Black">#FF000000</color>
     <color name="Black_alpha_85">#D9000000</color>

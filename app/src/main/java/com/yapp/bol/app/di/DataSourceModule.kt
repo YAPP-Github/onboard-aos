@@ -8,6 +8,8 @@ import com.yapp.bol.data.datasource.group.impl.GroupDataSourceImpl
 import com.yapp.bol.data.datasource.impl.RemoteDataSourceImpl
 import com.yapp.bol.data.datasource.user.UserDataSource
 import com.yapp.bol.data.datasource.user.impl.UserDataSourceImpl
+import com.yapp.bol.data.datasource.rank.RankDataSource
+import com.yapp.bol.data.datasource.rank.impl.RankDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -28,4 +30,7 @@ interface DataSourceModule {
 
     @Binds
     fun bindUserDataSource(userDataSourceImpl: UserDataSourceImpl): UserDataSource
+
+    @Binds
+    fun bindsRankDatasource(rankDataSource: RankDataSourceImpl): RankDataSource
 }

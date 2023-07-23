@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/home_navigation"
+    app:startDestination="@id/homeRankFragment">
+
+    <fragment
+        android:id="@+id/homeRankFragment"
+        android:name="com.yapp.bol.presentation.view.home.rank.HomeRankFragment"
+        android:label="HomeRankFragment" >
+        <action
+            android:id="@+id/action_homeRankFragment_to_homeExploreFragment"
+            app:destination="@id/homeExploreFragment"
+            app:enterAnim="@animator/enter_from_right"
+            app:exitAnim="@animator/exit_to_left"
+            app:popEnterAnim="@animator/enter_from_left"
+            app:popExitAnim="@animator/exit_to_right" />
+        <action
+            android:id="@+id/action_homeRankFragment_to_settingFragment"
+            app:destination="@id/settingFragment"
+            app:enterAnim="@animator/enter_from_right"
+            app:exitAnim="@animator/exit_to_left"
+            app:popEnterAnim="@animator/enter_from_left"
+            app:popExitAnim="@animator/exit_to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeExploreFragment"
+        android:name="com.yapp.bol.presentation.view.home.explore.HomeExploreFragment"
+        android:label="HomeExploreFragment" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.yapp.bol.presentation.view.setting.SettingFragment"
+        android:label="SettingFragment" >
+        <action
+            android:id="@+id/action_settingFragment_to_quitFragment"
+            app:destination="@id/quitFragment"
+            app:enterAnim="@animator/enter_from_right"
+            app:exitAnim="@animator/exit_to_left"
+            app:popEnterAnim="@animator/enter_from_left"
+            app:popExitAnim="@animator/exit_to_right" />
+        <action
+            android:id="@+id/action_settingFragment_to_termFragment"
+            app:destination="@id/termFragment"
+            app:enterAnim="@animator/enter_from_right"
+            app:exitAnim="@animator/exit_to_left"
+            app:popEnterAnim="@animator/enter_from_left"
+            app:popExitAnim="@animator/exit_to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/quitFragment"
+        android:name="com.yapp.bol.presentation.view.setting.QuitFragment"
+        android:label="QuitFragment" />
+    <fragment
+        android:id="@+id/termFragment"
+        android:name="com.yapp.bol.presentation.view.setting.TermFragment"
+        android:label="TermFragment" />
+</navigation>
