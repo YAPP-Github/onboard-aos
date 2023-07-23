@@ -12,9 +12,12 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup.MarginLayoutParams
 import android.view.WindowManager
+import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat.getColor
 import androidx.core.view.updateLayoutParams
+import androidx.core.view.updateMargins
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import com.yapp.bol.presentation.R
@@ -22,6 +25,7 @@ import com.yapp.bol.presentation.databinding.DialogInputBinding
 import com.yapp.bol.presentation.utils.Keyboard
 import com.yapp.bol.presentation.utils.dpToPx
 import com.yapp.bol.presentation.utils.inflate
+import com.yapp.bol.presentation.view.group.join.data.Margin
 
 class InputDialog(
     context: Context,
@@ -70,7 +74,15 @@ class InputDialog(
 
         binding.etInput.doAfterTextChanged { text ->
             binding.tvInputCount.text = "${text?.length ?: 0}/$onLimit"
-            binding.tvSummit.isEnabled = true
+            binding.tvSummit.isEnabled = !text.isNullOrEmpty()
+            binding.tvSummit.setTextColor(
+                if (text.isNullOrEmpty()) {
+                    getColor(context, R.color.Gray_7)
+                } else {
+                    getColor(context, R.color.Gray_1)
+                },
+            )
+            binding.tvErrorMessage.visibility = View.INVISIBLE
 
             if ((text?.count()) == onLimit) {
                 text.substring(0, onLimit).let {
@@ -145,11 +157,33 @@ class InputDialog(
         return this
     }
 
+    fun setSingleLine(isSingleLine: Boolean): InputDialog {
+        binding.etInput.isSingleLine = isSingleLine
+        return this
+    }
+
     fun showErrorMessage(message: String) {
         binding.tvErrorMessage.visibility = View.VISIBLE
         binding.tvErrorMessage.text = message
 
-        binding.tvSummit.isEnabled = false
+        binding.tvSummit.isEnabled = true
+        binding.tvSummit.setTextColor(getColor(context, R.color.Gray_7))
+    }
+
+    fun setTitleIcon(@DrawableRes icon: Int, size: Int, margin: Margin): InputDialog {
+        binding.ivTitleIcon.setBackgroundResource(icon)
+        binding.ivTitleIcon.updateLayoutParams<MarginLayoutParams> {
+            width = size
+            height = size
+
+            updateMargins(
+                top = margin.topMargin,
+                left = margin.leftMargin,
+                right = margin.rightMargin,
+                bottom = margin.bottomMargin,
+            )
+        }
+        return this
     }
 
     private fun onBackPress() {

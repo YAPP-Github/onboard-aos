@@ -7,6 +7,7 @@
             android:id="@+id/iv_group_group"
             android:layout_width="68dp"
             android:layout_height="68dp"
+            android:adjustViewBounds="true"
             android:scaleType="centerCrop" />
 
         <TextView

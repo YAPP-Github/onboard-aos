@@ -15,13 +15,15 @@ class BolSquareButton constructor(
     attrs: AttributeSet
 ) : ConstraintLayout(context, attrs), BolBaseButton {
 
-    init {
-        if (!isInEditMode) { getAttrsValue(context, attrs) }
-    }
-
     private val binding: BolSquareButtonBinding by lazy {
         BolSquareButtonBinding.inflate(LayoutInflater.from(context), this, true)
     }
+
+    init {
+        binding
+        getAttrsValue(context, attrs)
+    }
+
     private var buttonText: String? = null
 
     private fun getAttrsValue(context: Context, attrs: AttributeSet) {
@@ -37,11 +39,11 @@ class BolSquareButton constructor(
     }
 
     private fun setEnableButton() {
-        binding.btnBol.apply {
+        binding.tvBtn.apply {
             text = buttonText
             setTextColor(getEnableTextColor())
-            background = getSquareButtonDrawableState(context, animationDuration)
         }
+        binding.bgBtn.background = getSquareButtonDrawableState(context, animationDuration)
     }
 
     private fun getEnableTextColor(): Int =
@@ -50,30 +52,43 @@ class BolSquareButton constructor(
     private fun getDisableTextColor(): Int =
         ContextCompat.getColor(binding.root.context, R.color.Gray_7)
 
+    /**
+     * BolSquareButton 비활성화 함수
+     */
     override fun disableButton() {
-        if (!binding.btnBol.isEnabled) {
+        if (!binding.bgBtn.isEnabled) {
             return
         }
 
-        binding.btnBol.apply {
+        binding.tvBtn.apply {
+            setTextColor(getDisableTextColor())
+        }
+
+        binding.bgBtn.apply {
             isEnabled = false
             background = AppCompatResources.getDrawable(context, R.drawable.bg_square_btn_disable)
-            setTextColor(getDisableTextColor())
         }
     }
 
+    /**
+     * BolSquareButton 클릭 시 수행할 작업 구현하는 함수
+     * @param onClick type: () -> Unit
+     */
     override fun setOnClickListener(onClick: () -> Unit) {
-        binding.btnBol.setOnClickListener {
+        binding.bgBtn.setOnClickListener {
             onClick()
         }
     }
 
+    /**
+     * BolSquareButton 활성화 함수
+     */
     override fun enableButton() {
-        if (binding.btnBol.isEnabled) {
+        if (binding.bgBtn.isEnabled) {
             return
         }
 
-        binding.btnBol.isEnabled = true
+        binding.bgBtn.isEnabled = true
         setEnableButton()
     }
 }

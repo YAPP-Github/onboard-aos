@@ -13,6 +13,11 @@ fun Fragment.moveFragment(fragment: Fragment, vararg bundleData: Pair<String, An
     fragment.arguments = bundle
 
     parentFragmentManager.beginTransaction()
-        .replace(R.id.fl_test, fragment)
+        .replace(R.id.group_container_layout, fragment)
+        .addToBackStack(null)
         .commit()
+}
+
+fun Fragment.backFragment() {
+    parentFragmentManager.popBackStack()
 }

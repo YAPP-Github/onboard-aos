@@ -15,7 +15,7 @@ import retrofit2.http.PUT
 interface LoginApi {
     @POST("v1/auth/login")
     suspend fun postOAuthApi(
-        @Body oAuthApiRequest: LoginRequest
+        @Body oAuthApiRequest: LoginRequest,
     ): Response<LoginResponse>
 
     @GET("/v1/terms")
