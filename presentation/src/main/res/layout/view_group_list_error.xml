@@ -19,7 +19,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/group_search_error_guide1"
-                android:textSize="16dp"/>
+                android:textColor="@color/Gray_11"
+                android:textAppearance="@style/Typography.Body2_M"/>
 
             <TextView
                 android:id="@+id/tv_error2"
@@ -27,7 +28,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/group_search_error_guide2"
                 android:layout_marginTop="4dp"
-                android:textSize="14dp"/>
+                android:textColor="@color/Gray_10"
+                android:textAppearance="@style/Typography.Body3_R"/>
 
             <Button
                 android:id="@+id/btn_retry"
@@ -35,9 +37,9 @@
                 android:layout_height="44dp"
                 android:text="@string/group_search_error_button"
                 android:background="@drawable/btn_radius_8"
-                android:backgroundTint="#FF5F25"
-                android:textColor="#F5F4F3"
-                android:textSize="14dp"
+                android:backgroundTint="@color/Orange_9"
+                android:textColor="@color/Gray_2"
+                android:textAppearance="@style/Typography.Label3_B"
                 android:layout_marginTop="20dp"/>
 
         </LinearLayout>

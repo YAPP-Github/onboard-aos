@@ -13,10 +13,8 @@
         android:id="@+id/tv_group_name"
         android:layout_width="209dp"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="15dp"
-        android:lineHeight="24dp"
-        android:textColor="#171717"
+        android:textAppearance="@style/Typography.Title3"
+        android:textColor="@color/Gray_15"
         android:layout_marginTop="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,10 +25,9 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:text=""
-        android:lineHeight="16dp"
-        android:textSize="11dp"
+        android:textAppearance="@style/Typography.Body4_R"
         android:maxLines="1"
-        android:textColor="#171717"
+        android:textColor="@color/Gray_15"
         android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="@+id/tv_group_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_group_name" />
@@ -49,24 +46,22 @@
             android:id="@+id/tv_group_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="#979797"
-            android:textSize="10dp" />
+            android:textAppearance="@style/Typography.Body5_R"
+            android:textColor="@color/Gray_8"/>
 
         <View
             android:id="@+id/view_separator"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="6dp"
-            android:background="#CFCFCF" />
+            android:background="@color/Gray_7" />
 
         <TextView
             android:id="@+id/tv_group_organization"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="#979797"
-            android:textSize="10dp" />
+            android:textAppearance="@style/Typography.Body5_R"
+            android:textColor="@color/Gray_8" />
 
     </LinearLayout>
 
