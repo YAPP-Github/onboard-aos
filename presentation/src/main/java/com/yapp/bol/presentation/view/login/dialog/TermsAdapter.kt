@@ -37,23 +37,27 @@ class TermsAdapter(
         fun bind(item: TermsItem, position: Int) {
             binding.tvServiceTitle.text = setTitle(item.title, item.isRequired)
             binding.cbService.isChecked = item.isChecked
-            
+
             binding.cbService.setOnClickListener {
                 onClickItemListener.onClickLike(position, binding.cbService.isChecked)
-                if(onClickItemListener.checkedTermsAll(binding.cbService.isChecked)) {
+                if (onClickItemListener.checkedTermsAll(binding.cbService.isChecked)) {
                     onClickItemListener.updateTermsAll(binding.cbService.isChecked)
                 }
             }
 
-            binding.root.setOnClickListener {
+            binding.termsContainer.setOnClickListener {
                 binding.cbService.isChecked = item.isChecked.not()
                 onClickItemListener.onClickLike(position, binding.cbService.isChecked)
-                if(onClickItemListener.checkedTermsAll(binding.cbService.isChecked)) {
+                if (onClickItemListener.checkedTermsAll(binding.cbService.isChecked)) {
                     onClickItemListener.updateTermsAll(binding.cbService.isChecked)
                 }
             }
 
             binding.tvServiceDetail.setOnClickListener {
+                onClickItemListener.onClickTermsDetail(item.url)
+            }
+
+            binding.detailContainer.setOnClickListener {
                 onClickItemListener.onClickTermsDetail(item.url)
             }
         }

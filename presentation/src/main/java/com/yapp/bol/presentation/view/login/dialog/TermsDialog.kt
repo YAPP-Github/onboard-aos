@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Gravity
-import com.yapp.bol.domain.model.TermsItem
 import com.yapp.bol.presentation.databinding.TermsDialogBinding
 import com.yapp.bol.presentation.utils.dialogWidthResize
 
@@ -66,6 +65,11 @@ class TermsDialog(
         }
 
         cbAll.setOnClickListener {
+            onClickTermsListener.onClickLikeAll(cbAll.isChecked)
+        }
+
+        allContainer.setOnClickListener {
+            cbAll.isChecked = cbAll.isChecked.not()
             onClickTermsListener.onClickLikeAll(cbAll.isChecked)
         }
     }
