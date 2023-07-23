@@ -63,6 +63,22 @@
     <string name="game_record_complete">기록 완료</string>
     <string name="game_record_hint">0</string>
 
+    <string name="rank_win_rate">%d%%</string>
+    <string name="rank_play_count">플레이 %d회</string>
+    <string name="rank_default">-</string>
+    <string name="rank_default_play_count">플레이 0회</string>
+
+    <string name="copy_access_code">참여 코드가 복사되었습니다.</string>
+
+    <!-- Setting -->
+    <string name="setting_terms_privacy">개인정보 처리방침</string>
+    <string name="setting_terms_service">서비스 이용 약관</string>
+
+    <!-- 회원 탈퇴 -->
+    <string name="quit_text_1">회원 탈퇴하기 버튼을 누르면 탈퇴 처리가 완료되며, 회원님의 계정 및 개인정보(닉네임, 그룹 참여 내역)는 탈퇴 즉시 삭제됩니다.</string>
+    <string name="quit_text_2">게임 기록 데이터는 다른 회원의 서비스 이용에 영향을 미칠 수 있는 정보입니다. 해당 데이터는 타인이 식별 불가능 하도록 처리되어 보관될 수 있습니다.</string>
+    <string name="quit_text_3">탈퇴 시 본인이 생성한 그룹의 관리자 권한은 그룹 내 다른 멤버에게 자동으로 이관됩니다. 그룹 내 다른 멤버가 없는 경우 그룹이 삭제됩니다.</string>
+
     <string name="sign_up_name_hint">이름을 입력해주세요.</string>
 
     <string name="member_number_explanation">멤버수</string>

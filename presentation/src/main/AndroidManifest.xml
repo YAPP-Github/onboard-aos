@@ -10,13 +10,11 @@
             android:exported="false" />
         <activity
             android:name=".view.group.search.GroupSearchActivityTest"
-            android:exported="false"></activity>
+            android:exported="false">
+        </activity>
         <activity
             android:name=".view.match.MatchActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".view.group.NewGroupCompleteActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".view.group.GroupActivity"
@@ -26,13 +24,17 @@
             android:exported="false" />
         <activity
             android:name=".view.login.auth.GoogleTestActivity"
-            android:exported="false"></activity>
+            android:exported="false">
+        </activity>
         <activity
             android:name=".view.login.auth.NaverTestActivity"
-            android:exported="false"></activity>
+            android:exported="false">
+        </activity>
         <activity
             android:name=".view.login.auth.KakaoTestActivity"
-            android:exported="false"></activity> <!-- Kakao 로그인 -->
+            android:exported="false">
+        </activity>
+        <!-- Kakao 로그인 -->
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">

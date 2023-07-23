@@ -1,16 +1,18 @@
 package com.yapp.bol.data.remote
 
 import com.yapp.bol.data.model.base.BaseResponse
+import com.yapp.bol.data.model.group.response.GroupDetailResponse
 import com.yapp.bol.data.model.group.GuestAddApiRequest
 import com.yapp.bol.data.model.group.JoinGroupApiRequest
+import com.yapp.bol.data.model.group.response.JoinedGroupResponse
 import com.yapp.bol.data.model.group.MemberListResponse
 import com.yapp.bol.data.model.group.request.CheckGroupJonByAccessCodeRequest
-import com.yapp.bol.data.model.group.response.GameApiResponse
-import com.yapp.bol.data.model.group.response.MemberValidApiResponse
 import com.yapp.bol.data.model.group.request.NewGroupApiRequest
 import com.yapp.bol.data.model.group.response.CheckGroupJoinByAccessCodeResponse
-import com.yapp.bol.data.model.group.response.NewGroupApiResponse
+import com.yapp.bol.data.model.group.response.GameApiResponse
 import com.yapp.bol.data.model.group.response.GroupSearchApiResponse
+import com.yapp.bol.data.model.group.response.MemberValidApiResponse
+import com.yapp.bol.data.model.group.response.NewGroupApiResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -38,10 +40,18 @@ interface GroupApi {
 
     @GET("/v1/group")
     suspend fun getGroupSearchResult(
-        @Query("name") name: String,
+        @Query("keyword") name: String,
         @Query("pageNumber") page: String,
         @Query("pageSize") pageSize: String,
     ): Response<GroupSearchApiResponse>
+
+    @GET("/v1/user/me/group")
+    suspend fun getJoinedGroup(): Response<JoinedGroupResponse>
+
+    @GET("/v1/group/{groupId}")
+    suspend fun getGroupDetail(
+        @Path("groupId") groupId: Long
+    ): Response<GroupDetailResponse>
 
     @GET("/v1/group/{groupId}/member")
     suspend fun getMemberList(
