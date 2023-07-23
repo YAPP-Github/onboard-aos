@@ -1,8 +1,7 @@
 package com.yapp.bol.data.datasource.group
 
-import com.yapp.bol.data.model.group.GroupDetailResponse
-import com.yapp.bol.data.model.group.GroupSearchApiResponse
-import com.yapp.bol.data.model.group.JoinedGroupResponse
+import com.yapp.bol.data.model.group.response.GroupDetailResponse
+import com.yapp.bol.data.model.group.response.JoinedGroupResponse
 import com.yapp.bol.data.model.group.response.GroupSearchApiResponse
 import com.yapp.bol.domain.model.ApiResult
 import kotlinx.coroutines.flow.Flow

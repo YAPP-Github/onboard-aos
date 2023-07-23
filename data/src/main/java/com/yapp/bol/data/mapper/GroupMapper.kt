@@ -1,8 +1,8 @@
 package com.yapp.bol.data.mapper
 
-import com.yapp.bol.data.model.group.GroupDetailResponse
-import com.yapp.bol.data.model.group.JoinedGroupResponse
-import com.yapp.bol.data.model.group.OwnerDTO
+import com.yapp.bol.data.model.group.response.GroupDetailResponse
+import com.yapp.bol.data.model.group.response.JoinedGroupResponse
+import com.yapp.bol.data.model.group.response.OwnerDTO
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.GroupDetailItem
 import com.yapp.bol.domain.model.JoinedGroupItem

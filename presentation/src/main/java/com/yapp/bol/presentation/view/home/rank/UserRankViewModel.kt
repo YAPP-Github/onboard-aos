@@ -105,20 +105,20 @@ class UserRankViewModel @Inject constructor(
                             gameIndex = data.size / 2
                             gameId = data[data.size / 2].id
                         },
-                        error = { throwable -> throw throwable }
+                        error = { throwable -> throw Exception(throwable.message) }
                     )
 
                     checkedApiResult(
                         apiResult = currentGroup,
                         success = { data -> group.add(DrawerGroupInfoUiModel.CurrentGroupInfo(data)) },
-                        error = { throwable -> throw throwable }
+                        error = { throwable -> throw Exception(throwable.message) }
                     )
                 }
                 .combine(joinedGroupFlow) { _, joinedGroup ->
                     checkedApiResult(
                         apiResult = joinedGroup,
                         success = { data -> group.addAll(data.toOtherGroupInfoUiModel(currentGroupId = groupId)) },
-                        error = { throwable -> throw throwable }
+                        error = { throwable -> throw Exception(throwable.message) }
                     )
                 }
                 .catch { _gameAndGroupUiState.value = HomeUiState.Error(it) }
@@ -146,7 +146,7 @@ class UserRankViewModel @Inject constructor(
                     apiResult = it,
                     success = { data -> _userUiState.value = HomeUiState.Success(data.toUserRankUiModel()) },
                     error = { throwable ->
-                        _userUiState.value = HomeUiState.Error(IllegalArgumentException(throwable))
+                        _userUiState.value = HomeUiState.Error(IllegalArgumentException(Exception(throwable.message)))
                     },
                 )
             }

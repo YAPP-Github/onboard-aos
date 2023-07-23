@@ -12,10 +12,12 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentHomeExploreBinding
 import com.yapp.bol.presentation.utils.loseFocusOnAction
+import com.yapp.bol.presentation.utils.moveFragment
 import com.yapp.bol.presentation.utils.setNavigationBarColor
 import com.yapp.bol.presentation.utils.setStatusBarColor
 import com.yapp.bol.presentation.utils.textChangesToFlow
 import com.yapp.bol.presentation.utils.withLoadStateAdapters
+import com.yapp.bol.presentation.view.group.join.GroupJoinFragment
 import com.yapp.bol.presentation.view.group.search.GroupListAdapter
 import com.yapp.bol.presentation.view.group.search.GroupListLoadStateAdapter
 import com.yapp.bol.presentation.view.group.search.GroupSearchViewModel
@@ -42,7 +44,11 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
     }
 
     private fun setAdapter() {
-        val adapter = GroupListAdapter()
+        val adapter = GroupListAdapter(
+            showJoinGroupDialog = {
+                moveFragment(GroupJoinFragment(), "groupItem" to it)
+            },
+        )
         initPaging(adapter)
         binding.initSearchView(adapter)
         adapter.addOnPagesUpdatedListener {

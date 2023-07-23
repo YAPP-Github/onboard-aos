@@ -82,13 +82,12 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideAppInterceptor(): AppInterceptor = AppInterceptor()
-
-    @Provides
-    @Singleton
     fun provideRankApiService(retrofit: Retrofit): RankApi {
         return retrofit.create(RankApi::class.java)
     }
+
+    @Provides
+    @Singleton
     fun provideImageApiService(retrofit: Retrofit): ImageFileApi {
         return retrofit.create(ImageFileApi::class.java)
     }
