@@ -21,6 +21,7 @@ class TermsDialog(
         fun dismissAction(state: Boolean)
         fun onClickSignUp()
         fun onClickTermsDetail(url: String)
+        fun checkedTermsAll(state: Boolean): Boolean
     }
 
     private lateinit var binding: TermsDialogBinding
@@ -34,6 +35,14 @@ class TermsDialog(
 
                 override fun onClickTermsDetail(url: String) {
                     onClickTermsListener.onClickTermsDetail(url)
+                }
+
+                override fun checkedTermsAll(state: Boolean): Boolean {
+                    return onClickTermsListener.checkedTermsAll(state)
+                }
+
+                override fun updateTermsAll(state: Boolean) {
+                    binding.cbAll.isChecked = state
                 }
             }
         )

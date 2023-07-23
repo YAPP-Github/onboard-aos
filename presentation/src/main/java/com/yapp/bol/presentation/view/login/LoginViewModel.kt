@@ -69,6 +69,10 @@ class LoginViewModel @Inject constructor(
         _dialogState.value = state
     }
 
+    fun checkedTermsAll(state: Boolean): Boolean {
+        return termsList.value?.find { it.isChecked !=  state } == null
+    }
+
     private fun updateTermList(data: TermsList) {
         updateDialogState(true)
         _termsList.value = data.contents

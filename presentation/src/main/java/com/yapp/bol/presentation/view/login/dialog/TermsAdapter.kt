@@ -15,6 +15,8 @@ class TermsAdapter(
     interface OnClickItemListener {
         fun onClickLike(position: Int, isChecked: Boolean)
         fun onClickTermsDetail(url: String)
+        fun checkedTermsAll(state: Boolean): Boolean
+        fun updateTermsAll(state: Boolean)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TermsViewHolder {
@@ -35,16 +37,20 @@ class TermsAdapter(
         fun bind(item: TermsItem, position: Int) {
             binding.tvServiceTitle.text = setTitle(item.title, item.isRequired)
             binding.cbService.isChecked = item.isChecked
-            binding.tvServiceDetail.setOnClickListener {
-                // 웹뷰 띄우기
-            }
+            
             binding.cbService.setOnClickListener {
                 onClickItemListener.onClickLike(position, binding.cbService.isChecked)
+                if(onClickItemListener.checkedTermsAll(binding.cbService.isChecked)) {
+                    onClickItemListener.updateTermsAll(binding.cbService.isChecked)
+                }
             }
 
             binding.root.setOnClickListener {
                 binding.cbService.isChecked = item.isChecked.not()
                 onClickItemListener.onClickLike(position, binding.cbService.isChecked)
+                if(onClickItemListener.checkedTermsAll(binding.cbService.isChecked)) {
+                    onClickItemListener.updateTermsAll(binding.cbService.isChecked)
+                }
             }
 
             binding.tvServiceDetail.setOnClickListener {

@@ -41,6 +41,10 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
                     moveTermsDetail(url)
                 }
 
+                override fun checkedTermsAll(state: Boolean): Boolean {
+                    return loginViewModel.checkedTermsAll(state)
+                }
+
                 override fun dismissAction(state: Boolean) {
                     loginViewModel.updateDialogState(state)
                 }
