@@ -65,7 +65,7 @@
             android:id="@+id/rv_players"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="9dp"
+            android:layout_margin="18dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constrainedHeight="true"
             app:layout_constraintBottom_toTopOf="@+id/btn_record_complete"

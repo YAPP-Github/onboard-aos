@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.presentation.databinding.RvGameItemBinding
+import com.yapp.bol.presentation.utils.loadImage
 
 class GameSelectAdapter(
     private val gameClickListener: (GameItem) -> Unit,
@@ -29,6 +30,7 @@ class GameSelectAdapter(
 
         fun bind(item: GameItem) {
             binding.tvGameName.text = item.name
+            binding.ivProductImage.loadImage(item.img)
             binding.root.setOnClickListener {
                 gameClickListener(item)
             }

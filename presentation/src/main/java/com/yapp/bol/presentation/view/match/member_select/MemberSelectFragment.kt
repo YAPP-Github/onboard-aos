@@ -88,6 +88,7 @@ class MemberSelectFragment : Fragment() {
         memberSelectViewModel.updateGroupId(matchViewModel.groupId)
         memberSelectViewModel.setMaxPlayers(maxPlayer)
         memberSelectViewModel.setMinPlayers(minPlayer)
+        //memberSelectViewModel.getMembers()
 
         binding.rvMemberSelect.adapter = memberSelectAdapter
         binding.rvMembers.adapter = membersAdapter
@@ -110,15 +111,15 @@ class MemberSelectFragment : Fragment() {
 
         val scrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                keyboardManager.hideKeyboard()
-                binding.etSearchMember.clearFocus()
-                geNextMember(recyclerView)
+                //keyboardManager.hideKeyboard()
+                //binding.etSearchMember.clearFocus()
+                getNextMember(recyclerView)
             }
         }
         binding.rvMembers.addOnScrollListener(scrollListener)
     }
 
-    private fun geNextMember(recyclerView: RecyclerView) {
+    private fun getNextMember(recyclerView: RecyclerView) {
         val newPagePointItemVisible =
             (recyclerView.layoutManager as? LinearLayoutManager)?.findLastVisibleItemPosition() ?: 0
 

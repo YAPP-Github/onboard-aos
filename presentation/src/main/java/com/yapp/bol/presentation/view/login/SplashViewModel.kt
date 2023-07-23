@@ -26,7 +26,7 @@ class SplashViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            delay(4000)
+            delay(2000)
             _animationState.value = true
         }
     }

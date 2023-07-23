@@ -49,8 +49,8 @@ class NewGroupActivity : AppCompatActivity() {
             window = window,
             onShowKeyboard = ::moveScroll,
         )
+
         setTextChangeListener()
-        setCreateGroupButton()
         setClickListener()
         setViewModelObserve()
     }
@@ -139,22 +139,6 @@ class NewGroupActivity : AppCompatActivity() {
     private fun stopProgressBar() {
         binding.tvLoadingText.visibility = View.GONE
         binding.pbLoading.visibility = View.GONE
-    }
-
-    private fun setCreateGroupButton() {
-        val params = ConstraintLayout.LayoutParams(0, convertPxToDp(52))
-        params.setMargins(
-            convertPxToDp(BASE_MARGIN_HORIZONTAL),
-            convertPxToDp(BASE_MARGIN_TOP + (getScreenHeight() - BASE_DEVICE_HEIGHT)),
-            convertPxToDp(BASE_MARGIN_HORIZONTAL),
-            0
-        )
-        params.topToBottom = R.id.et_group_organization
-        params.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
-        params.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
-        params.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
-
-        binding.btnCreateGroup.layoutParams = params
     }
 
     private fun getScreenHeight(): Int {
