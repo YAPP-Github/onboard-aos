@@ -30,6 +30,11 @@ class UserRankItem1to3ViewHolder(
     }
 
     fun bind(userRankItemList: List<UserRankItem>) {
+
+        if (userRankItemList.size == 2) {
+            binding.viewRank3.setItems(null, Second)
+        }
+
         userRankItemList.forEachIndexed { index, userRankItem ->
             when (index) {
                 First.index -> binding.viewRank1.setItems(userRankItem, First)
@@ -67,17 +72,23 @@ class UserRankItem1to3ViewHolder(
         }
     }
 
-    private fun ViewRank3rdBinding.setItems(userRankItem: UserRankItem, rank: Ordinal) {
-        userRankItem.apply {
-            if (this.rank != null) {
+    private fun ViewRank3rdBinding.setItems(userRankItem: UserRankItem?, rank: Ordinal) {
+        userRankItem?.let {
+            if (it.rank != null) {
                 tvRank.text = rank.presentData
             } else { tvRank.text = "-" }
-            tvName.text = name
-            tvPlayCount.text = playCount.convertPlayCount()
-            tvWinRate.text = winRate.convertWinRate()
-            ivRecentUser.visibility = if (isChangeRecent) {
+            tvName.text = it.name
+            tvPlayCount.text = it.playCount.convertPlayCount()
+            tvWinRate.text = it.winRate.convertWinRate()
+            ivRecentUser.visibility = if (it.isChangeRecent) {
                 View.VISIBLE
             } else { View.GONE }
+        } ?: kotlin.run {
+            tvRank.text = "-"
+            tvName.text = "-"
+            tvPlayCount.text = "-"
+            tvWinRate.text = "-"
+            ivRecentUser.visibility = View.GONE
         }
     }
 
