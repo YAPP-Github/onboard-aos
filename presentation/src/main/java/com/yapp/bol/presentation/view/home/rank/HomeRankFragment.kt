@@ -269,7 +269,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
     private fun setHelpButton() {
         binding.btnHelp.setOnClickListener {
-            val url = binding.root.context.resources.getString(R.string.home_help_url)
+            val url = binding.root.resources.getString(R.string.home_help_url)
             Intent(Intent.ACTION_VIEW, Uri.parse(url)).also { startActivity(it) }
         }
     }
