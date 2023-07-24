@@ -1,10 +1,12 @@
 package com.yapp.bol.presentation.view.group.search
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
@@ -42,6 +44,14 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
             showJoinGroupDialog = {
                 moveFragment(GroupJoinFragment(), "groupItem" to it)
             },
+            changeButtonColor = {
+                val textColor = ContextCompat.getColor(binding.root.context, designsystemR.color.Gray_1)
+                val backgroundColor = ContextCompat.getColor(binding.root.context, designsystemR.color.Orange_9)
+                setCreateGroupButtonStyle(
+                    textColor = textColor,
+                    backgroundColor = backgroundColor
+                )
+            }
         )
 
         initPaging(adapter)
@@ -79,12 +89,14 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
         }
     }
 
-    // search view의 edittext 세팅
     @OptIn(FlowPreview::class)
     private fun FragmentGroupSearchBinding.initEditText(adapter: GroupListAdapter) {
         viewLifecycleOwner.lifecycleScope.launch {
             val editTextFlow = viewGroupSearch.etGroupSearch.textChangesToFlow()
             val debounceDuration = 500L
+
+            val textColor = ContextCompat.getColor(binding.root.context, designsystemR.color.Gray_10)
+            val backgroundColor = ContextCompat.getColor(binding.root.context, designsystemR.color.Gray_5)
 
             editTextFlow
                 .onEach {
@@ -93,9 +105,23 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
                 }
                 .debounce(debounceDuration)
                 .onEach {
+                    setCreateGroupButtonStyle(
+                        textColor = textColor,
+                        backgroundColor = backgroundColor
+                    )
                     adapter.searchByKeyword(it.toString())
                 }
                 .launchIn(this)
+        }
+    }
+
+    private fun setCreateGroupButtonStyle(
+        textColor: Int,
+        backgroundColor: Int
+    ) {
+        binding.viewGroupSearch.btnCreateGroup.apply {
+            setTextColor(textColor)
+            backgroundTintList = ColorStateList.valueOf(backgroundColor)
         }
     }
 
