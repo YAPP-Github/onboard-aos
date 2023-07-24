@@ -1,6 +1,8 @@
 package com.yapp.bol.presentation.view.home.rank
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.view.View
 import android.widget.Toast
@@ -19,12 +21,14 @@ import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.copyToClipboard
 import com.yapp.bol.presentation.utils.setStatusBarColor
 import com.yapp.bol.presentation.utils.showToast
+import com.yapp.bol.presentation.view.group.NewGroupActivity
 import com.yapp.bol.presentation.view.home.HomeUiState
 import com.yapp.bol.presentation.view.home.rank.UserRankViewModel.Companion.RV_SELECTED_POSITION_RESET
 import com.yapp.bol.presentation.view.home.rank.game.UserRankGameAdapter
 import com.yapp.bol.presentation.view.home.rank.game.UserRankGameLayoutManager
 import com.yapp.bol.presentation.view.home.rank.group_info.DrawerGroupInfoAdapter
 import com.yapp.bol.presentation.view.home.rank.user.UserRankAdapter
+import com.yapp.bol.presentation.view.match.MatchActivity
 import dagger.hilt.android.AndroidEntryPoint
 import com.yapp.bol.designsystem.R as designsystemR
 
@@ -49,6 +53,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
         scrollCenterWhenUserRankTouchDown()
 
         setFloatingButton()
+        setHelpButton()
     }
 
     private fun initViewModel() {
@@ -256,6 +261,13 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
     private fun setFloatingButton() {
         binding.btnCreateGroup.setOnClickListener {
             // todo create match code needed
+        }
+    }
+
+    private fun setHelpButton() {
+        binding.btnHelp.setOnClickListener {
+            val url = binding.root.context.resources.getString(R.string.home_help_url)
+            Intent(Intent.ACTION_VIEW, Uri.parse(url)).also { startActivity(it) }
         }
     }
 }
