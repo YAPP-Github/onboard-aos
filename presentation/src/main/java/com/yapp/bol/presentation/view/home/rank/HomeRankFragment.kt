@@ -168,6 +168,8 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
                     userRankSnackBar.dismiss()
                     val isNoRank: Boolean = uiState.data.isNoRank()
 
+                    if (!isNoRank) { userRankAdapter.submitList(uiState.data) }
+
                     binding.apply {
                         if (isSelectedPositionValid()) {
                             rvGameList.smoothScrollToPosition(viewModel.getGameItemSelectedPosition())
