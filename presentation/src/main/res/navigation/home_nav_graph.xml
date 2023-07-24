@@ -29,7 +29,11 @@
         android:label="HomeExploreFragment" >
         <action
             android:id="@+id/action_homeExploreFragment_to_groupJoinFragment"
-            app:destination="@id/groupJoinFragment" />
+            app:destination="@id/groupJoinFragment"
+            app:enterAnim="@animator/enter_from_right"
+            app:exitAnim="@animator/exit_to_left"
+            app:popEnterAnim="@animator/enter_from_left"
+            app:popExitAnim="@animator/exit_to_right"/>
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
