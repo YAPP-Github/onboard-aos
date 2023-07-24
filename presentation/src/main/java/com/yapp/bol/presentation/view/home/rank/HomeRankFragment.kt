@@ -260,7 +260,10 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
     private fun setFloatingButton() {
         binding.btnCreateGroup.setOnClickListener {
-            // todo create match code needed
+            Intent(requireContext(), MatchActivity::class.java).also {
+                it.putExtra(NewGroupActivity.GROUP_ID, viewModel.groupId)
+                startActivity(it)
+            }
         }
     }
 
