@@ -26,7 +26,11 @@
     <fragment
         android:id="@+id/homeExploreFragment"
         android:name="com.yapp.bol.presentation.view.home.explore.HomeExploreFragment"
-        android:label="HomeExploreFragment" />
+        android:label="HomeExploreFragment" >
+        <action
+            android:id="@+id/action_homeExploreFragment_to_groupJoinFragment"
+            app:destination="@id/groupJoinFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.yapp.bol.presentation.view.setting.SettingFragment"
@@ -54,4 +58,8 @@
         android:id="@+id/termFragment"
         android:name="com.yapp.bol.presentation.view.setting.TermFragment"
         android:label="TermFragment" />
+    <fragment
+        android:id="@+id/groupJoinFragment"
+        android:name="com.yapp.bol.presentation.view.group.join.GroupJoinFragment"
+        android:label="GroupJoinFragment" />
 </navigation>
