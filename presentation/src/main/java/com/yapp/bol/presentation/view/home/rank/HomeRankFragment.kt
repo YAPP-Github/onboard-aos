@@ -178,8 +178,6 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
                         viewRankNotFound.root.visibility = if (isNoRank) { View.VISIBLE } else { View.GONE }
                         rvUserRank.visibility = if (isNoRank) { View.GONE } else { View.VISIBLE }
                     }
-
-                    if (!isNoRank) { userRankAdapter.submitList(uiState.data) }
                 }
 
                 is HomeUiState.Loading -> {
