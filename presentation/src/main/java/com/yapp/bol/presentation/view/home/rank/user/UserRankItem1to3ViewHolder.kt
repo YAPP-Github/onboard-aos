@@ -29,9 +29,11 @@ class UserRankItem1to3ViewHolder(
         }
     }
 
+    private val USER_NOT_FULL = 2
+
     fun bind(userRankItemList: List<UserRankItem>) {
 
-        if (userRankItemList.size == 2) {
+        if (userRankItemList.size == USER_NOT_FULL) {
             binding.viewRank3.setItems(null, Second)
         }
 
