@@ -29,8 +29,6 @@ class UserRankItem1to3ViewHolder(
         }
     }
 
-    private val USER_NOT_FULL = 2
-
     fun bind(userRankItemList: List<UserRankItem>) {
 
         if (userRankItemList.size == USER_NOT_FULL) {
@@ -50,7 +48,7 @@ class UserRankItem1to3ViewHolder(
         userRankItem.apply {
             if (this.rank != null) {
                 tvRank.text = rank.presentData
-            } else { tvRank.text = "-" }
+            } else { tvRank.text = EMPTY_TEXT }
             tvName.text = name
             tvPlayCount.text = playCount.convertPlayCount()
             tvWinRate.text = winRate.convertWinRate()
@@ -78,7 +76,7 @@ class UserRankItem1to3ViewHolder(
         userRankItem?.let {
             if (it.rank != null) {
                 tvRank.text = rank.presentData
-            } else { tvRank.text = "-" }
+            } else { tvRank.text = EMPTY_TEXT }
             tvName.text = it.name
             tvPlayCount.text = it.playCount.convertPlayCount()
             tvWinRate.text = it.winRate.convertWinRate()
@@ -86,10 +84,10 @@ class UserRankItem1to3ViewHolder(
                 View.VISIBLE
             } else { View.GONE }
         } ?: kotlin.run {
-            tvRank.text = "-"
-            tvName.text = "-"
-            tvPlayCount.text = "-"
-            tvWinRate.text = "-"
+            tvRank.text = EMPTY_TEXT
+            tvName.text = EMPTY_TEXT
+            tvPlayCount.text = EMPTY_TEXT
+            tvWinRate.text = EMPTY_TEXT
             ivRecentUser.visibility = View.GONE
         }
     }
@@ -100,6 +98,10 @@ class UserRankItem1to3ViewHolder(
     object Third : Ordinal(2, "3rd")
 
     companion object {
+
+        private const val USER_NOT_FULL = 2
+        private const val EMPTY_TEXT = "-"
+
         fun create(parent: ViewGroup): UserRankItem1to3ViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             val view = inflater.inflate(R.layout.item_rank_1_to_3, parent, false)
