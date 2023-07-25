@@ -110,12 +110,13 @@
 
 
         <com.yapp.bol.designsystem.ui.button.BolRoundedButton
-            android:layout_width="324dp"
+            android:layout_width="0dp"
             android:layout_height="48dp"
             app:bolButtonText="회원 탈퇴하기"
             app:bolButtonType="roundedSquareType"
             app:bolButtonColor="orange"
             android:layout_marginBottom="26dp"
+            android:layout_marginHorizontal="18dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
