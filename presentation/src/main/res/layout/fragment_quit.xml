@@ -109,14 +109,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <Button
+        <com.yapp.bol.designsystem.ui.button.BolRoundedButton
             android:layout_width="324dp"
             android:layout_height="48dp"
-            tools:layout_width="324dp"
-            tools:layout_height="48dp"
-            tools:bolButtonText="회원 탈퇴하기"
-            tools:bolButtonType="roundedSquareType"
-            tools:bolButtonColor="orange"
+            app:bolButtonText="회원 탈퇴하기"
+            app:bolButtonType="roundedSquareType"
+            app:bolButtonColor="orange"
             android:layout_marginBottom="26dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
