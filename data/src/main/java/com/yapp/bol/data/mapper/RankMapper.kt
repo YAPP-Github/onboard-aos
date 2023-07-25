@@ -23,7 +23,7 @@ internal object RankMapper {
                 id = userRankDTO.id,
                 rank = userRankDTO.rank,
                 name = userRankDTO.name,
-                winRate = userRankDTO.winRate,
+                score = userRankDTO.score,
                 playCount = userRankDTO.playCount,
                 isChangeRecent = userRankDTO.isChangeRecent,
             )
