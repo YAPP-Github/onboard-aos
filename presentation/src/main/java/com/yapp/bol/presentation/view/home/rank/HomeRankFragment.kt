@@ -1,6 +1,7 @@
 package com.yapp.bol.presentation.view.home.rank
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Build
 import android.view.View
 import android.widget.Toast
@@ -25,6 +26,7 @@ import com.yapp.bol.presentation.view.home.rank.game.UserRankGameAdapter
 import com.yapp.bol.presentation.view.home.rank.game.UserRankGameLayoutManager
 import com.yapp.bol.presentation.view.home.rank.group_info.DrawerGroupInfoAdapter
 import com.yapp.bol.presentation.view.home.rank.user.UserRankAdapter
+import com.yapp.bol.presentation.view.match.MatchActivity
 import dagger.hilt.android.AndroidEntryPoint
 import com.yapp.bol.designsystem.R as designsystemR
 
@@ -255,7 +257,12 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
     private fun setFloatingButton() {
         binding.btnCreateGroup.setOnClickListener {
-            // todo create match code needed
+            val intent = Intent(requireActivity(), MatchActivity::class.java)
+            intent.putExtra(GROUP_ID, viewModel.groupId.toInt())
+            startActivity(intent)
         }
+    }
+    companion object {
+        const val GROUP_ID = "Group Id"
     }
 }

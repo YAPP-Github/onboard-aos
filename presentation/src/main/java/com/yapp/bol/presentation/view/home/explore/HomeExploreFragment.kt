@@ -1,5 +1,6 @@
 package com.yapp.bol.presentation.view.home.explore
 
+import android.content.Intent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
@@ -17,6 +18,7 @@ import com.yapp.bol.presentation.utils.setNavigationBarColor
 import com.yapp.bol.presentation.utils.setStatusBarColor
 import com.yapp.bol.presentation.utils.textChangesToFlow
 import com.yapp.bol.presentation.utils.withLoadStateAdapters
+import com.yapp.bol.presentation.view.group.NewGroupActivity
 import com.yapp.bol.presentation.view.group.join.GroupJoinFragment
 import com.yapp.bol.presentation.view.group.search.GroupListAdapter
 import com.yapp.bol.presentation.view.group.search.GroupListLoadStateAdapter
@@ -79,7 +81,8 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
         editText.loseFocusOnAction(EditorInfo.IME_ACTION_SEARCH, this.root.context)
 
         binding.viewGroupSearch.btnCreateGroup.setOnClickListener {
-            // TODO : create transition
+            val intent = Intent(requireActivity(),NewGroupActivity::class.java)
+            startActivity(intent)
         }
     }
 

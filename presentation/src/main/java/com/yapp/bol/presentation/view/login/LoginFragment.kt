@@ -54,11 +54,8 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
 
     override fun onViewCreatedAction() {
         super.onViewCreatedAction()
-        val accessToken = arguments?.getString(ACCESS_TOKEN) ?: Constant.EMPTY_STRING
 
-        if (accessToken.isNotEmpty()) {
-            loginViewModel.getOnBoard()
-        }
+        loginViewModel.getAccessToken()
         setButtonListener()
         subscribeObservables()
     }
@@ -86,6 +83,11 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
         isEnableSignUp.observe(viewLifecycleOwner) {
             if(dialog.isShowing.not()) return@observe
             dialog.updateSignUpEnabled(it)
+        }
+
+        accessToken.observe(viewLifecycleOwner) {
+            if(it.isNullOrEmpty()) return@observe
+            loginViewModel.getOnBoard()
         }
     }
 

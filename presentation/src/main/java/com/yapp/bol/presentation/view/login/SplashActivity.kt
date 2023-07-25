@@ -6,6 +6,7 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseActivity
 import com.yapp.bol.presentation.databinding.ActivitySplashBinding
 import com.yapp.bol.presentation.view.group.search.GroupSearchActivityTest
+import com.yapp.bol.presentation.view.home.HomeActivity
 import com.yapp.bol.presentation.view.match.MatchActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,13 +22,13 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     private fun subscribeObservables() {
         splashViewModel.animationState.observe(this) {
             if(it.not()) return@observe
-            splashViewModel.getAccessToken()
+            splashViewModel.getMyGroupList()
         }
 
-        splashViewModel.accessToken.observe(this) {
-            if (it == null) return@observe
-            val targetActivity = if (it.isEmpty()) LoginActivity::class.java else GroupSearchActivityTest::class.java
-            startActivity(Intent(this, LoginActivity::class.java))
+        splashViewModel.myGroupList.observe(this) {
+            if(it == null) return@observe
+            val target = if(it.isEmpty()) LoginActivity::class.java else HomeActivity::class.java
+            startActivity(Intent(this, target))
             finish()
         }
     }
