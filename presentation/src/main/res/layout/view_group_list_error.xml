@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,15 +32,14 @@
                 android:textColor="@color/Gray_10"
                 android:textAppearance="@style/Typography.Body3_R"/>
 
-            <Button
+            <com.yapp.bol.designsystem.ui.button.BolRoundedButton
                 android:id="@+id/btn_retry"
                 android:layout_width="211dp"
                 android:layout_height="44dp"
-                android:text="@string/group_search_error_button"
+                app:bolButtonText="@string/group_search_error_button"
+                app:bolButtonType="roundedSquareType"
+                app:bolButtonColor="orange"
                 android:background="@drawable/btn_radius_8"
-                android:backgroundTint="@color/Orange_9"
-                android:textColor="@color/Gray_2"
-                android:textAppearance="@style/Typography.Label3_B"
                 android:layout_marginTop="20dp"/>
 
         </LinearLayout>
