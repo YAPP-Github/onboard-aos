@@ -87,4 +87,6 @@
     <string name="group_join_title">모임 들어가기</string>
     <string name="group_join_code_input_plz">모임 참여 코드를 입력해주세요</string>
     <string name="group_join_code_input">참여 코드 입력</string>
+
+    <string name="home_help_url">https://docs.google.com/forms/d/e/1FAIpQLSfY23k3wSmAMbrkrSrJbgQuE3abWfY1WO0cqiIyN-F1egysJA/viewform?usp=sf_link</string>
 </resources>
