@@ -40,6 +40,20 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/btn_help"
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:text="문의"
+                android:textColor="@color/Gray_9"
+                android:textAlignment="textEnd"
+                android:gravity="end
+"               android:layout_marginEnd="17dp"
+                android:textAppearance="@style/Typography.Body5_R"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/btn_group_name"
+                app:layout_constraintBottom_toBottomOf="@id/btn_group_name"/>
+
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/loading_group_name"
                 android:layout_width="78dp"
