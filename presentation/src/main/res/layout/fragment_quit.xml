@@ -22,51 +22,91 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="회원 탈퇴"
+            android:text="탈퇴하기 전에 확인해주세요"
+            android:layout_marginTop="14dp"
             android:textAppearance="@style/Typography.Title1"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toEndOf="@id/btn_back"
-            app:layout_constraintTop_toTopOf="@id/btn_back"
-            app:layout_constraintBottom_toBottomOf="@id/btn_back"/>
+            app:layout_constraintStart_toStartOf="@id/btn_back"
+            app:layout_constraintTop_toBottomOf="@id/btn_back"/>
 
-        <TextView
-            android:id="@+id/tv_notice"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="122dp"
-            android:textAppearance="@style/Typography.Title1"
-            android:text="확인해주세요!"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginTop="26dp"
-            android:layout_marginHorizontal="28dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_notice"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="28dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/Typography.Body3_R"
-                android:text="@string/quit_text_1"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/Typography.Body3_R"
-                android:text="@string/quit_text_2"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/Typography.Body3_R"
-                android:text="@string/quit_text_3"/>
+            <ImageView
+                android:id="@+id/iv_quit_1"
+                android:layout_width="4dp"
+                android:layout_height="4dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginVertical="7dp"
+                android:background="@drawable/bg_oval_orange10"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/tv_quit_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Typography.Body3_R"
+                android:text="@string/quit_text_1"
+                android:layout_marginStart="5dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_quit_1"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <ImageView
+                android:id="@+id/iv_quit_2"
+                android:layout_width="4dp"
+                android:layout_height="4dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginVertical="7dp"
+                android:background="@drawable/bg_oval_orange10"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_quit_2"/>
+
+            <TextView
+                android:id="@+id/tv_quit_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Typography.Body3_R"
+                android:text="@string/quit_text_2"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="5dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_quit_1"
+                app:layout_constraintStart_toEndOf="@id/iv_quit_2"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_quit_3"
+                android:layout_width="4dp"
+                android:layout_height="4dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginVertical="7dp"
+                android:background="@drawable/bg_oval_orange10"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_quit_3"/>
+
+            <TextView
+                android:id="@+id/tv_quit_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Typography.Body3_R"
+                android:text="@string/quit_text_3"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="5dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_quit_2"
+                app:layout_constraintStart_toEndOf="@id/iv_quit_3"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <Button
