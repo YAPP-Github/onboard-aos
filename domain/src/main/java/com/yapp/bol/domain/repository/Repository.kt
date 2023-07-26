@@ -7,7 +7,6 @@ import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.model.MemberItems
 import com.yapp.bol.domain.model.NewGroupItem
-import com.yapp.bol.domain.model.user.group.GetGroupItem
 import kotlinx.coroutines.flow.Flow
 import java.io.File
 
@@ -51,6 +50,4 @@ interface Repository {
         groupId: String,
         accessCode: String,
     ): Flow<ApiResult<CheckGroupJoinByAccessCodeItem>>
-
-    fun getGroupInfo(groupId: Int): Flow<ApiResult<GetGroupItem>>
 }

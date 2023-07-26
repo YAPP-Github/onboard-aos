@@ -3,9 +3,9 @@ package com.yapp.bol.presentation.view.group.join
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yapp.bol.domain.model.user.group.GetGroupItem
+import com.yapp.bol.domain.model.GroupDetailItem
 import com.yapp.bol.domain.usecase.group.CheckGroupJoinByAccessCodeUseCase
-import com.yapp.bol.domain.usecase.group.GetGroupItemUseCase
+import com.yapp.bol.domain.usecase.group.GetGroupDetailUseCase
 import com.yapp.bol.domain.usecase.group.JoinGroupUseCase
 import com.yapp.bol.domain.usecase.login.MatchUseCase
 import com.yapp.bol.presentation.utils.checkedApiResult
@@ -22,7 +22,7 @@ class GroupJoinViewModel @Inject constructor(
     private val joinGroupUseCase: JoinGroupUseCase,
     private val checkGroupAccessCodeUseCase: CheckGroupJoinByAccessCodeUseCase,
     private val matchUseCase: MatchUseCase,
-    private val getGroupItemUseCase: GetGroupItemUseCase,
+    private val getGroupItemUseCase: GetGroupDetailUseCase,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -32,7 +32,7 @@ class GroupJoinViewModel @Inject constructor(
     private val _loading = MutableSharedFlow<Pair<Boolean, String>>()
     val loading = _loading.asSharedFlow()
 
-    val groupItem = MutableStateFlow<GetGroupItem?>(null)
+    val groupItem = MutableStateFlow<GroupDetailItem?>(null)
 
     private val groupId = savedStateHandle.get<Int>("groupId") ?: 0
 
@@ -41,7 +41,7 @@ class GroupJoinViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            getGroupItemUseCase.invoke(groupId).collectLatest {
+            getGroupItemUseCase.invoke(groupId.toLong()).collectLatest {
                 checkedApiResult(
                     apiResult = it,
                     success = { groupItem ->

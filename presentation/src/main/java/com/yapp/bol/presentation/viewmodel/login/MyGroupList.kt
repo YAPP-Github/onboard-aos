@@ -13,7 +13,7 @@ object MyGroupList {
         return myGroupList
     }
 
-    fun findMyGroup(groupId: Int?): MyGroupItem? {
-        return myGroupList?.find { it.id == groupId }
+    fun findMyGroup(groupId: Long?): MyGroupItem? {
+        return myGroupList?.find { it.id.toLong() == groupId }
     }
 }

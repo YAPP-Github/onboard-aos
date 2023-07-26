@@ -108,13 +108,6 @@ class RemoteDataSourceImpl @Inject constructor(
         emit(result)
     }
 
-    override fun getGroupInfo(groupId: Int): Flow<ApiResult<GetGroupResponse>> {
-        return flow {
-            val result = safeApiCall { groupApi.getGroupInfo(groupId) }
-            emit(result)
-        }
-    }
-
     override suspend fun postGuestMember(groupId: Int, nickname: String) {
         groupApi.postGuestMember(groupId, GuestAddApiRequest(nickname))
     }

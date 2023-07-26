@@ -55,6 +55,4 @@ interface RemoteDataSource {
         accessCode: String,
         nickname: String,
     ): Flow<ApiResult<BaseResponse>>
-
-    fun getGroupInfo(groupId: Int): Flow<ApiResult<GetGroupResponse>>
 }

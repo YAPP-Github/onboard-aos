@@ -5,7 +5,6 @@ import com.yapp.bol.data.mapper.MapperToDomain.fileUploadToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.gameToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.mapperToBaseItem
 import com.yapp.bol.data.mapper.MapperToDomain.mapperToCheckGroupJoinByAccessCodeItem
-import com.yapp.bol.data.mapper.MapperToDomain.mapperToGetGroupItem
 import com.yapp.bol.data.mapper.MapperToDomain.memberListToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.newGroupToDomain
 import com.yapp.bol.data.mapper.MapperToDomain.toDomain
@@ -17,7 +16,6 @@ import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.model.MemberItems
 import com.yapp.bol.domain.model.NewGroupItem
-import com.yapp.bol.domain.model.user.group.GetGroupItem
 import com.yapp.bol.domain.repository.Repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -86,12 +84,6 @@ class RepositoryImpl @Inject constructor(
     ): Flow<ApiResult<CheckGroupJoinByAccessCodeItem>> {
         return remoteDataSource.checkGroupJoinAccessCode(groupId, accessCode).map {
             it.mapperToCheckGroupJoinByAccessCodeItem()
-        }
-    }
-
-    override fun getGroupInfo(groupId: Int): Flow<ApiResult<GetGroupItem>> {
-        return remoteDataSource.getGroupInfo(groupId).map {
-            it.mapperToGetGroupItem()
         }
     }
 }

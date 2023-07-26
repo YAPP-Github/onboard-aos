@@ -39,11 +39,6 @@ interface GroupApi {
         @Query("nickname") nickName: String,
     ): Response<MemberValidApiResponse>
 
-    @GET("v1/group/{groupId}")
-    suspend fun getGroupInfo(
-        @Path("groupId") groupId: Int,
-    ): Response<GetGroupResponse>
-
     @GET("/v1/group")
     suspend fun getGroupSearchResult(
         @Query("keyword") name: String,
