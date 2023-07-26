@@ -19,7 +19,7 @@ class SplashViewModel @Inject constructor(
     private val _accessToken = MutableLiveData<String?>(null)
     val accessToken: LiveData<String?> = _accessToken
 
-    private val  _animationState = MutableLiveData(false)
+    private val _animationState = MutableLiveData(false)
     val animationState: LiveData<Boolean> = _animationState
 
     init {

@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Gravity
-import com.yapp.bol.domain.model.TermsItem
 import com.yapp.bol.presentation.databinding.TermsDialogBinding
 import com.yapp.bol.presentation.utils.dialogWidthResize
 
@@ -29,7 +28,7 @@ class TermsDialog(
         TermsAdapter(
             object : TermsAdapter.OnClickItemListener {
                 override fun onClickLike(position: Int, isChecked: Boolean) {
-                    onClickTermsListener.onClickLike(position,isChecked)
+                    onClickTermsListener.onClickLike(position, isChecked)
                 }
 
                 override fun onClickTermsDetail(url: String) {

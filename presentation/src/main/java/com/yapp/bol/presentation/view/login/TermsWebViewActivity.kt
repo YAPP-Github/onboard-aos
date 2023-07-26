@@ -7,7 +7,6 @@ import com.yapp.bol.presentation.base.BaseActivity
 import com.yapp.bol.presentation.databinding.ActivityTermsWebViewBinding
 import com.yapp.bol.presentation.view.login.LoginFragment.Companion.WEB_VIEW_KEY
 
-
 class TermsWebViewActivity : BaseActivity<ActivityTermsWebViewBinding>(R.layout.activity_terms_web_view) {
 
     override fun onCreateAction() {
@@ -18,7 +17,7 @@ class TermsWebViewActivity : BaseActivity<ActivityTermsWebViewBinding>(R.layout.
 
             wvTerms.apply {
                 webViewClient = WebViewClient()
-                val url =  intent?.getStringExtra(WEB_VIEW_KEY) ?: ""
+                val url = intent?.getStringExtra(WEB_VIEW_KEY) ?: ""
                 Log.d("WebView", url)
                 loadUrl(url)
             }

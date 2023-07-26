@@ -54,7 +54,7 @@ class MatchActivity : AppCompatActivity() {
     }
 
     private fun View.setOrangeColor(isCheck: Boolean) {
-        val color = if (isCheck) R.color.Orange_5 else  R.color.Orange_1
+        val color = if (isCheck) R.color.Orange_5 else R.color.Orange_1
         this.setBackgroundColor(ContextCompat.getColor(this@MatchActivity, color))
     }
     companion object {
