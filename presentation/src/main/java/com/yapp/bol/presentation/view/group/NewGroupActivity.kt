@@ -83,6 +83,10 @@ class NewGroupActivity : AppCompatActivity() {
         binding.btnCreateGroup.setOnClickListener {
             profileSettingDialog.show()
         }
+
+        binding.ibBackButton.setOnClickListener {
+            finish()
+        }
     }
 
     private fun setViewModelObserve() {
