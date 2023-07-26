@@ -15,7 +15,6 @@ import com.yapp.bol.presentation.databinding.FragmentGroupJoinBinding
 import com.yapp.bol.presentation.utils.backFragment
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.dpToPx
-import com.yapp.bol.presentation.utils.showToast
 import com.yapp.bol.presentation.view.group.join.data.Margin
 import com.yapp.bol.presentation.view.home.HomeActivity
 import com.yapp.bol.presentation.viewmodel.login.MyGroupList
