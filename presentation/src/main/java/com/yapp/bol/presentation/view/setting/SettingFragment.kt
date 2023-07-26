@@ -1,8 +1,10 @@
 package com.yapp.bol.presentation.view.setting
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentSettingBinding
@@ -35,6 +37,9 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
                     putBoolean(SettingConfig.TERMS_BUNDLE_KEY, isPrivacyTerm)
                 }
                 findNavController().navigate(R.id.action_settingFragment_to_termFragment, bundle)
+            }
+            btnOpenSource.setOnClickListener {
+                startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
             }
         }
     }
