@@ -68,7 +68,7 @@ class GuestAddDialog(
         val secondStartIndex = SECOND_COLOR_CHANGE_START_POINT
         val secondEndIndex = SECOND_COLOR_CHANGE_END_POINT
 
-        val orangeColor = ContextCompat.getColor(context, R.color.orange_09)
+        val orangeColor = ContextCompat.getColor(context, R.color.Orange_9)
         val firstColorSpan = ForegroundColorSpan(orangeColor)
         val secondColorSpan = ForegroundColorSpan(orangeColor)
         spannableString.setSpan(

@@ -14,8 +14,17 @@ class MatchViewModel @Inject constructor() : ViewModel() {
     private val _toolBarTitle = MutableLiveData(GAME_RESULT_RECORD)
     val toolBarTitle: LiveData<String> = _toolBarTitle
 
+    private val _currentPage = MutableLiveData(0)
+    val currentPage: LiveData<Int> = _currentPage
+
     var gameName = EMPTY_STRING
+    var gameId = 0L
     var groupId = 0
+    var currentTime = ""
+
+    fun updateGameId(id: Long) {
+        gameId = id
+    }
 
     fun updateGroupId(id: Int) {
         groupId = id
@@ -27,5 +36,13 @@ class MatchViewModel @Inject constructor() : ViewModel() {
 
     fun updateGameName(name: String) {
         gameName = name
+    }
+
+    fun updateCurrentPage(page: Int) {
+        _currentPage.value = page
+    }
+
+    fun updateCurrentTime(time: String) {
+        currentTime = time
     }
 }

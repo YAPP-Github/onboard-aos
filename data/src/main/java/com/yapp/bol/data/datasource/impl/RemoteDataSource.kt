@@ -4,10 +4,16 @@ import com.yapp.bol.data.model.base.BaseResponse
 import com.yapp.bol.data.model.group.MemberListResponse
 import com.yapp.bol.data.model.group.response.CheckGroupJoinByAccessCodeResponse
 import com.yapp.bol.data.model.group.response.GameApiResponse
+import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
 import com.yapp.bol.data.model.group.response.MemberValidApiResponse
 import com.yapp.bol.data.model.group.response.NewGroupApiResponse
-import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
+import com.yapp.bol.data.model.group.response.RandomImageResponse
 import com.yapp.bol.data.model.login.LoginResponse
+import com.yapp.bol.data.model.login.OnBoardResponse
+import com.yapp.bol.data.model.login.TermsRequest
+import com.yapp.bol.data.model.login.TermsResponse
+import com.yapp.bol.data.model.login.UserRequest
+import com.yapp.bol.data.model.match.MatchApiRequest
 import com.yapp.bol.domain.model.ApiResult
 import kotlinx.coroutines.flow.Flow
 import java.io.File
@@ -15,9 +21,8 @@ import java.io.File
 interface RemoteDataSource {
 
     suspend fun login(type: String, token: String): LoginResponse?
-
     fun postFileUpload(
-        file: File,
+        file: File
     ): Flow<ApiResult<ImageFileUploadResponse>>
 
     fun postCreateGroup(
@@ -44,6 +49,14 @@ interface RemoteDataSource {
 
     suspend fun postGuestMember(groupId: Int, nickname: String)
 
+    fun geTerms(): Flow<ApiResult<TermsResponse>>
+
+    suspend fun postTerms(termsRequest: TermsRequest)
+
+    fun getOnBoard(): Flow<ApiResult<OnBoardResponse>>
+
+    fun getRandomImage(): Flow<ApiResult<RandomImageResponse>>
+
     fun checkGroupJoinAccessCode(
         groupId: String,
         accessCode: String,
@@ -54,4 +67,8 @@ interface RemoteDataSource {
         accessCode: String,
         nickname: String,
     ): Flow<ApiResult<BaseResponse>>
+
+    suspend fun putUserName(userRequest: UserRequest)
+
+    suspend fun postMatch(matchApiRequest: MatchApiRequest)
 }

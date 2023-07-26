@@ -13,6 +13,7 @@ import com.yapp.bol.presentation.utils.dialogWidthResize
 class ResultRecordDialog(
     private val context: Context,
     private val resultRecordItem: ResultRecordItem,
+    private val postMatch: () -> Unit,
 ) : Dialog(context) {
 
     private lateinit var binding: GameResultRecordDialogBinding
@@ -44,6 +45,7 @@ class ResultRecordDialog(
     private fun setClickListener() {
         binding.btnProfileComplete.setOnClickListener {
             dismiss()
+            postMatch()
             resultRecordItem.resultRecording()
         }
     }

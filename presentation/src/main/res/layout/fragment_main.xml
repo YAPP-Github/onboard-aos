@@ -128,7 +128,7 @@
             android:layout_height="52dp"
             android:layout_marginHorizontal="18dp"
             android:layout_marginBottom="24dp"
-            android:background="@drawable/bg_white_radius_gary_9_8dp"
+            android:background="@drawable/bg_white_radius_gary_5_8dp"
             android:gravity="center"
             android:text="Google로 로그인"
             android:textAppearance="@style/Typography.Body3_M"
