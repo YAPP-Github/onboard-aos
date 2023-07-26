@@ -5,10 +5,8 @@ object Converter {
         return "$count/$maxLength"
     }
 
-    fun Double?.convertWinRate(): String {
-        return this?.let {
-            String.format(format = "%.1f%%", it)
-        } ?: kotlin.run { "-" }
+    fun Int?.convertScore(): String {
+        return this?.toString() ?: kotlin.run { "-" }
     }
 
     fun Int?.convertPlayCount(): String {
