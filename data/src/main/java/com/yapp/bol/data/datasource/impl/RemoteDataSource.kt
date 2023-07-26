@@ -4,7 +4,6 @@ import com.yapp.bol.data.model.base.BaseResponse
 import com.yapp.bol.data.model.group.MemberListResponse
 import com.yapp.bol.data.model.group.response.CheckGroupJoinByAccessCodeResponse
 import com.yapp.bol.data.model.group.response.GameApiResponse
-import com.yapp.bol.data.model.group.response.GetGroupResponse
 import com.yapp.bol.data.model.group.response.MemberValidApiResponse
 import com.yapp.bol.data.model.group.response.NewGroupApiResponse
 import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
