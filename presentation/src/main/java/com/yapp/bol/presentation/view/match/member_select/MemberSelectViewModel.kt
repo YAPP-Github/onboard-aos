@@ -82,7 +82,6 @@ class MemberSelectViewModel @Inject constructor(
                 checkedApiResult(
                     apiResult = it,
                     success = { data -> _isNickNameValidate.value = data },
-                    error = {  }
                 )
             }
         }
@@ -107,7 +106,6 @@ class MemberSelectViewModel @Inject constructor(
                     hasNext = data.hasNext
                     getUserInfo()
                 },
-                error = {  }
             )
         }
         return memberList
