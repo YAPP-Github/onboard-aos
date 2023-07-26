@@ -11,7 +11,7 @@ import com.yapp.bol.presentation.databinding.ViewRank1stBinding
 import com.yapp.bol.presentation.databinding.ViewRank2ndBinding
 import com.yapp.bol.presentation.databinding.ViewRank3rdBinding
 import com.yapp.bol.presentation.utils.Converter.convertPlayCount
-import com.yapp.bol.presentation.utils.Converter.convertWinRate
+import com.yapp.bol.presentation.utils.Converter.convertScore
 
 class UserRankItem1to3ViewHolder(
     private val binding: ItemRank1To3Binding
@@ -51,7 +51,7 @@ class UserRankItem1to3ViewHolder(
             } else { tvRank.text = EMPTY_TEXT }
             tvName.text = name
             tvPlayCount.text = playCount.convertPlayCount()
-            tvWinRate.text = winRate.convertWinRate()
+            tvWinRate.text = score.convertScore()
             ivRecentUser.visibility = if (isChangeRecent) {
                 View.VISIBLE
             } else { View.GONE }
@@ -65,7 +65,7 @@ class UserRankItem1to3ViewHolder(
             } else { tvRank.text = "-" }
             tvName.text = name
             tvPlayCount.text = playCount.convertPlayCount()
-            tvWinRate.text = winRate.convertWinRate()
+            tvWinRate.text = score.convertScore()
             ivRecentUser.visibility = if (isChangeRecent) {
                 View.VISIBLE
             } else { View.GONE }
@@ -79,7 +79,7 @@ class UserRankItem1to3ViewHolder(
             } else { tvRank.text = EMPTY_TEXT }
             tvName.text = it.name
             tvPlayCount.text = it.playCount.convertPlayCount()
-            tvWinRate.text = it.winRate.convertWinRate()
+            tvWinRate.text = it.score.convertScore()
             ivRecentUser.visibility = if (it.isChangeRecent) {
                 View.VISIBLE
             } else { View.GONE }

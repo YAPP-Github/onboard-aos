@@ -1,9 +1,11 @@
 package com.yapp.bol.presentation.view.home.explore
 
+import android.content.res.ColorStateList
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -12,12 +14,11 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentHomeExploreBinding
 import com.yapp.bol.presentation.utils.loseFocusOnAction
-import com.yapp.bol.presentation.utils.moveFragment
+import com.yapp.bol.presentation.utils.navigateFragment
 import com.yapp.bol.presentation.utils.setNavigationBarColor
 import com.yapp.bol.presentation.utils.setStatusBarColor
 import com.yapp.bol.presentation.utils.textChangesToFlow
 import com.yapp.bol.presentation.utils.withLoadStateAdapters
-import com.yapp.bol.presentation.view.group.join.GroupJoinFragment
 import com.yapp.bol.presentation.view.group.search.GroupListAdapter
 import com.yapp.bol.presentation.view.group.search.GroupListLoadStateAdapter
 import com.yapp.bol.presentation.view.group.search.GroupSearchViewModel
@@ -46,8 +47,19 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
     private fun setAdapter() {
         val adapter = GroupListAdapter(
             showJoinGroupDialog = {
-                moveFragment(GroupJoinFragment(), "groupItem" to it)
+                binding.root.findNavController().navigateFragment(
+                    R.id.action_homeExploreFragment_to_groupJoinFragment,
+                    "groupItem" to it
+                )
             },
+            changeButtonColor = {
+                val textColor = ContextCompat.getColor(binding.root.context, designsystemR.color.Gray_1)
+                val backgroundColor = ContextCompat.getColor(binding.root.context, designsystemR.color.Orange_9)
+                setCreateGroupButtonStyle(
+                    textColor = textColor,
+                    backgroundColor = backgroundColor
+                )
+            }
         )
         initPaging(adapter)
         binding.initSearchView(adapter)
@@ -88,6 +100,9 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
             val editTextFlow = viewGroupSearch.etGroupSearch.textChangesToFlow()
             val debounceDuration = 500L
 
+            val textColor = ContextCompat.getColor(binding.root.context, designsystemR.color.Gray_10)
+            val backgroundColor = ContextCompat.getColor(binding.root.context, designsystemR.color.Gray_5)
+
             editTextFlow
                 .onEach {
                     val isTyping = !(it.isNullOrBlank() || it.isEmpty())
@@ -95,9 +110,23 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
                 }
                 .debounce(debounceDuration)
                 .onEach {
+                    setCreateGroupButtonStyle(
+                        textColor = textColor,
+                        backgroundColor = backgroundColor
+                    )
                     adapter.searchByKeyword(it.toString())
                 }
                 .launchIn(this)
+        }
+    }
+
+    private fun setCreateGroupButtonStyle(
+        textColor: Int,
+        backgroundColor: Int
+    ) {
+        binding.viewGroupSearch.btnCreateGroup.apply {
+            setTextColor(textColor)
+            backgroundTintList = ColorStateList.valueOf(backgroundColor)
         }
     }
 
@@ -110,7 +139,6 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
         }
     }
 
-    // search view의 edittext typing 여부에 따른 우측 아이콘 변경
     private fun ImageView.setImageButtonByState(isTyping: Boolean) =
         viewLifecycleOwner.lifecycleScope.launch {
             when (isTyping) {

@@ -3,7 +3,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="256dp"
+        android:layout_height="252dp"
         android:layout_marginBottom="6dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
@@ -12,21 +12,21 @@
             android:id="@+id/view_rank_2"
             layout="@layout/view_rank_2nd_3rd_shimmer"
             android:layout_width="104dp"
-            android:layout_height="236dp"
+            android:layout_height="232dp"
             android:layout_marginTop="20dp" />
 
         <include
             android:id="@+id/view_rank_1"
             layout="@layout/view_rank_1st_shimmer"
             android:layout_width="112dp"
-            android:layout_height="240dp"
+            android:layout_height="236dp"
             android:layout_marginTop="10dp" />
 
         <include
             android:id="@+id/view_rank_3"
             layout="@layout/view_rank_2nd_3rd_shimmer"
             android:layout_width="104dp"
-            android:layout_height="236dp"
+            android:layout_height="232dp"
             android:layout_marginTop="20dp" />
 
     </LinearLayout>

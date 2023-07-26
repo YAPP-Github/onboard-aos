@@ -32,9 +32,9 @@
 
         <ImageView
             android:id="@+id/img_dice"
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="12dp"
+            android:layout_width="67dp"
+            android:layout_height="67dp"
+            android:layout_marginTop="5dp"
             android:src="@drawable/img_dice"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

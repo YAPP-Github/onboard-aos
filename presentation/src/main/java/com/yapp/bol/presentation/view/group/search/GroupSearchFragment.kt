@@ -1,22 +1,24 @@
 package com.yapp.bol.presentation.view.group.search
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.paging.PagingData
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentGroupSearchBinding
 import com.yapp.bol.presentation.utils.loseFocusOnAction
-import com.yapp.bol.presentation.utils.moveFragment
+import com.yapp.bol.presentation.utils.navigateFragment
 import com.yapp.bol.presentation.utils.textChangesToFlow
 import com.yapp.bol.presentation.utils.withLoadStateAdapters
 import com.yapp.bol.presentation.view.group.NewGroupActivity
-import com.yapp.bol.presentation.view.group.join.GroupJoinFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collectLatest
@@ -40,8 +42,19 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
     private fun setAdapter() {
         val adapter = GroupListAdapter(
             showJoinGroupDialog = {
-                moveFragment(GroupJoinFragment(), "groupItem" to it)
+                binding.root.findNavController().navigateFragment(
+                    R.id.action_groupSearchFragment_to_groupJoinFragment,
+                    "groupItem" to it
+                )
             },
+            changeButtonColor = {
+                val textColor = ContextCompat.getColor(binding.root.context, designsystemR.color.Gray_1)
+                val backgroundColor = ContextCompat.getColor(binding.root.context, designsystemR.color.Orange_9)
+                setCreateGroupButtonStyle(
+                    textColor = textColor,
+                    backgroundColor = backgroundColor
+                )
+            }
         )
 
         initPaging(adapter)
@@ -59,7 +72,6 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
         binding.rvGroupList.adapter = concatAdapter
     }
 
-    // 상단 search view 초기화 관련 작업
     private fun FragmentGroupSearchBinding.initSearchView(adapter: GroupListAdapter) {
         initEditText(adapter)
 
@@ -79,12 +91,14 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
         }
     }
 
-    // search view의 edittext 세팅
     @OptIn(FlowPreview::class)
     private fun FragmentGroupSearchBinding.initEditText(adapter: GroupListAdapter) {
         viewLifecycleOwner.lifecycleScope.launch {
             val editTextFlow = viewGroupSearch.etGroupSearch.textChangesToFlow()
             val debounceDuration = 500L
+
+            val textColor = ContextCompat.getColor(binding.root.context, designsystemR.color.Gray_10)
+            val backgroundColor = ContextCompat.getColor(binding.root.context, designsystemR.color.Gray_5)
 
             editTextFlow
                 .onEach {
@@ -93,9 +107,23 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
                 }
                 .debounce(debounceDuration)
                 .onEach {
+                    setCreateGroupButtonStyle(
+                        textColor = textColor,
+                        backgroundColor = backgroundColor
+                    )
                     adapter.searchByKeyword(it.toString())
                 }
                 .launchIn(this)
+        }
+    }
+
+    private fun setCreateGroupButtonStyle(
+        textColor: Int,
+        backgroundColor: Int
+    ) {
+        binding.viewGroupSearch.btnCreateGroup.apply {
+            setTextColor(textColor)
+            backgroundTintList = ColorStateList.valueOf(backgroundColor)
         }
     }
 
