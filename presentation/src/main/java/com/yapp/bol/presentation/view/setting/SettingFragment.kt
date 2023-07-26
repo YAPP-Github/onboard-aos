@@ -9,6 +9,7 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentSettingBinding
 import com.yapp.bol.presentation.utils.config.SettingConfig
+import com.yapp.bol.presentation.utils.navigateFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,7 +23,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
     private fun setNavigateButton() {
         binding.apply {
             btnQuit.setOnClickListener {
-                findNavController().navigate(R.id.action_settingFragment_to_quitFragment)
+                findNavController().navigateFragment(R.id.action_settingFragment_to_quitFragment)
             }
             btnTermsPrivacy.setOnClickListener {
                 val isPrivacyTerm = true
