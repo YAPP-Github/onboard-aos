@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -7,7 +8,9 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/group_container_layout"
-            android:name="com.yapp.bol.presentation.view.group.search.GroupSearchFragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/group_nav_graph"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
