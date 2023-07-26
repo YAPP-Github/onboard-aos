@@ -18,7 +18,7 @@ class SplashViewModel @Inject constructor(
     private val getJoinedGroupUseCase: GetJoinedGroupUseCase,
 ) : ViewModel() {
 
-    private val  _animationState = MutableLiveData(false)
+    private val _animationState = MutableLiveData(false)
     val animationState: LiveData<Boolean> = _animationState
 
     private val _myGroupList = MutableLiveData<List<JoinedGroupItem>?>(null)

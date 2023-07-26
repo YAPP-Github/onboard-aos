@@ -147,7 +147,7 @@ class MemberSelectFragment : Fragment() {
         }
 
         userId.observe(viewLifecycleOwner) {
-            if(it == -1) return@observe
+            if (it == -1) return@observe
             memberSelectViewModel.addMember(it)
         }
     }

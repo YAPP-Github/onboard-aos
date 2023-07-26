@@ -59,7 +59,6 @@ class GameResultViewModel @Inject constructor(
                 )
             )
             _isRecordComplete.value = true
-
         }
     }
 
