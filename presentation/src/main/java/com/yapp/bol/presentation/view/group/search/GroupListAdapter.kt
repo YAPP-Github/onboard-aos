@@ -10,6 +10,7 @@ import com.yapp.bol.presentation.data.GroupSearchUiModel
 
 class GroupListAdapter(
     private val showJoinGroupDialog: (GroupItem) -> Unit,
+    private val changeButtonColor: () -> Unit,
 ) : PagingDataAdapter<GroupSearchUiModel, RecyclerView.ViewHolder>(GROUP_LIST_COMPARATOR) {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val uiModel = getItem(position)
@@ -31,7 +32,7 @@ class GroupListAdapter(
         return if (viewType == R.layout.item_group_list) {
             GroupListViewHolder.create(parent)
         } else {
-            GroupListNotFoundViewHolder.create(parent)
+            GroupListNotFoundViewHolder.create(parent, changeButtonColor)
         }
     }
 

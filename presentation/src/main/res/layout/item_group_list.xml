@@ -53,6 +53,7 @@
             android:id="@+id/view_separator"
             android:layout_width="1dp"
             android:layout_height="match_parent"
+            android:layout_marginVertical="1dp"
             android:layout_marginHorizontal="6dp"
             android:background="@color/Gray_7" />
 
