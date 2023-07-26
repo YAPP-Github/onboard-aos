@@ -21,10 +21,10 @@
     <string name="image_setting_delegate_guide">모임을 소개할 대표 이미지를 넣어보세요!</string>
     <string name="image_setting_gallery">앨범에서 사진 선택</string>
     <string name="image_setting_random">랜덤 이미지</string>
-    <string name="profile_setting">관리자 프로필 설정</string>
+    <string name="profile_setting">프로필 설정</string>
     <string name="profile_setting_guide">관리자님이 모임에서 사용할 닉네임을 정해주세요</string>
     <string name="profile_name_count">0/10</string>
-    <string name="complete_text">기록 확정</string>
+    <string name="complete_text">완료</string>
 
     <string name="group_create_text">모임 등록</string>
     <string name="group_name_text">보드게임 모임 이름</string>
@@ -88,4 +88,5 @@
     <string name="group_join_code_input_plz">모임 참여 코드를 입력해주세요</string>
     <string name="group_join_code_input">참여 코드 입력</string>
 
+    <string name="home_help_url">https://docs.google.com/forms/d/e/1FAIpQLSfY23k3wSmAMbrkrSrJbgQuE3abWfY1WO0cqiIyN-F1egysJA/viewform?usp=sf_link</string>
 </resources>
