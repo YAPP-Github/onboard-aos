@@ -15,6 +15,7 @@ import android.view.WindowManager
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat.getColor
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updateMargins
 import androidx.core.view.updatePadding
@@ -74,7 +75,14 @@ class InputDialog(
         binding.etInput.doAfterTextChanged { text ->
             binding.tvInputCount.text = "${text?.length ?: 0}/$onLimit"
             binding.tvSummit.isEnabled = !text.isNullOrEmpty()
-            binding.tvErrorMessage.visibility = View.GONE
+            binding.tvSummit.setTextColor(
+                if (text.isNullOrEmpty()) {
+                    getColor(context, R.color.Gray_7)
+                } else {
+                    getColor(context, R.color.Gray_1)
+                },
+            )
+            binding.tvErrorMessage.visibility = View.INVISIBLE
 
             if ((text?.count()) == onLimit) {
                 text.substring(0, onLimit).let {
@@ -159,6 +167,7 @@ class InputDialog(
         binding.tvErrorMessage.text = message
 
         binding.tvSummit.isEnabled = true
+        binding.tvSummit.setTextColor(getColor(context, R.color.Gray_7))
     }
 
     fun setTitleIcon(@DrawableRes icon: Int, size: Int, margin: Margin): InputDialog {

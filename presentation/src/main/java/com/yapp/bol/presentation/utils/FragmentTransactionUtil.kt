@@ -17,3 +17,7 @@ fun Fragment.moveFragment(fragment: Fragment, vararg bundleData: Pair<String, An
         .addToBackStack(null)
         .commit()
 }
+
+fun Fragment.backFragment() {
+    parentFragmentManager.popBackStack()
+}

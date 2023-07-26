@@ -1,6 +1,5 @@
 package com.yapp.bol.presentation.viewmodel.login
 
-import android.util.Log
 import com.yapp.bol.domain.model.user.group.MyGroupItem
 
 object MyGroupList {

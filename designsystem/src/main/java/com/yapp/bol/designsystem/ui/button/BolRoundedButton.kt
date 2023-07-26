@@ -15,13 +15,15 @@ class BolRoundedButton(
     attrs: AttributeSet
 ) : ConstraintLayout(context, attrs), BolBaseButton {
 
-    init {
-        if (!isInEditMode) { getAttrsValue(context, attrs) }
-    }
-
     private val binding: BolRoundedButtonBinding by lazy {
         BolRoundedButtonBinding.inflate(LayoutInflater.from(context), this, true)
     }
+
+    init {
+        binding
+        getAttrsValue(context, attrs)
+    }
+
     private var buttonType: ButtonType = ButtonType.RoundedSquareType
     private var buttonColor: ButtonColor = ButtonColor.Orange
     private var buttonText: String? = null
@@ -46,15 +48,15 @@ class BolRoundedButton(
     }
 
     private fun setEnableButton() {
-        binding.btnBol.apply {
+        binding.bgBtn.background = getRoundedButtonDrawableState(
+            context = binding.root.context,
+            type = buttonType,
+            color = buttonColor,
+            duration = animationDuration,
+        )
+        binding.tvBtn.apply {
             text = buttonText
             setTextColor(getEnableTextColor(buttonColor))
-            background = getRoundedButtonDrawableState(
-                context = binding.root.context,
-                type = buttonType,
-                color = buttonColor,
-                duration = animationDuration,
-            )
         }
     }
 
@@ -67,12 +69,17 @@ class BolRoundedButton(
     private fun getDisableTextColor(): Int =
         ContextCompat.getColor(binding.root.context, R.color.Gray_7)
 
+    /**
+     * Bol[Bottom]RoundedButton 비활성화 함수
+     */
     override fun disableButton() {
-        if (!binding.btnBol.isEnabled) {
+        if (!binding.bgBtn.isEnabled) {
             return
         }
 
-        binding.btnBol.apply {
+        binding.tvBtn.setTextColor(getDisableTextColor())
+
+        binding.bgBtn.apply {
             isEnabled = false
             background = when (buttonType) {
                 ButtonType.RoundedSquareType -> AppCompatResources.getDrawable(
@@ -84,22 +91,28 @@ class BolRoundedButton(
                     R.drawable.bg_bottom_rounded_btn_disable
                 )
             }
-            setTextColor(getDisableTextColor())
         }
     }
 
+    /**
+     * Bol[Bottom]RoundedButton 클릭 시 수행할 작업 구현하는 함수
+     * @param onClick type: () -> Unit
+     */
     override fun setOnClickListener(onClick: () -> Unit) {
-        binding.btnBol.setOnClickListener {
+        binding.bgBtn.setOnClickListener {
             onClick()
         }
     }
 
+    /**
+     * Bol[Bottom]RoundedButton 활성화 함수
+     */
     override fun enableButton() {
-        if (binding.btnBol.isEnabled) {
+        if (binding.bgBtn.isEnabled) {
             return
         }
 
-        binding.btnBol.isEnabled = true
+        binding.bgBtn.isEnabled = true
         setEnableButton()
     }
 }

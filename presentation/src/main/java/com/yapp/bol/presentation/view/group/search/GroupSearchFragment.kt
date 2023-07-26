@@ -3,20 +3,20 @@ package com.yapp.bol.presentation.view.group.search
 import android.content.Intent
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.ImageButton
+import android.widget.ImageView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.paging.PagingData
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentGroupSearchBinding
 import com.yapp.bol.presentation.utils.loseFocusOnAction
-import com.yapp.bol.presentation.utils.moveFragment
+import com.yapp.bol.presentation.utils.navigateFragment
 import com.yapp.bol.presentation.utils.textChangesToFlow
 import com.yapp.bol.presentation.utils.withLoadStateAdapters
 import com.yapp.bol.presentation.view.group.NewGroupActivity
-import com.yapp.bol.presentation.view.group.join.GroupJoinFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collectLatest
@@ -24,6 +24,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import com.yapp.bol.designsystem.R as designsystemR
 
 @AndroidEntryPoint
 class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fragment_group_search) {
@@ -39,7 +40,10 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
     private fun setAdapter() {
         val adapter = GroupListAdapter(
             showJoinGroupDialog = {
-                moveFragment(GroupJoinFragment(), "groupItem" to it)
+                binding.root.findNavController().navigateFragment(
+                    R.id.action_groupSearchFragment_to_groupJoinFragment,
+                    "groupItem" to it
+                )
             },
         )
 
@@ -58,7 +62,6 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
         binding.rvGroupList.adapter = concatAdapter
     }
 
-    // 상단 search view 초기화 관련 작업
     private fun FragmentGroupSearchBinding.initSearchView(adapter: GroupListAdapter) {
         initEditText(adapter)
 
@@ -78,7 +81,6 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
         }
     }
 
-    // search view의 edittext 세팅
     @OptIn(FlowPreview::class)
     private fun FragmentGroupSearchBinding.initEditText(adapter: GroupListAdapter) {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -107,16 +109,15 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
         }
     }
 
-    // search view의 edittext typing 여부에 따른 우측 아이콘 변경
-    private fun ImageButton.setImageButtonByState(isTyping: Boolean) =
+    private fun ImageView.setImageButtonByState(isTyping: Boolean) =
         viewLifecycleOwner.lifecycleScope.launch {
             when (isTyping) {
                 true -> setImageDrawable(
-                    AppCompatResources.getDrawable(binding.root.context, R.drawable.ic_x),
+                    AppCompatResources.getDrawable(binding.root.context, designsystemR.drawable.ic_x),
                 )
 
                 false -> setImageDrawable(
-                    AppCompatResources.getDrawable(binding.root.context, R.drawable.ic_search),
+                    AppCompatResources.getDrawable(binding.root.context, designsystemR.drawable.ic_search),
                 )
             }
         }
