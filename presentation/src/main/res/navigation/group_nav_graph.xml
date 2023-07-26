@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/group_nav_graph"
+    app:startDestination="@id/groupSearchFragment">
+
+    <fragment
+        android:id="@+id/groupSearchFragment"
+        android:name="com.yapp.bol.presentation.view.group.search.GroupSearchFragment"
+        android:label="GroupSearchFragment" >
+        <action
+            android:id="@+id/action_groupSearchFragment_to_groupJoinFragment"
+            app:destination="@id/groupJoinFragment"
+            app:enterAnim="@animator/enter_from_right"
+            app:exitAnim="@animator/exit_to_left"
+            app:popEnterAnim="@animator/enter_from_left"
+            app:popExitAnim="@animator/exit_to_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/groupJoinFragment"
+        android:name="com.yapp.bol.presentation.view.group.join.GroupJoinFragment"
+        android:label="GroupJoinFragment" />
+</navigation>
