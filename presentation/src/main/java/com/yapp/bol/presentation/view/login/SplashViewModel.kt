@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val getMyGroupListUseCase: GetJoinedGroupUseCase,
+    private val getJoinedGroupUseCase: GetJoinedGroupUseCase,
 ) : ViewModel() {
 
     private val  _animationState = MutableLiveData(false)
@@ -33,7 +33,7 @@ class SplashViewModel @Inject constructor(
 
     fun getMyGroupList() {
         viewModelScope.launch {
-            getMyGroupListUseCase().collectLatest {
+            getJoinedGroupUseCase().collectLatest {
                 checkedApiResult(
                     apiResult = it,
                     success = { data -> _myGroupList.value = data },
