@@ -88,7 +88,7 @@ class MemberSelectFragment : Fragment() {
         memberSelectViewModel.updateGroupId(matchViewModel.groupId)
         memberSelectViewModel.setMaxPlayers(maxPlayer)
         memberSelectViewModel.setMinPlayers(minPlayer)
-        //memberSelectViewModel.getMembers()
+        // memberSelectViewModel.getMembers()
 
         binding.rvMemberSelect.adapter = memberSelectAdapter
         binding.rvMembers.adapter = membersAdapter
@@ -111,8 +111,8 @@ class MemberSelectFragment : Fragment() {
 
         val scrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                //keyboardManager.hideKeyboard()
-                //binding.etSearchMember.clearFocus()
+                // keyboardManager.hideKeyboard()
+                // binding.etSearchMember.clearFocus()
                 getNextMember(recyclerView)
             }
         }

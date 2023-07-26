@@ -48,7 +48,11 @@ class GameResultFragment : BaseFragment<FragmentGameResultBinding>(R.layout.frag
                 resultRecording = ::resultRecording
             )
         ) {
-            gameResultViewModel.postMatch(matchViewModel.gameId.toInt(),matchViewModel.groupId, matchViewModel.currentTime)
+            gameResultViewModel.postMatch(
+                matchViewModel.gameId.toInt(),
+                matchViewModel.groupId,
+                matchViewModel.currentTime
+            )
         }
 
     private val gameResultAdapter by lazy {

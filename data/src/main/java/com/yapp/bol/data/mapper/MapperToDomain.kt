@@ -177,7 +177,6 @@ internal object MapperToDomain {
         }
     }
 
-
     fun ApiResult<BaseResponse>.mapperToBaseItem(): ApiResult<BaseItem> {
         return when (this) {
             is ApiResult.Success -> ApiResult.Success(BaseItem(data.code, data.message))

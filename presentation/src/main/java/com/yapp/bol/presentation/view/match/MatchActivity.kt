@@ -24,7 +24,7 @@ class MatchActivity : AppCompatActivity() {
         val groupId = intent.getIntExtra(GROUP_ID, 0)
 
         binding.ibBackButton.setOnClickListener {
-            if(viewModel.currentPage.value == GAME_SELECT) finish()
+            if (viewModel.currentPage.value == GAME_SELECT) finish()
             else binding.navHostFragment.findNavController().popBackStack()
         }
 
@@ -33,7 +33,7 @@ class MatchActivity : AppCompatActivity() {
             binding.tvPageName.text = title
         }
         viewModel.currentPage.observe(this) {
-            when(it) {
+            when (it) {
                 GAME_SELECT -> {
                     binding.viewPage1.setOrangeColor(true)
                     binding.viewPage2.setOrangeColor(false)
@@ -54,8 +54,8 @@ class MatchActivity : AppCompatActivity() {
     }
 
     private fun View.setOrangeColor(isCheck: Boolean) {
-        val color = if(isCheck)  R.color.Orange_5 else  R.color.Orange_1
-        this.setBackgroundColor(ContextCompat.getColor(this@MatchActivity,color))
+        val color = if (isCheck) R.color.Orange_5 else  R.color.Orange_1
+        this.setBackgroundColor(ContextCompat.getColor(this@MatchActivity, color))
     }
     companion object {
         /* 추후 enum class 로 변경 예정*/
