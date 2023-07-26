@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/bg_item_rank_after_4">
+
+        <ImageView
+            android:id="@+id/iv_rank"
+            android:src="@drawable/bg_home_user_shimmer_radius_25dp"
+            android:layout_width="10dp"
+            android:layout_height="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="23dp"/>
+
+        <ImageView
+            android:id="@+id/img_dice"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/bg_home_user_shimmer_oval"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="47dp"/>
+
+        <ImageView
+            android:id="@+id/iv_name"
+            android:layout_width="140dp"
+            android:layout_height="14dp"
+            android:src="@drawable/bg_home_user_shimmer_radius_25dp"
+            app:layout_constraintStart_toEndOf="@id/img_dice"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:textAppearance="@style/Typography.Body3_M"
+            android:textColor="@color/Gray_14"/>
+
+        <ImageView
+            android:id="@+id/iv_play_count"
+            android:layout_width="52dp"
+            android:layout_height="10dp"
+            android:src="@drawable/bg_home_user_shimmer_radius_25dp"
+            app:layout_constraintStart_toStartOf="@id/iv_name"
+            app:layout_constraintTop_toBottomOf="@id/iv_name"
+            android:layout_marginTop="8dp"
+            android:textAppearance="@style/Typography.Body5_R"
+            android:textColor="@color/Gray_8"/>
+
+        <ImageView
+            android:id="@+id/iv_win_rate"
+            android:layout_width="32dp"
+            android:layout_height="14dp"
+            android:src="@drawable/bg_home_user_shimmer_radius_25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_name"
+            android:layout_marginEnd="24dp"
+            android:textAppearance="@style/Typography.Body3_M"/>
+
+        <ImageView
+            android:id="@+id/iv_play_count_description"
+            android:layout_width="15dp"
+            android:layout_height="10dp"
+            android:src="@drawable/bg_home_user_shimmer_radius_25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_play_count"
+            android:layout_marginEnd="24dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -10,8 +10,10 @@ import com.yapp.bol.data.model.group.response.MemberValidApiResponse
 import com.yapp.bol.data.model.group.request.NewGroupApiRequest
 import com.yapp.bol.data.model.group.response.CheckGroupJoinByAccessCodeResponse
 import com.yapp.bol.data.model.group.response.GetGroupResponse
+import com.yapp.bol.data.model.group.response.GroupDetailResponse
 import com.yapp.bol.data.model.group.response.NewGroupApiResponse
 import com.yapp.bol.data.model.group.response.GroupSearchApiResponse
+import com.yapp.bol.data.model.group.response.JoinedGroupResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -44,7 +46,7 @@ interface GroupApi {
 
     @GET("/v1/group")
     suspend fun getGroupSearchResult(
-        @Query("name") name: String,
+        @Query("keyword") name: String,
         @Query("pageNumber") page: String,
         @Query("pageSize") pageSize: String,
     ): Response<GroupSearchApiResponse>
@@ -56,6 +58,14 @@ interface GroupApi {
         @Query("cursor") cursor: String?,
         @Query("nickname") nickname: String?,
     ): Response<MemberListResponse>
+
+    @GET("/v1/user/me/group")
+    suspend fun getJoinedGroup(): Response<JoinedGroupResponse>
+
+    @GET("/v1/group/{groupId}")
+    suspend fun getGroupDetail(
+        @Path("groupId") groupId: Long,
+    ): Response<GroupDetailResponse>
 
     @POST("/v1/group/{groupId}/guest")
     suspend fun postGuestMember(

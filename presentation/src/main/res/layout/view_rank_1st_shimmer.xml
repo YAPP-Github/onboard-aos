@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="112dp"
+        android:layout_height="240dp">
+
+        <TextView
+            android:id="@+id/tv_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Typography.Label3_B"
+            android:textColor="@color/Yellow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_dice_bottom"
+            android:layout_width="88dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="80dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_dice_bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rank" />
+
+        <ImageView
+            android:id="@+id/tv_name"
+            android:layout_width="84dp"
+            android:layout_height="18dp"
+            android:src="@drawable/bg_home_user_shimmer_radius_40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_dice_bottom"
+            android:layout_marginTop="14dp" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
