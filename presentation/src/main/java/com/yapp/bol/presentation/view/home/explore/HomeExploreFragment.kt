@@ -1,6 +1,5 @@
 package com.yapp.bol.presentation.view.home.explore
 
-import android.content.Intent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
@@ -13,13 +12,11 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentHomeExploreBinding
 import com.yapp.bol.presentation.utils.loseFocusOnAction
-import com.yapp.bol.presentation.utils.moveFragment
+import com.yapp.bol.presentation.utils.navigateFragment
 import com.yapp.bol.presentation.utils.setNavigationBarColor
 import com.yapp.bol.presentation.utils.setStatusBarColor
 import com.yapp.bol.presentation.utils.textChangesToFlow
 import com.yapp.bol.presentation.utils.withLoadStateAdapters
-import com.yapp.bol.presentation.view.group.NewGroupActivity
-import com.yapp.bol.presentation.view.group.join.GroupJoinFragment
 import com.yapp.bol.presentation.view.group.search.GroupListAdapter
 import com.yapp.bol.presentation.view.group.search.GroupListLoadStateAdapter
 import com.yapp.bol.presentation.view.group.search.GroupSearchViewModel
@@ -48,7 +45,10 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
     private fun setAdapter() {
         val adapter = GroupListAdapter(
             showJoinGroupDialog = {
-                moveFragment(GroupJoinFragment(), "groupItem" to it)
+                binding.root.findNavController().navigateFragment(
+                    R.id.action_homeExploreFragment_to_groupJoinFragment,
+                    "groupItem" to it
+                )
             },
         )
         initPaging(adapter)
@@ -81,8 +81,7 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
         editText.loseFocusOnAction(EditorInfo.IME_ACTION_SEARCH, this.root.context)
 
         binding.viewGroupSearch.btnCreateGroup.setOnClickListener {
-            val intent = Intent(requireActivity(),NewGroupActivity::class.java)
-            startActivity(intent)
+            // TODO : create transition
         }
     }
 
@@ -113,7 +112,6 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
         }
     }
 
-    // search view의 edittext typing 여부에 따른 우측 아이콘 변경
     private fun ImageView.setImageButtonByState(isTyping: Boolean) =
         viewLifecycleOwner.lifecycleScope.launch {
             when (isTyping) {
