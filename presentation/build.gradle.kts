@@ -105,6 +105,9 @@ dependencies {
 
     // Shimmer
     implementation(com.yapp.bol.Shimmer.SHIMMER)
+
+    // Licenses
+    implementation(com.yapp.bol.Licenses.OSS_LICENSES)
 }
 
 fun getProperty(propertyKey: String): String {

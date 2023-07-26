@@ -110,3 +110,10 @@ object Navigation {
 object Shimmer {
     const val SHIMMER = "com.facebook.shimmer:shimmer:0.5.0"
 }
+
+object Licenses {
+    const val OSS_LICENSES_CLASSPATH = "com.google.android.gms:oss-licenses-plugin:0.10.6"
+    const val OSS_LICENSES= "com.google.android.gms:play-services-oss-licenses:17.0.1"
+    const val OSS_LICENSES_ID= "com.google.android.gms.oss-licenses-plugin"
+}
+
