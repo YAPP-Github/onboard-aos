@@ -18,6 +18,7 @@ import com.yapp.bol.data.model.login.TermsResponse
 import com.yapp.bol.data.model.match.MatchApiRequest
 import com.yapp.bol.data.model.match.MatchMemberDTO
 import com.yapp.bol.data.model.user.GetMyGroupListResponse
+import com.yapp.bol.data.model.user.UserResponse
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.BaseItem
 import com.yapp.bol.domain.model.CheckGroupJoinByAccessCodeItem
@@ -32,6 +33,7 @@ import com.yapp.bol.domain.model.MemberItems
 import com.yapp.bol.domain.model.NewGroupItem
 import com.yapp.bol.domain.model.TermsItem
 import com.yapp.bol.domain.model.TermsList
+import com.yapp.bol.domain.model.user.UserItem
 import com.yapp.bol.domain.model.user.group.MyGroupItem
 
 internal object MapperToDomain {
@@ -230,5 +232,12 @@ internal object MapperToDomain {
             this.matchedDate,
             this.matchMembers.map { it.toMatchItem() }
         )
+    }
+
+    fun ApiResult<UserResponse>.toUserDomain(): ApiResult<UserItem> {
+        return when (this) {
+            is ApiResult.Success -> ApiResult.Success(UserItem(this.data.id, this.data.nickname))
+            is ApiResult.Error -> ApiResult.Error(this.exception)
+        }
     }
 }

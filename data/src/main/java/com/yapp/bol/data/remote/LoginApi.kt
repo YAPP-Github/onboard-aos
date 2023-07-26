@@ -6,6 +6,7 @@ import com.yapp.bol.data.model.login.LoginResponse
 import com.yapp.bol.data.model.login.OnBoardResponse
 import com.yapp.bol.data.model.login.TermsRequest
 import com.yapp.bol.data.model.login.UserRequest
+import com.yapp.bol.data.model.user.UserResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -33,4 +34,8 @@ interface LoginApi {
     suspend fun putUserName(
         @Body userRequest: UserRequest
     )
+
+    @GET("/v1/user/me")
+    suspend fun getUserInfo(): Response<UserResponse>
+
 }

@@ -9,6 +9,7 @@ import com.yapp.bol.domain.model.MatchItem
 import com.yapp.bol.domain.model.MemberItems
 import com.yapp.bol.domain.model.NewGroupItem
 import com.yapp.bol.domain.model.TermsList
+import com.yapp.bol.domain.model.user.UserItem
 import kotlinx.coroutines.flow.Flow
 import java.io.File
 
@@ -64,4 +65,6 @@ interface Repository {
     suspend fun putUserName(nickName: String)
 
     suspend fun postMatch(matchItem: MatchItem)
+
+    fun getUserInfo(): Flow<ApiResult<UserItem>>
 }

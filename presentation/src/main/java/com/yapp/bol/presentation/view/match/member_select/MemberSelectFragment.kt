@@ -38,7 +38,7 @@ class MemberSelectFragment : Fragment() {
     private val memberSelectAdapter = MemberSelectAdapter(
         memberDeleteClickListener = { member ->
             memberSelectViewModel.checkedSelectMembers(member)
-            memberSelectViewModel.clearMembers(member.id)
+            memberSelectViewModel.removeMember(member.id)
         },
     )
     private val membersAdapter = MembersAdapter(
@@ -88,7 +88,6 @@ class MemberSelectFragment : Fragment() {
         memberSelectViewModel.updateGroupId(matchViewModel.groupId)
         memberSelectViewModel.setMaxPlayers(maxPlayer)
         memberSelectViewModel.setMinPlayers(minPlayer)
-        //memberSelectViewModel.getMembers()
 
         binding.rvMemberSelect.adapter = memberSelectAdapter
         binding.rvMembers.adapter = membersAdapter
@@ -111,8 +110,6 @@ class MemberSelectFragment : Fragment() {
 
         val scrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                //keyboardManager.hideKeyboard()
-                //binding.etSearchMember.clearFocus()
                 getNextMember(recyclerView)
             }
         }
@@ -147,6 +144,11 @@ class MemberSelectFragment : Fragment() {
 
         isNickNameValidate.observe(viewLifecycleOwner) {
             if (guestAddDialog.isShowing) guestAddDialog.setNicknameValid(it)
+        }
+
+        userId.observe(viewLifecycleOwner) {
+            if(it == -1) return@observe
+            memberSelectViewModel.addMember(it)
         }
     }
 
@@ -207,8 +209,8 @@ class MemberSelectFragment : Fragment() {
     }
 
     private fun setPlayerGuide() {
-        var text = ""
-        var color = 0
+        val text: String
+        val color: Int
         val isMaxPlayers = memberSelectViewModel.checkedMaxPlayers()
         if (isMaxPlayers) {
             text = getString(R.string.play_select_guide)
