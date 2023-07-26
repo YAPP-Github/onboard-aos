@@ -8,7 +8,7 @@ import com.yapp.bol.domain.model.UserRankItem
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.ItemRankAfter4Binding
 import com.yapp.bol.presentation.utils.Converter.convertPlayCount
-import com.yapp.bol.presentation.utils.Converter.convertWinRate
+import com.yapp.bol.presentation.utils.Converter.convertScore
 
 class UserRankItemAfter4ViewHolder(
     private val binding: ItemRankAfter4Binding
@@ -31,7 +31,7 @@ class UserRankItemAfter4ViewHolder(
             } else { tvRank.text = "-" }
             tvName.text = name
             tvPlayCount.text = playCount.convertPlayCount()
-            tvWinRate.text = winRate.convertWinRate()
+            tvWinRate.text = score.convertScore()
             ivRecentUser.visibility = if (isChangeRecent) {
                 View.VISIBLE
             } else { View.GONE }
