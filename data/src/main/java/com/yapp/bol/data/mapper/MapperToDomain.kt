@@ -14,7 +14,6 @@ import com.yapp.bol.data.model.group.response.GameApiResponse
 import com.yapp.bol.data.model.group.response.GameResponse
 import com.yapp.bol.data.model.group.response.MemberValidApiResponse
 import com.yapp.bol.data.model.group.response.NewGroupApiResponse
-import com.yapp.bol.data.model.user.GetMyGroupListResponse
 import com.yapp.bol.domain.model.BaseItem
 import com.yapp.bol.domain.model.CheckGroupJoinByAccessCodeItem
 import com.yapp.bol.domain.model.GameItem
@@ -22,7 +21,6 @@ import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.model.MemberItem
 import com.yapp.bol.domain.model.MemberItems
 import com.yapp.bol.domain.model.NewGroupItem
-import com.yapp.bol.domain.model.user.group.MyGroupItem
 
 internal object MapperToDomain {
 
@@ -116,24 +114,6 @@ internal object MapperToDomain {
     fun ApiResult<MemberValidApiResponse>.validToDomain(): ApiResult<Boolean> {
         return when (this) {
             is ApiResult.Success -> ApiResult.Success(data.isAvailable)
-            is ApiResult.Error -> ApiResult.Error(exception)
-        }
-    }
-
-    fun ApiResult<GetMyGroupListResponse>.toMyGroupDomain(): ApiResult<List<MyGroupItem>> {
-        return when (this) {
-            is ApiResult.Success -> ApiResult.Success(
-                data.groupList.map {
-                    MyGroupItem(
-                        id = it.id,
-                        name = it.name,
-                        description = it.description,
-                        organization = it.organization,
-                        profileImageUrl = it.profileImageUrl,
-                    )
-                },
-            )
-
             is ApiResult.Error -> ApiResult.Error(exception)
         }
     }

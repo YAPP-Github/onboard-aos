@@ -1,13 +1,12 @@
 package com.yapp.bol.presentation.viewmodel.login
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.usecase.auth.SaveAccessTokenUseCase
 import com.yapp.bol.domain.usecase.auth.SaveRefreshTokenUseCase
+import com.yapp.bol.domain.usecase.group.GetJoinedGroupUseCase
 import com.yapp.bol.domain.usecase.login.LoginUseCase
-import com.yapp.bol.domain.usecase.user.GetMyGroupListUseCase
 import com.yapp.bol.presentation.utils.checkedApiResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -21,7 +20,7 @@ class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val saveAccessTokenUseCase: SaveAccessTokenUseCase,
     private val saveRefreshTokenUseCase: SaveRefreshTokenUseCase,
-    private val getMyGroupListUseCase: GetMyGroupListUseCase,
+    private val getMyGroupListUseCase: GetJoinedGroupUseCase,
 ) : ViewModel() {
 
     private val _loginResult = MutableSharedFlow<LoginItem?>()
@@ -30,11 +29,10 @@ class LoginViewModel @Inject constructor(
     fun login(type: String, token: String) {
         viewModelScope.launch {
             loginUseCase.execute(type, token)?.let {
-                getMyGroupListUseCase.execute().collectLatest {
+                getMyGroupListUseCase.invoke().collectLatest {
                     checkedApiResult(
                         apiResult = it,
                         success = { data -> MyGroupList.setMyGroupList(data) },
-                        error = { error -> Log.d("Debug", "login: ${error.message}") },
                     )
                 }
 
