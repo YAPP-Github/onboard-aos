@@ -33,7 +33,6 @@ class NewGroupCompleteDialog(
         binding.setText()
         binding.setImage()
         binding.setOnClick()
-
     }
 
     private fun NewGroupCompleteDialogBinding.setText() {

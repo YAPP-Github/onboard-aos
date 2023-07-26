@@ -57,7 +57,6 @@ interface GroupApi {
         @Path("groupId") groupId: Long
     ): Response<GroupDetailResponse>
 
-
     @GET("/v1/group/{groupId}/member")
     suspend fun getMemberList(
         @Path("groupId") groupId: Int,

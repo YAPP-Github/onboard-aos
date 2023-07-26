@@ -64,7 +64,7 @@ class TermsAdapter(
 
         private fun setTitle(title: String, isRequired: Boolean): String {
             val require = if (isRequired) "필수" else "선택"
-            return "(${require}) $title"
+            return "$require $title"
         }
     }
 

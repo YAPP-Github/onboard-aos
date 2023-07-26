@@ -53,7 +53,7 @@ class LoginViewModel @Inject constructor(
 
     fun postTerms() {
         viewModelScope.launch {
-            loginUseCase.postTerms(getAgree(),getDisagree())
+            loginUseCase.postTerms(getAgree(), getDisagree())
         }
     }
 
@@ -75,7 +75,7 @@ class LoginViewModel @Inject constructor(
     }
 
     fun checkedTermsAll(state: Boolean): Boolean {
-        return termsList.value?.find { it.isChecked !=  state } == null
+        return termsList.value?.find { it.isChecked != state } == null
     }
 
     fun getAccessToken() {

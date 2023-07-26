@@ -37,5 +37,4 @@ interface LoginApi {
 
     @GET("/v1/user/me")
     suspend fun getUserInfo(): Response<UserResponse>
-
 }

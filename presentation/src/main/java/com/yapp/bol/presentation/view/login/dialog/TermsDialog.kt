@@ -29,7 +29,7 @@ class TermsDialog(
         TermsAdapter(
             object : TermsAdapter.OnClickItemListener {
                 override fun onClickLike(position: Int, isChecked: Boolean) {
-                    onClickTermsListener.onClickLike(position,isChecked)
+                    onClickTermsListener.onClickLike(position, isChecked)
                 }
 
                 override fun onClickTermsDetail(url: String) {
