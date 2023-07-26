@@ -1,5 +1,6 @@
 package com.yapp.bol.presentation.view.group.join
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.dpToPx
 import com.yapp.bol.presentation.utils.showToast
 import com.yapp.bol.presentation.view.group.join.data.Margin
+import com.yapp.bol.presentation.view.home.HomeActivity
 import com.yapp.bol.presentation.viewmodel.login.MyGroupList
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -52,8 +54,8 @@ class GroupJoinFragment : Fragment() {
     private fun initView() {
         binding.tvGroupJoin.setOnClickListener {
             if (MyGroupList.findMyGroup(viewModel.groupItem.value?.id) != null) {
-                requireContext().showToast("홈 화면으로 이동해야합니다.")
-                // todo home 화면으로 이동
+                startActivity(Intent(requireContext(), HomeActivity::class.java))
+                requireActivity().finish()
             } else {
                 showRedeemInputDialog()
             }
