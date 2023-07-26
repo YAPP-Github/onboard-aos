@@ -8,7 +8,7 @@ data class UserRankItem(
     val id: Long,
     val rank: Int?,
     val name: String,
-    val winRate: Double?,
+    val score: Int?,
     val playCount: Int?,
     val isChangeRecent: Boolean,
 )
