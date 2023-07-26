@@ -3,12 +3,10 @@ package com.yapp.bol.presentation.view.login
 import android.content.Intent
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.kakao.sdk.auth.Constants.ACCESS_TOKEN
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentMainBinding
-import com.yapp.bol.presentation.utils.Constant
-import com.yapp.bol.presentation.view.group.search.GroupSearchActivityTest
+import com.yapp.bol.presentation.view.group.GroupActivity
 import com.yapp.bol.presentation.view.login.auth.GoogleTestActivity
 import com.yapp.bol.presentation.view.login.auth.KakaoTestActivity
 import com.yapp.bol.presentation.view.login.auth.NaverTestActivity
@@ -119,7 +117,7 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
 
     private fun moveGroupSearch() {
         loginViewModel.postTerms()
-        val intent = Intent(requireActivity(), GroupSearchActivityTest::class.java)
+        val intent = Intent(requireActivity(), GroupActivity::class.java)
         startActivity(intent)
         requireActivity().finish()
     }

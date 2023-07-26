@@ -10,9 +10,9 @@ import android.view.WindowManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.FragmentGroupJoinBinding
-import com.yapp.bol.presentation.utils.backFragment
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.dpToPx
 import com.yapp.bol.presentation.view.group.join.data.Margin
@@ -53,14 +53,13 @@ class GroupJoinFragment : Fragment() {
     private fun initView() {
         binding.tvGroupJoin.setOnClickListener {
             if (MyGroupList.findMyGroup(viewModel.groupItem.value?.id) != null) {
-                startActivity(Intent(requireContext(), HomeActivity::class.java))
-                requireActivity().finish()
+                moveHomeActivity()
             } else {
                 showRedeemInputDialog()
             }
         }
         binding.btnBack.setOnClickListener {
-            backFragment()
+            findNavController().popBackStack()
         }
     }
 
@@ -114,7 +113,7 @@ class GroupJoinFragment : Fragment() {
                     if (success) {
                         WelcomeJoinDialog(requireContext(), nickname).apply {
                             setOnDismissListener {
-                                // todo 랭킹 화면으로 이동
+                                moveHomeActivity()
                             }
                         }.show()
                         dialog.dismiss()
@@ -123,6 +122,12 @@ class GroupJoinFragment : Fragment() {
                     }
                 }
             }.show()
+    }
+
+    private fun moveHomeActivity() {
+        var intent = Intent(requireActivity(), HomeActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
     }
 
     private fun subscribeObservables() {

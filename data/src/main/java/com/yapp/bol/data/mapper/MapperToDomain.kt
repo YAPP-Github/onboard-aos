@@ -17,7 +17,6 @@ import com.yapp.bol.data.model.login.TermsDTO
 import com.yapp.bol.data.model.login.TermsResponse
 import com.yapp.bol.data.model.match.MatchApiRequest
 import com.yapp.bol.data.model.match.MatchMemberDTO
-import com.yapp.bol.data.model.user.GetMyGroupListResponse
 import com.yapp.bol.data.model.user.UserResponse
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.BaseItem
@@ -34,7 +33,6 @@ import com.yapp.bol.domain.model.NewGroupItem
 import com.yapp.bol.domain.model.TermsItem
 import com.yapp.bol.domain.model.TermsList
 import com.yapp.bol.domain.model.user.UserItem
-import com.yapp.bol.domain.model.user.group.MyGroupItem
 
 internal object MapperToDomain {
 
@@ -140,26 +138,6 @@ internal object MapperToDomain {
             is ApiResult.Error -> ApiResult.Error(exception)
         }
     }
-
-
-    fun ApiResult<GetMyGroupListResponse>.toMyGroupDomain(): ApiResult<List<MyGroupItem>> {
-        return when (this) {
-            is ApiResult.Success -> ApiResult.Success(
-                data.groupList.map {
-                    MyGroupItem(
-                        id = it.id,
-                        name = it.name,
-                        description = it.description,
-                        organization = it.organization,
-                        profileImageUrl = it.profileImageUrl,
-                    )
-                },
-            )
-
-            is ApiResult.Error -> ApiResult.Error(exception)
-        }
-    }
-
 
     fun ApiResult<MemberListResponse>.memberListToDomain(): ApiResult<MemberItems> {
         return when (this) {
