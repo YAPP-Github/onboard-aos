@@ -80,7 +80,7 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
         }
 
         isEnableSignUp.observe(viewLifecycleOwner) {
-            if(dialog.isShowing.not()) return@observe
+            if (dialog.isShowing.not()) return@observe
             dialog.updateSignUpEnabled(it)
         }
     }

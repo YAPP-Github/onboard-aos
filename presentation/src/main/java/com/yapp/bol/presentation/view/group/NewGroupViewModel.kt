@@ -21,7 +21,6 @@ import java.io.InputStream
 import java.net.URL
 import javax.inject.Inject
 
-
 @HiltViewModel
 class NewGroupViewModel @Inject constructor(
     private val newGroupUseCase: NewGroupUseCase
@@ -62,7 +61,6 @@ class NewGroupViewModel @Inject constructor(
             checkedApiResult(
                 apiResult = it,
                 success = { data -> imageUrl = data },
-                error = {  }
             )
         }
         return imageUrl

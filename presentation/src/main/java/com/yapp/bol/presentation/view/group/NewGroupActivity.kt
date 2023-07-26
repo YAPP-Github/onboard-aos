@@ -6,15 +6,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
 import com.yapp.bol.domain.model.NewGroupItem
-import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.ActivityNewGroupBinding
 import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
 import com.yapp.bol.presentation.utils.Converter.convertLengthToString
 import com.yapp.bol.presentation.utils.GalleryManager
-import com.yapp.bol.presentation.utils.convertPxToDp
 import com.yapp.bol.presentation.utils.loadImage
 import com.yapp.bol.presentation.view.group.NewGroupViewModel.Companion.NEW_GROUP_DESCRIPTION
 import com.yapp.bol.presentation.view.group.NewGroupViewModel.Companion.NEW_GROUP_NAME

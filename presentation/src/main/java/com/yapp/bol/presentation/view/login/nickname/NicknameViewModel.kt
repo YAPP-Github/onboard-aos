@@ -12,11 +12,9 @@ class NicknameViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
 ) : ViewModel() {
 
-
-   fun putUserName(nickname: String) {
-       viewModelScope.launch {
-           loginUseCase.putUserName(nickname)
-       }
-   }
+    fun putUserName(nickname: String) {
+        viewModelScope.launch {
+            loginUseCase.putUserName(nickname)
+        }
+    }
 }
-

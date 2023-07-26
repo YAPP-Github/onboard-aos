@@ -48,7 +48,7 @@ class LoginViewModel @Inject constructor(
 
     fun postTerms() {
         viewModelScope.launch {
-            loginUseCase.postTerms(getAgree(),getDisagree())
+            loginUseCase.postTerms(getAgree(), getDisagree())
         }
     }
 
