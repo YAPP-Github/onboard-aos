@@ -1,12 +1,11 @@
 package com.yapp.bol.presentation.view.group.join
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
+import androidx.compose.ui.graphics.Color
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,6 +14,7 @@ import com.yapp.bol.presentation.databinding.FragmentGroupJoinBinding
 import com.yapp.bol.presentation.utils.backFragment
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.dpToPx
+import com.yapp.bol.presentation.utils.setStatusBarColor
 import com.yapp.bol.presentation.view.group.join.data.Margin
 import com.yapp.bol.presentation.view.home.HomeActivity
 import com.yapp.bol.presentation.viewmodel.login.MyGroupList
@@ -28,7 +28,7 @@ class GroupJoinFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStatusBarColorTransparent()
+        setStatusBarColor(requireActivity(), android.R.color.transparent, false)
     }
 
     override fun onCreateView(
@@ -64,14 +64,6 @@ class GroupJoinFragment : Fragment() {
         }
     }
 
-    private fun setStatusBarColorTransparent() {
-        requireActivity().window.apply {
-            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            statusBarColor = Color.TRANSPARENT
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        }
-    }
-
     private fun showRedeemInputDialog() {
         InputDialog(requireContext()).apply {
             this.setTitle("참여 코드 입력")
@@ -84,6 +76,8 @@ class GroupJoinFragment : Fragment() {
                     margin = Margin(rightMargin = context.dpToPx(8)),
                 )
                 .setOnLimit { code, dialog ->
+                    viewModel.checkGroupJoinByAccessCode(code)
+
                     viewModel.successCheckGroupAccessCode.collectWithLifecycle(viewLifecycleOwner) { (success, message) -> // ktlint-disable max-line-length
                         if (success) {
                             showProfileSettingDialog(code)
