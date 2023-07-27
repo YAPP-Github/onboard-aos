@@ -1,6 +1,5 @@
 package com.yapp.bol.presentation.view.login
 
-import android.util.Log
 import android.webkit.WebViewClient
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseActivity
