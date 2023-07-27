@@ -77,7 +77,6 @@ class NewGroupViewModel @Inject constructor(
             checkedApiResult(
                 apiResult = it,
                 success = { data -> _successGroupDate.value = data },
-                error = { }
             )
         }
     }
@@ -91,7 +90,6 @@ class NewGroupViewModel @Inject constructor(
                         _groupRandomImage.value = data
                         convertUrlToFile(data)
                     },
-                    error = { }
                 )
             }
         }
