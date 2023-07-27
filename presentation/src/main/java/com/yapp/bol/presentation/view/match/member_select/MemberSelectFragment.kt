@@ -145,11 +145,6 @@ class MemberSelectFragment : Fragment() {
         isNickNameValidate.observe(viewLifecycleOwner) {
             if (guestAddDialog.isShowing) guestAddDialog.setNicknameValid(it)
         }
-
-        userId.observe(viewLifecycleOwner) {
-            if (it == -1) return@observe
-            memberSelectViewModel.addMember(it)
-        }
     }
 
     private fun setSearchResultNothing(visible: Boolean, keyword: String) = with(binding) {

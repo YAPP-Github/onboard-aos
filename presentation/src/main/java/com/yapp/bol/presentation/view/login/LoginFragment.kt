@@ -3,6 +3,8 @@ package com.yapp.bol.presentation.view.login
 import android.content.Intent
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.kakao.sdk.auth.Constants
+import com.kakao.sdk.auth.Constants.ACCESS_TOKEN
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentMainBinding

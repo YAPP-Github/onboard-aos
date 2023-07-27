@@ -15,13 +15,13 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.view.group.GroupActivity
 import com.yapp.bol.presentation.viewmodel.login.LoginType
-import com.yapp.bol.presentation.viewmodel.login.LoginViewModel
+import com.yapp.bol.presentation.viewmodel.login.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class GoogleTestActivity : AppCompatActivity() {
 
-    private val loginViewModel: LoginViewModel by viewModels()
+    private val authViewModel: AuthViewModel by viewModels()
 
     private val googleLoginForResult: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -58,7 +58,7 @@ class GoogleTestActivity : AppCompatActivity() {
                 val token = account.idToken
                 requireNotNull(token)
 
-                loginViewModel.login(LoginType.GOOGLE, token)
+                authViewModel.login(LoginType.GOOGLE, token)
             } catch (e: Exception) {
                 // TODO : 예외 처리 UI 작업
                 // ApiException & IllegalArgumentException 두 예외가 발생할 수 있는데
@@ -70,7 +70,7 @@ class GoogleTestActivity : AppCompatActivity() {
     }
 
     private fun subscribeObservables() {
-        loginViewModel.loginResult.collectWithLifecycle(this) {
+        authViewModel.loginResult.collectWithLifecycle(this) {
             startActivity(Intent(this@GoogleTestActivity, GroupActivity::class.java))
         }
     }

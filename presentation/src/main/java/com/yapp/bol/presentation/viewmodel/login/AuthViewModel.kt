@@ -16,11 +16,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
+class AuthViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val saveAccessTokenUseCase: SaveAccessTokenUseCase,
     private val saveRefreshTokenUseCase: SaveRefreshTokenUseCase,
-    private val getMyGroupListUseCase: GetJoinedGroupUseCase,
 ) : ViewModel() {
 
     private val _loginResult = MutableSharedFlow<LoginItem?>()
@@ -29,17 +28,9 @@ class LoginViewModel @Inject constructor(
     fun login(type: String, token: String) {
         viewModelScope.launch {
             loginUseCase.execute(type, token)?.let {
-                getMyGroupListUseCase.invoke().collectLatest {
-                    checkedApiResult(
-                        apiResult = it,
-                        success = { data -> MyGroupList.setMyGroupList(data) },
-                    )
-                }
-
-                _loginResult.emit(it)
-
                 saveAccessToken(it.accessToken)
                 saveRefreshToken(it.refreshToken)
+                _loginResult.emit(it)
             }
         }
     }

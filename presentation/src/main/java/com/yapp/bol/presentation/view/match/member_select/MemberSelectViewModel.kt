@@ -32,9 +32,6 @@ class MemberSelectViewModel @Inject constructor(
     private val _isNickNameValidate = MutableLiveData(false)
     val isNickNameValidate: LiveData<Boolean> = _isNickNameValidate
 
-    private val _userId = MutableLiveData(-1)
-    val userId: LiveData<Int> = _userId
-
     val dynamicPlayers = arrayListOf<MemberInfo>()
     private var maxPlayers = 0
     private var minPlayers = 0
@@ -56,17 +53,6 @@ class MemberSelectViewModel @Inject constructor(
             val memberList = withContext(Dispatchers.IO) { getMemberList(nickname) }
             allMembers = setMemberIsChecked(allMembers + memberList)
             updateMembers()
-        }
-    }
-
-    private fun getUserInfo() {
-        viewModelScope.launch {
-            matchUseCase.getUserInfo().collectLatest {
-                checkedApiResult(
-                    apiResult = it,
-                    success = { data -> _userId.value = data.id },
-                )
-            }
         }
     }
 
@@ -104,7 +90,6 @@ class MemberSelectViewModel @Inject constructor(
                     memberList = data.members.map { member -> member.toPresentation() }
                     cursor = data.cursor
                     hasNext = data.hasNext
-                    getUserInfo()
                 },
             )
         }
@@ -130,11 +115,6 @@ class MemberSelectViewModel @Inject constructor(
 
     fun removeMember(memberId: Int) {
         allMembers = allMembers.map { if (it.id == memberId) it.copy(isChecked = false) else it }
-        updateMembers()
-    }
-
-    fun addMember(memberId: Int) {
-        allMembers = allMembers.map { if (it.id == memberId) it.copy(isChecked = true) else it }
         updateMembers()
     }
 

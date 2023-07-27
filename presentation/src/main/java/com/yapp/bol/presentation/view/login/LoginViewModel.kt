@@ -38,7 +38,7 @@ class LoginViewModel @Inject constructor(
     fun getOnBoard() {
         viewModelScope.launch {
             loginUseCase.getOnBoard().collectLatest {
-                checkedApiResult(apiResult = it, success = ::updateOnBoard, error = { })
+                checkedApiResult(apiResult = it, success = ::updateOnBoard)
             }
         }
     }
@@ -46,7 +46,7 @@ class LoginViewModel @Inject constructor(
     fun getTerms() {
         viewModelScope.launch {
             loginUseCase.getTerms().collectLatest {
-                checkedApiResult(apiResult = it, success = ::updateTermList, error = { })
+                checkedApiResult(apiResult = it, success = ::updateTermList)
             }
         }
     }
