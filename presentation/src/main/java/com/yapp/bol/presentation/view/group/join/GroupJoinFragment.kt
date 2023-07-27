@@ -84,8 +84,6 @@ class GroupJoinFragment : Fragment() {
                     margin = Margin(rightMargin = context.dpToPx(8)),
                 )
                 .setOnLimit { code, dialog ->
-                    viewModel.checkGroupJoinByAccessCode(code)
-
                     viewModel.successCheckGroupAccessCode.collectWithLifecycle(viewLifecycleOwner) { (success, message) -> // ktlint-disable max-line-length
                         if (success) {
                             showProfileSettingDialog(code)
@@ -130,6 +128,9 @@ class GroupJoinFragment : Fragment() {
             loading.collectWithLifecycle(viewLifecycleOwner) { (isLoading, message) ->
                 binding.loadingLayout.isVisible = isLoading
                 binding.tvLoadingTitle.text = message
+            }
+            groupItem.collectWithLifecycle(viewLifecycleOwner) {
+                binding.groupAdminView.setGroupItemDetailTitle(it?.ownerNickname.orEmpty())
             }
         }
     }
