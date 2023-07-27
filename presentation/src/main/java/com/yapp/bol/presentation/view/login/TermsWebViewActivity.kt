@@ -1,6 +1,5 @@
 package com.yapp.bol.presentation.view.login
 
-import android.util.Log
 import android.webkit.WebViewClient
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseActivity
@@ -18,7 +17,6 @@ class TermsWebViewActivity : BaseActivity<ActivityTermsWebViewBinding>(R.layout.
             wvTerms.apply {
                 webViewClient = WebViewClient()
                 val url = intent?.getStringExtra(WEB_VIEW_KEY) ?: ""
-                Log.d("WebView", url)
                 loadUrl(url)
             }
 
