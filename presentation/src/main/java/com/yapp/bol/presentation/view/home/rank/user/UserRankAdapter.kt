@@ -12,8 +12,10 @@ class UserRankAdapter : ListAdapter<UserRankUiModel, RecyclerView.ViewHolder>(di
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         if (viewType == R.layout.item_rank_1_to_3) {
             UserRankItem1to3ViewHolder.create(parent)
-        } else {
+        } else if (viewType == R.layout.item_rank_after_4) {
             UserRankItemAfter4ViewHolder.create(parent)
+        } else {
+            UserRankPaddingViewHolder.create(parent)
         }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -25,6 +27,9 @@ class UserRankAdapter : ListAdapter<UserRankUiModel, RecyclerView.ViewHolder>(di
 
                 is UserRankUiModel.UserRankAfter4 ->
                     (holder as UserRankItemAfter4ViewHolder).bind(uiModel.userRankItem)
+
+                is UserRankUiModel.UserRankPadding ->
+                    (holder as UserRankPaddingViewHolder).bind()
             }
         }
     }
@@ -33,7 +38,7 @@ class UserRankAdapter : ListAdapter<UserRankUiModel, RecyclerView.ViewHolder>(di
         return when (getItem(position)) {
             is UserRankUiModel.UserRank1to3 -> R.layout.item_rank_1_to_3
             is UserRankUiModel.UserRankAfter4 -> R.layout.item_rank_after_4
-            else -> throw UnsupportedOperationException("Unknown user rank view")
+            is UserRankUiModel.UserRankPadding -> R.layout.item_rank_padding
         }
     }
 
@@ -53,6 +58,8 @@ class UserRankAdapter : ListAdapter<UserRankUiModel, RecyclerView.ViewHolder>(di
                         newItem is UserRankUiModel.UserRankAfter4 &&
                             oldItem.userRankItem.id == newItem.userRankItem.id
                     }
+
+                    is UserRankUiModel.UserRankPadding -> true
                 }
             }
 
