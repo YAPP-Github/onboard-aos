@@ -18,7 +18,6 @@ class TermsWebViewActivity : BaseActivity<ActivityTermsWebViewBinding>(R.layout.
             wvTerms.apply {
                 webViewClient = WebViewClient()
                 val url = intent?.getStringExtra(WEB_VIEW_KEY) ?: ""
-                Log.d("WebView", url)
                 loadUrl(url)
             }
 
