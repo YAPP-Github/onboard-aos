@@ -5,13 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.yapp.bol.domain.model.LoginItem
 import com.yapp.bol.domain.usecase.auth.SaveAccessTokenUseCase
 import com.yapp.bol.domain.usecase.auth.SaveRefreshTokenUseCase
-import com.yapp.bol.domain.usecase.group.GetJoinedGroupUseCase
 import com.yapp.bol.domain.usecase.login.LoginUseCase
-import com.yapp.bol.presentation.utils.checkedApiResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
