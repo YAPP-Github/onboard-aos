@@ -126,4 +126,6 @@ class RepositoryImpl @Inject constructor(
             it.toUserDomain()
         }
     }
+
+    override fun quitAccount(): Flow<ApiResult<Void>> = remoteDataSource.quitAccount()
 }
