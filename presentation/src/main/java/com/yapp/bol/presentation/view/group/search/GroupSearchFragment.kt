@@ -16,6 +16,7 @@ import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentGroupSearchBinding
 import com.yapp.bol.presentation.utils.loseFocusOnAction
 import com.yapp.bol.presentation.utils.navigateFragment
+import com.yapp.bol.presentation.utils.setStatusBarColor
 import com.yapp.bol.presentation.utils.textChangesToFlow
 import com.yapp.bol.presentation.utils.withLoadStateAdapters
 import com.yapp.bol.presentation.view.group.NewGroupActivity
@@ -37,6 +38,7 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
         super.onViewCreatedAction()
         binding.viewGroupListLoading.root.visibility = View.GONE
         setAdapter()
+        setStatusBarColor(this@GroupSearchFragment.requireActivity(), designsystemR.color.Gray_2, isIconBlack = true)
     }
 
     private fun setAdapter() {

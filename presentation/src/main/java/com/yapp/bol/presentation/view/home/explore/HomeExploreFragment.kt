@@ -42,8 +42,7 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
         binding.viewGroupListLoading.root.visibility = View.GONE
         setAdapter()
         setBackButton()
-        setStatusBarColor(this@HomeExploreFragment.requireActivity(), designsystemR.color.Gray_1, isIconBlack = true)
-        setNavigationBarColor(this@HomeExploreFragment.requireActivity(), designsystemR.color.Gray_1)
+        setStatusBarColor(this@HomeExploreFragment.requireActivity(), designsystemR.color.Gray_2, isIconBlack = true)
     }
 
     private fun setAdapter() {

@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingHorizontal="18dp"
-        android:background="#F6F6F6">
+        android:background="@color/Gray_2">
 
         <TextView
             android:id="@+id/tv_title"
