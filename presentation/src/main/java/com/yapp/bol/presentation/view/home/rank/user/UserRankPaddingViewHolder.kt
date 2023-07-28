@@ -10,10 +10,6 @@ class UserRankPaddingViewHolder(
     private val binding: ItemRankPaddingBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind() {
-        binding
-    }
-
     companion object {
         fun create(parent: ViewGroup): UserRankPaddingViewHolder {
             val inflater = LayoutInflater.from(parent.context)

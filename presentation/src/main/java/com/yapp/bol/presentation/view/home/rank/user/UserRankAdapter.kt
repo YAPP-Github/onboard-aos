@@ -29,7 +29,7 @@ class UserRankAdapter : ListAdapter<UserRankUiModel, RecyclerView.ViewHolder>(di
                     (holder as UserRankItemAfter4ViewHolder).bind(uiModel.userRankItem)
 
                 is UserRankUiModel.UserRankPadding ->
-                    (holder as UserRankPaddingViewHolder).bind()
+                    (holder as UserRankPaddingViewHolder)
             }
         }
     }
