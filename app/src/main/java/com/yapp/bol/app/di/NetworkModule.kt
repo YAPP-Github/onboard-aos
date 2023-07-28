@@ -4,8 +4,8 @@ import com.yapp.bol.app.BuildConfig
 import com.yapp.bol.data.remote.GroupApi
 import com.yapp.bol.data.remote.ImageFileApi
 import com.yapp.bol.data.remote.LoginApi
+import com.yapp.bol.data.remote.MatchApi
 import com.yapp.bol.data.remote.RankApi
-import com.yapp.bol.data.remote.UserApi
 import com.yapp.bol.data.utils.Utils.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -76,14 +76,14 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideGroupApiService(retrofit: Retrofit): GroupApi {
-        return retrofit.create(GroupApi::class.java)
+    fun provideRankApiService(retrofit: Retrofit): RankApi {
+        return retrofit.create(RankApi::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideRankApiService(retrofit: Retrofit): RankApi {
-        return retrofit.create(RankApi::class.java)
+    fun provideGroupApiService(retrofit: Retrofit): GroupApi {
+        return retrofit.create(GroupApi::class.java)
     }
 
     @Provides
@@ -94,7 +94,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideUserApiService(retrofit: Retrofit): UserApi {
-        return retrofit.create(UserApi::class.java)
+    fun provideMatchApiService(retrofit: Retrofit): MatchApi {
+        return retrofit.create(MatchApi::class.java)
     }
 }

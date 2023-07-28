@@ -33,6 +33,8 @@ class MemberSelectViewModel @Inject constructor(
     val isNickNameValidate: LiveData<Boolean> = _isNickNameValidate
 
     val dynamicPlayers = arrayListOf<MemberInfo>()
+    private var maxPlayers = 0
+    private var minPlayers = 0
 
     private var allMembers: List<MemberInfo> = listOf()
     private var loadingState = false
@@ -71,6 +73,14 @@ class MemberSelectViewModel @Inject constructor(
         }
     }
 
+    fun setMaxPlayers(count: Int) {
+        maxPlayers = count
+    }
+
+    fun setMinPlayers(count: Int) {
+        minPlayers = count
+    }
+
     private suspend fun getMemberList(nickname: String? = null): List<MemberInfo> {
         var memberList = listOf<MemberInfo>()
         matchUseCase.getMemberList(groupId, 20, cursor, nickname).collectLatest {
@@ -103,8 +113,8 @@ class MemberSelectViewModel @Inject constructor(
         checkedCompleteButtonEnabled()
     }
 
-    fun clearMembers(position: Int) {
-        allMembers = allMembers.map { if (it.id == position) it.copy(isChecked = false) else it }
+    fun removeMember(memberId: Int) {
+        allMembers = allMembers.map { if (it.id == memberId) it.copy(isChecked = false) else it }
         updateMembers()
     }
 
@@ -131,11 +141,10 @@ class MemberSelectViewModel @Inject constructor(
         }
     }
 
-    private fun checkedCompleteButtonEnabled() {
-        _isCompleteButtonEnabled.value = (players.value?.size ?: 0) >= MIN_PLAYER_COUNT
+    fun checkedMaxPlayers(): Boolean {
+        return (players.value?.size ?: 0) <= maxPlayers
     }
-
-    companion object {
-        const val MIN_PLAYER_COUNT = 2
+    private fun checkedCompleteButtonEnabled() {
+        _isCompleteButtonEnabled.value = (players.value?.size ?: 0) >= minPlayers
     }
 }

@@ -117,3 +117,6 @@ object Licenses {
     const val OSS_LICENSES_ID= "com.google.android.gms.oss-licenses-plugin"
 }
 
+object LOTTIE {
+    const val LOTTIE = "com.airbnb.android:lottie:5.2.0"
+}

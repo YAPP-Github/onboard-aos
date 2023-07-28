@@ -1,5 +1,6 @@
 package com.yapp.bol.presentation.view.group.join
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,13 +10,13 @@ import android.view.WindowManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.FragmentGroupJoinBinding
-import com.yapp.bol.presentation.utils.backFragment
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.dpToPx
-import com.yapp.bol.presentation.utils.showToast
 import com.yapp.bol.presentation.view.group.join.data.Margin
+import com.yapp.bol.presentation.view.home.HomeActivity
 import com.yapp.bol.presentation.viewmodel.login.MyGroupList
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -52,14 +53,13 @@ class GroupJoinFragment : Fragment() {
     private fun initView() {
         binding.tvGroupJoin.setOnClickListener {
             if (MyGroupList.findMyGroup(viewModel.groupItem.value?.id) != null) {
-                requireContext().showToast("홈 화면으로 이동해야합니다.")
-                // todo home 화면으로 이동
+                moveHomeActivity()
             } else {
                 showRedeemInputDialog()
             }
         }
         binding.btnBack.setOnClickListener {
-            backFragment()
+            findNavController().popBackStack()
         }
     }
 
@@ -83,8 +83,6 @@ class GroupJoinFragment : Fragment() {
                     margin = Margin(rightMargin = context.dpToPx(8)),
                 )
                 .setOnLimit { code, dialog ->
-                    viewModel.checkGroupJoinByAccessCode(code)
-
                     viewModel.successCheckGroupAccessCode.collectWithLifecycle(viewLifecycleOwner) { (success, message) -> // ktlint-disable max-line-length
                         if (success) {
                             showProfileSettingDialog(code)
@@ -113,7 +111,7 @@ class GroupJoinFragment : Fragment() {
                     if (success) {
                         WelcomeJoinDialog(requireContext(), nickname).apply {
                             setOnDismissListener {
-                                // todo 랭킹 화면으로 이동
+                                moveHomeActivity()
                             }
                         }.show()
                         dialog.dismiss()
@@ -124,11 +122,20 @@ class GroupJoinFragment : Fragment() {
             }.show()
     }
 
+    private fun moveHomeActivity() {
+        var intent = Intent(requireActivity(), HomeActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
+    }
+
     private fun subscribeObservables() {
         with(viewModel) {
             loading.collectWithLifecycle(viewLifecycleOwner) { (isLoading, message) ->
                 binding.loadingLayout.isVisible = isLoading
                 binding.tvLoadingTitle.text = message
+            }
+            groupItem.collectWithLifecycle(viewLifecycleOwner) {
+                binding.groupAdminView.setGroupItemDetailTitle(it?.ownerNickname.orEmpty())
             }
         }
     }

@@ -9,16 +9,24 @@ import com.yapp.bol.data.model.group.request.CheckGroupJonByAccessCodeRequest
 import com.yapp.bol.data.model.group.request.NewGroupApiRequest
 import com.yapp.bol.data.model.group.response.CheckGroupJoinByAccessCodeResponse
 import com.yapp.bol.data.model.group.response.GameApiResponse
+import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
 import com.yapp.bol.data.model.group.response.MemberValidApiResponse
 import com.yapp.bol.data.model.group.response.NewGroupApiResponse
-import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
+import com.yapp.bol.data.model.group.response.RandomImageResponse
 import com.yapp.bol.data.model.login.LoginRequest
 import com.yapp.bol.data.model.login.LoginResponse
+import com.yapp.bol.data.model.login.OnBoardResponse
+import com.yapp.bol.data.model.login.TermsRequest
+import com.yapp.bol.data.model.login.TermsResponse
+import com.yapp.bol.data.model.login.UserRequest
+import com.yapp.bol.data.model.match.MatchApiRequest
+import com.yapp.bol.data.model.user.UserResponse
 import com.yapp.bol.data.remote.GroupApi
 import com.yapp.bol.data.remote.ImageFileApi
 import com.yapp.bol.data.remote.LoginApi
-import com.yapp.bol.domain.handle.BaseRepository
+import com.yapp.bol.data.remote.MatchApi
 import com.yapp.bol.data.utils.Image.GROUP_IMAGE
+import com.yapp.bol.domain.handle.BaseRepository
 import com.yapp.bol.domain.model.ApiResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -33,6 +41,7 @@ class RemoteDataSourceImpl @Inject constructor(
     private val loginApi: LoginApi,
     private val groupApi: GroupApi,
     private val imageApi: ImageFileApi,
+    private val matchApi: MatchApi,
 ) : BaseRepository(), RemoteDataSource {
 
     override suspend fun login(type: String, token: String): LoginResponse? {
@@ -55,7 +64,7 @@ class RemoteDataSourceImpl @Inject constructor(
         description: String,
         organization: String,
         imageUrl: String,
-        nickname: String,
+        nickname: String
     ): Flow<ApiResult<NewGroupApiResponse>> = flow {
         val result = safeApiCall {
             groupApi.postOAuthApi(NewGroupApiRequest(name, description, organization, imageUrl, nickname))
@@ -86,6 +95,29 @@ class RemoteDataSourceImpl @Inject constructor(
         emit(result)
     }
 
+    override suspend fun postGuestMember(groupId: Int, nickname: String) {
+        groupApi.postGuestMember(groupId, GuestAddApiRequest(nickname))
+    }
+
+    override fun geTerms(): Flow<ApiResult<TermsResponse>> = flow {
+        val result = safeApiCall { loginApi.getTerms() }
+        emit(result)
+    }
+
+    override suspend fun postTerms(termsRequest: TermsRequest) {
+        loginApi.postTerms(termsRequest)
+    }
+
+    override fun getOnBoard(): Flow<ApiResult<OnBoardResponse>> = flow {
+        val result = safeApiCall { loginApi.getOnboard() }
+        emit(result)
+    }
+
+    override fun getRandomImage(): Flow<ApiResult<RandomImageResponse>> = flow {
+        val result = safeApiCall { groupApi.getRandomImage() }
+        emit(result)
+    }
+
     override fun checkGroupJoinAccessCode(
         groupId: String,
         accessCode: String,
@@ -107,8 +139,17 @@ class RemoteDataSourceImpl @Inject constructor(
         emit(result)
     }
 
-    override suspend fun postGuestMember(groupId: Int, nickname: String) {
-        groupApi.postGuestMember(groupId, GuestAddApiRequest(nickname))
+    override suspend fun putUserName(userRequest: UserRequest) {
+        loginApi.putUserName(userRequest)
+    }
+
+    override suspend fun postMatch(matchApiRequest: MatchApiRequest) {
+        matchApi.postMatch(matchApiRequest)
+    }
+
+    override fun getUserInfo(): Flow<ApiResult<UserResponse>> = flow {
+        val result = safeApiCall { loginApi.getUserInfo() }
+        emit(result)
     }
 
     private fun getMimeType(fileName: String): String {

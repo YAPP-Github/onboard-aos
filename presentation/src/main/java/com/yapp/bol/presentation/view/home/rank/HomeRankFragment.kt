@@ -21,7 +21,6 @@ import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.copyToClipboard
 import com.yapp.bol.presentation.utils.setStatusBarColor
 import com.yapp.bol.presentation.utils.showToast
-import com.yapp.bol.presentation.view.group.NewGroupActivity
 import com.yapp.bol.presentation.view.home.HomeUiState
 import com.yapp.bol.presentation.view.home.rank.UserRankViewModel.Companion.RV_SELECTED_POSITION_RESET
 import com.yapp.bol.presentation.view.home.rank.game.UserRankGameAdapter
@@ -261,7 +260,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
     private fun setFloatingButton() {
         binding.btnCreateGroup.setOnClickListener {
             Intent(requireContext(), MatchActivity::class.java).also {
-                it.putExtra(NewGroupActivity.GROUP_ID, viewModel.groupId)
+                it.putExtra(GROUP_ID, viewModel.groupId.toInt())
                 startActivity(it)
             }
         }
@@ -272,5 +271,9 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
             val url = binding.root.resources.getString(R.string.home_help_url)
             Intent(Intent.ACTION_VIEW, Uri.parse(url)).also { startActivity(it) }
         }
+    }
+
+    companion object {
+        const val GROUP_ID = "group id"
     }
 }

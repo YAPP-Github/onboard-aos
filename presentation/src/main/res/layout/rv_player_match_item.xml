@@ -2,13 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="60dp">
+    android:layout_height="72dp">
 
     <TextView
         android:id="@+id/tv_member_rank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="12dp"
         android:text="@string/game_result_rank"
         android:textColor="@color/Gray_9"
         android:textSize="14dp"
@@ -31,7 +31,7 @@
         android:id="@+id/tv_member_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
+        android:layout_marginStart="12dp"
         android:textColor="@color/Gray_15"
         android:textSize="16dp"
         android:textStyle="bold"
@@ -42,11 +42,11 @@
     <View
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="5dp"
         android:background="#DFDFDF"
         app:layout_constraintEnd_toEndOf="@+id/tv_game_score_unit"
         app:layout_constraintStart_toStartOf="@+id/tv_member_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_member_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_game_score_unit" />
 
     <EditText
         android:id="@+id/et_game_score"
@@ -71,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="34dp"
+        android:layout_marginEnd="16dp"
         android:text="점"
         android:textColor="@color/Gray_15"
         android:textSize="14dp"

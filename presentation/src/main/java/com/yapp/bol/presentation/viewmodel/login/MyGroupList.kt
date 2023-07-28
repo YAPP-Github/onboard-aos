@@ -1,19 +1,19 @@
 package com.yapp.bol.presentation.viewmodel.login
 
-import com.yapp.bol.domain.model.user.group.MyGroupItem
+import com.yapp.bol.domain.model.JoinedGroupItem
 
 object MyGroupList {
-    private var myGroupList: List<MyGroupItem>? = null
+    private var myGroupList: List<JoinedGroupItem>? = null
 
-    fun setMyGroupList(myGroupList: List<MyGroupItem>) {
+    fun setMyGroupList(myGroupList: List<JoinedGroupItem>) {
         this.myGroupList = myGroupList
     }
 
-    fun getMyGroupList(): List<MyGroupItem>? {
+    fun getMyGroupList(): List<JoinedGroupItem>? {
         return myGroupList
     }
 
-    fun findMyGroup(groupId: Int?): MyGroupItem? {
+    fun findMyGroup(groupId: Long?): JoinedGroupItem? {
         return myGroupList?.find { it.id == groupId }
     }
 }
