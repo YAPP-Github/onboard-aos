@@ -6,20 +6,21 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.yapp.bol.presentation.BuildConfig
 import com.yapp.bol.presentation.R
+import com.yapp.bol.presentation.base.BaseActivity
+import com.yapp.bol.presentation.databinding.ActivityGoogleTestBinding
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.view.group.GroupActivity
-import com.yapp.bol.presentation.viewmodel.login.LoginType
 import com.yapp.bol.presentation.viewmodel.login.AuthViewModel
+import com.yapp.bol.presentation.viewmodel.login.LoginType
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class GoogleTestActivity : AppCompatActivity() {
+class GoogleTestActivity : BaseActivity<ActivityGoogleTestBinding>(R.layout.activity_google_test) {
 
     private val authViewModel: AuthViewModel by viewModels()
 
