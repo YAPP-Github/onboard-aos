@@ -91,8 +91,7 @@
                     android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="@id/group_member_view"
                     app:layout_constraintTop_toBottomOf="@id/group_member_view"
-                    app:title="관리자"
-                    bol:detailTitle="승은" />
+                    app:title="관리자" />
 
                 <com.yapp.bol.presentation.view.group.join.component.GroupItemGame
                     android:id="@+id/group_item_game_view_1"

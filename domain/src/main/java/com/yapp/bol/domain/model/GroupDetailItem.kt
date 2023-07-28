@@ -8,12 +8,14 @@ data class GroupDetailItem(
     val profileImageUrl: String,
     val accessCode: String,
     val memberCount: Int,
-    val owner: OwnerItem
-)
+    val owner: OwnerItem,
+) {
+    val ownerNickname = owner.nickname
+}
 
 data class OwnerItem(
     val id: Long,
     val role: String,
     val nickname: String,
-    val level: Int
+    val level: Int,
 )

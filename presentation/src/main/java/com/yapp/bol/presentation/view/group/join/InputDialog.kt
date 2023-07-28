@@ -166,7 +166,7 @@ class InputDialog(
         binding.tvErrorMessage.visibility = View.VISIBLE
         binding.tvErrorMessage.text = message
 
-        binding.tvSummit.isEnabled = true
+        binding.tvSummit.isEnabled = false
         binding.tvSummit.setTextColor(getColor(context, R.color.Gray_7))
     }
 
