@@ -14,5 +14,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val accessToken = intent.getStringExtra(KakaoTestActivity.ACCESS_TOKEN) ?: Constant.EMPTY_STRING
+        val bundle = Bundle()
+        bundle.putString(ACCESS_TOKEN, accessToken)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.login_nav_host_fragment) as NavHostFragment
     }
 }

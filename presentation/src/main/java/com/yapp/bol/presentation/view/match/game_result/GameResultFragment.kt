@@ -16,6 +16,7 @@ import com.yapp.bol.presentation.model.ResultRecordItem
 import com.yapp.bol.presentation.utils.KeyboardManager
 import com.yapp.bol.presentation.view.home.HomeActivity
 import com.yapp.bol.presentation.view.match.MatchActivity.Companion.GAME_RESULT
+import com.yapp.bol.presentation.view.match.MatchActivity.Companion.GAME_RESULT
 import com.yapp.bol.presentation.view.match.MatchViewModel
 import com.yapp.bol.presentation.view.match.dialog.result_record.ResultRecordDialog
 import com.yapp.bol.presentation.view.match.member_select.MemberSelectFragment.Companion.PLAYERS
@@ -176,6 +177,7 @@ class GameResultFragment : BaseFragment<FragmentGameResultBinding>(R.layout.frag
     }
 
     override fun onDestroyView() {
+        _binding = null
         keyboardVisibilityUtils.detachKeyboardListeners()
         super.onDestroyView()
     }
