@@ -28,7 +28,6 @@ class TermViewModel @Inject constructor(
                     success = { data -> _termStateFlow.value = data.contents },
                 )
             }
-
         }
     }
 }
