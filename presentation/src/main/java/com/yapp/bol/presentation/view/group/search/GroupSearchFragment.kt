@@ -44,7 +44,7 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
             showJoinGroupDialog = {
                 binding.root.findNavController().navigateFragment(
                     R.id.action_groupSearchFragment_to_groupJoinFragment,
-                    "groupItem" to it
+                    "groupItem" to it,
                 )
             },
             changeButtonColor = {

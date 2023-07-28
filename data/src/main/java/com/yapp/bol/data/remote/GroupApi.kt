@@ -49,14 +49,6 @@ interface GroupApi {
         @Query("pageSize") pageSize: String,
     ): Response<GroupSearchApiResponse>
 
-    @GET("/v1/user/me/group")
-    suspend fun getJoinedGroup(): Response<JoinedGroupResponse>
-
-    @GET("/v1/group/{groupId}")
-    suspend fun getGroupDetail(
-        @Path("groupId") groupId: Long
-    ): Response<GroupDetailResponse>
-
     @GET("/v1/group/{groupId}/member")
     suspend fun getMemberList(
         @Path("groupId") groupId: Int,
@@ -64,6 +56,14 @@ interface GroupApi {
         @Query("cursor") cursor: String?,
         @Query("nickname") nickname: String?,
     ): Response<MemberListResponse>
+
+    @GET("/v1/user/me/group")
+    suspend fun getJoinedGroup(): Response<JoinedGroupResponse>
+
+    @GET("/v1/group/{groupId}")
+    suspend fun getGroupDetail(
+        @Path("groupId") groupId: Long,
+    ): Response<GroupDetailResponse>
 
     @POST("/v1/group/{groupId}/guest")
     suspend fun postGuestMember(
