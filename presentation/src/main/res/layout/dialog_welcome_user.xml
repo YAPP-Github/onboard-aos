@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="가입을 환영합니다!"
-        android:textColor="@color/orange_10"
+        android:textColor="@color/Orange_10"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

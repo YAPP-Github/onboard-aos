@@ -6,15 +6,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
 import com.yapp.bol.domain.model.NewGroupItem
-import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.ActivityNewGroupBinding
 import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
 import com.yapp.bol.presentation.utils.Converter.convertLengthToString
 import com.yapp.bol.presentation.utils.GalleryManager
-import com.yapp.bol.presentation.utils.convertPxToDp
+import com.yapp.bol.presentation.utils.loadImage
 import com.yapp.bol.presentation.view.group.NewGroupViewModel.Companion.NEW_GROUP_DESCRIPTION
 import com.yapp.bol.presentation.view.group.NewGroupViewModel.Companion.NEW_GROUP_NAME
 import com.yapp.bol.presentation.view.group.NewGroupViewModel.Companion.NEW_GROUP_ORGANIZATION
@@ -48,8 +46,8 @@ class NewGroupActivity : AppCompatActivity() {
             window = window,
             onShowKeyboard = ::moveScroll,
         )
+
         setTextChangeListener()
-        setCreateGroupButton()
         setClickListener()
         setViewModelObserve()
     }
@@ -100,6 +98,10 @@ class NewGroupActivity : AppCompatActivity() {
             if (it == null) return@observe
             generateNewGroupCompleteDialog(it)
         }
+
+        newGroupViewModel.groupRandomImage.observe(this) {
+            binding.ivImage.loadImage(it)
+        }
     }
 
     private fun createNewGroup(nickName: String) {
@@ -121,7 +123,7 @@ class NewGroupActivity : AppCompatActivity() {
     }
 
     private fun generateImageSettingDialog(checkedGalleryAccess: () -> Unit) {
-        val dialog = ImageSettingDialog(this, checkedGalleryAccess)
+        val dialog = ImageSettingDialog(this, checkedGalleryAccess, newGroupViewModel::getRandomImage)
         dialog.show()
     }
 
@@ -134,22 +136,6 @@ class NewGroupActivity : AppCompatActivity() {
     private fun stopProgressBar() {
         binding.tvLoadingText.visibility = View.GONE
         binding.pbLoading.visibility = View.GONE
-    }
-
-    private fun setCreateGroupButton() {
-        val params = ConstraintLayout.LayoutParams(0, convertPxToDp(52))
-        params.setMargins(
-            convertPxToDp(BASE_MARGIN_HORIZONTAL),
-            convertPxToDp(BASE_MARGIN_TOP + (getScreenHeight() - BASE_DEVICE_HEIGHT)),
-            convertPxToDp(BASE_MARGIN_HORIZONTAL),
-            0
-        )
-        params.topToBottom = R.id.et_group_organization
-        params.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
-        params.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
-        params.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
-
-        binding.btnCreateGroup.layoutParams = params
     }
 
     private fun getScreenHeight(): Int {

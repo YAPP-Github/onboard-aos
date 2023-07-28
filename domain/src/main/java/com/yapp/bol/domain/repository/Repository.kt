@@ -5,8 +5,10 @@ import com.yapp.bol.domain.model.BaseItem
 import com.yapp.bol.domain.model.CheckGroupJoinByAccessCodeItem
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.LoginItem
+import com.yapp.bol.domain.model.MatchItem
 import com.yapp.bol.domain.model.MemberItems
 import com.yapp.bol.domain.model.NewGroupItem
+import com.yapp.bol.domain.model.TermsList
 import kotlinx.coroutines.flow.Flow
 import java.io.File
 
@@ -21,7 +23,7 @@ interface Repository {
         description: String,
         organization: String,
         imageUrl: String,
-        nickname: String,
+        nickname: String
     ): Flow<ApiResult<NewGroupItem>>
 
     fun getGameList(groupId: Int): Flow<ApiResult<List<GameItem>>>
@@ -40,6 +42,14 @@ interface Repository {
 
     suspend fun postGuestMember(groupId: Int, nickname: String)
 
+    fun geTerms(): Flow<ApiResult<TermsList>>
+
+    suspend fun postTerms(agree: List<String>, disagree: List<String>)
+
+    fun getOnBoard(): Flow<ApiResult<List<String>>>
+
+    fun getRandomImage(): Flow<ApiResult<String>>
+
     fun joinGroup(
         groupId: String,
         accessCode: String,
@@ -50,4 +60,8 @@ interface Repository {
         groupId: String,
         accessCode: String,
     ): Flow<ApiResult<CheckGroupJoinByAccessCodeItem>>
+
+    suspend fun putUserName(nickName: String)
+
+    suspend fun postMatch(matchItem: MatchItem)
 }

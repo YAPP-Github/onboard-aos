@@ -8,9 +8,11 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentMainBinding
 import com.yapp.bol.presentation.utils.Constant
+import com.yapp.bol.presentation.view.group.search.GroupSearchActivityTest
 import com.yapp.bol.presentation.view.login.auth.GoogleTestActivity
 import com.yapp.bol.presentation.view.login.auth.KakaoTestActivity
 import com.yapp.bol.presentation.view.login.auth.NaverTestActivity
+import com.yapp.bol.presentation.view.login.dialog.TermsDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,30 +23,26 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
     private val dialog by lazy {
         TermsDialog(
             context = requireContext(),
-            onClickListener = object : TermsDialog.OnClickTermsListener {
-                override fun onClickService(state: Boolean): Boolean {
-                    loginViewModel.updateTermsServiceState(state)
-                    return loginViewModel.checkedRequired()
+            onClickTermsListener = object : TermsDialog.OnClickTermsListener {
+                override fun onClickLike(position: Int, isChecked: Boolean) {
+                    loginViewModel.updateLike(position, isChecked)
                 }
 
-                override fun onClickPrivacy(state: Boolean): Boolean {
-                    loginViewModel.updateTermsPrivacyState(state)
-                    return loginViewModel.checkedRequired()
+                override fun onClickLikeAll(isChecked: Boolean) {
+                    loginViewModel.updateAllLike(isChecked)
                 }
 
-                override fun onClickMarketing(state: Boolean) {
-                    loginViewModel.updateTermsMarketingState(state)
+                override fun onClickSignUp() {
+                    if (loginViewModel.onboardState.value?.size == NONE_AGREE) moveSingUp()
+                    else moveGroupSearch()
                 }
 
-                override fun onClickAll(state: Boolean): Boolean {
-                    loginViewModel.updateTermsServiceState(state)
-                    loginViewModel.updateTermsPrivacyState(state)
-                    loginViewModel.updateTermsMarketingState(state)
-                    return loginViewModel.checkedRequired()
+                override fun onClickTermsDetail(url: String) {
+                    moveTermsDetail(url)
                 }
 
-                override fun moveSingUpNickname() {
-                    moveSingUpFragment()
+                override fun dismissAction(state: Boolean) {
+                    loginViewModel.updateDialogState(state)
                 }
             }
         )
@@ -54,8 +52,37 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
         super.onViewCreatedAction()
         val accessToken = arguments?.getString(ACCESS_TOKEN) ?: Constant.EMPTY_STRING
 
-        if (accessToken.isNotEmpty()) dialog.show()
+        if (accessToken.isNotEmpty()) {
+            loginViewModel.getOnBoard()
+        }
         setButtonListener()
+        subscribeObservables()
+    }
+
+    private fun subscribeObservables() = with(loginViewModel) {
+        onboardState.observe(viewLifecycleOwner) {
+            if (it == null) return@observe
+            when (it.size) {
+                ALL_AGREE -> moveGroupSearch()
+                PARTIAL_AGREE -> checkedBoardPage(it[0])
+                NONE_AGREE -> loginViewModel.getTerms()
+            }
+        }
+
+        termsList.observe(viewLifecycleOwner) {
+            if (it == null) return@observe
+            dialog.termsAdapter.submitList(it)
+        }
+
+        dialogState.observe(viewLifecycleOwner) {
+            if (it.not()) return@observe
+            dialog.show()
+        }
+
+        isEnableSignUp.observe(viewLifecycleOwner) {
+            if (dialog.isShowing.not()) return@observe
+            dialog.updateSignUpEnabled(it)
+        }
     }
 
     private fun setButtonListener() {
@@ -72,7 +99,38 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
         }
     }
 
-    private fun moveSingUpFragment() {
+    private fun checkedBoardPage(onBoard: String) {
+        when (onBoard) {
+            ONBOARD_TERMS -> loginViewModel.getTerms()
+            ONBOARD_NICKNAME -> moveSingUp()
+        }
+    }
+
+    private fun moveSingUp() {
+        loginViewModel.postTerms()
         findNavController().navigate(R.id.action_mainFragment_to_signUpNicknameFragment)
+    }
+
+    private fun moveGroupSearch() {
+        loginViewModel.postTerms()
+        val intent = Intent(requireActivity(), GroupSearchActivityTest::class.java)
+        startActivity(intent)
+        requireActivity().finish()
+    }
+
+    private fun moveTermsDetail(url: String) {
+        val intent = Intent(requireActivity(), TermsWebViewActivity::class.java).apply {
+            putExtra(WEB_VIEW_KEY, url)
+        }
+        startActivity(intent)
+    }
+
+    companion object {
+        const val ONBOARD_TERMS = "TERMS"
+        const val ONBOARD_NICKNAME = "NICKNAME"
+        const val ALL_AGREE = 0
+        const val PARTIAL_AGREE = 1
+        const val NONE_AGREE = 2
+        const val WEB_VIEW_KEY = "web view"
     }
 }
