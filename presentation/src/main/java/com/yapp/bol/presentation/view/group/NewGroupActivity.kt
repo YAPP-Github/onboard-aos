@@ -1,7 +1,6 @@
 package com.yapp.bol.presentation.view.group
 
 import KeyboardVisibilityUtils
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -143,8 +142,7 @@ class NewGroupActivity : AppCompatActivity() {
     }
 
     private fun moveMatchActivity(groupId: Int) {
-        val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
+        HomeActivity.startActivity(binding.root.context, groupId.toLong())
         finish()
     }
 
