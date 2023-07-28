@@ -109,8 +109,7 @@ class GameResultFragment : BaseFragment<FragmentGameResultBinding>(R.layout.frag
 
         gameResultViewModel.isRecordComplete.observe(viewLifecycleOwner) {
             if (it) {
-                val intent = Intent(requireActivity(), HomeActivity::class.java)
-                startActivity(intent)
+                HomeActivity.startActivity(binding.root.context, groupId = matchViewModel.groupId.toLong())
                 requireActivity().finish()
             }
         }
