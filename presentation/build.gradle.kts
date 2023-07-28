@@ -108,7 +108,7 @@ dependencies {
 
     // Licenses
     implementation(com.yapp.bol.Licenses.OSS_LICENSES)
-    
+
     // Lottie
     implementation(com.yapp.bol.LOTTIE.LOTTIE)
 }
