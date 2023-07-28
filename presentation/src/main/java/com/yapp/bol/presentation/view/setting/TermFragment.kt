@@ -1,6 +1,5 @@
 package com.yapp.bol.presentation.view.setting
 
-import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.yapp.bol.presentation.R
