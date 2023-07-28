@@ -1,6 +1,5 @@
 package com.yapp.bol.presentation.view.group.join
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,7 +1,6 @@
 package com.yapp.bol.presentation.view.match.game_result
 
 import KeyboardVisibilityUtils
-import android.content.Intent
 import android.view.View
 import android.widget.EditText
 import androidx.fragment.app.activityViewModels
