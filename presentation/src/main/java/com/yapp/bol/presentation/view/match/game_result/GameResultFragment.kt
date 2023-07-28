@@ -1,7 +1,6 @@
 package com.yapp.bol.presentation.view.match.game_result
 
 import KeyboardVisibilityUtils
-import android.content.Intent
 import android.view.View
 import android.widget.EditText
 import androidx.fragment.app.activityViewModels
@@ -109,8 +108,7 @@ class GameResultFragment : BaseFragment<FragmentGameResultBinding>(R.layout.frag
 
         gameResultViewModel.isRecordComplete.observe(viewLifecycleOwner) {
             if (it) {
-                val intent = Intent(requireActivity(), HomeActivity::class.java)
-                startActivity(intent)
+                HomeActivity.startActivity(binding.root.context, groupId = matchViewModel.groupId.toLong())
                 requireActivity().finish()
             }
         }

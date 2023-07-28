@@ -30,7 +30,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/btn_code_copy"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="12dp"
             android:layout_width="204dp"
             android:layout_height="44dp"
             android:orientation="horizontal"
@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:gravity="center"
-            android:text="참여 코드를 공유해 같이 보드게임을\n플레이 할 모임원을 초대해보세요!"
+            android:text="참여 코드를 공유해 모임원을 초대해보세요!"
             android:layout_marginTop="15dp"
             android:textColor="@color/Gray_14"
             android:textAppearance="@style/Typography.Label4_M"

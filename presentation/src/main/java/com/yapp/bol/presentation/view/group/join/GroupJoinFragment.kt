@@ -1,6 +1,5 @@
 package com.yapp.bol.presentation.view.group.join
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -123,8 +122,7 @@ class GroupJoinFragment : Fragment() {
     }
 
     private fun moveHomeActivity() {
-        var intent = Intent(requireActivity(), HomeActivity::class.java)
-        startActivity(intent)
+        HomeActivity.startActivity(binding.root.context, groupId = viewModel.groupItem.value!!.id)
         requireActivity().finish()
     }
 

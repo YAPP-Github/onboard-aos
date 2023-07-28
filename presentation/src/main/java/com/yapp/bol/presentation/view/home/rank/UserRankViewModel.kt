@@ -87,6 +87,8 @@ class UserRankViewModel @Inject constructor(
         viewModelScope.launch {
             _gameAndGroupUiState.value = HomeUiState.Loading
 
+            val startPadding = 1
+
             val gameItemFlow = getUserRankGameListUseCase(groupId = groupId.toInt())
             val currentGroupFlow = getGroupDetailUseCase(groupId)
             val joinedGroupFlow = getJoinedGroupUseCase()
@@ -102,7 +104,7 @@ class UserRankViewModel @Inject constructor(
                         success = { data ->
                             game.addAll(data.toHomeGameItemUiModelList())
 
-                            gameIndex = data.size / 2
+                            gameIndex = data.size / 2 + startPadding
                             gameId = data[data.size / 2].id
                         },
                         error = { throwable -> throw Exception(throwable.message) }
