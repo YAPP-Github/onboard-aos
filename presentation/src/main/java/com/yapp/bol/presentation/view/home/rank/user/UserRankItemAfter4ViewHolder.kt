@@ -3,7 +3,9 @@ package com.yapp.bol.presentation.view.home.rank.user
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
+import com.yapp.bol.domain.model.Role
 import com.yapp.bol.domain.model.UserRankItem
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.ItemRankAfter4Binding
@@ -35,6 +37,11 @@ class UserRankItemAfter4ViewHolder(
             ivRecentUser.visibility = if (isChangeRecent) {
                 View.VISIBLE
             } else { View.GONE }
+            if (role is Role.GUEST) {
+                imgDice.setImageDrawable(
+                    AppCompatResources.getDrawable(root.context, R.drawable.img_dice_empty_small)
+                )
+            }
         }
     }
 
