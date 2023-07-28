@@ -14,6 +14,7 @@ import androidx.paging.PagingData
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentGroupSearchBinding
+import com.yapp.bol.presentation.utils.createSmoothColorAnimator
 import com.yapp.bol.presentation.utils.loseFocusOnAction
 import com.yapp.bol.presentation.utils.navigateFragment
 import com.yapp.bol.presentation.utils.setStatusBarColor
@@ -51,10 +52,12 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
             },
             changeButtonColor = {
                 val textColor = ContextCompat.getColor(binding.root.context, designsystemR.color.Gray_1)
-                val backgroundColor = ContextCompat.getColor(binding.root.context, designsystemR.color.Orange_9)
-                setCreateGroupButtonStyle(
+                val afterBgColor = ContextCompat.getColor(binding.root.context, designsystemR.color.Orange_9)
+                val beforeBgColor = ContextCompat.getColor(binding.root.context, designsystemR.color.Gray_5)
+                setCreateGroupButtonStyleWithAnimation(
                     textColor = textColor,
-                    backgroundColor = backgroundColor
+                    beforeBgColor = beforeBgColor,
+                    afterBgColor = afterBgColor
                 )
             }
         )
@@ -126,6 +129,17 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
         binding.viewGroupSearch.btnCreateGroup.apply {
             setTextColor(textColor)
             backgroundTintList = ColorStateList.valueOf(backgroundColor)
+        }
+    }
+
+    private fun setCreateGroupButtonStyleWithAnimation(
+        textColor: Int,
+        beforeBgColor: Int,
+        afterBgColor: Int
+    ) {
+        binding.viewGroupSearch.btnCreateGroup.apply {
+            setTextColor(textColor)
+            createSmoothColorAnimator(beforeBgColor, afterBgColor, 200L).start()
         }
     }
 
