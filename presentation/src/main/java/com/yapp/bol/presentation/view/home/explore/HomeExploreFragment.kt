@@ -17,7 +17,6 @@ import com.yapp.bol.presentation.databinding.FragmentHomeExploreBinding
 import com.yapp.bol.presentation.utils.createSmoothColorAnimator
 import com.yapp.bol.presentation.utils.loseFocusOnAction
 import com.yapp.bol.presentation.utils.navigateFragment
-import com.yapp.bol.presentation.utils.setNavigationBarColor
 import com.yapp.bol.presentation.utils.setStatusBarColor
 import com.yapp.bol.presentation.utils.textChangesToFlow
 import com.yapp.bol.presentation.utils.withLoadStateAdapters
