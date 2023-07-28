@@ -17,4 +17,6 @@ data class UserRankDTO(
     val playCount: Int?,
     @SerializedName("isChangeRecent")
     val isChangeRecent: Boolean,
+    val role: String,
 )
+
