@@ -143,8 +143,7 @@ class NewGroupActivity : AppCompatActivity() {
     }
 
     private fun moveMatchActivity(groupId: Int) {
-        val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
+        HomeActivity.startActivity(binding.root.context, groupId.toLong())
         finish()
     }
 
