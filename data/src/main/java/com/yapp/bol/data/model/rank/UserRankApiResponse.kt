@@ -19,4 +19,3 @@ data class UserRankDTO(
     val isChangeRecent: Boolean,
     val role: String,
 )
-
