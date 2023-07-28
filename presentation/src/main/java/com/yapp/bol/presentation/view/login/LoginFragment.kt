@@ -3,12 +3,10 @@ package com.yapp.bol.presentation.view.login
 import android.content.Intent
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.kakao.sdk.auth.Constants.ACCESS_TOKEN
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentMainBinding
-import com.yapp.bol.presentation.utils.Constant
-import com.yapp.bol.presentation.view.group.search.GroupSearchActivityTest
+import com.yapp.bol.presentation.view.group.GroupActivity
 import com.yapp.bol.presentation.view.login.auth.GoogleTestActivity
 import com.yapp.bol.presentation.view.login.auth.KakaoTestActivity
 import com.yapp.bol.presentation.view.login.auth.NaverTestActivity
@@ -41,6 +39,10 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
                     moveTermsDetail(url)
                 }
 
+                override fun checkedTermsAll(state: Boolean): Boolean {
+                    return loginViewModel.checkedTermsAll(state)
+                }
+
                 override fun dismissAction(state: Boolean) {
                     loginViewModel.updateDialogState(state)
                 }
@@ -50,11 +52,8 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
 
     override fun onViewCreatedAction() {
         super.onViewCreatedAction()
-        val accessToken = arguments?.getString(ACCESS_TOKEN) ?: Constant.EMPTY_STRING
 
-        if (accessToken.isNotEmpty()) {
-            loginViewModel.getOnBoard()
-        }
+        loginViewModel.getAccessToken()
         setButtonListener()
         subscribeObservables()
     }
@@ -82,6 +81,11 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
         isEnableSignUp.observe(viewLifecycleOwner) {
             if (dialog.isShowing.not()) return@observe
             dialog.updateSignUpEnabled(it)
+        }
+
+        accessToken.observe(viewLifecycleOwner) {
+            if (it.isNullOrEmpty()) return@observe
+            loginViewModel.getOnBoard()
         }
     }
 
@@ -113,7 +117,7 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
 
     private fun moveGroupSearch() {
         loginViewModel.postTerms()
-        val intent = Intent(requireActivity(), GroupSearchActivityTest::class.java)
+        val intent = Intent(requireActivity(), GroupActivity::class.java)
         startActivity(intent)
         requireActivity().finish()
     }

@@ -52,6 +52,14 @@
         app:layout_constraintTop_toBottomOf="@+id/view_dividing_line"
         tools:listitem="@layout/rv_terms_item" />
 
+    <View
+        android:id="@+id/all_container"
+        android:layout_width="200dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_sign_up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_dividing_line_1" />
+
     <TextView
         android:id="@+id/tv_all"
         android:layout_width="wrap_content"

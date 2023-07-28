@@ -1,6 +1,7 @@
 package com.yapp.bol.presentation.view.match.game_result
 
 import KeyboardVisibilityUtils
+import android.content.Intent
 import android.view.View
 import android.widget.EditText
 import androidx.fragment.app.activityViewModels
@@ -13,6 +14,7 @@ import com.yapp.bol.presentation.databinding.FragmentGameResultBinding
 import com.yapp.bol.presentation.model.MemberInfo
 import com.yapp.bol.presentation.model.ResultRecordItem
 import com.yapp.bol.presentation.utils.KeyboardManager
+import com.yapp.bol.presentation.view.home.HomeActivity
 import com.yapp.bol.presentation.view.match.MatchActivity.Companion.GAME_RESULT
 import com.yapp.bol.presentation.view.match.MatchViewModel
 import com.yapp.bol.presentation.view.match.dialog.result_record.ResultRecordDialog
@@ -103,6 +105,14 @@ class GameResultFragment : BaseFragment<FragmentGameResultBinding>(R.layout.frag
 
         gameResultViewModel.recordCompleteIsEnabled.observe(viewLifecycleOwner) {
             binding.btnRecordComplete.isEnabled = it
+        }
+
+        gameResultViewModel.isRecordComplete.observe(viewLifecycleOwner) {
+            if (it) {
+                val intent = Intent(requireActivity(), HomeActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
+            }
         }
     }
 

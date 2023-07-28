@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yapp.bol.domain.model.TermsItem
 import com.yapp.bol.domain.model.TermsList
+import com.yapp.bol.domain.usecase.auth.GetAccessTokenUseCase
 import com.yapp.bol.domain.usecase.login.LoginUseCase
 import com.yapp.bol.presentation.utils.checkedApiResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,6 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
+    private val getAccessTokenUseCase: GetAccessTokenUseCase,
 ) : ViewModel() {
 
     private val _onboardState = MutableLiveData<List<String>?>(null)
@@ -30,10 +32,13 @@ class LoginViewModel @Inject constructor(
     private val _isEnableSignUp = MutableLiveData(false)
     val isEnableSignUp: LiveData<Boolean> = _isEnableSignUp
 
+    private val _accessToken = MutableLiveData<String?>(null)
+    val accessToken: LiveData<String?> = _accessToken
+
     fun getOnBoard() {
         viewModelScope.launch {
             loginUseCase.getOnBoard().collectLatest {
-                checkedApiResult(apiResult = it, success = ::updateOnBoard, error = { })
+                checkedApiResult(apiResult = it, success = ::updateOnBoard)
             }
         }
     }
@@ -41,7 +46,7 @@ class LoginViewModel @Inject constructor(
     fun getTerms() {
         viewModelScope.launch {
             loginUseCase.getTerms().collectLatest {
-                checkedApiResult(apiResult = it, success = ::updateTermList, error = { })
+                checkedApiResult(apiResult = it, success = ::updateTermList)
             }
         }
     }
@@ -67,6 +72,18 @@ class LoginViewModel @Inject constructor(
 
     fun updateDialogState(state: Boolean) {
         _dialogState.value = state
+    }
+
+    fun checkedTermsAll(state: Boolean): Boolean {
+        return termsList.value?.find { it.isChecked != state } == null
+    }
+
+    fun getAccessToken() {
+        viewModelScope.launch {
+            getAccessTokenUseCase().collectLatest {
+                _accessToken.value = it
+            }
+        }
     }
 
     private fun updateTermList(data: TermsList) {

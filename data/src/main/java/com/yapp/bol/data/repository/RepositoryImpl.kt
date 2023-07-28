@@ -12,6 +12,7 @@ import com.yapp.bol.data.mapper.MapperToDomain.toDomain
 import com.yapp.bol.data.mapper.MapperToDomain.toImageDomain
 import com.yapp.bol.data.mapper.MapperToDomain.toMatchDomain
 import com.yapp.bol.data.mapper.MapperToDomain.toTermsDomain
+import com.yapp.bol.data.mapper.MapperToDomain.toUserDomain
 import com.yapp.bol.data.mapper.MapperToDomain.validToDomain
 import com.yapp.bol.data.model.login.TermsRequest
 import com.yapp.bol.data.model.login.UserRequest
@@ -24,6 +25,7 @@ import com.yapp.bol.domain.model.MatchItem
 import com.yapp.bol.domain.model.MemberItems
 import com.yapp.bol.domain.model.NewGroupItem
 import com.yapp.bol.domain.model.TermsList
+import com.yapp.bol.domain.model.user.UserItem
 import com.yapp.bol.domain.repository.Repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -117,5 +119,11 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun postMatch(matchItem: MatchItem) {
         remoteDataSource.postMatch(matchItem.toMatchDomain())
+    }
+
+    override fun getUserInfo(): Flow<ApiResult<UserItem>> {
+        return remoteDataSource.getUserInfo().map {
+            it.toUserDomain()
+        }
     }
 }

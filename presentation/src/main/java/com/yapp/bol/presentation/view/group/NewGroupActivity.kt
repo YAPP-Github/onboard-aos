@@ -19,7 +19,7 @@ import com.yapp.bol.presentation.view.group.NewGroupViewModel.Companion.NEW_GROU
 import com.yapp.bol.presentation.view.group.dialog.ImageSettingDialog
 import com.yapp.bol.presentation.view.group.dialog.NewGroupCompleteDialog
 import com.yapp.bol.presentation.view.group.dialog.ProfileSettingDialog
-import com.yapp.bol.presentation.view.match.MatchActivity
+import com.yapp.bol.presentation.view.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -83,6 +83,10 @@ class NewGroupActivity : AppCompatActivity() {
         binding.btnCreateGroup.setOnClickListener {
             profileSettingDialog.show()
         }
+
+        binding.ibBackButton.setOnClickListener {
+            finish()
+        }
     }
 
     private fun setViewModelObserve() {
@@ -138,17 +142,8 @@ class NewGroupActivity : AppCompatActivity() {
         binding.pbLoading.visibility = View.GONE
     }
 
-    private fun getScreenHeight(): Int {
-        val density = resources.displayMetrics.density
-        val display = this.applicationContext?.resources?.displayMetrics
-        val dpHeight = (display?.heightPixels ?: 0) / density
-
-        return dpHeight.toInt()
-    }
-
     private fun moveMatchActivity(groupId: Int) {
-        val intent = Intent(this, MatchActivity::class.java)
-        intent.putExtra(GROUP_ID, groupId)
+        val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
         finish()
     }
@@ -162,9 +157,5 @@ class NewGroupActivity : AppCompatActivity() {
         const val NAVE_MAX_LENGTH = 14
         const val DESCRIPTION_MAX_LENGTH = 72
         const val ORGANIZATION_MAX_LENGTH = 15
-        const val BASE_DEVICE_HEIGHT = 760
-        const val BASE_MARGIN_TOP = 55
-        const val BASE_MARGIN_HORIZONTAL = 18
-        const val GROUP_ID = "Group Id"
     }
 }

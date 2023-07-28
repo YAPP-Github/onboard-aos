@@ -27,6 +27,9 @@ class GameResultViewModel @Inject constructor(
     private val _recordCompleteIsEnabled = MutableLiveData(false)
     val recordCompleteIsEnabled: LiveData<Boolean> = _recordCompleteIsEnabled
 
+    private val _isRecordComplete = MutableLiveData(false)
+    val isRecordComplete: LiveData<Boolean> = _isRecordComplete
+
     fun initPlayers(player: ArrayList<MemberInfo>) {
         val newPlayers = player.mapIndexed { index, memberItem ->
             MemberResultItem(
@@ -51,10 +54,11 @@ class GameResultViewModel @Inject constructor(
                     matchedDate = currentTime,
                     matchMembers = List(players.value?.size ?: 0) {
                         val temp = players.value?.get(it) ?: return@launch
-                        MatchMemberItem(temp.id, temp.score ?: 0, temp.rank)
+                        MatchMemberItem(temp.id, temp.score ?: 0, temp.rank + 1)
                     }
                 )
             )
+            _isRecordComplete.value = true
         }
     }
 

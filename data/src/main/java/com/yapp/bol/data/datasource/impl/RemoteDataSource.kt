@@ -14,6 +14,7 @@ import com.yapp.bol.data.model.login.TermsRequest
 import com.yapp.bol.data.model.login.TermsResponse
 import com.yapp.bol.data.model.login.UserRequest
 import com.yapp.bol.data.model.match.MatchApiRequest
+import com.yapp.bol.data.model.user.UserResponse
 import com.yapp.bol.domain.model.ApiResult
 import kotlinx.coroutines.flow.Flow
 import java.io.File
@@ -71,4 +72,6 @@ interface RemoteDataSource {
     suspend fun putUserName(userRequest: UserRequest)
 
     suspend fun postMatch(matchApiRequest: MatchApiRequest)
+
+    fun getUserInfo(): Flow<ApiResult<UserResponse>>
 }

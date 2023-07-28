@@ -20,6 +20,7 @@ import com.yapp.bol.data.model.login.TermsRequest
 import com.yapp.bol.data.model.login.TermsResponse
 import com.yapp.bol.data.model.login.UserRequest
 import com.yapp.bol.data.model.match.MatchApiRequest
+import com.yapp.bol.data.model.user.UserResponse
 import com.yapp.bol.data.remote.GroupApi
 import com.yapp.bol.data.remote.ImageFileApi
 import com.yapp.bol.data.remote.LoginApi
@@ -144,6 +145,11 @@ class RemoteDataSourceImpl @Inject constructor(
 
     override suspend fun postMatch(matchApiRequest: MatchApiRequest) {
         matchApi.postMatch(matchApiRequest)
+    }
+
+    override fun getUserInfo(): Flow<ApiResult<UserResponse>> = flow {
+        val result = safeApiCall { loginApi.getUserInfo() }
+        emit(result)
     }
 
     private fun getMimeType(fileName: String): String {

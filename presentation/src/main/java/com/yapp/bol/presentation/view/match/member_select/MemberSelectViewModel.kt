@@ -113,8 +113,8 @@ class MemberSelectViewModel @Inject constructor(
         checkedCompleteButtonEnabled()
     }
 
-    fun clearMembers(position: Int) {
-        allMembers = allMembers.map { if (it.id == position) it.copy(isChecked = false) else it }
+    fun removeMember(memberId: Int) {
+        allMembers = allMembers.map { if (it.id == memberId) it.copy(isChecked = false) else it }
         updateMembers()
     }
 

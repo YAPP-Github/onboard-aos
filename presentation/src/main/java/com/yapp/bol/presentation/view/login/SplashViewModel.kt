@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yapp.bol.domain.usecase.auth.GetAccessTokenUseCase
+import com.yapp.bol.domain.model.JoinedGroupItem
+import com.yapp.bol.domain.usecase.group.GetJoinedGroupUseCase
+import com.yapp.bol.presentation.utils.checkedApiResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -13,14 +15,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val getAccessTokenUseCase: GetAccessTokenUseCase,
+    private val getJoinedGroupUseCase: GetJoinedGroupUseCase,
 ) : ViewModel() {
-
-    private val _accessToken = MutableLiveData<String?>(null)
-    val accessToken: LiveData<String?> = _accessToken
 
     private val _animationState = MutableLiveData(false)
     val animationState: LiveData<Boolean> = _animationState
+
+    private val _myGroupList = MutableLiveData<List<JoinedGroupItem>?>(null)
+    val myGroupList: LiveData<List<JoinedGroupItem>?> = _myGroupList
 
     init {
         viewModelScope.launch {
@@ -29,10 +31,14 @@ class SplashViewModel @Inject constructor(
         }
     }
 
-    fun getAccessToken() {
+    fun getMyGroupList() {
         viewModelScope.launch {
-            getAccessTokenUseCase().collectLatest {
-                _accessToken.value = it
+            getJoinedGroupUseCase().collectLatest {
+                checkedApiResult(
+                    apiResult = it,
+                    success = { data -> _myGroupList.value = data },
+                    error = { _myGroupList.value = listOf() }
+                )
             }
         }
     }
