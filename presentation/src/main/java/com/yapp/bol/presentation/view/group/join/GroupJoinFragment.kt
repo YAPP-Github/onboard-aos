@@ -13,11 +13,13 @@ import com.yapp.bol.presentation.databinding.FragmentGroupJoinBinding
 import com.yapp.bol.presentation.utils.backFragment
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.dpToPx
+import com.yapp.bol.presentation.utils.loadImage
 import com.yapp.bol.presentation.utils.setStatusBarColor
 import com.yapp.bol.presentation.view.group.join.data.Margin
 import com.yapp.bol.presentation.view.home.HomeActivity
 import com.yapp.bol.presentation.viewmodel.login.MyGroupList
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.filterNotNull
 
 @AndroidEntryPoint
 class GroupJoinFragment : Fragment() {
@@ -44,9 +46,6 @@ class GroupJoinFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         subscribeObservables()
-        viewModel.groupItem.collectWithLifecycle(viewLifecycleOwner) {
-            binding.groupMemberView.setGroupItemDetailTitle("${it?.memberCount}명")
-        }
     }
 
     private fun initView() {
@@ -127,8 +126,10 @@ class GroupJoinFragment : Fragment() {
                 binding.loadingLayout.isVisible = isLoading
                 binding.tvLoadingTitle.text = message
             }
-            groupItem.collectWithLifecycle(viewLifecycleOwner) {
-                binding.groupAdminView.setGroupItemDetailTitle(it?.ownerNickname.orEmpty())
+            groupItem.filterNotNull().collectWithLifecycle(viewLifecycleOwner) {
+                binding.groupAdminView.setGroupItemDetailTitle(it.ownerNickname)
+                binding.groupMemberView.setGroupItemDetailTitle("${it.memberCount}명")
+                binding.ivGroupJoinBg.loadImage(it.profileImageUrl, 0)
             }
         }
     }
