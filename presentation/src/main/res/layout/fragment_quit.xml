@@ -110,6 +110,7 @@
 
 
         <com.yapp.bol.designsystem.ui.button.BolRoundedButton
+            android:id="@+id/btn_quit"
             android:layout_width="0dp"
             android:layout_height="48dp"
             app:bolButtonText="회원 탈퇴하기"
