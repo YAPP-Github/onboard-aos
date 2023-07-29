@@ -23,10 +23,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:textSize="12dp"
+            android:textAppearance="@style/Typography.Body4_R"
+            android:textColor="@color/Gray_9"
             app:layout_constraintBottom_toBottomOf="@+id/iv_calendar"
             app:layout_constraintStart_toEndOf="@+id/iv_calendar"
-            app:layout_constraintTop_toTopOf="@+id/iv_calendar" />
+            app:layout_constraintTop_toTopOf="@+id/iv_calendar"
+            tools:text="23/05/13" />
 
         <ImageView
             android:id="@+id/iv_clock"
@@ -43,10 +45,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:textSize="12dp"
+            android:textAppearance="@style/Typography.Body4_R"
+            android:textColor="@color/Gray_9"
             app:layout_constraintBottom_toBottomOf="@+id/iv_calendar"
             app:layout_constraintStart_toEndOf="@+id/iv_clock"
-            app:layout_constraintTop_toTopOf="@+id/iv_calendar" />
+            app:layout_constraintTop_toTopOf="@+id/iv_calendar"
+            tools:text="12:37" />
 
         <TextView
             android:id="@+id/tv_game_record_guide"
@@ -55,8 +59,8 @@
             android:layout_marginHorizontal="18dp"
             android:layout_marginTop="9dp"
             android:text="@string/game_record_guide"
+            android:textAppearance="@style/Typography.Body2_M"
             android:textColor="@color/Gray_13"
-            android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_calendar" />
@@ -85,9 +89,8 @@
             android:enabled="false"
             android:gravity="center"
             android:text="@string/game_record_complete"
+            android:textAppearance="@style/Typography.Label3_M"
             android:textColor="@drawable/tc_white_to_gray"
-            android:textSize="14dp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -107,26 +110,27 @@
             android:id="@+id/tv_loading_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="18dp"
             android:text="@string/game_result_recording_text"
+            android:textAppearance="@style/Typography.Body3_M"
             android:textColor="@color/Orange_10"
-            android:textSize="16dp"
-            android:textStyle="bold"
             android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/pb_loading"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/lav_loading"
+            app:layout_constraintEnd_toEndOf="@+id/lav_loading"
+            app:layout_constraintStart_toStartOf="@+id/lav_loading" />
 
-        <ProgressBar
-            android:id="@+id/pb_loading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminateDrawable="@drawable/pb_loading"
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lav_loading"
+            android:layout_width="224dp"
+            android:layout_height="224dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/dice_jumpingloop" />
 
         <TextView
             android:id="@+id/tv_game_record_complete"
@@ -134,9 +138,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/game_result_recording_complete"
+            android:textAppearance="@style/Typography.Title1"
             android:textColor="@color/white"
-            android:textSize="20dp"
-            android:textStyle="bold"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

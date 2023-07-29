@@ -19,7 +19,7 @@ class ResultRecordDialog(
     private lateinit var binding: GameResultRecordDialogBinding
 
     private val resultRecordAdapter by lazy {
-        ResultRecordAdapter()
+        ResultRecordAdapter(context)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +47,9 @@ class ResultRecordDialog(
             dismiss()
             postMatch()
             resultRecordItem.resultRecording()
+        }
+        binding.ibCancel.setOnClickListener {
+            dismiss()
         }
     }
 }

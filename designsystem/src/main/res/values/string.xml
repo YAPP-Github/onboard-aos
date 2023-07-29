@@ -65,4 +65,7 @@
     <string name="max_player_guide">%s명 이상은 선택할 수 없습니다</string>
 
     <string name="sign_up_name_hint">이름을 입력해주세요.</string>
+    <string name="duplication_guide">이미 있는 이름입니다. 다른 이름을 설정해주세요.</string>
+    <string name="game_player_count_guide_1">%1$d~%2$d명</string>
+    <string name="game_player_count_guide_2">%d명</string>
 </resources>

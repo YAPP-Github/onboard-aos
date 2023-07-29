@@ -76,6 +76,10 @@ class GameResultFragment : BaseFragment<FragmentGameResultBinding>(R.layout.frag
                 override fun moveScroll(position: Int) {
                     moveScrollNextPosition(position)
                 }
+
+                override fun updateFocusState(position: Int) {
+                    gameResultViewModel.updateFocusState(position)
+                }
             }
         )
     }
@@ -90,7 +94,7 @@ class GameResultFragment : BaseFragment<FragmentGameResultBinding>(R.layout.frag
         setScrollListener()
 
         matchViewModel.updateToolBarTitle(GAME_RESULT_TITLE)
-        matchViewModel.updateCurrentPage(GAME_RESULT)
+        matchViewModel.updatePageState(GAME_RESULT)
         matchViewModel.updateCurrentTime(currentTime)
         keyboardVisibilityUtils = KeyboardVisibilityUtils(
             window = activity?.window ?: throw Exception(),
@@ -98,21 +102,25 @@ class GameResultFragment : BaseFragment<FragmentGameResultBinding>(R.layout.frag
         )
     }
 
-    private fun setViewModelObserve() {
-        gameResultViewModel.players.observe(viewLifecycleOwner) {
+    private fun setViewModelObserve() = with(gameResultViewModel) {
+        players.observe(viewLifecycleOwner) {
             gameResultAdapter.submitList(it)
         }
 
-        gameResultViewModel.recordCompleteIsEnabled.observe(viewLifecycleOwner) {
+        recordCompleteIsEnabled.observe(viewLifecycleOwner) {
             binding.btnRecordComplete.isEnabled = it
         }
 
-        gameResultViewModel.isRecordComplete.observe(viewLifecycleOwner) {
+        isRecordComplete.observe(viewLifecycleOwner) {
             if (it) {
                 val intent = Intent(requireActivity(), HomeActivity::class.java)
                 startActivity(intent)
                 requireActivity().finish()
             }
+        }
+
+        focusState.observe(viewLifecycleOwner) {
+            updatePlayers()
         }
     }
 
@@ -153,7 +161,7 @@ class GameResultFragment : BaseFragment<FragmentGameResultBinding>(R.layout.frag
     private fun resultRecording() {
         lifecycleScope.launch {
             generateProgressBar()
-            delay(1000)
+            delay(2000)
             completeRecord()
         }
     }
@@ -161,7 +169,7 @@ class GameResultFragment : BaseFragment<FragmentGameResultBinding>(R.layout.frag
     private fun generateProgressBar() {
         binding.loadingBackground.visibility = View.VISIBLE
         binding.tvLoadingText.visibility = View.VISIBLE
-        binding.pbLoading.visibility = View.VISIBLE
+        binding.lavLoading.visibility = View.VISIBLE
     }
 
     private fun completeRecord() {
@@ -171,7 +179,7 @@ class GameResultFragment : BaseFragment<FragmentGameResultBinding>(R.layout.frag
                 matchViewModel.gameName,
             )
         binding.tvLoadingText.visibility = View.GONE
-        binding.pbLoading.visibility = View.GONE
+        binding.lavLoading.visibility = View.GONE
         binding.tvGameRecordComplete.visibility = View.VISIBLE
     }
 

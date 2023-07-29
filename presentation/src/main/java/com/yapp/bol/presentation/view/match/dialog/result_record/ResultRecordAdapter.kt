@@ -1,8 +1,9 @@
 package com.yapp.bol.presentation.view.match.dialog.result_record
 
-import android.graphics.Color
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,13 +11,16 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.RvPlayerRecordItemBinding
 import com.yapp.bol.presentation.model.MemberResultItem
 import com.yapp.bol.presentation.view.match.MatchActivity.Companion.GUEST
+import com.yapp.bol.designsystem.R as DR
 
-class ResultRecordAdapter : ListAdapter<MemberResultItem, ResultRecordAdapter.GameResultViewHolder>(diff) {
+class ResultRecordAdapter(
+    private val context: Context
+) : ListAdapter<MemberResultItem, ResultRecordAdapter.GameResultViewHolder>(diff) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameResultViewHolder {
         val binding =
             RvPlayerRecordItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return GameResultViewHolder(binding)
+        return GameResultViewHolder(context, binding)
     }
 
     override fun onBindViewHolder(holder: GameResultViewHolder, position: Int) {
@@ -24,6 +28,7 @@ class ResultRecordAdapter : ListAdapter<MemberResultItem, ResultRecordAdapter.Ga
     }
 
     class GameResultViewHolder(
+        private val context: Context,
         private val binding: RvPlayerRecordItemBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -33,7 +38,7 @@ class ResultRecordAdapter : ListAdapter<MemberResultItem, ResultRecordAdapter.Ga
         }
 
         private fun setImageView(item: MemberResultItem) {
-            val image = if (item.role == GUEST) R.drawable.img_dice_empty_small else R.mipmap.ic_member_level
+            val image = if (item.role == GUEST) R.drawable.img_dice_empty_small else DR.drawable.img_dice
             binding.ivMemberLevelIcon.setImageResource(image)
         }
 
@@ -42,9 +47,13 @@ class ResultRecordAdapter : ListAdapter<MemberResultItem, ResultRecordAdapter.Ga
             binding.tvMemberRank.text = rank.toString()
             binding.tvMemberName.text = item.nickname
             binding.tvMemberScore.text = item.score.toString()
-            val textColor = if (item.rank == 0) Color.parseColor("#FF4D0D") else Color.BLACK
+
+            val color = if (item.rank == 0) R.color.Orange_10 else R.color.Gray_15
+            val textColor = ContextCompat.getColor(context, color)
+
             binding.tvMemberRank.setTextColor(textColor)
             binding.tvMemberScore.setTextColor(textColor)
+            binding.tvMemberName.setTextColor(textColor)
         }
     }
 

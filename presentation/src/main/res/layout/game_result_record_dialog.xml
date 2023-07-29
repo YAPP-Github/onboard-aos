@@ -6,6 +6,17 @@
     android:layout_height="462dp"
     android:background="@drawable/bg_white_radius_12dp">
 
+    <ImageButton
+        android:id="@+id/ib_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="24dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_cancel_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="39dp"
@@ -21,9 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
+        android:textAppearance="@style/Typography.Title3"
         android:textColor="@color/Gray_14"
-        android:textSize="16dp"
-        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
@@ -41,10 +51,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:textSize="12dp"
+        android:textAppearance="@style/Typography.Body3_R"
+        android:textColor="@color/Gray_12"
         app:layout_constraintBottom_toBottomOf="@+id/iv_calendar"
         app:layout_constraintStart_toEndOf="@+id/iv_calendar"
-        app:layout_constraintTop_toTopOf="@+id/iv_calendar" />
+        app:layout_constraintTop_toTopOf="@+id/iv_calendar"
+        tools:text="23/07/23" />
 
     <ImageView
         android:id="@+id/iv_clock"
@@ -61,10 +73,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:textSize="12dp"
+        android:textAppearance="@style/Typography.Body3_R"
+        android:textColor="@color/Gray_12"
         app:layout_constraintBottom_toBottomOf="@+id/iv_calendar"
         app:layout_constraintStart_toEndOf="@+id/iv_clock"
-        app:layout_constraintTop_toTopOf="@+id/iv_calendar" />
+        app:layout_constraintTop_toTopOf="@+id/iv_calendar"
+        tools:text="12:10" />
 
     <TextView
         android:id="@+id/tv_player_count"
@@ -73,8 +87,8 @@
         android:background="@drawable/bg_light_red_radius_12dp"
         android:gravity="center"
         android:text="@string/game_player_count"
-        android:textColor="@color/Gray_13"
-        android:textSize="11dp"
+        android:textAppearance="@style/Typography.Body5_R"
+        android:textColor="@color/Gray_12"
         app:layout_constraintBottom_toBottomOf="@+id/iv_clock"
         app:layout_constraintEnd_toEndOf="@+id/view_guide_line_1"
         app:layout_constraintTop_toTopOf="@+id/iv_clock" />
@@ -125,8 +139,8 @@
         android:layout_marginBottom="24dp"
         android:gravity="center"
         android:text="@string/game_record_final_guide"
+        android:textAppearance="@style/Typography.Body4_R"
         android:textColor="@color/Orange_10"
-        android:textSize="12dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_profile_complete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -138,9 +152,8 @@
         android:layout_marginTop="24dp"
         android:background="@drawable/bg_orange_bottom_radius_12dp"
         android:text="@string/complete_text"
+        android:textAppearance="@style/Typography.Label3_B"
         android:textColor="@color/white"
-        android:textSize="14dp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

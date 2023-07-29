@@ -10,6 +10,7 @@ import android.text.style.ForegroundColorSpan
 import android.view.Gravity
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import com.yapp.bol.designsystem.R
 import com.yapp.bol.presentation.databinding.GuestAddDialogBinding
@@ -39,7 +40,7 @@ class GuestAddDialog(
         }
 
         binding.etGuestName.doOnTextChanged { _, start, _, count ->
-            val color = if (count == 10) R.color.Orange_10 else R.color.Gray_8
+            val color = if (count == 10) R.color.Red else R.color.Gray_8
             binding.tvGuestNameCount.setTextColor(ContextCompat.getColor(context, color))
             binding.tvGuestNameCount.text = convertLengthToString(PROFILE_NAME_MAX_LENGTH, start + count)
             getValidateNickName(binding.etGuestName.text.toString())
@@ -90,6 +91,8 @@ class GuestAddDialog(
 
     override fun setNicknameValid(value: Boolean) {
         binding.btnGuestAdd.isEnabled = value
+        if(binding.etGuestName.text.isNotEmpty()) binding.tvDuplicationGuide.isVisible = value.not()
+        else binding.tvDuplicationGuide.isVisible = false
     }
 
     companion object {

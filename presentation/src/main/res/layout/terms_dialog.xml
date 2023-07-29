@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:layout_height="462dp"
+    tools:layout_height="430dp"
     android:background="@drawable/bg_top_radius_16dp">
 
     <TextView
@@ -30,26 +30,17 @@
         app:layout_constraintStart_toStartOf="@+id/tv_terms_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_terms_title" />
 
-    <View
-        android:id="@+id/view_dividing_line"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/Gray_2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_terms_description" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_terms_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="40dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/view_dividing_line_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_dividing_line"
+        app:layout_constraintTop_toBottomOf="@+id/tv_terms_description"
+        tools:itemCount="2"
         tools:listitem="@layout/rv_terms_item" />
 
     <View

@@ -44,7 +44,7 @@ class MemberSelectAdapter(
         }
 
         private fun setImageView(item: MemberInfo) {
-            val image = if (item.role == GUEST) R.drawable.img_dice_empty_large else R.mipmap.ic_member_full_level
+            val image = if (item.role == GUEST) R.drawable.img_dice_empty_large else R.drawable.img_dice
             binding.ivMemberLevel.setImageResource(image)
         }
     }

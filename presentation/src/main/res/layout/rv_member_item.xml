@@ -6,11 +6,11 @@
 
     <ImageView
         android:id="@+id/iv_member_level_icon"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="31dp"
+        android:layout_height="31dp"
         android:layout_marginStart="22dp"
         android:scaleType="centerInside"
-        android:src="@mipmap/ic_member_full_level"
+        android:src="@drawable/img_dice"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,8 +22,7 @@
         android:layout_marginStart="6dp"
         android:text="멤버 이름"
         android:textColor="@color/Gray_14"
-        android:textSize="14dp"
-        android:textStyle="bold"
+        android:textAppearance="@style/Typography.Body3_M"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_member_level_icon"
         app:layout_constraintTop_toTopOf="parent" />

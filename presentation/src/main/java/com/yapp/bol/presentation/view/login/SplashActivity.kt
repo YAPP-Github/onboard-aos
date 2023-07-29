@@ -6,6 +6,7 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseActivity
 import com.yapp.bol.presentation.databinding.ActivitySplashBinding
 import com.yapp.bol.presentation.view.home.HomeActivity
+import com.yapp.bol.presentation.view.home.HomeActivity.Companion.HOME_GROUP_ID_KEY
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,6 +28,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
             if (it == null) return@observe
             val target = if (it.isEmpty()) LoginActivity::class.java else HomeActivity::class.java
             val intent = Intent(this, target)
+            intent.putExtra(HOME_GROUP_ID_KEY, it[0].id)
             startActivity(intent)
             finish()
         }
