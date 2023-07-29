@@ -12,6 +12,7 @@
             android:exported="false" />
         <activity
             android:name=".view.login.SplashActivity"
+            android:launchMode="singleTask"
             android:exported="false" />
         <activity
             android:name=".view.login.LoginActivity"
