@@ -95,7 +95,7 @@ class GroupJoinViewModel @Inject constructor(
         nickName: String,
         successValidateNickname: (Boolean) -> Unit,
     ) {
-        matchUseCase.getValidateNickName(groupId, nickName).collectLatest {
+        matchUseCase.getValidateNickName(groupId.toInt(), nickName).collectLatest {
             checkedApiResult(
                 apiResult = it,
                 success = { isAvailable ->
