@@ -20,4 +20,12 @@ class AuthDataSourceImpl @Inject constructor(
     override suspend fun saveRefreshToken(token: String) {
         authManager.saveRefreshToken(token)
     }
+
+    override suspend fun deleteAccessToken() {
+        authManager.deleteAccessToken()
+    }
+
+    override suspend fun deleteRefreshToken() {
+        authManager.deleteRefreshToken()
+    }
 }
