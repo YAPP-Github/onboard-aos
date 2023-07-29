@@ -28,7 +28,7 @@ class NewGroupCompleteFragment : BaseFragment<FragmentNewGroupCompleteBinding>(R
     }
 
     private fun FragmentNewGroupCompleteBinding.setImage(newGroup: NewGroupItem) {
-        this.ivGroupImage.loadImage(newGroup.imageUrl)
+        this.ivGroupImage.loadImage(newGroup.imageUrl, 0)
     }
 
     private fun FragmentNewGroupCompleteBinding.setOnClick(newGroup: NewGroupItem) {
