@@ -86,7 +86,7 @@
 
     <style name="Typography.Body3_R" parent="Typography">
         <item name="android:textSize">14dp</item>
-        <item name="android:lineSpacingExtra">6dp</item>
+        <item name="android:lineSpacingExtra">10dp</item>
         <item name="android:fontFamily">@font/spoqahansansneo_400</item>
         <item name="fontWeight">400</item>
     </style>

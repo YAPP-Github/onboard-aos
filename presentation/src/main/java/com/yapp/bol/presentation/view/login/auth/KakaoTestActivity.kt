@@ -13,8 +13,8 @@ import com.yapp.bol.presentation.BuildConfig
 import com.yapp.bol.presentation.databinding.ActivityKakaoTestBinding
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.view.login.LoginActivity
+import com.yapp.bol.presentation.viewmodel.login.AuthViewModel
 import com.yapp.bol.presentation.viewmodel.login.LoginType
-import com.yapp.bol.presentation.viewmodel.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
 
@@ -23,7 +23,7 @@ class KakaoTestActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityKakaoTestBinding
 
-    private val viewModel: LoginViewModel by viewModels()
+    private val viewModel: AuthViewModel by viewModels()
 
     private val kakaoClient: UserApiClient by lazy { UserApiClient.instance }
 

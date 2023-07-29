@@ -7,6 +7,7 @@ import android.os.Build
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,8 +22,8 @@ import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.copyToClipboard
 import com.yapp.bol.presentation.utils.setStatusBarColor
 import com.yapp.bol.presentation.utils.showToast
-import com.yapp.bol.presentation.view.group.NewGroupActivity
 import com.yapp.bol.presentation.view.home.HomeUiState
+import com.yapp.bol.presentation.view.home.HomeViewModel
 import com.yapp.bol.presentation.view.home.rank.UserRankViewModel.Companion.RV_SELECTED_POSITION_RESET
 import com.yapp.bol.presentation.view.home.rank.game.UserRankGameAdapter
 import com.yapp.bol.presentation.view.home.rank.game.UserRankGameLayoutManager
@@ -34,7 +35,9 @@ import com.yapp.bol.designsystem.R as designsystemR
 
 @AndroidEntryPoint
 class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment_home_rank) {
+
     private val viewModel: UserRankViewModel by viewModels()
+    private val activityViewModel: HomeViewModel by activityViewModels()
 
     private lateinit var drawerGroupInfoAdapter: DrawerGroupInfoAdapter
     private lateinit var userRankGameAdapter: UserRankGameAdapter
@@ -56,9 +59,13 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
         setHelpButton()
     }
 
+    override fun onStart() {
+        super.onStart()
+        initViewModel()
+    }
+
     private fun initViewModel() {
-        // TODO : Home 넘어오는 값으로 변경 필요
-        viewModel.groupId = 90
+        viewModel.groupId = activityViewModel.groupId
     }
 
     private fun setHomeRecyclerView() {
@@ -261,7 +268,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
     private fun setFloatingButton() {
         binding.btnCreateGroup.setOnClickListener {
             Intent(requireContext(), MatchActivity::class.java).also {
-                it.putExtra(NewGroupActivity.GROUP_ID, viewModel.groupId)
+                it.putExtra(GROUP_ID, viewModel.groupId.toInt())
                 startActivity(it)
             }
         }
@@ -272,5 +279,9 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
             val url = binding.root.resources.getString(R.string.home_help_url)
             Intent(Intent.ACTION_VIEW, Uri.parse(url)).also { startActivity(it) }
         }
+    }
+
+    companion object {
+        const val GROUP_ID = "group id"
     }
 }

@@ -1,34 +1,32 @@
 package com.yapp.bol.presentation.view.match.game_result
 
 import KeyboardVisibilityUtils
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.R
+import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentGameResultBinding
 import com.yapp.bol.presentation.model.MemberInfo
 import com.yapp.bol.presentation.model.ResultRecordItem
 import com.yapp.bol.presentation.utils.KeyboardManager
+import com.yapp.bol.presentation.view.home.HomeActivity
+import com.yapp.bol.presentation.view.match.MatchActivity.Companion.GAME_RESULT
 import com.yapp.bol.presentation.view.match.MatchViewModel
 import com.yapp.bol.presentation.view.match.dialog.result_record.ResultRecordDialog
 import com.yapp.bol.presentation.view.match.member_select.MemberSelectFragment.Companion.PLAYERS
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class GameResultFragment : Fragment() {
-
-    private var _binding: FragmentGameResultBinding? = null
-    private val binding get() = checkNotNull(_binding)
+@AndroidEntryPoint
+class GameResultFragment : BaseFragment<FragmentGameResultBinding>(R.layout.fragment_game_result) {
 
     private val gameResultViewModel: GameResultViewModel by viewModels()
     private val matchViewModel: MatchViewModel by activityViewModels()
@@ -47,10 +45,16 @@ class GameResultFragment : Fragment() {
             ResultRecordItem(
                 gameName = matchViewModel.gameName,
                 player = gameResultViewModel.players.value ?: listOf(),
-                currentTime = currentTime,
+                currentTime = List(2) { currentTime.split(DATE_DELIMITERS)[it] },
                 resultRecording = ::resultRecording
             )
-        )
+        ) {
+            gameResultViewModel.postMatch(
+                matchViewModel.gameId.toInt(),
+                matchViewModel.groupId,
+                matchViewModel.currentTime
+            )
+        }
 
     private val gameResultAdapter by lazy {
         GameResultAdapter(
@@ -75,16 +79,7 @@ class GameResultFragment : Fragment() {
         )
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentGameResultBinding.inflate(inflater, container, false)
-        return _binding?.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreatedAction() {
         val players = arguments?.getParcelableArrayList<MemberInfo>(PLAYERS)
         gameResultViewModel.initPlayers(players ?: arrayListOf())
         binding.rvPlayers.adapter = gameResultAdapter
@@ -94,6 +89,8 @@ class GameResultFragment : Fragment() {
         setScrollListener()
 
         matchViewModel.updateToolBarTitle(GAME_RESULT_TITLE)
+        matchViewModel.updateCurrentPage(GAME_RESULT)
+        matchViewModel.updateCurrentTime(currentTime)
         keyboardVisibilityUtils = KeyboardVisibilityUtils(
             window = activity?.window ?: throw Exception(),
             onHideKeyboard = gameResultViewModel::updatePlayers,
@@ -108,13 +105,21 @@ class GameResultFragment : Fragment() {
         gameResultViewModel.recordCompleteIsEnabled.observe(viewLifecycleOwner) {
             binding.btnRecordComplete.isEnabled = it
         }
+
+        gameResultViewModel.isRecordComplete.observe(viewLifecycleOwner) {
+            if (it) {
+                HomeActivity.startActivity(binding.root.context, groupId = matchViewModel.groupId.toLong())
+                requireActivity().finish()
+            }
+        }
     }
 
     private fun setTextView() {
         binding.tvGameRecordGuide.text =
             String.format(requireContext().resources.getString(R.string.game_record_guide), matchViewModel.gameName)
-        binding.tvCalendar.text = currentTime[0]
-        binding.tvClock.text = currentTime[1]
+        val temp = currentTime.split(DATE_DELIMITERS)
+        binding.tvCalendar.text = temp[0]
+        binding.tvClock.text = temp[1]
     }
 
     private fun setClickListener() {
@@ -132,12 +137,11 @@ class GameResultFragment : Fragment() {
         binding.rvPlayers.addOnScrollListener(scrollListener)
     }
 
-    private fun getCurrentTime(): List<String> {
+    private fun getCurrentTime(): String {
         val now = System.currentTimeMillis()
         val date = Date(now)
         val stringFormat = SimpleDateFormat(DATE_FORMAT, Locale.KOREA)
-        val time = stringFormat.format(date)
-        return time.split(DATE_DELIMITERS)
+        return stringFormat.format(date)
     }
 
     private fun moveScrollNextPosition(position: Int) {
@@ -170,7 +174,6 @@ class GameResultFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        _binding = null
         keyboardVisibilityUtils.detachKeyboardListeners()
         super.onDestroyView()
     }

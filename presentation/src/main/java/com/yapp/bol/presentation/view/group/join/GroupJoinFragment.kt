@@ -105,7 +105,7 @@ class GroupJoinFragment : Fragment() {
                     if (success) {
                         WelcomeJoinDialog(requireContext(), nickname).apply {
                             setOnDismissListener {
-                                // todo 랭킹 화면으로 이동
+                                moveHomeActivity()
                             }
                         }.show()
                         dialog.dismiss()
@@ -114,6 +114,11 @@ class GroupJoinFragment : Fragment() {
                     }
                 }
             }.show()
+    }
+
+    private fun moveHomeActivity() {
+        HomeActivity.startActivity(binding.root.context, groupId = viewModel.groupItem.value!!.id)
+        requireActivity().finish()
     }
 
     private fun subscribeObservables() {

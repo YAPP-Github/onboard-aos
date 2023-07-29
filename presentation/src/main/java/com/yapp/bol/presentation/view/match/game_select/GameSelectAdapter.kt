@@ -7,9 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.presentation.databinding.RvGameItemBinding
+import com.yapp.bol.presentation.utils.loadImage
 
 class GameSelectAdapter(
-    private val gameClickListener: (String) -> Unit,
+    private val gameClickListener: (GameItem) -> Unit,
 ) : ListAdapter<GameItem, GameSelectAdapter.ProductItemViewHolder>(diff) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductItemViewHolder {
@@ -24,13 +25,14 @@ class GameSelectAdapter(
 
     class ProductItemViewHolder(
         private val binding: RvGameItemBinding,
-        private val gameClickListener: (String) -> Unit,
+        private val gameClickListener: (GameItem) -> Unit,
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: GameItem) {
             binding.tvGameName.text = item.name
+            binding.ivProductImage.loadImage(item.img)
             binding.root.setOnClickListener {
-                gameClickListener(item.name)
+                gameClickListener(item)
             }
         }
     }

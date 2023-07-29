@@ -1,5 +1,6 @@
 package com.yapp.bol.presentation.view.home.explore
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -13,12 +14,13 @@ import androidx.paging.PagingData
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentHomeExploreBinding
+import com.yapp.bol.presentation.utils.createSmoothColorAnimator
 import com.yapp.bol.presentation.utils.loseFocusOnAction
 import com.yapp.bol.presentation.utils.navigateFragment
-import com.yapp.bol.presentation.utils.setNavigationBarColor
 import com.yapp.bol.presentation.utils.setStatusBarColor
 import com.yapp.bol.presentation.utils.textChangesToFlow
 import com.yapp.bol.presentation.utils.withLoadStateAdapters
+import com.yapp.bol.presentation.view.group.NewGroupActivity
 import com.yapp.bol.presentation.view.group.search.GroupListAdapter
 import com.yapp.bol.presentation.view.group.search.GroupListLoadStateAdapter
 import com.yapp.bol.presentation.view.group.search.GroupSearchViewModel
@@ -40,8 +42,7 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
         binding.viewGroupListLoading.root.visibility = View.GONE
         setAdapter()
         setBackButton()
-        setStatusBarColor(this@HomeExploreFragment.requireActivity(), designsystemR.color.Gray_1, isIconBlack = true)
-        setNavigationBarColor(this@HomeExploreFragment.requireActivity(), designsystemR.color.Gray_1)
+        setStatusBarColor(this@HomeExploreFragment.requireActivity(), designsystemR.color.Gray_2, isIconBlack = true)
     }
 
     private fun setAdapter() {
@@ -54,10 +55,12 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
             },
             changeButtonColor = {
                 val textColor = ContextCompat.getColor(binding.root.context, designsystemR.color.Gray_1)
-                val backgroundColor = ContextCompat.getColor(binding.root.context, designsystemR.color.Orange_9)
-                setCreateGroupButtonStyle(
+                val afterBgColor = ContextCompat.getColor(binding.root.context, designsystemR.color.Orange_9)
+                val beforeBgColor = ContextCompat.getColor(binding.root.context, designsystemR.color.Gray_5)
+                setCreateGroupButtonStyleWithAnimation(
                     textColor = textColor,
-                    backgroundColor = backgroundColor
+                    beforeBgColor = beforeBgColor,
+                    afterBgColor = afterBgColor,
                 )
             }
         )
@@ -91,7 +94,7 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
         editText.loseFocusOnAction(EditorInfo.IME_ACTION_SEARCH, this.root.context)
 
         binding.viewGroupSearch.btnCreateGroup.setOnClickListener {
-            // TODO : create transition
+            startActivity(Intent(requireContext(), NewGroupActivity::class.java))
         }
     }
 
@@ -127,6 +130,17 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
         binding.viewGroupSearch.btnCreateGroup.apply {
             setTextColor(textColor)
             backgroundTintList = ColorStateList.valueOf(backgroundColor)
+        }
+    }
+
+    private fun setCreateGroupButtonStyleWithAnimation(
+        textColor: Int,
+        beforeBgColor: Int,
+        afterBgColor: Int
+    ) {
+        binding.viewGroupSearch.btnCreateGroup.apply {
+            setTextColor(textColor)
+            createSmoothColorAnimator(beforeBgColor, afterBgColor, 200L).start()
         }
     }
 

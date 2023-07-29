@@ -29,6 +29,9 @@ object HomeMapper {
 
         resultList.add(UserRankUiModel.UserRank1to3(userRank1To3))
         resultList.addAll(userRankAfter4)
+        if (resultList.isNotEmpty()) {
+            resultList.add(UserRankUiModel.UserRankPadding)
+        }
 
         return resultList
     }

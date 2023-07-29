@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.FragmentGameSeleteBinding
+import com.yapp.bol.presentation.view.match.MatchActivity.Companion.GAME_SELECT
 import com.yapp.bol.presentation.view.match.MatchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,10 +23,13 @@ class GameSelectFragment : Fragment() {
     private val matchViewModel: MatchViewModel by activityViewModels()
     private val gameSelectViewModel: GameSelectViewModel by viewModels()
 
-    private val gameSelectAdapter = GameSelectAdapter { gameName ->
-        matchViewModel.updateGameName(gameName)
+    private val gameSelectAdapter = GameSelectAdapter { gameItem ->
+        matchViewModel.updateGameName(gameItem.name)
+        matchViewModel.updateGameId(gameItem.id)
         val bundle = Bundle().apply {
-            putString(GAME_NAME, gameName)
+            putString(GAME_NAME, gameItem.name)
+            putInt(MAX_PLAYER, gameItem.maxMember)
+            putInt(MIN_PLAYER, gameItem.minMember)
         }
         findNavController().navigate(
             R.id.action_gameSelectFragment_to_memberSelectFragment, bundle
@@ -48,6 +52,7 @@ class GameSelectFragment : Fragment() {
             gameSelectAdapter.submitList(it)
         }
         matchViewModel.updateToolBarTitle(requireContext().resources.getString(R.string.game_result_record))
+        matchViewModel.updateCurrentPage(GAME_SELECT)
 
         gameSelectViewModel.updateGroupId(matchViewModel.groupId)
     }
@@ -59,5 +64,7 @@ class GameSelectFragment : Fragment() {
 
     companion object {
         const val GAME_NAME = "Game Name"
+        const val MAX_PLAYER = "max player"
+        const val MIN_PLAYER = "min player"
     }
 }
