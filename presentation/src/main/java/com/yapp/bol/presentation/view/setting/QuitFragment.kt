@@ -32,20 +32,21 @@ class QuitFragment : BaseFragment<FragmentQuitBinding>(R.layout.fragment_quit) {
         }
     }
 
-     private fun observeQuitUiState() {
-         viewModel.quitStateFlow.collectWithLifecycle(this) { uiState ->
-             when(uiState) {
-                 is SettingUiState.Loading -> {  }
-                 is SettingUiState.Success -> {
-                     if (uiState.data) {
-                         startActivity(Intent(requireContext(), SplashActivity::class.java))
-                         requireActivity().finish()
-                     }
-                 }
-                 is SettingUiState.Error -> {
-                     requireContext().showToast("회원 탈퇴가 처리되지 않았습니다. 다시 시도해 주십시오.")
-                 }
-             }
-         }
-     }
+    private fun observeQuitUiState() {
+        viewModel.quitStateFlow.collectWithLifecycle(this) { uiState ->
+            when (uiState) {
+                is SettingUiState.Loading -> {}
+                is SettingUiState.Success -> {
+                    if (uiState.data) {
+                        startActivity(Intent(requireContext(), SplashActivity::class.java))
+                        requireActivity().finish()
+                    }
+                }
+
+                is SettingUiState.Error -> {
+                    requireContext().showToast("회원 탈퇴가 처리되지 않았습니다. 다시 시도해 주십시오.")
+                }
+            }
+        }
+    }
 }
