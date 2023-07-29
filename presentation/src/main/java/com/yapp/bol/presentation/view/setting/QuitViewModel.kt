@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class QuitViewModel @Inject constructor (
+class QuitViewModel @Inject constructor(
     private val quitAccountUseCase: QuitAccountUseCase,
     private val deleteAccessTokenUseCase: DeleteAccessTokenUseCase,
     private val deleteRefreshTokenUseCase: DeleteRefreshTokenUseCase,
@@ -27,12 +27,14 @@ class QuitViewModel @Inject constructor (
         _quitStateFlow.value = SettingUiState.Loading
 
         viewModelScope.launch {
-            deleteAccessTokenUseCase.invoke()
-            deleteRefreshTokenUseCase.invoke()
             quitAccountUseCase.invoke().collectLatest { dataResult ->
+                deleteAccessTokenUseCase.invoke()
+                deleteRefreshTokenUseCase.invoke()
                 checkedApiResult(
                     apiResult = dataResult,
-                    success = { _quitStateFlow.value = SettingUiState.Success(true) },
+                    success = {
+                        _quitStateFlow.value = SettingUiState.Success(true)
+                    },
                     error = { _quitStateFlow.value = SettingUiState.Error(IllegalStateException(it.message)) }
                 )
             }
