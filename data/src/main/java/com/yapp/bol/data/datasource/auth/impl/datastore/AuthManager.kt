@@ -12,6 +12,14 @@ class AuthManager @Inject constructor(
     private val dataStore: DataStore<Preferences>,
 ) {
 
+    val accessKey: Flow<String> = dataStore.data.map { preferences ->
+        preferences[USER_ACCESS_PREF_KEY].orEmpty()
+    }
+
+    val refreshKey: Flow<String> = dataStore.data.map { preferences ->
+        preferences[USER_REFRESH_PREF_KEY].orEmpty()
+    }
+
     suspend fun saveAccessToken(token: String) {
         dataStore.edit {
             it[USER_ACCESS_PREF_KEY] = token
@@ -24,12 +32,16 @@ class AuthManager @Inject constructor(
         }
     }
 
-    val accessKey: Flow<String> = dataStore.data.map { preferences ->
-        preferences[USER_ACCESS_PREF_KEY].orEmpty()
+    suspend fun deleteAccessToken() {
+        dataStore.edit {
+            it.remove(USER_ACCESS_PREF_KEY)
+        }
     }
 
-    val refreshKey: Flow<String> = dataStore.data.map { preferences ->
-        preferences[USER_REFRESH_PREF_KEY].orEmpty()
+    suspend fun deleteRefreshToken() {
+        dataStore.edit {
+            it.remove(USER_REFRESH_PREF_KEY)
+        }
     }
 
     companion object {

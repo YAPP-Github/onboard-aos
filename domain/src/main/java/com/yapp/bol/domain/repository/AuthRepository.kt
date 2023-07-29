@@ -11,4 +11,8 @@ interface AuthRepository {
     suspend fun saveAccessToken(token: String)
 
     suspend fun saveRefreshToken(token: String)
+
+    suspend fun deleteAccessToken()
+
+    suspend fun deleteRefreshToken()
 }
