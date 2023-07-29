@@ -2,11 +2,9 @@ package com.yapp.bol.presentation.view.login
 
 import android.content.Intent
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -20,7 +18,6 @@ import com.yapp.bol.presentation.databinding.FragmentMainBinding
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.showToast
 import com.yapp.bol.presentation.view.group.GroupActivity
-import com.yapp.bol.presentation.view.login.auth.GoogleTestActivity
 import com.yapp.bol.presentation.view.login.auth.KakaoTestActivity
 import com.yapp.bol.presentation.view.login.auth.NaverTestActivity
 import com.yapp.bol.presentation.view.login.dialog.TermsDialog
@@ -114,6 +111,7 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
     private fun setButtonListener() {
         binding.btnGoogle.setOnClickListener {
             binding.pbLoading.visibility = View.VISIBLE
+            binding.tvLoading.visibility = View.VISIBLE
             startGoogleLogin()
         }
 
@@ -167,6 +165,7 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
     private fun handleGoogleSignInResult(result: ActivityResult) {
         if (result.resultCode == AppCompatActivity.RESULT_OK) {
             binding.pbLoading.visibility = View.GONE
+            binding.tvLoading.visibility = View.GONE
             try {
                 val account = GoogleSignIn
                     .getSignedInAccountFromIntent(result.data)
@@ -177,10 +176,12 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
                 authViewModel.login(LoginType.GOOGLE, token)
             } catch (e: Exception) {
                 binding.pbLoading.visibility = View.GONE
+                binding.tvLoading.visibility = View.GONE
                 requireContext().showToast("구글 로그인 중 오류가 발생했습니다. 다시 시도해 주세요.")
             }
         } else {
             binding.pbLoading.visibility = View.GONE
+            binding.tvLoading.visibility = View.GONE
             requireContext().showToast("구글 로그인 중 오류가 발생했습니다. 다시 시도해 주세요.")
         }
     }
