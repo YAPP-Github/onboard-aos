@@ -8,6 +8,7 @@
 
         <activity
             android:name=".view.home.HomeActivity"
+            android:launchMode="singleTask"
             android:exported="false" />
         <activity
             android:name=".view.login.SplashActivity"

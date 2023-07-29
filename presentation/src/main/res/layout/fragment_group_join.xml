@@ -12,9 +12,13 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:fitsSystemWindows="true"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg_group_join_mock"> <!-- todo 게임 데이터 연동 시 이미지를 제거해야 합니다. -->
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_group_join_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -31,10 +35,10 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/btn_back"
-                    app:tint="@color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_back" />
+                    android:src="@drawable/ic_back"
+                    app:tint="@color/white" />
 
             </LinearLayout>
 
@@ -91,8 +95,7 @@
                     android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="@id/group_member_view"
                     app:layout_constraintTop_toBottomOf="@id/group_member_view"
-                    app:title="관리자"
-                    bol:detailTitle="승은" />
+                    app:title="관리자" />
 
                 <com.yapp.bol.presentation.view.group.join.component.GroupItemGame
                     android:id="@+id/group_item_game_view_1"
