@@ -12,5 +12,4 @@ val isNicknameValid: (String?) -> Boolean = { value ->
     val regex = Regex(NICKNAME_REGEX)
     if (value?.isEmpty() == true) true
     else value?.matches(regex) ?: false
-
 }

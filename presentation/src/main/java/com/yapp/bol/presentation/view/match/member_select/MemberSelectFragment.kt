@@ -31,7 +31,6 @@ import com.yapp.bol.designsystem.R as DR
 @AndroidEntryPoint
 class MemberSelectFragment : BaseFragment<FragmentMemberSelectBinding>(R.layout.fragment_member_select) {
 
-
     private val matchViewModel: MatchViewModel by activityViewModels()
     private val memberSelectViewModel: MemberSelectViewModel by viewModels()
 
