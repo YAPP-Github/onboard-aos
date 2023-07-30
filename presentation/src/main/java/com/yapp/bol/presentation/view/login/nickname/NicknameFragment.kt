@@ -9,7 +9,6 @@ import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentNicknameBinding
 import com.yapp.bol.presentation.utils.Converter
 import com.yapp.bol.presentation.utils.isNicknameValid
-import com.yapp.bol.presentation.view.group.dialog.ProfileSettingDialog
 import com.yapp.bol.presentation.view.group.search.GroupSearchActivityTest
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,9 +43,10 @@ class NicknameFragment : BaseFragment<FragmentNicknameBinding>(R.layout.fragment
     private fun setNicknameValid(nickname: String, isCount: Boolean) {
         val value = isNicknameValid(nickname)
         binding.btnSignUp.isEnabled = isCount && value
-        val color = if(value) com.yapp.bol.designsystem.R.color.Gray_8 else com.yapp.bol.designsystem.R.color.Red
+        val color = if (value) com.yapp.bol.designsystem.R.color.Gray_8 else com.yapp.bol.designsystem.R.color.Red
         binding.tvNicknameSettingGuide.setTextColor(ContextCompat.getColor(requireContext(), color))
     }
+
     private fun moveGroupSearch() {
         val intent = Intent(requireActivity(), GroupSearchActivityTest::class.java)
         startActivity(intent)

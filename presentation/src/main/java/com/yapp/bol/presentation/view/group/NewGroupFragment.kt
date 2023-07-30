@@ -130,7 +130,6 @@ class NewGroupFragment : BaseFragment<FragmentNewGroupBinding>(R.layout.fragment
         findNavController().apply {
             navigate(R.id.action_newGroupFragment_to_newGroupCompleteFragment, bundle)
         }
-
     }
 
     private fun generateImageSettingDialog(checkedGalleryAccess: () -> Unit) {

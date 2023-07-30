@@ -44,7 +44,6 @@ class MatchViewModel @Inject constructor() : ViewModel() {
         gameImageUrl = url
     }
 
-
     fun updatePageState(page: Int) {
         _pageState.value = page
     }

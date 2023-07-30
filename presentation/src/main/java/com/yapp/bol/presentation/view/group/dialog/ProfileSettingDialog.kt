@@ -31,7 +31,11 @@ class ProfileSettingDialog(
 
         binding.btnProfileComplete.setOnClickListener {
             dismiss()
-            val name = if(binding.etProfileName.text.isNullOrEmpty()) userName else binding.etProfileName.text.toString()
+            val name = if (binding.etProfileName.text.isNullOrEmpty()) {
+                userName
+            } else {
+                binding.etProfileName.text.toString()
+            }
             createGroup(name)
         }
 
@@ -53,7 +57,7 @@ class ProfileSettingDialog(
     private fun setNicknameValid(nickname: String) {
         val value = isNicknameValid(nickname)
         binding.btnProfileComplete.isEnabled = value
-        val color = if(value) R.color.Gray_8 else R.color.Red
+        val color = if (value) R.color.Gray_8 else R.color.Red
         binding.tvNicknameSettingGuide.setTextColor(ContextCompat.getColor(context, color))
     }
 

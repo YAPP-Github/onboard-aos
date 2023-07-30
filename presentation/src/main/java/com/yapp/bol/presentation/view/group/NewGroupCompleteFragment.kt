@@ -11,7 +11,6 @@ import com.yapp.bol.presentation.utils.loadImage
 import com.yapp.bol.presentation.view.group.NewGroupFragment.Companion.NEW_GROUP
 import com.yapp.bol.presentation.view.home.HomeActivity
 
-
 class NewGroupCompleteFragment : BaseFragment<FragmentNewGroupCompleteBinding>(R.layout.fragment_new_group_complete) {
 
     private val newGroup by lazy { arguments?.getSerializable(NEW_GROUP) as NewGroupItem }
@@ -32,7 +31,7 @@ class NewGroupCompleteFragment : BaseFragment<FragmentNewGroupCompleteBinding>(R
     }
 
     private fun FragmentNewGroupCompleteBinding.setImage(newGroup: NewGroupItem) {
-        this.ivGroupImage.loadImage(newGroup.imageUrl,0)
+        this.ivGroupImage.loadImage(newGroup.imageUrl, 0)
     }
 
     private fun FragmentNewGroupCompleteBinding.setOnClick(newGroup: NewGroupItem) {
@@ -50,7 +49,9 @@ class NewGroupCompleteFragment : BaseFragment<FragmentNewGroupCompleteBinding>(R
 
     private fun setOnBackPressed() {
         val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() { moveHomeActivity() }
+            override fun handleOnBackPressed() {
+                moveHomeActivity()
+            }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
@@ -61,5 +62,4 @@ class NewGroupCompleteFragment : BaseFragment<FragmentNewGroupCompleteBinding>(R
         startActivity(intent)
         requireActivity().finish()
     }
-
 }

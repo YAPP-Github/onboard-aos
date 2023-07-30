@@ -38,7 +38,6 @@ class NewGroupViewModel @Inject constructor(
     private val _groupRandomImage = MutableLiveData("")
     val groupRandomImage: LiveData<String> = _groupRandomImage
 
-
     var userName = ""
 
     private var groupOrganization = EMPTY_STRING

@@ -1,7 +1,5 @@
 package com.yapp.bol.presentation.view.login
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseActivity
 import com.yapp.bol.presentation.databinding.ActivityLoginBinding

@@ -9,11 +9,11 @@ import dagger.hilt.android.AndroidEntryPoint
 class NewGroupActivity : BaseActivity<ActivityNewGroupBinding>(R.layout.activity_new_group) {
     override fun onBackPressed() {
         val fragments = supportFragmentManager.fragments
-        for(fragment in fragments) {
-            if(fragment is onBackPressedListener) {
+        for (fragment in fragments) {
+            if (fragment is onBackPressedListener) {
                 (fragment as onBackPressedListener).onBackPressed()
                 return
-            } else{
+            } else {
                 super.onBackPressed()
             }
         }

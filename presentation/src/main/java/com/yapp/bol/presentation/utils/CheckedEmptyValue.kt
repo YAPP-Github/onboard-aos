@@ -10,7 +10,7 @@ val isInputTextValid: (String?) -> Boolean = { value ->
 
 val isNicknameValid: (String?) -> Boolean = { value ->
     val regex = Regex(NICKNAME_REGEX)
-    if(value?.isEmpty() == true) true
+    if (value?.isEmpty() == true) true
     else value?.matches(regex) ?: false
 
 }

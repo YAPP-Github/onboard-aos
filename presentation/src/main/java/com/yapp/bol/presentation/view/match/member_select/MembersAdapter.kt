@@ -50,7 +50,7 @@ class MembersAdapter(
 
         private fun setClickListener(item: MemberInfo, position: Int) {
             binding.root.setOnClickListener {
-                if(checkedMaxPlayer() || binding.cbMemberSelect.isChecked) {
+                if (checkedMaxPlayer() || binding.cbMemberSelect.isChecked) {
                     binding.cbMemberSelect.isChecked = binding.cbMemberSelect.isChecked.not()
                     memberClickListener(item, position, binding.cbMemberSelect.isChecked)
                 }

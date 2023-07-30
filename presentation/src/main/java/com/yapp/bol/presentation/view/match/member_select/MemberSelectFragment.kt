@@ -221,7 +221,6 @@ class MemberSelectFragment : BaseFragment<FragmentMemberSelectBinding>(R.layout.
         } else {
             this.createScaleHeightAnimator(200L, endHeight, startHeight)
         }
-
     }
 
     override fun onDestroyView() {
