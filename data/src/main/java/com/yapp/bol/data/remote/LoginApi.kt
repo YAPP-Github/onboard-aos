@@ -38,7 +38,4 @@ interface LoginApi {
 
     @GET("/v1/user/me")
     suspend fun getUserInfo(): Response<UserResponse>
-
-    @DELETE("/v1/user/me")
-    suspend fun quitAccount(): Response<Void>
 }

@@ -74,6 +74,4 @@ interface RemoteDataSource {
     suspend fun postMatch(matchApiRequest: MatchApiRequest)
 
     fun getUserInfo(): Flow<ApiResult<UserResponse>>
-
-    fun quitAccount(): Flow<ApiResult<Void>>
 }
