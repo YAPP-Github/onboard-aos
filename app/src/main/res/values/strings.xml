@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">app</string>
+    <string name="app_name">Onboard</string>
+    <string name="app_name_sandbox">Onboard-test</string>
 </resources>
