@@ -1,22 +1,40 @@
 package com.yapp.bol.presentation.view.login
 
 import android.content.Intent
+import android.view.View
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.yapp.bol.presentation.BuildConfig
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentMainBinding
+import com.yapp.bol.presentation.utils.collectWithLifecycle
+import com.yapp.bol.presentation.utils.showToast
 import com.yapp.bol.presentation.view.group.GroupActivity
-import com.yapp.bol.presentation.view.login.auth.GoogleTestActivity
 import com.yapp.bol.presentation.view.login.auth.KakaoTestActivity
 import com.yapp.bol.presentation.view.login.auth.NaverTestActivity
 import com.yapp.bol.presentation.view.login.dialog.TermsDialog
+import com.yapp.bol.presentation.viewmodel.login.AuthViewModel
+import com.yapp.bol.presentation.viewmodel.login.LoginType
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
+    private val authViewModel: AuthViewModel by viewModels()
     private val loginViewModel: LoginViewModel by viewModels()
+
+    private val googleLoginForResult: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            handleGoogleSignInResult(result)
+        }
 
     private val dialog by lazy {
         TermsDialog(
@@ -56,6 +74,7 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
         loginViewModel.getAccessToken()
         setButtonListener()
         subscribeObservables()
+        subscribeGoogleLoginObservables()
     }
 
     private fun subscribeObservables() = with(loginViewModel) {
@@ -91,7 +110,9 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
 
     private fun setButtonListener() {
         binding.btnGoogle.setOnClickListener {
-            Intent(requireActivity(), GoogleTestActivity::class.java).also { startActivity(it) }
+            binding.pbLoading.visibility = View.VISIBLE
+            binding.tvLoading.visibility = View.VISIBLE
+            startGoogleLogin()
         }
 
         binding.btnKakao.setOnClickListener {
@@ -129,6 +150,47 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
         startActivity(intent)
     }
 
+    private fun startGoogleLogin() {
+        val googleLoginClientIntent: Intent = GoogleSignInOptions
+            .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(BuildConfig.GOOGLE_LOGIN_API_KEY)
+            .requestEmail()
+            .build().let {
+                GoogleSignIn.getClient(requireActivity(), it).signInIntent
+            }
+
+        googleLoginForResult.launch(googleLoginClientIntent)
+    }
+
+    private fun handleGoogleSignInResult(result: ActivityResult) {
+        if (result.resultCode == AppCompatActivity.RESULT_OK) {
+            binding.pbLoading.visibility = View.GONE
+            binding.tvLoading.visibility = View.GONE
+            try {
+                val account = GoogleSignIn
+                    .getSignedInAccountFromIntent(result.data)
+                    .getResult(ApiException::class.java)
+                val token = account.idToken
+                requireNotNull(token)
+
+                authViewModel.login(LoginType.GOOGLE, token)
+            } catch (e: Exception) {
+                binding.pbLoading.visibility = View.GONE
+                binding.tvLoading.visibility = View.GONE
+                requireContext().showToast("구글 로그인 중 오류가 발생했습니다. 다시 시도해 주세요.")
+            }
+        } else {
+            binding.pbLoading.visibility = View.GONE
+            binding.tvLoading.visibility = View.GONE
+            requireContext().showToast("구글 로그인 중 오류가 발생했습니다. 다시 시도해 주세요.")
+        }
+    }
+
+    private fun subscribeGoogleLoginObservables() {
+        authViewModel.loginResult.collectWithLifecycle(this) {
+            startActivity(Intent(requireContext(), GroupActivity::class.java))
+        }
+    }
     companion object {
         const val ONBOARD_TERMS = "TERMS"
         const val ONBOARD_NICKNAME = "NICKNAME"
