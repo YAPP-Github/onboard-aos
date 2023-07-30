@@ -30,7 +30,7 @@ class GameSelectAdapter(
 
         fun bind(item: GameItem) {
             binding.tvGameName.text = item.name
-            binding.ivProductImage.loadImage(item.img)
+            binding.ivProductImage.loadImage(item.img, 6)
             binding.root.setOnClickListener {
                 gameClickListener(item)
             }

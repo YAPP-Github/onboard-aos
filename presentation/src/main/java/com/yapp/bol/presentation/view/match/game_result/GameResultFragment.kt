@@ -45,6 +45,7 @@ class GameResultFragment : BaseFragment<FragmentGameResultBinding>(R.layout.frag
             requireContext(),
             ResultRecordItem(
                 gameName = matchViewModel.gameName,
+                gameImageUrl = matchViewModel.gameImageUrl,
                 player = gameResultViewModel.players.value ?: listOf(),
                 currentTime = List(2) { currentTime.split(DATE_DELIMITERS)[it] },
                 resultRecording = ::resultRecording

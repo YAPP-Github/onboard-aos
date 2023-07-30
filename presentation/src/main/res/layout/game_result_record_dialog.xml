@@ -18,12 +18,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/iv_game_image"
         android:layout_width="39dp"
         android:layout_height="50dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="40dp"
-        android:background="@drawable/bg_light_green_radius_8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,8 +33,8 @@
         android:layout_marginStart="14dp"
         android:textAppearance="@style/Typography.Title3"
         android:textColor="@color/Gray_14"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+        app:layout_constraintStart_toEndOf="@+id/iv_game_image"
+        app:layout_constraintTop_toTopOf="@+id/iv_game_image" />
 
     <ImageView
         android:id="@+id/iv_calendar"

@@ -19,6 +19,7 @@ class MatchViewModel @Inject constructor() : ViewModel() {
 
     var currentPage = 0
     var gameName = EMPTY_STRING
+    var gameImageUrl = EMPTY_STRING
     var gameId = 0L
     var groupId = 0
     var currentTime = ""
@@ -38,6 +39,11 @@ class MatchViewModel @Inject constructor() : ViewModel() {
     fun updateGameName(name: String) {
         gameName = name
     }
+
+    fun updateGameImageUrl(url: String) {
+        gameImageUrl = url
+    }
+
 
     fun updatePageState(page: Int) {
         _pageState.value = page
