@@ -11,4 +11,11 @@ data class UserRankItem(
     val score: Int?,
     val playCount: Int?,
     val isChangeRecent: Boolean,
+    val role: Role
 )
+
+sealed class Role(val string: String) {
+    object OWNER : Role("OWNER")
+    object HOST : Role("HOST")
+    object GUEST : Role("GUEST")
+}

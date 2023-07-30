@@ -156,6 +156,11 @@ class RemoteDataSourceImpl @Inject constructor(
         return URLConnection.guessContentTypeFromName(fileName)
     }
 
+    override fun quitAccount(): Flow<ApiResult<Void>> = flow {
+        safeApiCall {
+            loginApi.quitAccount()
+        }.also { emit(it) }
+    }
     companion object {
         const val FILE_KEY = "file"
     }

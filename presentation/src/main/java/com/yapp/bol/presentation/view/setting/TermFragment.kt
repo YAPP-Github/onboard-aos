@@ -1,14 +1,18 @@
 package com.yapp.bol.presentation.view.setting
 
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentTermBinding
+import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.config.SettingConfig
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class TermFragment : BaseFragment<FragmentTermBinding>(R.layout.fragment_term) {
+
+    private val viewModel: TermViewModel by viewModels()
 
     override fun onViewCreatedAction() {
         super.onViewCreatedAction()
@@ -19,6 +23,8 @@ class TermFragment : BaseFragment<FragmentTermBinding>(R.layout.fragment_term) {
 
         setTitle(isPrivacyTerm)
         setBackButton()
+        viewModel.getTerms()
+        subscribeObservables()
     }
 
     private fun setTitle(isPrivacyTerm: Boolean) {
@@ -30,6 +36,12 @@ class TermFragment : BaseFragment<FragmentTermBinding>(R.layout.fragment_term) {
     private fun setBackButton() {
         binding.btnBack.setOnClickListener {
             binding.root.findNavController().popBackStack()
+        }
+    }
+
+    private fun subscribeObservables() {
+        viewModel.termStateFlow.collectWithLifecycle(this) {
+            // TODO : 약관 관련 처리
         }
     }
 }

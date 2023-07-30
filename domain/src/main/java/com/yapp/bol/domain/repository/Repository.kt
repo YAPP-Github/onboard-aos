@@ -67,4 +67,6 @@ interface Repository {
     suspend fun postMatch(matchItem: MatchItem)
 
     fun getUserInfo(): Flow<ApiResult<UserItem>>
+
+    fun quitAccount(): Flow<ApiResult<Void>>
 }

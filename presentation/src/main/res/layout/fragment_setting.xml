@@ -33,24 +33,23 @@
             android:id="@+id/btn_terms_privacy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="51dp"
-            android:paddingVertical="10dp"
+            android:layout_marginTop="48dp"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
-            android:layout_marginHorizontal="28dp">
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/setting_terms_privacy"
-                android:textAppearance="@style/Typography.Title2"
+                android:textAppearance="@style/Typography.Body2_M"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=">"
-                android:textAppearance="@style/Typography.Title2"
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_next"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
@@ -60,23 +59,49 @@
             android:id="@+id/btn_terms_service"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="10dp"
+            android:layout_marginTop="26dp"
             app:layout_constraintTop_toBottomOf="@id/btn_terms_privacy"
-            android:layout_marginHorizontal="28dp">
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/setting_terms_service"
-                android:textAppearance="@style/Typography.Title2"
+                android:textAppearance="@style/Typography.Body2_M"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_next"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_open_source"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            app:layout_constraintTop_toBottomOf="@id/btn_terms_service"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=">"
-                android:textAppearance="@style/Typography.Title2"
+                android:text="오픈소스 라이선스"
+                android:textAppearance="@style/Typography.Body2_M"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_next"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
@@ -86,23 +111,23 @@
             android:id="@+id/btn_quit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="10dp"
-            app:layout_constraintTop_toBottomOf="@id/btn_terms_service"
-            android:layout_marginHorizontal="28dp">
+            android:layout_marginTop="26dp"
+            app:layout_constraintTop_toBottomOf="@id/btn_open_source"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="회원 탈퇴"
-                android:textAppearance="@style/Typography.Title2"
+                android:textAppearance="@style/Typography.Body2_M"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=">"
-                android:textAppearance="@style/Typography.Title2"
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_next"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
