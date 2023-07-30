@@ -38,7 +38,7 @@ class GameSelectFragment : BaseFragment<FragmentGameSelectBinding>(R.layout.frag
             gameSelectAdapter.submitList(it)
         }
         matchViewModel.updateToolBarTitle(requireContext().resources.getString(R.string.game_result_record))
-        matchViewModel.updateCurrentPage(GAME_SELECT)
+        matchViewModel.updatePageState(GAME_SELECT)
 
         gameSelectViewModel.updateGroupId(matchViewModel.groupId)
     }

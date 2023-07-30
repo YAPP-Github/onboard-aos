@@ -15,6 +15,7 @@ import com.yapp.bol.presentation.utils.dialogWidthResize
 
 class ProfileSettingDialog(
     private val context: Context,
+    private val userName: String,
     private val createGroup: (String) -> Unit,
 ) : Dialog(context) {
 
@@ -29,13 +30,17 @@ class ProfileSettingDialog(
 
         binding.btnProfileComplete.setOnClickListener {
             dismiss()
-            createGroup(binding.etProfileName.text.toString())
+            val name = if(binding.etProfileName.text.isNullOrEmpty()) userName else binding.etProfileName.text.toString()
+            createGroup(name)
         }
 
-        binding.etProfileName.doOnTextChanged { _, start, _, count ->
-            val color = if (count == 10) R.color.Orange_10 else R.color.Gray_8
-            binding.tvProfileNameCount.setTextColor(ContextCompat.getColor(context, color))
-            binding.tvProfileNameCount.text = convertLengthToString(PROFILE_NAME_MAX_LENGTH, start + count)
+        binding.etProfileName.apply {
+            hint = userName
+            doOnTextChanged { _, start, _, count ->
+                val color = if (count == 10) R.color.Orange_10 else R.color.Gray_8
+                binding.tvProfileNameCount.setTextColor(ContextCompat.getColor(context, color))
+                binding.tvProfileNameCount.text = convertLengthToString(PROFILE_NAME_MAX_LENGTH, start + count)
+            }
         }
     }
 

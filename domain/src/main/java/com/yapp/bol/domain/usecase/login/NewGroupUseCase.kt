@@ -25,4 +25,6 @@ class NewGroupUseCase @Inject constructor(
     }
 
     fun getRandomImage() = repository.getRandomImage()
+
+    fun getUserInfo() = repository.getUserInfo()
 }

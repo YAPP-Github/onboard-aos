@@ -27,6 +27,7 @@ class NewGroupFragment : BaseFragment<FragmentNewGroupBinding>(R.layout.fragment
     private val profileSettingDialog by lazy {
         ProfileSettingDialog(
             context = requireContext(),
+            userName = newGroupViewModel.userName,
             createGroup = ::createNewGroup,
         )
     }
@@ -97,21 +98,21 @@ class NewGroupFragment : BaseFragment<FragmentNewGroupBinding>(R.layout.fragment
         }
     }
 
-    private fun setViewModelObserve() {
-        newGroupViewModel.groupName.observe(this) {
-            binding.btnCreateGroup.isEnabled = newGroupViewModel.isCompleteButtonActivation
+    private fun setViewModelObserve() = with(newGroupViewModel) {
+        groupName.observe(viewLifecycleOwner) {
+            binding.btnCreateGroup.isEnabled = isCompleteButtonActivation
         }
 
-        newGroupViewModel.groupDescription.observe(this) {
-            binding.btnCreateGroup.isEnabled = newGroupViewModel.isCompleteButtonActivation
+        groupDescription.observe(viewLifecycleOwner) {
+            binding.btnCreateGroup.isEnabled = isCompleteButtonActivation
         }
 
-        newGroupViewModel.successGroupDate.observe(this) {
+        successGroupDate.observe(viewLifecycleOwner) {
             if (it == null) return@observe
             moveNewGroupComplete(it)
         }
 
-        newGroupViewModel.groupRandomImage.observe(this) {
+        groupRandomImage.observe(viewLifecycleOwner) {
             binding.ivImage.loadImage(it, 8)
         }
     }
@@ -126,7 +127,10 @@ class NewGroupFragment : BaseFragment<FragmentNewGroupBinding>(R.layout.fragment
         val bundle = Bundle().apply {
             putSerializable(NEW_GROUP, newGroupItem)
         }
-        findNavController().navigate(R.id.action_newGroupFragment_to_newGroupCompleteFragment, bundle)
+        findNavController().apply {
+            navigate(R.id.action_newGroupFragment_to_newGroupCompleteFragment, bundle)
+        }
+
     }
 
     private fun generateImageSettingDialog(checkedGalleryAccess: () -> Unit) {

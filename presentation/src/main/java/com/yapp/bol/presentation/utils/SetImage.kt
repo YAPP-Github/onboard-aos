@@ -13,6 +13,8 @@ fun ImageView.loadImage(imageUri: String, roundedCorners: Int = 20) {
         .apply {
             if (roundedCorners > 0) {
                 transform(CenterCrop(), RoundedCorners(context.dpToPx(roundedCorners)))
+            } else {
+                transform(CenterCrop())
             }
         }
         .into(this)
