@@ -12,6 +12,7 @@ import com.yapp.bol.designsystem.R
 import com.yapp.bol.presentation.databinding.ProfileSettingDialogBinding
 import com.yapp.bol.presentation.utils.Converter.convertLengthToString
 import com.yapp.bol.presentation.utils.dialogWidthResize
+import com.yapp.bol.presentation.utils.isNicknameValid
 
 class ProfileSettingDialog(
     private val context: Context,
@@ -36,12 +37,24 @@ class ProfileSettingDialog(
 
         binding.etProfileName.apply {
             hint = userName
-            doOnTextChanged { _, start, _, count ->
-                val color = if (count == 10) R.color.Orange_10 else R.color.Gray_8
-                binding.tvProfileNameCount.setTextColor(ContextCompat.getColor(context, color))
-                binding.tvProfileNameCount.text = convertLengthToString(PROFILE_NAME_MAX_LENGTH, start + count)
+            doOnTextChanged { text, start, _, count ->
+                setNicknameCount(start, count)
+                setNicknameValid(text.toString())
             }
         }
+    }
+
+    private fun setNicknameCount(start: Int, count: Int) {
+        val color = if (count != 10) R.color.Gray_8 else R.color.Red
+        binding.tvProfileNameCount.setTextColor(ContextCompat.getColor(context, color))
+        binding.tvProfileNameCount.text = convertLengthToString(PROFILE_NAME_MAX_LENGTH, start + count)
+    }
+
+    private fun setNicknameValid(nickname: String) {
+        val value = isNicknameValid(nickname)
+        binding.btnProfileComplete.isEnabled = value
+        val color = if(value) R.color.Gray_8 else R.color.Red
+        binding.tvNicknameSettingGuide.setTextColor(ContextCompat.getColor(context, color))
     }
 
     override fun show() {

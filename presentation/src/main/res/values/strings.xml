@@ -25,6 +25,7 @@
     <string name="profile_setting_guide">관리자님이 모임에서 사용할 닉네임을 정해주세요</string>
     <string name="profile_name_count">0/10</string>
     <string name="complete_text">기록 확정</string>
+    <string name="create_group_text">모임 등록하기</string>
 
     <string name="group_create_text">모임 등록</string>
     <string name="group_name_text">보드게임 모임 이름</string>

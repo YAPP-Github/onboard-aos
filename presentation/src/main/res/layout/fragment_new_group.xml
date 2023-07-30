@@ -235,7 +235,7 @@
                     android:id="@+id/btn_create_group"
                     android:layout_width="0dp"
                     android:layout_height="52dp"
-                    android:background="@drawable/bg_white_to_orange_radius_8dp"
+                    android:background="@drawable/bg_gary_to_orange_radius_8dp"
                     android:enabled="false"
                     android:gravity="center"
                     android:text="@string/group_create_guide"
