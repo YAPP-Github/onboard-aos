@@ -38,6 +38,8 @@ class NewGroupViewModel @Inject constructor(
     private val _groupRandomImage = MutableLiveData("")
     val groupRandomImage: LiveData<String> = _groupRandomImage
 
+    var userName = ""
+
     private var groupOrganization = EMPTY_STRING
     private var imageFile = File(EMPTY_STRING)
 
@@ -46,6 +48,7 @@ class NewGroupViewModel @Inject constructor(
 
     init {
         getRandomImage()
+        getUserInfo()
     }
 
     fun createNewGroup(nickName: String) {
@@ -91,6 +94,14 @@ class NewGroupViewModel @Inject constructor(
                         convertUrlToFile(data)
                     },
                 )
+            }
+        }
+    }
+
+    private fun getUserInfo() {
+        viewModelScope.launch {
+            newGroupUseCase.getUserInfo().collectLatest {
+                checkedApiResult(apiResult = it, success = { data -> userName = data.nickname })
             }
         }
     }

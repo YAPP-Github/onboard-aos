@@ -21,8 +21,8 @@
         android:id="@+id/tv_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/profile_setting_guide"
         android:layout_marginTop="4dp"
+        android:text="@string/profile_setting_guide"
         android:textAppearance="@style/Typography.Body4_R"
         android:textColor="@color/Gray_9"
         app:layout_constraintStart_toStartOf="@+id/tv_title"
@@ -58,11 +58,22 @@
         app:layout_constraintTop_toTopOf="@+id/et_profile_name" />
 
     <TextView
+        android:id="@+id/tv_nickname_setting_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/nickname_setting_guide"
+        android:textAppearance="@style/Typography.Body5_R"
+        android:textColor="@color/Gray_8"
+        app:layout_constraintStart_toStartOf="@+id/et_profile_name"
+        app:layout_constraintTop_toBottomOf="@+id/et_profile_name" />
+
+    <TextView
         android:id="@+id/tv_profile_name_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/profile_name_count"
         android:layout_marginTop="4dp"
+        android:text="@string/profile_name_count"
         android:textAppearance="@style/Typography.Body5_R"
         android:textColor="@color/Gray_8"
         app:layout_constraintEnd_toEndOf="@+id/et_profile_name"
@@ -73,10 +84,10 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="36dp"
-        android:background="@drawable/bg_orange_bottom_radius_12dp"
-        android:text="@string/complete_text"
+        android:background="@drawable/bg_gary_to_orange_bottom_radius_12dp"
+        android:text="@string/create_group_text"
         android:textAppearance="@style/Typography.Label3_M"
-        android:textColor="@color/white"
+        android:textColor="@drawable/tc_white_to_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_profile_name" />

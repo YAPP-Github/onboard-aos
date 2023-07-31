@@ -1,30 +1,27 @@
 package com.yapp.bol.presentation.view.match
 
-import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import com.yapp.bol.presentation.R
+import com.yapp.bol.presentation.base.BaseActivity
 import com.yapp.bol.presentation.databinding.ActivityMatchBinding
+import com.yapp.bol.presentation.utils.createScaleWidthAnimator
+import com.yapp.bol.presentation.utils.dpToPx
 import com.yapp.bol.presentation.view.home.rank.HomeRankFragment.Companion.GROUP_ID
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MatchActivity : AppCompatActivity() {
+class MatchActivity : BaseActivity<ActivityMatchBinding>(R.layout.activity_match) {
 
-    private lateinit var binding: ActivityMatchBinding
     private val viewModel: MatchViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMatchBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateAction() {
+        super.onCreateAction()
         val groupId = intent.getIntExtra(GROUP_ID, 0)
 
         binding.ibBackButton.setOnClickListener {
-            if (viewModel.currentPage.value == GAME_SELECT) finish()
+            if (viewModel.pageState.value == GAME_SELECT) finish()
             else binding.navHostFragment.findNavController().popBackStack()
         }
 
@@ -32,32 +29,38 @@ class MatchActivity : AppCompatActivity() {
         viewModel.toolBarTitle.observe(this) { title ->
             binding.tvPageName.text = title
         }
-        viewModel.currentPage.observe(this) {
+        viewModel.pageState.observe(this) {
+            val isNext = viewModel.currentPage < it
             when (it) {
                 GAME_SELECT -> {
-                    binding.viewPage1.setOrangeColor(true)
-                    binding.viewPage2.setOrangeColor(false)
-                    binding.viewPage3.setOrangeColor(false)
+                    if (isNext) binding.viewPage1.startAnimator(true) else binding.viewPage2.startAnimator(false)
                 }
 
                 MEMBER_SELECT -> {
-                    binding.viewPage1.setOrangeColor(true)
-                    binding.viewPage2.setOrangeColor(true)
-                    binding.viewPage3.setOrangeColor(false)
+                    if (isNext) binding.viewPage2.startAnimator(true) else binding.viewPage3.startAnimator(false)
                 }
 
                 GAME_RESULT -> {
-                    binding.viewPage1.setOrangeColor(true)
-                    binding.viewPage2.setOrangeColor(true)
-                    binding.viewPage3.setOrangeColor(true)
+                    binding.viewPage3.startAnimator(true)
                 }
             }
+            viewModel.updateCurrentPage(it)
         }
     }
 
-    private fun View.setOrangeColor(isCheck: Boolean) {
-        val color = if (isCheck) R.color.Orange_5 else R.color.Orange_1
-        this.setBackgroundColor(ContextCompat.getColor(this@MatchActivity, color))
+    private fun View.startAnimator(isCheck: Boolean?) {
+        if (isCheck == null) return
+        val width = getMaxWidth() / 3
+        if (isCheck) {
+            this.createScaleWidthAnimator(startWidth = 0, endWidth = width)
+        } else {
+            this.createScaleWidthAnimator(startWidth = width, endWidth = 0)
+        }
+    }
+
+    private fun getMaxWidth(): Int {
+        val display = applicationContext?.resources?.displayMetrics
+        return (display?.widthPixels ?: 0) - applicationContext.dpToPx(24)
     }
 
     companion object {

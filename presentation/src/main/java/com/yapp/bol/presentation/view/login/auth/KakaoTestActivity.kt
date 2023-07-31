@@ -1,15 +1,15 @@
 package com.yapp.bol.presentation.view.login.auth
 
 import android.content.Intent
-import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 import com.yapp.bol.presentation.BuildConfig
+import com.yapp.bol.presentation.R
+import com.yapp.bol.presentation.base.BaseActivity
 import com.yapp.bol.presentation.databinding.ActivityKakaoTestBinding
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.view.login.LoginActivity
@@ -19,9 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
 
 @AndroidEntryPoint
-class KakaoTestActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityKakaoTestBinding
+class KakaoTestActivity : BaseActivity<ActivityKakaoTestBinding>(R.layout.activity_kakao_test) {
 
     private val viewModel: AuthViewModel by viewModels()
 
@@ -36,9 +34,9 @@ class KakaoTestActivity : AppCompatActivity() {
     private val isClientErrorCancelled: (Throwable?) -> Boolean = { error ->
         error is ClientError && error.reason == ClientErrorCause.Cancelled
     }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityKakaoTestBinding.inflate(layoutInflater)
+
+    override fun onCreateAction() {
+        super.onCreateAction()
         setContentView(binding.root)
 
         KakaoSdk.init(this, KAKAO_API_KEY)

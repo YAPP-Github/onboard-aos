@@ -2,6 +2,7 @@ package com.yapp.bol.presentation.utils
 
 import android.animation.ValueAnimator
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.animation.doOnEnd
 
 /**
@@ -29,4 +30,28 @@ fun View.createScaleAnimator(
         }
         anim.doOnEnd { onFinish?.invoke() }
     }
+}
+
+fun View.createScaleHeightAnimator(duration: Long = 200L, startHeight: Int, endHeight: Int) {
+    val valueAnimator = ValueAnimator.ofInt(startHeight, endHeight)
+    valueAnimator.addUpdateListener { animation ->
+        val newHeight = animation.animatedValue as Int
+        val params = this@createScaleHeightAnimator.layoutParams as ViewGroup.LayoutParams
+        params.height = newHeight
+        this@createScaleHeightAnimator.layoutParams = params
+    }
+    valueAnimator.duration = duration
+    valueAnimator.start()
+}
+
+fun View.createScaleWidthAnimator(duration: Long = 200L, startWidth: Int, endWidth: Int) {
+    val valueAnimator = ValueAnimator.ofInt(startWidth, endWidth)
+    valueAnimator.addUpdateListener { animation ->
+        val newWidth = animation.animatedValue as Int
+        val params = this@createScaleWidthAnimator.layoutParams as ViewGroup.LayoutParams
+        params.width = newWidth
+        this@createScaleWidthAnimator.layoutParams = params
+    }
+    valueAnimator.duration = duration
+    valueAnimator.start()
 }

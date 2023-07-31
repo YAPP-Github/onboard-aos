@@ -9,7 +9,7 @@
         android:id="@+id/gameSelectFragment"
         android:name="com.yapp.bol.presentation.view.match.game_select.GameSelectFragment"
         android:label="fragment_game_selete"
-        tools:layout="@layout/fragment_game_selete">
+        tools:layout="@layout/fragment_game_select">
         <action
             android:id="@+id/action_gameSelectFragment_to_memberSelectFragment"
             app:destination="@id/memberSelectFragment" />

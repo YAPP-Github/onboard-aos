@@ -1,11 +1,11 @@
 package com.yapp.bol.presentation.view.match.game_result
 
 import android.content.Context
-import android.graphics.Color
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -15,6 +15,7 @@ import com.yapp.bol.presentation.databinding.RvPlayerMatchItemBinding
 import com.yapp.bol.presentation.model.MemberResultItem
 import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
 import com.yapp.bol.presentation.view.match.MatchActivity.Companion.GUEST
+import com.yapp.bol.designsystem.R as DR
 
 class GameResultAdapter(
     private val context: Context,
@@ -26,6 +27,7 @@ class GameResultAdapter(
         fun updatePlayers()
         fun showKeyboard(editText: EditText)
         fun moveScroll(position: Int)
+        fun updateFocusState(position: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameResultViewHolder {
@@ -55,14 +57,18 @@ class GameResultAdapter(
         }
 
         private fun setImageView(item: MemberResultItem) {
-            val image = if (item.role == GUEST) R.drawable.img_dice_empty_large else R.mipmap.ic_member_full_level
+            val image = if (item.role == GUEST) R.drawable.img_dice_empty_large else DR.drawable.img_dice
             binding.ivMemberLevelIcon.setImageResource(image)
         }
 
         private fun setTextView(item: MemberResultItem) {
             binding.tvMemberRank.text =
                 String.format(context.resources.getString(R.string.game_result_rank), item.rank + 1)
-            val textColor = if (item.rank == 0) Color.parseColor("#FF4D0D") else Color.GRAY
+            val textColor = if (item.rank == 0) {
+                ContextCompat.getColor(context, DR.color.Orange_10)
+            } else {
+                ContextCompat.getColor(context, DR.color.Gray_9)
+            }
             binding.tvMemberRank.setTextColor(textColor)
             binding.tvMemberName.text = item.nickname
             val score = if (item.score == null) EMPTY_STRING else item.score.toString()
@@ -83,13 +89,22 @@ class GameResultAdapter(
                 binding.etGameScore.requestFocus()
                 binding.etGameScore.setSelection(binding.etGameScore.text.length)
                 gameResultUpdateListener.showKeyboard(binding.etGameScore)
+                gameResultUpdateListener.updateFocusState(position)
             }
         }
 
         private fun setTextChangeListener(position: Int) {
             binding.etGameScore.doAfterTextChanged { text ->
                 val value = text.toString()
-                val intValue = if (value.isEmpty()) null else value.toInt()
+                val color: Int
+                val intValue = if (value.isEmpty()) {
+                    color = ContextCompat.getColor(context, DR.color.Gray_6)
+                    null
+                } else {
+                    color = ContextCompat.getColor(context, DR.color.Gray_11)
+                    value.toInt()
+                }
+                binding.itemLine.setBackgroundColor(color)
                 gameResultUpdateListener.updatePlayerScore(position, intValue)
             }
         }
