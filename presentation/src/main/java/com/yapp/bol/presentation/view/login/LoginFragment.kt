@@ -151,9 +151,14 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
     }
 
     private fun startGoogleLogin() {
+        val apiKey = if (BuildConfig.DEBUG) {
+            BuildConfig.GOOGLE_LOGIN_API_KEY_SANDBOX
+        } else {
+            BuildConfig.GOOGLE_LOGIN_API_KEY
+        }
         val googleLoginClientIntent: Intent = GoogleSignInOptions
             .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(BuildConfig.GOOGLE_LOGIN_API_KEY)
+            .requestIdToken(apiKey)
             .requestEmail()
             .build().let {
                 GoogleSignIn.getClient(requireActivity(), it).signInIntent
