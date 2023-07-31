@@ -26,10 +26,12 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
 
         splashViewModel.myGroupList.observe(this) {
             if (it == null) return@observe
-            val target = if (it.isEmpty()) LoginActivity::class.java else HomeActivity::class.java
-            val intent = Intent(this, target)
-            intent.putExtra(HOME_GROUP_ID_KEY, it[0].id)
-            startActivity(intent)
+            if (it.isEmpty()) {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            } else {
+                HomeActivity.startActivity(binding.root.context, it.first().id)
+            }
             finish()
         }
     }
