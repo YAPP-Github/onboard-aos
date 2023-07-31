@@ -30,12 +30,21 @@ class NaverTestActivity : AppCompatActivity() {
     }
 
     private fun setUpNaverLogin() {
-        NaverIdLoginSDK.initialize(
-            context = this,
-            clientId = BuildConfig.NAVER_CLIENT_ID,
-            clientName = BuildConfig.NAVER_CLIENT_NAME,
-            clientSecret = BuildConfig.NAVER_CLIENT_SECRET,
-        )
+        if (!BuildConfig.DEBUG) {
+            NaverIdLoginSDK.initialize(
+                context = this,
+                clientId = BuildConfig.NAVER_CLIENT_ID,
+                clientName = BuildConfig.NAVER_CLIENT_NAME,
+                clientSecret = BuildConfig.NAVER_CLIENT_SECRET,
+            )
+        } else {
+            NaverIdLoginSDK.initialize(
+                context = this,
+                clientId = BuildConfig.NAVER_CLIENT_ID_SANDBOX,
+                clientName = BuildConfig.NAVER_CLIENT_NAME_SANDBOX,
+                clientSecret = BuildConfig.NAVER_CLIENT_SECRET_SANDBOX,
+            )
+        }
     }
 
     private fun loginNaver() {
