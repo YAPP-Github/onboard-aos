@@ -96,6 +96,7 @@ class GroupJoinFragment : Fragment() {
             .setMessage("모임에서 사용할 닉네임을 10자 이하로 입력해주세요.")
             .setLimitSize(10)
             .setSingleLine(true)
+            .setText(viewModel.nickName)
             .setHintText("닉네임을 입력해주세요.")
             .visibleInputCount(true)
             .visibleSummitButton(true)
