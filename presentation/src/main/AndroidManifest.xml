@@ -11,11 +11,14 @@
             android:launchMode="singleTask"
             android:exported="false" />
         <activity
-            android:name=".view.login.SplashActivity"
             android:launchMode="singleTask"
+            android:name=".view.login.splash.SplashActivity"
             android:exported="false" />
         <activity
             android:name=".view.login.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.login.NetworkErrorActivity"
             android:exported="false" />
         <activity
             android:name=".view.login.TermsWebViewActivity"

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.login.NetworkErrorActivity">
+
+        <TextView
+            android:id="@+id/tv_internet_error_guide_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="인터넷이 연결되어 있지 않습니다"
+            android:textAppearance="@style/Typography.Body2_M"
+            android:textColor="@color/Gray_11"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.43" />
+
+        <TextView
+            android:id="@+id/tv_internet_error_guide_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="연결 상태를 다시 확인해주세요"
+            android:textAppearance="@style/Typography.Body3_R"
+            android:textColor="@color/Gray_10"
+            app:layout_constraintEnd_toEndOf="@+id/tv_internet_error_guide_1"
+            app:layout_constraintStart_toStartOf="@+id/tv_internet_error_guide_1"
+            app:layout_constraintTop_toBottomOf="@+id/tv_internet_error_guide_1" />
+
+        <com.yapp.bol.designsystem.ui.button.BolRoundedButton
+            android:id="@+id/btn_request_api"
+            android:layout_width="211dp"
+            android:layout_height="44dp"
+            app:bolButtonText="다시 불러오기"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_internet_error_guide_2"
+            app:layout_constraintStart_toStartOf="@+id/tv_internet_error_guide_2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_internet_error_guide_2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
