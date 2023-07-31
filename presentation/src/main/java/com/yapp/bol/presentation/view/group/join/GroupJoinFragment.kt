@@ -29,7 +29,7 @@ class GroupJoinFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStatusBarColor(requireActivity(), android.R.color.transparent, false)
+        setStatusBarColor(requireActivity(), R.color.Gray_15, false)
     }
 
     override fun onCreateView(

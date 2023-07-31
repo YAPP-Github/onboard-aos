@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseActivity
 import com.yapp.bol.presentation.databinding.ActivitySplashBinding
+import com.yapp.bol.presentation.utils.setStatusBarColor
 import com.yapp.bol.presentation.view.home.HomeActivity
 import com.yapp.bol.presentation.view.login.LoginActivity
 import com.yapp.bol.presentation.view.login.NetworkErrorActivity
@@ -18,6 +19,11 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
 
     override fun onCreateAction() {
         subscribeObservables()
+        setStatusBarColor(
+            this@SplashActivity,
+            R.color.Gray_15,
+            isIconBlack = false
+        )
     }
 
     private fun subscribeObservables() {
