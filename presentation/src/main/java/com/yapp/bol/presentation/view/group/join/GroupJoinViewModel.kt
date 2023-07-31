@@ -7,6 +7,7 @@ import com.yapp.bol.domain.model.GroupDetailItem
 import com.yapp.bol.domain.usecase.group.CheckGroupJoinByAccessCodeUseCase
 import com.yapp.bol.domain.usecase.group.GetGroupDetailUseCase
 import com.yapp.bol.domain.usecase.group.JoinGroupUseCase
+import com.yapp.bol.domain.usecase.login.GetMyInfoUseCase
 import com.yapp.bol.domain.usecase.login.MatchUseCase
 import com.yapp.bol.presentation.utils.checkedApiResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,6 +24,7 @@ class GroupJoinViewModel @Inject constructor(
     private val checkGroupAccessCodeUseCase: CheckGroupJoinByAccessCodeUseCase,
     private val matchUseCase: MatchUseCase,
     private val getGroupItemUseCase: GetGroupDetailUseCase,
+    private val GetMyInfoUseCase: GetMyInfoUseCase,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -39,6 +41,8 @@ class GroupJoinViewModel @Inject constructor(
     private val _successJoinGroup = MutableSharedFlow<Pair<Boolean, String?>>()
     val successJoinGroup = _successJoinGroup.asSharedFlow()
 
+    var nickName = ""
+
     init {
         viewModelScope.launch {
             getGroupItemUseCase.invoke(groupId.toLong()).collectLatest {
@@ -47,6 +51,18 @@ class GroupJoinViewModel @Inject constructor(
                     success = { groupItem ->
                         viewModelScope.launch {
                             this@GroupJoinViewModel.groupItem.emit(groupItem)
+                        }
+                    },
+                )
+            }
+        }
+        viewModelScope.launch {
+            GetMyInfoUseCase.invoke().collectLatest {
+                checkedApiResult(
+                    apiResult = it,
+                    success = { user ->
+                        viewModelScope.launch {
+                            nickName = user.nickname
                         }
                     },
                 )

@@ -97,19 +97,15 @@ class InputDialog(
     }
 
     fun setOnSummit(onSummit: (String, InputDialog) -> Unit): InputDialog {
-        binding.etLayout.updatePadding(bottom = 0)
-        binding.etInput.setText(
-            listOf(
-                "이승은",
-                "차경민",
-                "기본 이름",
-                "랜덤 이름",
-            ).random(),
-        ) // todo 기획이 완료 된 후 실제 기본 이름으로 변경해야합니다.
-
         binding.tvSummit.setOnClickListener {
             onSummit(binding.etInput.text.toString(), this)
         }
+        return this
+    }
+
+    fun setText(text: String): InputDialog {
+        binding.etLayout.updatePadding(bottom = 0)
+        binding.etInput.setText(text)
         return this
     }
 
