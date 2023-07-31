@@ -18,11 +18,17 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
         buildConfigField("String", "KAKAO_API_KEY", getProperty("KAKAO_API_KEY"))
+        buildConfigField("String", "KAKAO_API_KEY_SANDBOX", getProperty("KAKAO_API_KEY_SANDBOX"))
         buildConfigField("String", "GOOGLE_LOGIN_API_KEY", getProperty("GOOGLE_LOGIN_API_KEY"))
+        buildConfigField("String", "GOOGLE_LOGIN_API_KEY_SANDBOX", getProperty("GOOGLE_LOGIN_API_KEY_SANDBOX"))
         manifestPlaceholders["kakaoKey"] = getProperty("KAKAO_API_KEY_MANI")
+        manifestPlaceholders["kakaoKeySandbox"] = getProperty("KAKAO_API_KEY_MANI_SANDBOX")
         buildConfigField("String", "NAVER_CLIENT_ID", getProperty("NAVER_CLIENT_ID"))
+        buildConfigField("String", "NAVER_CLIENT_ID_SANDBOX", getProperty("NAVER_CLIENT_ID_SANDBOX"))
         buildConfigField("String", "NAVER_CLIENT_NAME", getProperty("NAVER_CLIENT_NAME"))
+        buildConfigField("String", "NAVER_CLIENT_NAME_SANDBOX", getProperty("NAVER_CLIENT_NAME_SANDBOX"))
         buildConfigField("String", "NAVER_CLIENT_SECRET", getProperty("NAVER_CLIENT_SECRET"))
+        buildConfigField("String", "NAVER_CLIENT_SECRET_SANDBOX", getProperty("NAVER_CLIENT_SECRET_SANDBOX"))
     }
 
     buildTypes {

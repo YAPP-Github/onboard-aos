@@ -18,6 +18,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
         buildConfigField("String", "REMOTE_SERVER", getApi("REMOTE_SERVER"))
+        buildConfigField("String", "REMOTE_SERVER_SANDBOX", getApi("REMOTE_SERVER_SANDBOX"))
     }
 
     buildTypes {
