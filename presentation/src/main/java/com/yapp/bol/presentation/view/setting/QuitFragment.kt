@@ -28,12 +28,14 @@ class QuitFragment : BaseFragment<FragmentQuitBinding>(R.layout.fragment_quit) {
 
         binding.btnQuit.setOnClickListener {
             val email = Intent(Intent.ACTION_SEND)
-            email.type = "plain/text"
-            val address = arrayOf("onboardaos2@gmail.com")
-            email.putExtra(Intent.EXTRA_EMAIL, address)
-            email.putExtra(Intent.EXTRA_SUBJECT, "제목")
-            email.putExtra(Intent.EXTRA_TEXT, "id: ${viewModel.getId()}\n닉네임: ${viewModel.getNickName()}")
-            startActivity(email)
+            val string = binding.root.resources.getString(R.string.quit_email_content)
+            val content = String.format(string, viewModel.getId(), viewModel.getNickName())
+            email.apply {
+                type = "plain/text"
+                putExtra(Intent.EXTRA_EMAIL, arrayOf("onboardaos2@gmail.com"))
+                putExtra(Intent.EXTRA_SUBJECT, "온보드 회원 탈퇴 신청")
+                putExtra(Intent.EXTRA_TEXT, content)
+            }.also { startActivity(it) }
         }
     }
 
