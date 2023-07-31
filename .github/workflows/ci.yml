@@ -37,6 +37,9 @@ jobs:
                   echo NAVER_CLIENT_ID=\"$NAVER_CLIENT_ID\" >> ./local.properties
                   echo NAVER_CLIENT_NAME=\"$NAVER_CLIENT_NAME\" >> ./local.properties
                   echo NAVER_CLIENT_SECRET=\"$NAVER_CLIENT_SECRET\" >> ./local.properties
+                  echo NAVER_CLIENT_RELEASE_ID=\"$NAVER_CLIENT_RELEASE_ID\" >> ./local.properties
+                  echo NAVER_CLIENT_RELEASE_NAME=\"$NAVER_CLIENT_RELEASE_NAME\" >> ./local.properties
+                  echo NAVER_CLIENT_RELEASE_SECRET=\"$NAVER_CLIENT_RELEASE_SECRET\" >> ./local.properties
                   echo GOOGLE_LOGIN_API_KEY=\"GOOGLE_LOGIN_API_KEY\" >> ./local.properties
               shell: bash
               env:

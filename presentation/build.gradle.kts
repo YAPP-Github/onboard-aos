@@ -23,6 +23,9 @@ android {
         buildConfigField("String", "NAVER_CLIENT_ID", getProperty("NAVER_CLIENT_ID"))
         buildConfigField("String", "NAVER_CLIENT_NAME", getProperty("NAVER_CLIENT_NAME"))
         buildConfigField("String", "NAVER_CLIENT_SECRET", getProperty("NAVER_CLIENT_SECRET"))
+        buildConfigField("String", "NAVER_CLIENT_RELEASE_ID", getProperty("NAVER_CLIENT_ID"))
+        buildConfigField("String", "NAVER_CLIENT_RELEASE_NAME", getProperty("NAVER_CLIENT_NAME"))
+        buildConfigField("String", "NAVER_CLIENT_RELEASE_SECRET", getProperty("NAVER_CLIENT_SECRET"))
     }
 
     buildTypes {
