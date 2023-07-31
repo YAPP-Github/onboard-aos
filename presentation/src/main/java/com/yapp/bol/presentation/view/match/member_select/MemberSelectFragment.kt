@@ -2,22 +2,23 @@ package com.yapp.bol.presentation.view.match.member_select
 
 import KeyboardVisibilityUtils
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.R
+import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentMemberSelectBinding
 import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
 import com.yapp.bol.presentation.utils.KeyboardManager
+import com.yapp.bol.presentation.utils.collectWithLifecycle
+import com.yapp.bol.presentation.utils.createScaleHeightAnimator
+import com.yapp.bol.presentation.utils.dpToPx
 import com.yapp.bol.presentation.view.match.MatchActivity.Companion.MEMBER_SELECT
 import com.yapp.bol.presentation.view.match.MatchViewModel
 import com.yapp.bol.presentation.view.match.dialog.GuestAddDialog
@@ -25,12 +26,10 @@ import com.yapp.bol.presentation.view.match.game_select.GameSelectFragment.Compa
 import com.yapp.bol.presentation.view.match.game_select.GameSelectFragment.Companion.MAX_PLAYER
 import com.yapp.bol.presentation.view.match.game_select.GameSelectFragment.Companion.MIN_PLAYER
 import dagger.hilt.android.AndroidEntryPoint
+import com.yapp.bol.designsystem.R as DR
 
 @AndroidEntryPoint
-class MemberSelectFragment : Fragment() {
-
-    private var _binding: FragmentMemberSelectBinding? = null
-    private val binding get() = checkNotNull(_binding)
+class MemberSelectFragment : BaseFragment<FragmentMemberSelectBinding>(R.layout.fragment_member_select) {
 
     private val matchViewModel: MatchViewModel by activityViewModels()
     private val memberSelectViewModel: MemberSelectViewModel by viewModels()
@@ -47,7 +46,6 @@ class MemberSelectFragment : Fragment() {
             memberSelectViewModel.updateMemberIsChecked(position, isChecked)
         },
         checkedMaxPlayer = { memberSelectViewModel.checkedMaxPlayers() },
-        setMaxPlayerText = ::setPlayerGuide
     )
 
     private val keyboardManager by lazy {
@@ -69,22 +67,13 @@ class MemberSelectFragment : Fragment() {
 
     private lateinit var keyboardVisibilityUtils: KeyboardVisibilityUtils
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        _binding = FragmentMemberSelectBinding.inflate(inflater, container, false)
-        return _binding?.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreatedAction() {
         val gameName = arguments?.getString(GAME_NAME) ?: EMPTY_STRING
         val maxPlayer = arguments?.getInt(MAX_PLAYER) ?: 0
         val minPlayer = arguments?.getInt(MIN_PLAYER) ?: 0
 
         matchViewModel.updateToolBarTitle(gameName)
-        matchViewModel.updateCurrentPage(MEMBER_SELECT)
+        matchViewModel.updatePageState(MEMBER_SELECT)
         memberSelectViewModel.updateGroupId(matchViewModel.groupId)
         memberSelectViewModel.setMaxPlayers(maxPlayer)
         memberSelectViewModel.setMinPlayers(minPlayer)
@@ -98,6 +87,7 @@ class MemberSelectFragment : Fragment() {
         )
 
         setViewModelObserve()
+        setPlayerRangeText(minPlayer, maxPlayer)
         setClickListener()
 
         binding.etSearchMember.doOnTextChanged { text, _, _, _ ->
@@ -111,6 +101,10 @@ class MemberSelectFragment : Fragment() {
         val scrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 getNextMember(recyclerView)
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                keyboardManager.hideKeyboard()
             }
         }
         binding.rvMembers.addOnScrollListener(scrollListener)
@@ -145,6 +139,11 @@ class MemberSelectFragment : Fragment() {
         isNickNameValidate.observe(viewLifecycleOwner) {
             if (guestAddDialog.isShowing) guestAddDialog.setNicknameValid(it)
         }
+
+        playerState.collectWithLifecycle(viewLifecycleOwner) {
+            if (it == null) return@collectWithLifecycle
+            binding.rvMemberSelect.animateViewHeight(0, requireContext().dpToPx(96), it)
+        }
     }
 
     private fun setSearchResultNothing(visible: Boolean, keyword: String) = with(binding) {
@@ -152,11 +151,20 @@ class MemberSelectFragment : Fragment() {
         viewSearchResultNothing.isVisible = visible
         tvSearchResultNothingGuide.isVisible = visible
         btnGuestAddNothing.isVisible = visible
-        ivPlus.isVisible = visible
+        ivPlusNothing.isVisible = visible
         tvSearchResultNothing.apply {
             text = searchResult
             isVisible = visible
         }
+    }
+
+    private fun setPlayerRangeText(minPlayer: Int, maxPlayer: Int) {
+        val playerRangeText = if (minPlayer == maxPlayer) {
+            getString(R.string.game_player_count_guide_2, minPlayer)
+        } else {
+            getString(R.string.game_player_count_guide_1, minPlayer, maxPlayer)
+        }
+        binding.tvPlayerRange.text = playerRangeText
     }
 
     private fun setClickListener() = with(binding) {
@@ -164,16 +172,19 @@ class MemberSelectFragment : Fragment() {
             if (etSearchMember.isFocused) {
                 etSearchMember.text.clear()
                 etSearchMember.clearFocus()
+                keyboardManager.hideKeyboard()
             } else {
-                keyboardManager.showKeyboard(etSearchMember)
                 etSearchMember.requestFocus()
+                keyboardManager.showKeyboard(etSearchMember)
             }
         }
-        btnTempMember.setOnClickListener {
+
+        btnGuestAddNothing.setOnClickListener {
             keyboardManager.hideKeyboard()
             guestAddDialog.show()
         }
-        btnGuestAddNothing.setOnClickListener {
+
+        btnGuestAdd.setOnClickListener {
             keyboardManager.hideKeyboard()
             guestAddDialog.show()
         }
@@ -193,7 +204,7 @@ class MemberSelectFragment : Fragment() {
         return View.OnFocusChangeListener { _, hasFocus ->
             val image = ContextCompat.getDrawable(
                 requireContext(),
-                if (hasFocus) R.drawable.ic_cancel_gray else R.drawable.ic_search,
+                if (hasFocus) DR.drawable.ic_cancel_gray else DR.drawable.ic_search_gray,
             )
             binding.ivSearchIcon.setImageDrawable(image)
         }
@@ -203,26 +214,15 @@ class MemberSelectFragment : Fragment() {
         return binding.etSearchMember.text.toString()
     }
 
-    private fun setPlayerGuide() {
-        val text: String
-        val color: Int
-        val isMaxPlayers = memberSelectViewModel.checkedMaxPlayers()
-        if (isMaxPlayers) {
-            text = getString(R.string.play_select_guide)
-            color = R.color.Gray_10
+    private fun View.animateViewHeight(startHeight: Int, endHeight: Int, isScaleIn: Boolean) {
+        if (isScaleIn) {
+            this.createScaleHeightAnimator(200L, startHeight, endHeight)
         } else {
-            text = String.format(
-                requireContext().resources.getString(R.string.max_player_guide),
-                memberSelectViewModel.players.value?.size
-            )
-            color = R.color.Orange_10
+            this.createScaleHeightAnimator(200L, endHeight, startHeight)
         }
-        binding.tvMemberSelectGuide.text = text
-        binding.tvMemberSelectGuide.setTextColor(ContextCompat.getColor(requireContext(), color))
     }
 
     override fun onDestroyView() {
-        _binding = null
         keyboardVisibilityUtils.detachKeyboardListeners()
         super.onDestroyView()
     }

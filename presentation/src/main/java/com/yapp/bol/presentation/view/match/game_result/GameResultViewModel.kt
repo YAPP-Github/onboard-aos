@@ -10,6 +10,7 @@ import com.yapp.bol.domain.usecase.login.MatchUseCase
 import com.yapp.bol.presentation.model.MemberInfo
 import com.yapp.bol.presentation.model.MemberResultItem
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,6 +30,9 @@ class GameResultViewModel @Inject constructor(
 
     private val _isRecordComplete = MutableLiveData(false)
     val isRecordComplete: LiveData<Boolean> = _isRecordComplete
+
+    private val _focusState = MutableLiveData(-1)
+    val focusState: LiveData<Int> = _focusState
 
     fun initPlayers(player: ArrayList<MemberInfo>) {
         val newPlayers = player.mapIndexed { index, memberItem ->
@@ -58,6 +62,7 @@ class GameResultViewModel @Inject constructor(
                     }
                 )
             )
+            delay(2500)
             _isRecordComplete.value = true
         }
     }
@@ -95,5 +100,9 @@ class GameResultViewModel @Inject constructor(
             if (dynamicPlayers[i].score == null) return false
         }
         return true
+    }
+
+    fun updateFocusState(position: Int) {
+        _focusState.value = position
     }
 }

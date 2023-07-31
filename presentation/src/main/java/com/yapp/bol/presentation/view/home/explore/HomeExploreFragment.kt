@@ -50,7 +50,7 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
             showJoinGroupDialog = {
                 binding.root.findNavController().navigateFragment(
                     R.id.action_homeExploreFragment_to_groupJoinFragment,
-                    "groupItem" to it
+                    "groupId" to it.id
                 )
             },
             changeButtonColor = {

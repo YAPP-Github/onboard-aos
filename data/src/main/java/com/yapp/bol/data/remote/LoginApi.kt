@@ -1,15 +1,14 @@
 package com.yapp.bol.data.remote
 
-import com.yapp.bol.data.model.login.TermsResponse
 import com.yapp.bol.data.model.login.LoginRequest
 import com.yapp.bol.data.model.login.LoginResponse
 import com.yapp.bol.data.model.login.OnBoardResponse
 import com.yapp.bol.data.model.login.TermsRequest
+import com.yapp.bol.data.model.login.TermsResponse
 import com.yapp.bol.data.model.login.UserRequest
 import com.yapp.bol.data.model.user.UserResponse
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -38,7 +37,4 @@ interface LoginApi {
 
     @GET("/v1/user/me")
     suspend fun getUserInfo(): Response<UserResponse>
-
-    @DELETE("/v1/user/me")
-    suspend fun quitAccount(): Response<Void>
 }

@@ -8,7 +8,6 @@ import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentQuitBinding
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.showToast
-import com.yapp.bol.presentation.view.login.splash.SplashActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,23 +27,32 @@ class QuitFragment : BaseFragment<FragmentQuitBinding>(R.layout.fragment_quit) {
         }
 
         binding.btnQuit.setOnClickListener {
-            viewModel.quitAccount()
+            val email = Intent(Intent.ACTION_SEND)
+            val string = binding.root.resources.getString(R.string.quit_email_content)
+            val content = String.format(string, viewModel.getId(), viewModel.getNickName())
+            email.apply {
+                type = "plain/text"
+                putExtra(Intent.EXTRA_EMAIL, arrayOf("onboardaos2@gmail.com"))
+                putExtra(Intent.EXTRA_SUBJECT, "온보드 회원 탈퇴 신청")
+                putExtra(Intent.EXTRA_TEXT, content)
+            }.also { startActivity(it) }
         }
     }
 
     private fun observeQuitUiState() {
-        viewModel.quitStateFlow.collectWithLifecycle(this) { uiState ->
+        viewModel.userUiState.collectWithLifecycle(this) { uiState ->
             when (uiState) {
-                is SettingUiState.Loading -> {}
+                is SettingUiState.Loading -> {
+                    binding.btnQuit.disableButton()
+                }
+
                 is SettingUiState.Success -> {
-                    if (uiState.data) {
-                        startActivity(Intent(requireContext(), SplashActivity::class.java))
-                        requireActivity().finish()
-                    }
+                    binding.btnQuit.enableButton()
                 }
 
                 is SettingUiState.Error -> {
-                    requireContext().showToast("회원 탈퇴가 처리되지 않았습니다. 다시 시도해 주십시오.")
+                    binding.btnQuit.disableButton()
+                    requireContext().showToast("현재 요청하신 작업을 수행할 수 없습니다. 다시 시도해 주십시오.")
                 }
             }
         }

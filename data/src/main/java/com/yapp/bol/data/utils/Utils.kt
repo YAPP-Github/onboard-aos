@@ -3,5 +3,9 @@ package com.yapp.bol.data.utils
 import com.yapp.bol.data.BuildConfig
 
 object Utils {
-    const val BASE_URL = BuildConfig.REMOTE_SERVER
+    val BASE_URL = if (BuildConfig.DEBUG) {
+        BuildConfig.REMOTE_SERVER_SANDBOX
+    } else {
+        BuildConfig.REMOTE_SERVER
+    }
 }

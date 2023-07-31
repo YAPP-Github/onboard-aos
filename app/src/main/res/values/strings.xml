@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">app</string>
+    <string name="app_name">온보드</string>
+    <string name="app_name_sandbox">온보드-test</string>
 </resources>

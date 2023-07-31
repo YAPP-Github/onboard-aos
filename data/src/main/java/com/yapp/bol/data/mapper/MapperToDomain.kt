@@ -88,7 +88,7 @@ internal object MapperToDomain {
             id = this.id,
             name = this.name,
             maxMember = this.maxMember,
-            minMember = this.maxMember,
+            minMember = this.minMember,
             img = this.img,
         )
     }

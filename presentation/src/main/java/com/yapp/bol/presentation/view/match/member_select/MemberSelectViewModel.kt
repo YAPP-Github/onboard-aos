@@ -10,6 +10,8 @@ import com.yapp.bol.presentation.model.MemberInfo
 import com.yapp.bol.presentation.utils.checkedApiResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -31,6 +33,9 @@ class MemberSelectViewModel @Inject constructor(
 
     private val _isNickNameValidate = MutableLiveData(false)
     val isNickNameValidate: LiveData<Boolean> = _isNickNameValidate
+
+    private val _playerState = MutableStateFlow<Boolean?>(null)
+    val playerState = _playerState.asStateFlow()
 
     val dynamicPlayers = arrayListOf<MemberInfo>()
     private var maxPlayers = 0
@@ -110,6 +115,7 @@ class MemberSelectViewModel @Inject constructor(
         if (players.value?.contains(memberInfo) ?: return) dynamicPlayers.remove(memberInfo)
         else dynamicPlayers.add(memberInfo)
         _players.value = dynamicPlayers.toList()
+        _playerState.value = players.value?.isEmpty()?.not()
         checkedCompleteButtonEnabled()
     }
 
@@ -142,7 +148,7 @@ class MemberSelectViewModel @Inject constructor(
     }
 
     fun checkedMaxPlayers(): Boolean {
-        return (players.value?.size ?: 0) <= maxPlayers
+        return (players.value?.size ?: 0) < maxPlayers
     }
     private fun checkedCompleteButtonEnabled() {
         _isCompleteButtonEnabled.value = (players.value?.size ?: 0) >= minPlayers

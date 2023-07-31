@@ -19,8 +19,8 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
             android:layout_marginStart="5dp"
             android:src="@drawable/img_dice"
             app:layout_constraintBottom_toBottomOf="@+id/iv_logo"

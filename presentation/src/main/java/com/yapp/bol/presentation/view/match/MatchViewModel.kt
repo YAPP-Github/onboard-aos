@@ -14,10 +14,12 @@ class MatchViewModel @Inject constructor() : ViewModel() {
     private val _toolBarTitle = MutableLiveData(GAME_RESULT_RECORD)
     val toolBarTitle: LiveData<String> = _toolBarTitle
 
-    private val _currentPage = MutableLiveData(0)
-    val currentPage: LiveData<Int> = _currentPage
+    private val _pageState = MutableLiveData(0)
+    val pageState: LiveData<Int> = _pageState
 
+    var currentPage = 0
     var gameName = EMPTY_STRING
+    var gameImageUrl = EMPTY_STRING
     var gameId = 0L
     var groupId = 0
     var currentTime = ""
@@ -38,8 +40,16 @@ class MatchViewModel @Inject constructor() : ViewModel() {
         gameName = name
     }
 
+    fun updateGameImageUrl(url: String) {
+        gameImageUrl = url
+    }
+
+    fun updatePageState(page: Int) {
+        _pageState.value = page
+    }
+
     fun updateCurrentPage(page: Int) {
-        _currentPage.value = page
+        currentPage = page
     }
 
     fun updateCurrentTime(time: String) {

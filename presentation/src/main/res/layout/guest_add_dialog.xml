@@ -12,8 +12,7 @@
         android:layout_margin="26dp"
         android:text="@string/guest_add_text"
         android:textColor="@color/Gray_15"
-        android:textSize="18dp"
-        android:textStyle="bold"
+        android:textAppearance="@style/Typography.Title2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,8 +23,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/guest_description_text"
         android:textColor="@color/Gray_15"
-        android:textSize="14dp"
-        android:textStyle="bold"
+        android:textAppearance="@style/Typography.Body3_M"
         app:layout_constraintStart_toStartOf="@+id/tv_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
@@ -36,7 +34,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/guest_name_set_tip"
         android:textColor="@color/Gray_9"
-        android:textSize="12dp"
+        android:textAppearance="@style/Typography.Body4_R"
         app:layout_constraintStart_toStartOf="@+id/tv_description"
         app:layout_constraintTop_toBottomOf="@+id/tv_description" />
 
@@ -65,8 +63,9 @@
         android:maxLength="10"
         android:singleLine="true"
         android:textColorHint="@color/Gray_7"
+        android:textColor="@color/Gray_15"
         android:textCursorDrawable="@drawable/ic_cursor"
-        android:textSize="14dp"
+        android:textAppearance="@style/Typography.Body3_R"
         app:layout_constraintBottom_toBottomOf="@+id/view_guest_name_container"
         app:layout_constraintEnd_toEndOf="@+id/view_guest_name_container"
         app:layout_constraintStart_toEndOf="@+id/iv_guest_image"
@@ -83,13 +82,25 @@
         app:layout_constraintTop_toTopOf="@+id/view_guest_name_container" />
 
     <TextView
+        android:id="@+id/tv_duplication_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/duplication_guide"
+        android:textAppearance="@style/Typography.Body5_R"
+        android:textColor="@color/Red"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/view_guest_name_container"
+        app:layout_constraintTop_toBottomOf="@+id/view_guest_name_container" />
+
+    <TextView
         android:id="@+id/tv_guest_name_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="@string/profile_name_count"
         android:textColor="@color/Gray_8"
-        android:textSize="12dp"
+        android:textAppearance="@style/Typography.Body5_R"
         app:layout_constraintEnd_toEndOf="@+id/view_guest_name_container"
         app:layout_constraintTop_toBottomOf="@+id/view_guest_name_container" />
 
@@ -102,8 +113,7 @@
         android:enabled="false"
         android:text="@string/guest_add_text"
         android:textColor="@drawable/tc_white_to_gray"
-        android:textSize="14dp"
-        android:textStyle="bold"
+       android:textAppearance="@style/Typography.Label3_B"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_guest_name_container" />

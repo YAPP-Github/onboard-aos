@@ -12,9 +12,11 @@ import com.yapp.bol.designsystem.R
 import com.yapp.bol.presentation.databinding.ProfileSettingDialogBinding
 import com.yapp.bol.presentation.utils.Converter.convertLengthToString
 import com.yapp.bol.presentation.utils.dialogWidthResize
+import com.yapp.bol.presentation.utils.isNicknameValid
 
 class ProfileSettingDialog(
     private val context: Context,
+    private val userName: String,
     private val createGroup: (String) -> Unit,
 ) : Dialog(context) {
 
@@ -29,14 +31,34 @@ class ProfileSettingDialog(
 
         binding.btnProfileComplete.setOnClickListener {
             dismiss()
-            createGroup(binding.etProfileName.text.toString())
+            val name = if (binding.etProfileName.text.isNullOrEmpty()) {
+                userName
+            } else {
+                binding.etProfileName.text.toString()
+            }
+            createGroup(name)
         }
 
-        binding.etProfileName.doOnTextChanged { _, start, _, count ->
-            val color = if (count == 10) R.color.Orange_10 else R.color.Gray_8
-            binding.tvProfileNameCount.setTextColor(ContextCompat.getColor(context, color))
-            binding.tvProfileNameCount.text = convertLengthToString(PROFILE_NAME_MAX_LENGTH, start + count)
+        binding.etProfileName.apply {
+            hint = userName
+            doOnTextChanged { text, start, _, count ->
+                setNicknameCount(start, count)
+                setNicknameValid(text.toString())
+            }
         }
+    }
+
+    private fun setNicknameCount(start: Int, count: Int) {
+        val color = if (count != 10) R.color.Gray_8 else R.color.Red
+        binding.tvProfileNameCount.setTextColor(ContextCompat.getColor(context, color))
+        binding.tvProfileNameCount.text = convertLengthToString(PROFILE_NAME_MAX_LENGTH, start + count)
+    }
+
+    private fun setNicknameValid(nickname: String) {
+        val value = isNicknameValid(nickname)
+        binding.btnProfileComplete.isEnabled = value
+        val color = if (value) R.color.Gray_8 else R.color.Red
+        binding.tvNicknameSettingGuide.setTextColor(ContextCompat.getColor(context, color))
     }
 
     override fun show() {

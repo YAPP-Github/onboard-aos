@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.FragmentGroupJoinBinding
-import com.yapp.bol.presentation.utils.backFragment
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.dpToPx
 import com.yapp.bol.presentation.utils.loadImage
@@ -51,14 +51,13 @@ class GroupJoinFragment : Fragment() {
     private fun initView() {
         binding.tvGroupJoin.setOnClickListener {
             if (MyGroupList.findMyGroup(viewModel.groupItem.value?.id) != null) {
-                startActivity(Intent(requireContext(), HomeActivity::class.java))
-                requireActivity().finish()
+                moveHomeActivity()
             } else {
                 showRedeemInputDialog()
             }
         }
         binding.btnBack.setOnClickListener {
-            backFragment()
+            findNavController().popBackStack()
         }
     }
 
@@ -114,9 +113,9 @@ class GroupJoinFragment : Fragment() {
                 }
             }.show()
     }
-
     private fun moveHomeActivity() {
-        HomeActivity.startActivity(binding.root.context, groupId = viewModel.groupItem.value!!.id)
+        var intent = Intent(requireActivity(), HomeActivity::class.java)
+        startActivity(intent)
         requireActivity().finish()
     }
 
