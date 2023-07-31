@@ -123,8 +123,7 @@ class GroupJoinFragment : Fragment() {
     }
 
     private fun moveHomeActivity() {
-        var intent = Intent(requireActivity(), HomeActivity::class.java)
-        startActivity(intent)
+        HomeActivity.startActivity(binding.root.context, groupId = viewModel.groupItem.value!!.id)
         requireActivity().finish()
     }
 
