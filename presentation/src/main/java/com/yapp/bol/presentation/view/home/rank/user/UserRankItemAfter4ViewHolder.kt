@@ -39,10 +39,11 @@ class UserRankItemAfter4ViewHolder(
                 View.VISIBLE
             } else { View.GONE }
             if (role is Role.GUEST) {
-                imgDice.setImageDrawable(AppCompatResources.getDrawable(root.context, R.drawable.img_dice_empty_small))
-                imgDice.scaleType = ImageView.ScaleType.CENTER_INSIDE
+                imgDice.visibility = View.INVISIBLE
+                imgDiceGuest.visibility = View.VISIBLE
             } else {
-                imgDice.setImageDrawable(AppCompatResources.getDrawable(root.context, R.drawable.img_dice))
+                imgDice.visibility = View.VISIBLE
+                imgDiceGuest.visibility = View.INVISIBLE
             }
         }
     }
