@@ -21,14 +21,25 @@
             android:layout_marginStart="23dp"/>
 
         <ImageView
-            android:id="@+id/img_dice"
+            android:id="@+id/img_dice_guest"
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:src="@drawable/img_dice"
+            android:src="@drawable/img_dice_empty"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="47dp"/>
+
+        <ImageView
+            android:id="@+id/img_dice"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/img_dice"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="43dp"/>
 
         <TextView
             android:id="@+id/tv_name"
