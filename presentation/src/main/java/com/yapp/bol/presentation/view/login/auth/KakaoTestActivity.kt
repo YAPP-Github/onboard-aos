@@ -63,12 +63,10 @@ class KakaoTestActivity : AppCompatActivity() {
         viewModel.loginResult.filterNotNull().collectWithLifecycle(this) {
             if (it.accessToken.isEmpty()) return@collectWithLifecycle
             val intent = Intent(this@KakaoTestActivity, LoginActivity::class.java)
-            intent.putExtra(ACCESS_TOKEN, it.accessToken)
             startActivity(intent)
         }
     }
     companion object {
         const val KAKAO_API_KEY = BuildConfig.KAKAO_API_KEY
-        const val ACCESS_TOKEN = "Access Token"
     }
 }

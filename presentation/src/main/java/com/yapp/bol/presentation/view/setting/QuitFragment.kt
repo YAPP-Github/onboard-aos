@@ -8,7 +8,7 @@ import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentQuitBinding
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.showToast
-import com.yapp.bol.presentation.view.login.SplashActivity
+import com.yapp.bol.presentation.view.login.splash.SplashActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
