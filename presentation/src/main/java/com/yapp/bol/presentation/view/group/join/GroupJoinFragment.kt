@@ -67,6 +67,9 @@ class GroupJoinFragment : Fragment() {
                 .setMessage(getString(R.string.group_join_code_input_plz))
                 .setLimitSize(6)
                 .setSingleLine(true)
+                .onBackPressed {
+                    it.dismiss()
+                }
                 .setTitleIcon(
                     icon = R.drawable.ic_lock,
                     size = context.dpToPx(20),
@@ -77,7 +80,7 @@ class GroupJoinFragment : Fragment() {
 
                     viewModel.successCheckGroupAccessCode.collectWithLifecycle(viewLifecycleOwner) { (success, message) -> // ktlint-disable max-line-length
                         if (success) {
-                            showProfileSettingDialog(code)
+                            showProfileSettingDialog(dialog, code)
                             dismiss()
                         } else {
                             dialog.showErrorMessage(message.orEmpty())
@@ -87,7 +90,7 @@ class GroupJoinFragment : Fragment() {
         }
     }
 
-    private fun showProfileSettingDialog(code: String) {
+    private fun showProfileSettingDialog(dialog: InputDialog, code: String) {
         InputDialog(requireContext())
             .setTitle("프로필 설정")
             .setMessage("모임에서 사용할 닉네임을 10자 이하로 입력해주세요.")
@@ -96,6 +99,10 @@ class GroupJoinFragment : Fragment() {
             .setHintText("닉네임을 입력해주세요.")
             .visibleInputCount(true)
             .visibleSummitButton(true)
+            .onBackPressed {
+                it.dismiss()
+                dialog.dismiss()
+            }
             .setOnSummit { nickname, dialog ->
                 viewModel.joinGroup(code, nickname)
 
@@ -113,6 +120,7 @@ class GroupJoinFragment : Fragment() {
                 }
             }.show()
     }
+
     private fun moveHomeActivity() {
         var intent = Intent(requireActivity(), HomeActivity::class.java)
         startActivity(intent)

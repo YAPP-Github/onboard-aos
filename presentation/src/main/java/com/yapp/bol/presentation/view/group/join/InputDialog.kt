@@ -8,7 +8,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.text.InputFilter
-import android.view.KeyEvent
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup.MarginLayoutParams
 import android.view.WindowManager
@@ -36,6 +36,7 @@ class InputDialog(
     }
 
     private var onLimitExceeded: ((String, InputDialog) -> Unit)? = null
+    private var onBackPressed: ((InputDialog) -> Unit)? = null
     private var onLimit: Int = 0
 
     init {
@@ -51,11 +52,12 @@ class InputDialog(
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
             )
-            attributes?.y = context.dpToPx(100)
+            setGravity(Gravity.BOTTOM)
         }
         binding.root.updateLayoutParams<MarginLayoutParams> {
             leftMargin = context.dpToPx(18)
             rightMargin = context.dpToPx(18)
+            bottomMargin = context.dpToPx(36)
         }
     }
 
@@ -63,7 +65,6 @@ class InputDialog(
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        onBackPress()
 
         binding.etInput.requestFocus()
         binding.etInput.postDelayed({ Keyboard.open(context, binding.etInput) }, 220)
@@ -109,6 +110,11 @@ class InputDialog(
         binding.tvSummit.setOnClickListener {
             onSummit(binding.etInput.text.toString(), this)
         }
+        return this
+    }
+
+    fun onBackPressed(onBackPressed: (dialog: InputDialog) -> Unit): InputDialog {
+        this.onBackPressed = onBackPressed
         return this
     }
 
@@ -186,14 +192,9 @@ class InputDialog(
         return this
     }
 
-    private fun onBackPress() {
-        setOnKeyListener { _, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
-                dismiss()
-                Keyboard.close(context, currentFocus ?: return@setOnKeyListener true)
-                return@setOnKeyListener true
-            }
-            return@setOnKeyListener false
-        }
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        onBackPressed?.invoke(this)
     }
 }
