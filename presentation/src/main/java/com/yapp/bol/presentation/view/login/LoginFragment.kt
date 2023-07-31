@@ -82,7 +82,7 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
             if (it == null) return@observe
             when (it.size) {
                 ALL_AGREE -> moveGroupSearch()
-                PARTIAL_AGREE -> checkedBoardPage(it[0])
+                PARTIAL_AGREE -> checkedBoardPage(it.first())
                 NONE_AGREE -> loginViewModel.getTerms()
             }
         }
