@@ -6,6 +6,7 @@ import com.yapp.bol.data.remote.ImageFileApi
 import com.yapp.bol.data.remote.LoginApi
 import com.yapp.bol.data.remote.MatchApi
 import com.yapp.bol.data.remote.RankApi
+import com.yapp.bol.data.remote.SettingApi
 import com.yapp.bol.data.utils.Utils.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -96,5 +97,11 @@ object NetworkModule {
     @Singleton
     fun provideMatchApiService(retrofit: Retrofit): MatchApi {
         return retrofit.create(MatchApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSettingApiService(retrofit: Retrofit): SettingApi {
+        return retrofit.create(SettingApi::class.java)
     }
 }
