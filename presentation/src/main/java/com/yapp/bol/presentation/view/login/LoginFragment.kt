@@ -188,7 +188,8 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
 
     private fun subscribeGoogleLoginObservables() {
         authViewModel.loginResult.collectWithLifecycle(this) {
-            startActivity(Intent(requireContext(), GroupActivity::class.java))
+            startActivity(Intent(requireContext(), LoginActivity::class.java))
+            requireActivity().finish()
         }
     }
     companion object {
