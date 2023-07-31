@@ -1,7 +1,6 @@
 package com.yapp.bol.presentation.view.setting
 
 import android.content.Intent
-import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -10,7 +9,6 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentSettingBinding
 import com.yapp.bol.presentation.utils.collectWithLifecycle
-import com.yapp.bol.presentation.utils.config.SettingConfig
 import com.yapp.bol.presentation.utils.navigateFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,8 +16,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_setting) {
 
     private val termViewModel: TermViewModel by viewModels()
-    private var privacyUrl: String =""
-    private var serviceUrl: String =""
+    private var privacyUrl: String = ""
+    private var serviceUrl: String = ""
 
     override fun onViewCreatedAction() {
         super.onViewCreatedAction()
