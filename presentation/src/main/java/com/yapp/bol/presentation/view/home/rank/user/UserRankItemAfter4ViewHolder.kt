@@ -3,8 +3,6 @@ package com.yapp.bol.presentation.view.home.rank.user
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.domain.model.Role
 import com.yapp.bol.domain.model.UserRankItem

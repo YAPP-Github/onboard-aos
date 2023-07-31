@@ -41,7 +41,7 @@ class SplashViewModel @Inject constructor(
                     apiResult = it,
                     success = { data -> _myGroupList.value = data },
                     error = { item ->
-                        when(item.code) {
+                        when (item.code) {
                             "Auth004" -> _myGroupList.value = listOf()
                             else -> _networkState.value = true
                         }
