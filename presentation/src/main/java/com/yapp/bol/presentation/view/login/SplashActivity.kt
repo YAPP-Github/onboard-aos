@@ -6,7 +6,6 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseActivity
 import com.yapp.bol.presentation.databinding.ActivitySplashBinding
 import com.yapp.bol.presentation.view.home.HomeActivity
-import com.yapp.bol.presentation.view.home.HomeActivity.Companion.HOME_GROUP_ID_KEY
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
