@@ -113,7 +113,7 @@
             android:id="@+id/btn_quit"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            app:bolButtonText="회원 탈퇴하기"
+            app:bolButtonText="탈퇴 요청하기"
             app:bolButtonType="roundedSquareType"
             app:bolButtonColor="orange"
             android:layout_marginBottom="26dp"
