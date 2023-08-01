@@ -9,7 +9,7 @@ import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentNicknameBinding
 import com.yapp.bol.presentation.utils.Converter
 import com.yapp.bol.presentation.utils.isNicknameValid
-import com.yapp.bol.presentation.view.group.search.GroupSearchActivityTest
+import com.yapp.bol.presentation.view.group.GroupActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,7 +19,7 @@ class NicknameFragment : BaseFragment<FragmentNicknameBinding>(R.layout.fragment
 
     override fun onViewCreatedAction(): Unit = with(binding) {
         btnSignUp.setOnClickListener {
-            val intent = Intent(requireActivity(), GroupSearchActivityTest::class.java)
+            val intent = Intent(requireActivity(), GroupActivity::class.java)
             startActivity(intent)
         }
 
@@ -48,7 +48,7 @@ class NicknameFragment : BaseFragment<FragmentNicknameBinding>(R.layout.fragment
     }
 
     private fun moveGroupSearch() {
-        val intent = Intent(requireActivity(), GroupSearchActivityTest::class.java)
+        val intent = Intent(requireActivity(), GroupActivity::class.java)
         startActivity(intent)
         requireActivity().finish()
     }
