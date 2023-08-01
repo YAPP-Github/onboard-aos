@@ -45,7 +45,7 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
     private fun setAdapter() {
         val adapter = GroupListAdapter(
             showJoinGroupDialog = {
-                view?.findNavController()?.navigateFragment(
+                view?.findNavController().navigateFragment(
                     R.id.action_groupSearchFragment_to_groupJoinFragment,
                     "groupId" to it.id,
                 )
