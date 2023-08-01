@@ -91,6 +91,11 @@ dependencies {
     implementation(com.yapp.bol.AndroidX.COMPOSE)
     implementation(com.yapp.bol.AndroidX.VIEW_PAGER)
 
+    implementation(com.yapp.bol.Firebase.GMS_CLASSPATH)
+    implementation(com.yapp.bol.Firebase.ANALYSICES)
+    implementation(com.yapp.bol.Firebase.CRASHLYTICES)
+    implementation(com.yapp.bol.Firebase.FIREBASE_BOM)
+
     // Coroutines
     implementation(com.yapp.bol.Coroutines.COROUTINES)
 

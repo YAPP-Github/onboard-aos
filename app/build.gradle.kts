@@ -5,6 +5,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("com.google.gms.google-services")
     id(com.yapp.bol.Licenses.OSS_LICENSES_ID)
+    id("com.google.firebase.crashlytics")
 }
 
 android {

@@ -16,6 +16,8 @@ object Versions {
     const val KAKAO_VERSION = "2.11.0"
     const val PAGING_VERSION = "3.1.1"
     const val DATA_STORE_VERSION = "1.0.0"
+    const val FIRBASE_ANALYSIS = "18.0.2"
+    const val FIREBASE_CLASHLYTICS = "17.4.1"
 }
 
 object Android {
@@ -96,6 +98,9 @@ object Firebase {
     const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
     const val GMS_AUTH = "com.google.android.gms:play-services-auth:20.5.0"
     const val GMS_CLASSPATH = "com.google.gms:google-services:4.3.15"
+    const val ANALYSICES = "com.google.firebase:firebase-analytics-ktx:19.0.2"
+    const val CRASHLYTICES = "com.google.firebase:firebase-crashlytics-ktx:18.3.7"
+    const val CRASHLYTICES_GRADEL = "com.google.firebase:firebase-crashlytics-gradle:2.7.1"
 }
 
 object Glide {
