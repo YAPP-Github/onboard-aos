@@ -14,6 +14,7 @@ import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.dpToPx
 import com.yapp.bol.presentation.utils.loadImage
 import com.yapp.bol.presentation.utils.setStatusBarColor
+import com.yapp.bol.presentation.view.group.GroupActivity
 import com.yapp.bol.presentation.view.group.join.data.Margin
 import com.yapp.bol.presentation.view.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -121,8 +122,16 @@ class GroupJoinFragment : Fragment() {
     }
 
     private fun moveHomeActivity() {
-        HomeActivity.startActivity(binding.root.context, groupId = viewModel.groupItem.value!!.id)
-        requireActivity().finish()
+        when (activity) {
+            is GroupActivity -> {
+                HomeActivity.startActivity(binding.root.context, groupId = viewModel.groupItem.value!!.id)
+                requireActivity().finish()
+            }
+
+            is HomeActivity -> {
+                findNavController().navigate(R.id.action_groupJoinFragment_to_homeRankFragment)
+            }
+        }
     }
 
     private fun subscribeObservables() {
