@@ -197,7 +197,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
                 }
 
                 is HomeUiState.Error -> {
-                    if (uiState.error.message == "Version001") {
+                    if (uiState.error.message == "FORCE_UPDATE") {
                         UpgradeActivity.startActivity(requireContext())
                         requireActivity().finish()
                     }
@@ -243,7 +243,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
                 }
 
                 is HomeUiState.Error -> {
-                    if (uiState.error.message == "Version001") {
+                    if (uiState.error.message == "FORCE_UPDATE") {
                         UpgradeActivity.startActivity(requireContext())
                         requireActivity().finish()
                     }

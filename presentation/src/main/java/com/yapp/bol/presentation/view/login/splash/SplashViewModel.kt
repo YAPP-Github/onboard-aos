@@ -46,7 +46,7 @@ class SplashViewModel @Inject constructor(
                     error = { item ->
                         when (item.code) {
                             "Auth004" -> _myGroupList.value = listOf()
-                            "Version001" -> _upgradeState.value = true
+                            "FORCE_UPDATE" -> _upgradeState.value = true
                             else -> _networkState.value = true
                         }
                     }
