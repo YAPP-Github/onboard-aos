@@ -54,6 +54,8 @@ class GameResultAdapter(
             setClickListener(position)
             setTextChangeListener(position)
             setImageView(item)
+            val color = if (item.score == null) DR.color.Gray_6 else DR.color.Gray_11
+            binding.itemLine.setBackgroundColor(ContextCompat.getColor(context, color))
         }
 
         private fun setImageView(item: MemberResultItem) {
