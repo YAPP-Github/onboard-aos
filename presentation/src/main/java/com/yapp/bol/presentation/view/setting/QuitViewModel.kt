@@ -3,8 +3,6 @@ package com.yapp.bol.presentation.view.setting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yapp.bol.domain.model.user.UserItem
-import com.yapp.bol.domain.usecase.auth.DeleteAccessTokenUseCase
-import com.yapp.bol.domain.usecase.auth.DeleteRefreshTokenUseCase
 import com.yapp.bol.domain.usecase.login.GetMyInfoUseCase
 import com.yapp.bol.presentation.utils.checkedApiResult
 import dagger.hilt.android.lifecycle.HiltViewModel

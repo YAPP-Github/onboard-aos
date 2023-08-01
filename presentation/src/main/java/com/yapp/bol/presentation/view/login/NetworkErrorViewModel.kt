@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class NetworkErrorViewModel @Inject constructor(
     private val getJoinedGroupUseCase: GetJoinedGroupUseCase,
-): ViewModel() {
+) : ViewModel() {
 
     private val _myGroupList = MutableLiveData<List<JoinedGroupItem>?>(null)
     val myGroupList: LiveData<List<JoinedGroupItem>?> = _myGroupList
