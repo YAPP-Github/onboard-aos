@@ -48,7 +48,7 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
     private fun setAdapter() {
         val adapter = GroupListAdapter(
             showJoinGroupDialog = {
-                binding.root.findNavController().navigateFragment(
+                view?.findNavController()?.navigateFragment(
                     R.id.action_homeExploreFragment_to_groupJoinFragment,
                     "groupId" to it.id
                 )

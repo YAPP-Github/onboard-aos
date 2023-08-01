@@ -12,8 +12,7 @@
             android:exported="false" />
         <activity
             android:name=".view.home.HomeActivity"
-            android:exported="false"
-            android:launchMode="singleTask" />
+            android:exported="false" />
         <activity
             android:name=".view.login.splash.SplashActivity"
             android:exported="false"

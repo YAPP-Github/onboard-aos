@@ -19,7 +19,6 @@ import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.showToast
 import com.yapp.bol.presentation.view.group.GroupActivity
 import com.yapp.bol.presentation.view.login.auth.KakaoTestActivity
-import com.yapp.bol.presentation.view.login.auth.NaverTestActivity
 import com.yapp.bol.presentation.view.login.dialog.TermsDialog
 import com.yapp.bol.presentation.viewmodel.login.AuthViewModel
 import com.yapp.bol.presentation.viewmodel.login.LoginType

@@ -122,16 +122,8 @@ class GroupJoinFragment : Fragment() {
     }
 
     private fun moveHomeActivity() {
-        when (activity) {
-            is GroupActivity -> {
-                HomeActivity.startActivity(binding.root.context, groupId = viewModel.groupItem.value!!.id)
-                requireActivity().finish()
-            }
-
-            is HomeActivity -> {
-                findNavController().navigate(R.id.action_groupJoinFragment_to_homeRankFragment)
-            }
-        }
+        HomeActivity.startActivity(binding.root.context, groupId = viewModel.groupItem.value!!.id)
+        requireActivity().finish()
     }
 
     private fun subscribeObservables() {
