@@ -21,7 +21,7 @@ class DrawerCurrentGroupInfoViewHolder(
     }
 
     private fun ItemGroupInfoDetailBinding.bindData(groupDetailItem: GroupDetailItem) {
-        ivGroup.loadImage(groupDetailItem.profileImageUrl, 0)
+        ivGroup.loadImage(groupDetailItem.profileImageUrl, 8)
         tvGroupDescription.text = groupDetailItem.description
         tvGroupOrganization.text = groupDetailItem.organization
         tvMemberCount.text = groupDetailItem.memberCount.toString()
