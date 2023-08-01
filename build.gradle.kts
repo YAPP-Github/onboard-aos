@@ -7,6 +7,7 @@ buildscript {
         classpath(com.yapp.bol.Android.BUILD_GRADLE)
         classpath(com.yapp.bol.Firebase.GMS_CLASSPATH)
         classpath(com.yapp.bol.Licenses.OSS_LICENSES_CLASSPATH)
+        classpath(com.yapp.bol.Firebase.CRASHLYTICES_GRADEL)
     }
 }
 
