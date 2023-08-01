@@ -22,6 +22,7 @@ import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.DialogInputBinding
+import com.yapp.bol.presentation.utils.Constant.NICKNAME_REGEX
 import com.yapp.bol.presentation.utils.Keyboard
 import com.yapp.bol.presentation.utils.dpToPx
 import com.yapp.bol.presentation.utils.inflate
@@ -92,6 +93,11 @@ class InputDialog(
                 binding.tvInputCount.setTextColor(context.getColor(R.color.Red))
             } else {
                 binding.tvInputCount.setTextColor(context.getColor(R.color.Gray_8))
+            }
+            if (text?.matches(Regex(NICKNAME_REGEX)) != true) {
+                binding.tvErrorMessage.visibility = View.VISIBLE
+                binding.tvErrorMessage.text = "한글, 영문, 숫자를 조합하여 사용 가능합니다."
+                binding.tvErrorMessage.setTextColor(context.getColor(R.color.Gray_8))
             }
         }
     }
