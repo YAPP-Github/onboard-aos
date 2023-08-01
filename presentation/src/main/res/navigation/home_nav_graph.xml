@@ -65,5 +65,10 @@
     <fragment
         android:id="@+id/groupJoinFragment"
         android:name="com.yapp.bol.presentation.view.group.join.GroupJoinFragment"
-        android:label="GroupJoinFragment" />
+        android:label="GroupJoinFragment" >
+
+        <action
+            android:id="@+id/action_groupJoinFragment_to_homeRankFragment"
+            app:destination="@id/homeRankFragment" />
+    </fragment>
 </navigation>
