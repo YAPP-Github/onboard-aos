@@ -19,7 +19,9 @@
             android:id="@+id/iv_group_join_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:tintMode="src_atop"
+            app:tint="#80000000" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
