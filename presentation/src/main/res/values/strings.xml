@@ -15,7 +15,7 @@
     <string name="complete_group_organization_text">소속</string>
     <string name="group_owner_text">관리자</string>
     <string name="group_access_code_text">참여코드</string>
-    <string name="group_invite_guide">모임에 가입하기 위해서는 참여코드를 입력해야 \n합니다. 코드를 공유하고 멤버들을 초대해 보세요!</string>
+    <string name="group_invite_guide">모임에 가입하기 위해서는 참여코드를 입력해야 합니다.\n 코드를 공유하고 멤버들을 초대해 보세요!</string>
     <string name="confirmation_text">확인</string>
     <string name="image_setting_delegate">모임 대표 이미지</string>
     <string name="image_setting_delegate_guide">모임을 소개할 대표 이미지를 넣어보세요!</string>
