@@ -5,15 +5,17 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application>
-
+        <activity
+            android:name=".view.setting.UpgradeActivity"
+            android:exported="false" />
         <activity
             android:name=".view.home.HomeActivity"
-            android:launchMode="singleTask"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleTask" />
         <activity
-            android:launchMode="singleTask"
             android:name=".view.login.splash.SplashActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleTask" />
         <activity
             android:name=".view.login.LoginActivity"
             android:exported="false" />

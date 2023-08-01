@@ -8,6 +8,7 @@ import com.yapp.bol.presentation.databinding.ActivitySplashBinding
 import com.yapp.bol.presentation.view.home.HomeActivity
 import com.yapp.bol.presentation.view.login.LoginActivity
 import com.yapp.bol.presentation.view.login.NetworkErrorActivity
+import com.yapp.bol.presentation.view.setting.UpgradeActivity
 import com.yapp.bol.designsystem.R as DR
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,6 +42,13 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         splashViewModel.networkState.observe(this) {
             if(it.not()) return@observe
             startActivity(Intent(this, NetworkErrorActivity::class.java))
+        }
+
+        splashViewModel.upgradeState.observe(this) {
+            if (it) {
+                UpgradeActivity.startActivity(this@SplashActivity)
+                finish()
+            }
         }
     }
 }

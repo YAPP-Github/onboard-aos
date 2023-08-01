@@ -1,5 +1,6 @@
 package com.yapp.bol.app.di
 
+import com.yapp.bol.app.BuildConfig
 import com.yapp.bol.domain.usecase.auth.GetAccessTokenUseCase
 import com.yapp.bol.domain.usecase.auth.GetRefreshTokenUseCase
 import kotlinx.coroutines.flow.first
@@ -22,7 +23,9 @@ class AuthInterceptor @Inject constructor(
         val builder = chain.request().newBuilder()
         var token = runBlocking { getAccessTokenUseCase().first() }
 
-        builder.addHeader(AUTHORIZATION_HEADER, "Bearer $token")
+        builder
+            .addHeader(AUTHORIZATION_HEADER, "Bearer $token")
+            .addHeader(USER_AGENT_HEADER, "Android/${BuildConfig.VERSION_NAME}")
 
         var response = chain.proceed(builder.build())
 
@@ -44,3 +47,4 @@ class AuthInterceptor @Inject constructor(
 }
 
 private const val AUTHORIZATION_HEADER = "authorization"
+private const val USER_AGENT_HEADER = "User-Agent"

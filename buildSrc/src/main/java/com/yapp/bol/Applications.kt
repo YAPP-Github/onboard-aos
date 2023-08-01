@@ -12,7 +12,7 @@ object Applications {
     const val majorVersion = 1
     const val minorVersion = 0
     const val patchVersion = 0
-    const val versionName = "$majorVersion.$minorVersion"
+    const val versionName = "$majorVersion.$minorVersion$patchVersion"
     val sourceCompatibilityVersion = JavaVersion.VERSION_1_8
     val targetCompatibilityVersion = JavaVersion.VERSION_1_8
 }

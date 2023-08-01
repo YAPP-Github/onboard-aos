@@ -30,6 +30,7 @@ import com.yapp.bol.presentation.view.home.rank.game.UserRankGameLayoutManager
 import com.yapp.bol.presentation.view.home.rank.group_info.DrawerGroupInfoAdapter
 import com.yapp.bol.presentation.view.home.rank.user.UserRankAdapter
 import com.yapp.bol.presentation.view.match.MatchActivity
+import com.yapp.bol.presentation.view.setting.UpgradeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import com.yapp.bol.designsystem.R as designsystemR
 
@@ -196,6 +197,10 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
                 }
 
                 is HomeUiState.Error -> {
+                    if (uiState.error.message == "Version001") {
+                        UpgradeActivity.startActivity(requireContext())
+                        requireActivity().finish()
+                    }
                     userRankSnackBar.show()
                 }
             }
@@ -238,6 +243,10 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
                 }
 
                 is HomeUiState.Error -> {
+                    if (uiState.error.message == "Version001") {
+                        UpgradeActivity.startActivity(requireContext())
+                        requireActivity().finish()
+                    }
                     gameSnackBar.show()
                 }
             }

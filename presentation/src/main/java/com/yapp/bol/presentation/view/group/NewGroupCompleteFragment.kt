@@ -57,9 +57,7 @@ class NewGroupCompleteFragment : BaseFragment<FragmentNewGroupCompleteBinding>(R
     }
 
     private fun moveHomeActivity() {
-        val intent = Intent(requireActivity(), HomeActivity::class.java)
-        intent.putExtra(HomeActivity.HOME_GROUP_ID_KEY, newGroup.id.toLong())
-        startActivity(intent)
+        HomeActivity.startActivity(binding.root.context, newGroup.id.toLong())
         requireActivity().finish()
     }
 }

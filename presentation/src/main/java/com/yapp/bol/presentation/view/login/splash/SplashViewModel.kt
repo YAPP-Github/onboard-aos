@@ -27,6 +27,9 @@ class SplashViewModel @Inject constructor(
     private val _networkState = MutableLiveData(false)
     val networkState: LiveData<Boolean> = _networkState
 
+    private val _upgradeState = MutableLiveData(false)
+    val upgradeState: LiveData<Boolean> = _upgradeState
+
     init {
         viewModelScope.launch {
             delay(2000)
@@ -43,6 +46,7 @@ class SplashViewModel @Inject constructor(
                     error = { item ->
                         when(item.code) {
                             "Auth004" -> _myGroupList.value = listOf()
+                            "Version001" -> _upgradeState.value = true
                             else -> _networkState.value = true
                         }
                     }
