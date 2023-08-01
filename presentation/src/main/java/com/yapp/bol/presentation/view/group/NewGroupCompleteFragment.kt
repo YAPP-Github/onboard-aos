@@ -1,6 +1,7 @@
 package com.yapp.bol.presentation.view.group
 
-import android.content.Intent
+import android.os.Build
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import com.yapp.bol.domain.model.NewGroupItem
 import com.yapp.bol.presentation.R
@@ -8,6 +9,7 @@ import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentNewGroupCompleteBinding
 import com.yapp.bol.presentation.utils.copyToClipboard
 import com.yapp.bol.presentation.utils.loadImage
+import com.yapp.bol.presentation.utils.showToast
 import com.yapp.bol.presentation.view.group.NewGroupFragment.Companion.NEW_GROUP
 import com.yapp.bol.presentation.view.home.HomeActivity
 
@@ -41,9 +43,11 @@ class NewGroupCompleteFragment : BaseFragment<FragmentNewGroupCompleteBinding>(R
 
         this.tvGroupAccessCodeValue.setOnClickListener {
             newGroup.accessCode.copyToClipboard(requireContext())
+            showToastForAndroid13Below()
         }
         this.ibCopyBtn.setOnClickListener {
             newGroup.accessCode.copyToClipboard(requireContext())
+            showToastForAndroid13Below()
         }
     }
 
@@ -54,6 +58,12 @@ class NewGroupCompleteFragment : BaseFragment<FragmentNewGroupCompleteBinding>(R
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
+    }
+
+    private fun showToastForAndroid13Below() {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S) {
+            binding.root.context.showToast(R.string.copy_access_code, Toast.LENGTH_SHORT)
+        }
     }
 
     private fun moveHomeActivity() {
