@@ -1,6 +1,5 @@
 package com.yapp.bol.presentation.view.group.join
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +16,6 @@ import com.yapp.bol.presentation.utils.loadImage
 import com.yapp.bol.presentation.utils.setStatusBarColor
 import com.yapp.bol.presentation.view.group.join.data.Margin
 import com.yapp.bol.presentation.view.home.HomeActivity
-import com.yapp.bol.presentation.viewmodel.login.MyGroupList
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
 
@@ -50,7 +48,7 @@ class GroupJoinFragment : Fragment() {
 
     private fun initView() {
         binding.tvGroupJoin.setOnClickListener {
-            if (MyGroupList.findMyGroup(viewModel.groupItem.value?.id) != null) {
+            if (viewModel.isAlreadyJoinGroup()) {
                 moveHomeActivity()
             } else {
                 showRedeemInputDialog()

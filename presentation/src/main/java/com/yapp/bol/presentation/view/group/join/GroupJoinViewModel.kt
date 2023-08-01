@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.yapp.bol.domain.model.GroupDetailItem
 import com.yapp.bol.domain.usecase.group.CheckGroupJoinByAccessCodeUseCase
 import com.yapp.bol.domain.usecase.group.GetGroupDetailUseCase
+import com.yapp.bol.domain.usecase.group.GetJoinedGroupUseCase
 import com.yapp.bol.domain.usecase.group.JoinGroupUseCase
 import com.yapp.bol.domain.usecase.login.GetMyInfoUseCase
 import com.yapp.bol.domain.usecase.login.MatchUseCase
@@ -25,6 +26,7 @@ class GroupJoinViewModel @Inject constructor(
     private val matchUseCase: MatchUseCase,
     private val getGroupItemUseCase: GetGroupDetailUseCase,
     private val GetMyInfoUseCase: GetMyInfoUseCase,
+    private val getJoinedGroupUseCase: GetJoinedGroupUseCase,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -42,6 +44,8 @@ class GroupJoinViewModel @Inject constructor(
     val successJoinGroup = _successJoinGroup.asSharedFlow()
 
     var nickName = ""
+
+    private var myJoinedGroupList = listOf<Int>()
 
     init {
         viewModelScope.launch {
@@ -68,6 +72,22 @@ class GroupJoinViewModel @Inject constructor(
                 )
             }
         }
+        viewModelScope.launch {
+            getJoinedGroupUseCase.invoke().collectLatest {
+                checkedApiResult(
+                    apiResult = it,
+                    success = { groupList ->
+                        viewModelScope.launch {
+                            myJoinedGroupList = groupList.map { it.id.toInt() }
+                        }
+                    },
+                )
+            }
+        }
+    }
+
+    fun isAlreadyJoinGroup(): Boolean {
+        return myJoinedGroupList.find { it == groupItem.value?.id?.toInt() } != null
     }
 
     fun joinGroup(accessCode: String, nickName: String) {
