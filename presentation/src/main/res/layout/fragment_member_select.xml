@@ -25,6 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="18dp"
+            android:textAppearance="@style/Typography.Body4_R"
+            android:textColor="@color/Gray_8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_member_select_guide"
             tools:text="2~6명" />
