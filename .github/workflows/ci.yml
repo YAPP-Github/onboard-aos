@@ -42,7 +42,7 @@ jobs:
                     echo NAVER_CLIENT_NAME=\""$NAVER_CLIENT_NAME"\" >> ./local.properties
                     echo NAVER_CLIENT_NAME_SANDBOX=\""$NAVER_CLIENT_NAME_SANDBOX"\" >> ./local.properties
                     echo NAVER_CLIENT_SECRET=\""$NAVER_CLIENT_SECRET"\" >> ./local.properties
-                    echo NAVER_CLIENT_SECRET=\""$NAVER_CLIENT_SECRET_SANDBOX"\" >> ./local.properties
+                    echo NAVER_CLIENT_SECRET_SANDBOX=\""$NAVER_CLIENT_SECRET_SANDBOX"\" >> ./local.properties
                     echo GOOGLE_LOGIN_API_KEY=\""$GOOGLE_LOGIN_API_KEY"\" >> ./local.properties
                     echo GOOGLE_LOGIN_API_KEY_SANDBOX=\""$GOOGLE_LOGIN_API_KEY_SANDBOX"\" >> ./local.properties
                 shell: bash
