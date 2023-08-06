@@ -121,3 +121,4 @@ fabric.properties
 
 # 기타 발견된 항목
 gradle/wrapper/gradle-wrapper.properties
+google-services.json
