@@ -31,20 +31,20 @@ jobs:
             # secret 생성
             -   name: secret key setting
                 run: |
-                    echo REMOTE_SERVER=\""$SERVER_URL"\" >> ./local.properties
-                    echo REMOTE_SERVER_SANDBOX=\""$REMOTE_SERVER_SANDBOX"\" >> ./local.properties
-                    echo KAKAO_API_KEY=\""$KAKAO_API_KEY"\" >> ./local.properties
-                    echo KAKAO_API_KEY_SANDBOX=\""$KAKAO_API_KEY_SANDBOX"\" >> ./local.properties
-                    echo KAKAO_API_KEY_MANI=\""$KAKAO_API_KEY_MANI"\" >> ./local.properties
-                    echo KAKAO_API_KEY_MANI_SANDBOX=\""$KAKAO_API_KEY_MANI_SANDBOX"\" >> ./local.properties
-                    echo NAVER_CLIENT_ID=\""$NAVER_CLIENT_ID"\" >> ./local.properties
-                    echo NAVER_CLIENT_ID_SANDBOX=\""$NAVER_CLIENT_ID_SANDBOX"\" >> ./local.properties
-                    echo NAVER_CLIENT_NAME=\""$NAVER_CLIENT_NAME"\" >> ./local.properties
-                    echo NAVER_CLIENT_NAME_SANDBOX=\""$NAVER_CLIENT_NAME_SANDBOX"\" >> ./local.properties
-                    echo NAVER_CLIENT_SECRET=\""$NAVER_CLIENT_SECRET"\" >> ./local.properties
-                    echo NAVER_CLIENT_SECRET_SANDBOX=\""$NAVER_CLIENT_SECRET_SANDBOX"\" >> ./local.properties
-                    echo GOOGLE_LOGIN_API_KEY=\""$GOOGLE_LOGIN_API_KEY"\" >> ./local.properties
-                    echo GOOGLE_LOGIN_API_KEY_SANDBOX=\""$GOOGLE_LOGIN_API_KEY_SANDBOX"\" >> ./local.properties
+                    echo REMOTE_SERVER=\"$SERVER_URL\" >> ./local.properties
+                    echo REMOTE_SERVER_SANDBOX=\"$REMOTE_SERVER_SANDBOX\" >> ./local.properties
+                    echo KAKAO_API_KEY=\"$KAKAO_API_KEY\" >> ./local.properties
+                    echo KAKAO_API_KEY_SANDBOX=\"$KAKAO_API_KEY_SANDBOX\" >> ./local.properties
+                    echo KAKAO_API_KEY_MANI=\"$KAKAO_API_KEY_MANI\" >> ./local.properties
+                    echo KAKAO_API_KEY_MANI_SANDBOX=\"$KAKAO_API_KEY_MANI_SANDBOX\" >> ./local.properties
+                    echo NAVER_CLIENT_ID=\"$NAVER_CLIENT_ID\" >> ./local.properties
+                    echo NAVER_CLIENT_ID_SANDBOX=\"$NAVER_CLIENT_ID_SANDBOX\" >> ./local.properties
+                    echo NAVER_CLIENT_NAME=\"$NAVER_CLIENT_NAME\" >> ./local.properties
+                    echo NAVER_CLIENT_NAME_SANDBOX=\"$NAVER_CLIENT_NAME_SANDBOX\" >> ./local.properties
+                    echo NAVER_CLIENT_SECRET=\"$NAVER_CLIENT_SECRET\" >> ./local.properties
+                    echo NAVER_CLIENT_SECRET_SANDBOX=\"$NAVER_CLIENT_SECRET_SANDBOX\" >> ./local.properties
+                    echo GOOGLE_LOGIN_API_KEY=\"$GOOGLE_LOGIN_API_KEY\" >> ./local.properties
+                    echo GOOGLE_LOGIN_API_KEY_SANDBOX=\"$GOOGLE_LOGIN_API_KEY_SANDBOX\" >> ./local.properties
                 shell: bash
                 env:
                     SERVER_URL: ${{ secrets.SERVER_URL }}
