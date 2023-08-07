@@ -202,7 +202,6 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
-                    android:background="@drawable/bg_group_info_drawer_bottom_gradient"
                     app:layout_constraintBottom_toTopOf="@id/view_footer"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
