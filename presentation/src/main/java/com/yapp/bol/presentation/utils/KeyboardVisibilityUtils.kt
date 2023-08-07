@@ -1,3 +1,5 @@
+package com.yapp.bol.presentation.utils
+
 import android.graphics.Rect
 import android.view.ViewTreeObserver
 import android.view.Window
