@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="56dp"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_member_level"
+        android:layout_width="41dp"
+        android:layout_height="41dp"
+        android:src="@drawable/img_dice"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btn_member_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-6dp"
+        android:layout_marginEnd="-6dp"
+        android:background="@drawable/ic_circle_x"
+        app:layout_constraintEnd_toEndOf="@+id/iv_member_level"
+        app:layout_constraintTop_toTopOf="@+id/iv_member_level" />
+
+    <TextView
+        android:id="@+id/tv_member_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="씅으니"
+        android:textAppearance="@style/Typography.Label4_B"
+        android:textColor="@color/Gray_14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_member_level" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

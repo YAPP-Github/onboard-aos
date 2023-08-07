@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="104dp"
+        android:layout_height="236dp">
+
+        <TextView
+            android:id="@+id/tv_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rank_default"
+            android:textAppearance="@style/Typography.Label4_B"
+            android:textColor="@color/Gray_8"
+            android:layout_marginTop="39dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_dice_bottom"
+            android:layout_width="64dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="59dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_dice_bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rank" />
+
+        <ImageView
+            android:id="@+id/img_dice_guest"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="12dp"
+            android:visibility="gone"
+            android:src="@drawable/img_dice"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rank" />
+
+        <ImageView
+            android:id="@+id/img_dice"
+            android:layout_width="67dp"
+            android:layout_height="67dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/img_dice"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rank" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rank_default"
+            android:textAppearance="@style/Typography.Title5"
+            android:textColor="@color/Gray_15"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_dice_bottom"
+            android:layout_marginTop="14dp" />
+
+        <View
+            android:id="@+id/iv_recent_user"
+            android:layout_width="4dp"
+            android:layout_height="4dp"
+            android:background="@drawable/ic_is_recent_user"
+            app:layout_constraintTop_toTopOf="@id/tv_name"
+            app:layout_constraintStart_toEndOf="@id/tv_name"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/ll_win_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name"
+            android:gravity="center"
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_2nd" />
+
+            <TextView
+                android:id="@+id/tv_win_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Typography.Label4_B"
+                android:layout_marginStart="1dp"
+                tools:text="@string/rank_default"
+                android:textColor="@color/Gray_8" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_play_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rank_default"
+            android:textColor="@color/Gray_8"
+            android:textAppearance="@style/Typography.Body6_R"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_win_rate"
+            android:layout_marginTop="6dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

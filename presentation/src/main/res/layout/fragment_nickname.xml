@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:paddingHorizontal="22dp"
+        tools:context=".view.login.nickname.NicknameFragment">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="68dp"
+            android:text="가입을 축하드려요!\n플레이어님의 이름을 알려주세요"
+            android:textAppearance="@style/Typography.Title1"
+            app:layout_constraintBottom_toTopOf="@+id/et_user_name"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/et_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@drawable/bg_stroke_black_gray_radius_8dp"
+            android:gravity="center_vertical"
+            android:hint="@string/sign_up_name_hint"
+            android:maxLength="10"
+            android:paddingHorizontal="16dp"
+            android:singleLine="true"
+            android:textAppearance="@style/Typography.Body3_R"
+            android:textColor="@color/Gray_15"
+            android:textColorHint="@color/Gray_7"
+            android:textCursorDrawable="@drawable/ic_cursor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_nickname_setting_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/nickname_setting_guide"
+            android:textAppearance="@style/Typography.Body5_R"
+            android:textColor="@color/Gray_8"
+            app:layout_constraintStart_toStartOf="@+id/et_user_name"
+            app:layout_constraintTop_toBottomOf="@+id/et_user_name" />
+
+        <TextView
+            android:id="@+id/tv_user_name_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/profile_name_count"
+            android:textColor="@color/Gray_7"
+            android:textAppearance="@style/Typography.Body5_R"
+            android:textSize="11dp"
+            app:layout_constraintEnd_toEndOf="@+id/et_user_name"
+            app:layout_constraintTop_toBottomOf="@+id/et_user_name" />
+
+        <TextView
+            android:id="@+id/btn_sign_up"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_gary_to_orange_radius_8dp"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="확인"
+            android:textColor="@drawable/tc_white_to_gray"
+            android:textSize="16dp"
+            android:textAppearance="@style/Typography.Label3_M"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+

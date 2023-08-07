@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="22dp"
+    android:background="@drawable/bg_white_radius_12dp">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/image_setting_delegate"
+        android:textAppearance="@style/Typography.Title2"
+        android:textColor="@color/Gray_15"
+        android:layout_marginStart="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/image_setting_delegate_guide"
+        android:textAppearance="@style/Typography.Body4_R"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/Gray_9"
+        app:layout_constraintStart_toStartOf="@+id/tv_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+    <Button
+        android:id="@+id/btn_move_gallery"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="24dp"
+        android:gravity="center_vertical"
+        android:text="@string/image_setting_gallery"
+        android:textColor="@color/Gray_14"
+        android:textAppearance="@style/Typography.Body2_R"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_description" />
+
+    <Button
+        android:id="@+id/btn_random_image"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical"
+        android:text="@string/image_setting_random"
+        android:textColor="@color/Gray_14"
+        android:textAppearance="@style/Typography.Body2_R"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_move_gallery" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

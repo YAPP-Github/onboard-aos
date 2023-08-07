@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Typography" parent="android:TextAppearance">
+        <item name="android:letterSpacing">-0.04</item>
+    </style>
+
+    <!--Headline-->
+    <style name="Typography.Headline" parent="Typography">
+        <item name="android:textSize">28dp</item>
+        <item name="android:lineSpacingExtra">8dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_700</item>
+        <item name="fontWeight">700</item>
+    </style>
+
+    <!--Title-->
+    <style name="Typography.Title1" parent="Typography">
+        <item name="android:textSize">20dp</item>
+        <item name="android:lineSpacingExtra">8dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_700</item>
+        <item name="fontWeight">700</item>
+    </style>
+
+    <style name="Typography.Title2" parent="Typography">
+        <item name="android:textSize">18dp</item>
+        <item name="android:lineSpacingExtra">8dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_700</item>
+        <item name="fontWeight">700</item>
+    </style>
+
+    <style name="Typography.Title3" parent="Typography">
+        <item name="android:textSize">16dp</item>
+        <item name="android:lineSpacingExtra">8dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_700</item>
+        <item name="fontWeight">700</item>
+    </style>
+
+    <style name="Typography.Title4" parent="Typography">
+        <item name="android:textSize">14dp</item>
+        <item name="android:lineSpacingExtra">8dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_700</item>
+        <item name="fontWeight">700</item>
+    </style>
+
+    <style name="Typography.Title5" parent="Typography">
+        <item name="android:textSize">13dp</item>
+        <item name="android:lineSpacingExtra">7dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_700</item>
+        <item name="fontWeight">700</item>
+    </style>
+
+    <!--Body-->
+    <style name="Typography.Body1_M" parent="Typography">
+        <item name="android:textSize">18dp</item>
+        <item name="android:lineSpacingExtra">8dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_500</item>
+        <item name="fontWeight">500</item>
+    </style>
+
+    <style name="Typography.Body1_R" parent="Typography">
+        <item name="android:textSize">18dp</item>
+        <item name="android:lineSpacingExtra">8dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_400</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="Typography.Body2_M" parent="Typography">
+        <item name="android:textSize">16dp</item>
+        <item name="android:lineSpacingExtra">8dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_500</item>
+        <item name="fontWeight">500</item>
+    </style>
+
+    <style name="Typography.Body2_R" parent="Typography">
+        <item name="android:textSize">16dp</item>
+        <item name="android:lineSpacingExtra">8dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_400</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="Typography.Body3_M" parent="Typography">
+        <item name="android:textSize">14dp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_500</item>
+        <item name="fontWeight">500</item>
+    </style>
+
+    <style name="Typography.Body3_R" parent="Typography">
+        <item name="android:textSize">14dp</item>
+        <item name="android:lineSpacingExtra">10dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_400</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="Typography.Body4_M" parent="Typography">
+        <item name="android:textSize">12dp</item>
+        <item name="android:lineSpacingExtra">4dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_500</item>
+        <item name="fontWeight">500</item>
+    </style>
+
+    <style name="Typography.Body4_R" parent="Typography">
+        <item name="android:textSize">12dp</item>
+        <item name="android:lineSpacingExtra">4dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_400</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="Typography.Body5_M" parent="Typography">
+        <item name="android:textSize">11dp</item>
+        <item name="android:lineSpacingExtra">3dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_500</item>
+        <item name="fontWeight">500</item>
+    </style>
+
+    <style name="Typography.Body5_R" parent="Typography">
+        <item name="android:textSize">11dp</item>
+        <item name="android:lineSpacingExtra">3dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_400</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="Typography.Body6_R" parent="Typography">
+        <item name="android:textSize">10dp</item>
+        <item name="android:lineSpacingExtra">4dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_400</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+    <!--Label-->
+    <style name="Typography.Label1_B" parent="Typography">
+        <item name="android:textSize">18dp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_700</item>
+        <item name="fontWeight">700</item>
+    </style>
+
+    <style name="Typography.Label1_M" parent="Typography">
+        <item name="android:textSize">18dp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_500</item>
+        <item name="fontWeight">500</item>
+    </style>
+
+    <style name="Typography.Label2_B" parent="Typography">
+        <item name="android:textSize">16dp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_700</item>
+        <item name="fontWeight">700</item>
+    </style>
+
+    <style name="Typography.Label2_M" parent="Typography">
+        <item name="android:textSize">16dp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_500</item>
+        <item name="fontWeight">500</item>
+    </style>
+
+    <style name="Typography.Label3_B" parent="Typography">
+        <item name="android:textSize">14dp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_700</item>
+        <item name="fontWeight">700</item>
+    </style>
+
+    <style name="Typography.Label3_M" parent="Typography">
+        <item name="android:textSize">14dp</item>
+        <item name="android:lineSpacingExtra">6dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_500</item>
+        <item name="fontWeight">500</item>
+    </style>
+
+    <style name="Typography.Label4_B" parent="Typography">
+        <item name="android:textSize">12dp</item>
+        <item name="android:lineSpacingExtra">4dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_700</item>
+        <item name="fontWeight">700</item>
+    </style>
+
+    <style name="Typography.Label4_M" parent="Typography">
+        <item name="android:textSize">12dp</item>
+        <item name="android:lineSpacingExtra">4dp</item>
+        <item name="android:fontFamily">@font/spoqahansansneo_500</item>
+        <item name="fontWeight">500</item>
+    </style>
+</resources>

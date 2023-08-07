@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="112dp"
+        android:layout_height="240dp">
+
+        <TextView
+            android:id="@+id/tv_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rank_default"
+            android:textAppearance="@style/Typography.Label3_B"
+            android:textColor="@color/Yellow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_dice_bottom"
+            android:layout_width="88dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="78dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_dice_bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rank" />
+
+        <ImageView
+            android:id="@+id/img_dice_guest"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="24dp"
+            android:visibility="gone"
+            android:src="@drawable/img_dice_empty"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_dice"
+            android:layout_width="103dp"
+            android:layout_height="103dp"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/img_dice"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rank_default"
+            android:textAppearance="@style/Typography.Title3"
+            android:textColor="@color/Gray_15"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_dice_bottom"
+            android:layout_marginTop="14dp" />
+
+        <View
+            android:id="@+id/iv_recent_user"
+            android:layout_width="4dp"
+            android:layout_height="4dp"
+            android:background="@drawable/ic_is_recent_user"
+            app:layout_constraintTop_toTopOf="@id/tv_name"
+            app:layout_constraintStart_toEndOf="@id/tv_name"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/ll_win_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name"
+            android:gravity="center"
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_1st" />
+
+            <TextView
+                android:id="@+id/tv_win_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Typography.Title4"
+                android:layout_marginStart="2dp"
+                android:text="@string/rank_default"
+                android:textColor="@color/Yellow" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_play_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rank_default"
+            android:textColor="@color/Gray_8"
+            android:textAppearance="@style/Typography.Body5_R"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_win_rate"
+            android:layout_marginTop="6dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

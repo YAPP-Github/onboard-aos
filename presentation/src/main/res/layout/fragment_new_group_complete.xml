@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_group_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view_group_image"
+            app:layout_constraintEnd_toEndOf="@+id/view_group_image"
+            app:layout_constraintStart_toStartOf="@+id/view_group_image"
+            app:layout_constraintTop_toTopOf="@+id/view_group_image" />
+
+        <View
+            android:id="@+id/view_group_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_black_alpha_50"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_complete_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:text="@string/complete_message"
+            android:textColor="@color/Orange_8"
+            android:textAppearance="@style/Typography.Body3_M"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_group_organization_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="68dp"
+            android:textColor="@color/white"
+            android:textAppearance="@style/Typography.Body3_R"
+            app:layout_constraintStart_toStartOf="@+id/iv_group_image"
+            app:layout_constraintTop_toBottomOf="@+id/tv_complete_guide"
+            tools:text="@string/group_organization_test" />
+
+        <TextView
+            android:id="@+id/tv_group_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/white"
+            android:textAppearance="@style/Typography.Headline"
+            app:layout_constraintEnd_toEndOf="@+id/iv_group_image"
+            app:layout_constraintStart_toStartOf="@+id/tv_group_organization_value"
+            app:layout_constraintTop_toBottomOf="@+id/tv_group_organization_value"
+            tools:text="@string/group_title_test" />
+
+        <TextView
+            android:id="@+id/tv_group_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:textColor="@color/white"
+            android:textAppearance="@style/Typography.Body3_R"
+            app:layout_constraintEnd_toEndOf="@+id/tv_group_title"
+            app:layout_constraintStart_toStartOf="@+id/tv_group_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_group_title"
+            tools:text="@string/group_description_test" />
+
+        <ImageView
+            android:id="@+id/iv_owner_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/ic_owner"
+            app:layout_constraintBottom_toTopOf="@+id/iv_access_code_icon"
+            app:layout_constraintStart_toStartOf="@+id/tv_group_description" />
+
+        <TextView
+            android:id="@+id/tv_group_owner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="관리자"
+            android:textColor="@color/Gray_7"
+            android:textAppearance="@style/Typography.Body4_R"
+            app:layout_constraintStart_toEndOf="@+id/iv_owner_icon"
+            app:layout_constraintTop_toTopOf="@+id/iv_owner_icon" />
+
+        <TextView
+            android:id="@+id/tv_group_owner_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:text="@string/group_owner_test"
+            android:textColor="@color/white"
+            android:textAppearance="@style/Typography.Title3"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_group_owner"
+            app:layout_constraintStart_toStartOf="@+id/tv_group_owner"
+            app:layout_constraintTop_toTopOf="@+id/tv_group_owner" />
+
+        <ImageView
+            android:id="@+id/iv_access_code_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/ic_access_code"
+            app:layout_constraintBottom_toTopOf="@+id/tv_group_access_guide"
+            app:layout_constraintStart_toStartOf="@+id/iv_owner_icon" />
+
+        <TextView
+            android:id="@+id/tv_group_access_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/group_access_code_text"
+            android:textColor="@color/Gray_7"
+            android:textAppearance="@style/Typography.Body4_R"
+            app:layout_constraintStart_toEndOf="@+id/iv_access_code_icon"
+            app:layout_constraintTop_toTopOf="@+id/iv_access_code_icon" />
+
+        <TextView
+            android:id="@+id/tv_group_access_code_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:text="@string/group_access_code_test"
+            android:textColor="@color/white"
+            android:textAppearance="@style/Typography.Title3"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_group_access_code"
+            app:layout_constraintStart_toStartOf="@+id/tv_group_access_code"
+            app:layout_constraintTop_toTopOf="@+id/tv_group_access_code" />
+
+        <ImageButton
+            android:id="@+id/ib_copy_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:padding="4dp"
+            android:src="@drawable/ic_copy_variant2"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_group_access_code_value"
+            app:layout_constraintStart_toEndOf="@+id/tv_group_access_code_value"
+            app:layout_constraintTop_toTopOf="@+id/tv_group_access_code_value" />
+
+        <TextView
+            android:id="@+id/tv_group_access_guide"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="52dp"
+            android:lineSpacingExtra="2dp"
+            android:text="@string/group_invite_guide"
+            android:textColor="@color/Orange_5"
+            android:textAppearance="@style/Typography.Body4_R"
+            app:layout_constraintBottom_toTopOf="@+id/btn_group_complete"
+            app:layout_constraintEnd_toEndOf="@+id/iv_group_image"
+            app:layout_constraintStart_toStartOf="@+id/iv_access_code_icon" />
+
+        <Button
+            android:id="@+id/btn_group_complete"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginBottom="70dp"
+            android:background="@drawable/bg_orange_radius_8dp"
+            android:layout_marginHorizontal="18dp"
+            android:text="@string/confirmation_text"
+            android:textColor="@color/white"
+            android:textAppearance="@style/Typography.Label3_B"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

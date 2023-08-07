@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.yapp.bol.presentation.view.login.LoginFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_signUpNicknameFragment"
+            app:destination="@id/signUpNicknameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpNicknameFragment"
+        android:name="com.yapp.bol.presentation.view.login.nickname.NicknameFragment"
+        android:label="SignUpNicknameFragment"
+        tools:layout="@layout/fragment_nickname" />
+</navigation>
