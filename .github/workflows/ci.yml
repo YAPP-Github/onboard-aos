@@ -6,7 +6,6 @@ on:
         branches:
             - 'main'
             - 'develop'
-            - 'feat/*'
 
 jobs:
     build:
@@ -15,70 +14,84 @@ jobs:
 
         steps:
             # timestamp
-            - name: Print start time
-              run: |
-                  echo "Workflow started at $(date)"
+            -   name: Print start time
+                run: |
+                    echo "Workflow started at $(date)"
 
             # code branch checkout
-            - uses: actions/checkout@v3
-            - name: set up JDK 18
-              uses: actions/setup-java@v3
-              with:
-                  java-version: '18'
-                  distribution: 'temurin'
-                  cache: gradle
+            -   uses: actions/checkout@v3
+            -   name: set up JDK 18
+                uses: actions/setup-java@v3
+                with:
+                    java-version: '18'
+                    distribution: 'temurin'
+                    cache: gradle
 
             # secret 생성
-            - name: secret key setting
-              run: |
-                  echo REMOTE_SERVER=\"$SERVER_URL\" >> ./local.properties
-                  echo KAKAO_API_KEY=\"$KAKAO_API_KEY\" >> ./local.properties
-                  echo KAKAO_API_KEY_MANI=\"KAKAO_API_KEY_MANI\" >> ./local.properties
-                  echo NAVER_CLIENT_ID=\"$NAVER_CLIENT_ID\" >> ./local.properties
-                  echo NAVER_CLIENT_NAME=\"$NAVER_CLIENT_NAME\" >> ./local.properties
-                  echo NAVER_CLIENT_SECRET=\"$NAVER_CLIENT_SECRET\" >> ./local.properties
-                  echo GOOGLE_LOGIN_API_KEY=\"GOOGLE_LOGIN_API_KEY\" >> ./local.properties
-              shell: bash
-              env:
-                  SERVER_URL: ${{ secrets.SERVER_URL }}
-                  KAKAO_API_KEY: ${{ secrets.KAKAO_API_KEY }}
-                  KAKAO_API_KEY_MANI: ${{ secrets.KAKAO_API_KEY_MANI }}
-                  NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
-                  NAVER_CLIENT_NAME: ${{ secrets.NAVER_CLIENT_NAME }}
-                  NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
-                  GOOGLE_LOGIN_API_KEY: ${{ secrets.GOOGLE_LOGIN_API_KEY }}
+            -   name: secret key setting
+                run: |
+                    echo REMOTE_SERVER=\"$SERVER_URL\" >> ./local.properties
+                    echo REMOTE_SERVER_SANDBOX=\"$REMOTE_SERVER_SANDBOX\" >> ./local.properties
+                    echo KAKAO_API_KEY=\"$KAKAO_API_KEY\" >> ./local.properties
+                    echo KAKAO_API_KEY_SANDBOX=\"$KAKAO_API_KEY_SANDBOX\" >> ./local.properties
+                    echo KAKAO_API_KEY_MANI=\"$KAKAO_API_KEY_MANI\" >> ./local.properties
+                    echo KAKAO_API_KEY_MANI_SANDBOX=\"$KAKAO_API_KEY_MANI_SANDBOX\" >> ./local.properties
+                    echo NAVER_CLIENT_ID=\"$NAVER_CLIENT_ID\" >> ./local.properties
+                    echo NAVER_CLIENT_ID_SANDBOX=\"$NAVER_CLIENT_ID_SANDBOX\" >> ./local.properties
+                    echo NAVER_CLIENT_NAME=\"$NAVER_CLIENT_NAME\" >> ./local.properties
+                    echo NAVER_CLIENT_NAME_SANDBOX=\"$NAVER_CLIENT_NAME_SANDBOX\" >> ./local.properties
+                    echo NAVER_CLIENT_SECRET=\"$NAVER_CLIENT_SECRET\" >> ./local.properties
+                    echo NAVER_CLIENT_SECRET_SANDBOX=\"$NAVER_CLIENT_SECRET_SANDBOX\" >> ./local.properties
+                    echo GOOGLE_LOGIN_API_KEY=\"$GOOGLE_LOGIN_API_KEY\" >> ./local.properties
+                    echo GOOGLE_LOGIN_API_KEY_SANDBOX=\"$GOOGLE_LOGIN_API_KEY_SANDBOX\" >> ./local.properties
+                shell: bash
+                env:
+                    SERVER_URL: ${{ secrets.SERVER_URL }}
+                    REMOTE_SERVER_SANDBOX: ${{ secrets.REMOTE_SERVER_SANDBOX }}
+                    KAKAO_API_KEY: ${{ secrets.KAKAO_API_KEY }}
+                    KAKAO_API_KEY_SANDBOX: ${{ secrets.KAKAO_API_KEY_SANDBOX }}
+                    KAKAO_API_KEY_MANI: ${{ secrets.KAKAO_API_KEY_MANI }}
+                    KAKAO_API_KEY_MANI_SANDBOX: ${{ secrets.KAKAO_API_KEY_MANI_SANDBOX }}
+                    NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+                    NAVER_CLIENT_ID_SANDBOX: ${{ secrets.NAVER_CLIENT_ID_SANDBOX }}
+                    NAVER_CLIENT_NAME: ${{ secrets.NAVER_CLIENT_NAME }}
+                    NAVER_CLIENT_NAME_SANDBOX: ${{ secrets.NAVER_CLIENT_NAME_SANDBOX }}
+                    NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+                    NAVER_CLIENT_SECRET_SANDBOX: ${{ secrets.NAVER_CLIENT_SECRET_SANDBOX }}
+                    GOOGLE_LOGIN_API_KEY: ${{ secrets.GOOGLE_LOGIN_API_KEY }}
+                    GOOGLE_LOGIN_API_KEY_SANDBOX: ${{ secrets.GOOGLE_LOGIN_API_KEY_SANDBOX }}
 
             # gradle 캐싱 작업
-            - name: Cache Gradle packages
-              uses: actions/cache@v2
-              with:
-                  path: |
-                      ~/.gradle/caches
-                      ~/.gradle/wrapper
-                  key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/buildSrc/**/*.kt') }}
-                  restore-keys: |
-                      ${{ runner.os }}-gradle-
+            -   name: Cache Gradle packages
+                uses: actions/cache@v2
+                with:
+                    path: |
+                        ~/.gradle/caches
+                        ~/.gradle/wrapper
+                    key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/buildSrc/**/*.kt') }}
+                    restore-keys: |
+                        ${{ runner.os }}-gradle-
 
-            - name: Grant execute permission for gradlew
-              run: chmod +x gradlew
+            -   name: Grant execute permission for gradlew
+                run: chmod +x gradlew
 
-            - name: Build project
-              run: ./gradlew assembleDebug
+            -   name: Build project
+                run: ./gradlew assembleDebug
 
             # ktlint test
-            - name: Run ktlint
-              run: ./gradlew ktlintCheck
+            -   name: Run ktlint
+                run: ./gradlew ktlintCheck
 
-            - name: Upload build reports
-              if: always()
-              uses: actions/upload-artifact@v2
-              with:
-                  name: build-reports
-                  path: app/build/reports/
+            -   name: Upload build reports
+                if: always()
+                uses: actions/upload-artifact@v2
+                with:
+                    name: build-reports
+                    path: app/build/reports/
 
-            - name: Upload all outputs
-              if: failure()
-              uses: actions/upload-artifact@v2
-              with:
-                  name: outputs
-                  path: app/build/outputs/
+            -   name: Upload all outputs
+                if: failure()
+                uses: actions/upload-artifact@v2
+                with:
+                    name: outputs
+                    path: app/build/outputs/
