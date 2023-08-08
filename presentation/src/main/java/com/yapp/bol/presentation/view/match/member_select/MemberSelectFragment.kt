@@ -1,6 +1,6 @@
 package com.yapp.bol.presentation.view.match.member_select
 
-import KeyboardVisibilityUtils
+import com.yapp.bol.presentation.utils.KeyboardVisibilityUtils
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
