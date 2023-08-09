@@ -16,6 +16,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat.getColor
+import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updateMargins
 import androidx.core.view.updatePadding
@@ -137,6 +138,11 @@ class InputDialog(
 
     fun visibleInputCount(visible: Boolean): InputDialog {
         binding.tvInputCount.visibility = if (visible) View.VISIBLE else View.GONE
+        return this
+    }
+
+    fun visibleGuestMember(visible: Boolean): InputDialog {
+        binding.llGuestMember.isVisible = visible
         return this
     }
 

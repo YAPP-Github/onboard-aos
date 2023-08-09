@@ -98,6 +98,7 @@ class GroupJoinFragment : Fragment() {
             .setHintText("닉네임을 입력해주세요.")
             .visibleInputCount(true)
             .visibleSummitButton(true)
+            .visibleGuestMember(true)
             .onBackPressed {
                 it.dismiss()
                 dialog.dismiss()

@@ -69,4 +69,6 @@
     <string name="game_player_count_guide_1">%1$d~%2$d명</string>
     <string name="game_player_count_guide_2">%d명</string>
     <string name="nickname_setting_guide">한글,영문,숫자를 조합하여 사용 가능합니다.</string>
+
+    <string name="guest_member_connect">임시 멤버 연동</string>
 </resources>
