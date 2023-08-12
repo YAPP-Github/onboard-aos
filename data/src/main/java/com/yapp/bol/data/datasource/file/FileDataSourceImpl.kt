@@ -1,9 +1,7 @@
 package com.yapp.bol.data.datasource.file
 
-import com.yapp.bol.data.datasource.impl.RemoteDataSourceImpl
 import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
 import com.yapp.bol.data.remote.FileApi
-import com.yapp.bol.data.remote.TermsApi
 import com.yapp.bol.data.utils.Image
 import com.yapp.bol.domain.handle.BaseRepository
 import com.yapp.bol.domain.model.ApiResult
@@ -22,7 +20,7 @@ class FileDataSourceImpl @Inject constructor(
 
     override fun postFileUpload(file: File): Flow<ApiResult<ImageFileUploadResponse>> = flow {
         val fileBody = RequestBody.create(MediaType.parse(getMimeType(file.name)), file)
-        val filePart = MultipartBody.Part.createFormData(RemoteDataSourceImpl.FILE_KEY, file.name, fileBody)
+        val filePart = MultipartBody.Part.createFormData(FILE_KEY, file.name, fileBody)
         val purpose = RequestBody.create(MediaType.parse(getMimeType(file.name)), Image.GROUP_IMAGE)
 
         val result = safeApiCall {
@@ -33,5 +31,9 @@ class FileDataSourceImpl @Inject constructor(
 
     private fun getMimeType(fileName: String): String {
         return URLConnection.guessContentTypeFromName(fileName)
+    }
+
+    companion object {
+        const val FILE_KEY = "file"
     }
 }
