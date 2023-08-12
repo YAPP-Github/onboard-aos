@@ -22,7 +22,7 @@ import com.yapp.bol.data.model.login.UserRequest
 import com.yapp.bol.data.model.match.MatchApiRequest
 import com.yapp.bol.data.model.user.UserResponse
 import com.yapp.bol.data.remote.GroupApi
-import com.yapp.bol.data.remote.ImageFileApi
+import com.yapp.bol.data.remote.FileApi
 import com.yapp.bol.data.remote.LoginApi
 import com.yapp.bol.data.remote.MatchApi
 import com.yapp.bol.data.utils.Image.GROUP_IMAGE
@@ -40,7 +40,7 @@ import javax.inject.Inject
 class RemoteDataSourceImpl @Inject constructor(
     private val loginApi: LoginApi,
     private val groupApi: GroupApi,
-    private val imageApi: ImageFileApi,
+    private val imageApi: FileApi,
     private val matchApi: MatchApi,
 ) : BaseRepository(), RemoteDataSource {
 
