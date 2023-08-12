@@ -18,7 +18,7 @@ import retrofit2.http.Query
 interface GroupApi {
 
     @POST("v1/group")
-    suspend fun postOAuthApi(
+    suspend fun postCreateGroup(
         @Body newGroupApiRequest: NewGroupApiRequest,
     ): Response<NewGroupApiResponse>
 

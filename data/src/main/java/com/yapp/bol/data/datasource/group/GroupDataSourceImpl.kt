@@ -27,7 +27,7 @@ class GroupDataSourceImpl @Inject constructor(
         nickname: String
     ): Flow<ApiResult<NewGroupApiResponse>> = flow {
         val result = safeApiCall {
-            groupApi.postOAuthApi(NewGroupApiRequest(name, description, organization, imageUrl, nickname))
+            groupApi.postCreateGroup(NewGroupApiRequest(name, description, organization, imageUrl, nickname))
         }
         emit(result)
     }
