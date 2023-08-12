@@ -10,11 +10,12 @@
 
         <ImageView
             android:id="@+id/iv_calendar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:tint="@color/Gray_9"
             android:layout_marginStart="18dp"
             android:layout_marginTop="29dp"
-            android:src="@drawable/ic_calendar"
+            android:src="@drawable/ic_calendar_line16"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
