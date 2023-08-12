@@ -44,7 +44,7 @@ class MembersAdapter(
         }
 
         private fun setImageView(item: MemberInfo) {
-            val image = if (item.role == GUEST) R.drawable.img_dice_empty_small else DR.drawable.img_dice
+            val image = if (item.role == GUEST) DR.drawable.img_dice_empty_small else DR.drawable.img_dice
             binding.ivMemberLevelIcon.setImageResource(image)
         }
 
