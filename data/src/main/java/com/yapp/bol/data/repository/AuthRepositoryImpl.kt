@@ -1,4 +1,4 @@
-package com.yapp.bol.data.repository.auth
+package com.yapp.bol.data.repository
 
 import com.yapp.bol.data.datasource.auth.AuthDataSource
 import com.yapp.bol.domain.repository.AuthRepository
