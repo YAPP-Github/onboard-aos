@@ -1,5 +1,6 @@
 package com.yapp.bol.data.datasource.auth
 
+import com.yapp.bol.data.model.login.LoginResponse
 import kotlinx.coroutines.flow.Flow
 
 interface AuthDataSource {
@@ -15,4 +16,6 @@ interface AuthDataSource {
     suspend fun deleteAccessToken()
 
     suspend fun deleteRefreshToken()
+
+    suspend fun login(type: String, token: String): LoginResponse?
 }
