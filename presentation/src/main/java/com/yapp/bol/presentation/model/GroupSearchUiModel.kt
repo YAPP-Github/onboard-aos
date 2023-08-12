@@ -1,4 +1,4 @@
-package com.yapp.bol.presentation.data
+package com.yapp.bol.presentation.model
 
 import com.yapp.bol.domain.model.GroupItem
 
