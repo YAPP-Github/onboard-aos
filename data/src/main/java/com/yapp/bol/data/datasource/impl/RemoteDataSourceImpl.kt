@@ -1,6 +1,6 @@
 package com.yapp.bol.data.datasource.impl
 
-import com.yapp.bol.data.datasource.mock.impl.LoginType.toDomain
+import com.yapp.bol.data.datasource.auth.LoginType.toDomain
 import com.yapp.bol.data.model.base.BaseResponse
 import com.yapp.bol.data.model.group.GuestAddApiRequest
 import com.yapp.bol.data.model.group.JoinGroupApiRequest
