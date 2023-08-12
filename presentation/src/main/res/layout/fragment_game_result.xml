@@ -35,7 +35,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:src="@drawable/ic_time"
+            android:src="@drawable/ic_time_line16"
+            android:tint="@color/Gray_9"
             app:layout_constraintBottom_toBottomOf="@+id/iv_calendar"
             app:layout_constraintStart_toEndOf="@+id/tv_calendar"
             app:layout_constraintTop_toTopOf="@+id/iv_calendar" />
@@ -44,7 +45,7 @@
             android:id="@+id/tv_clock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="2dp"
             android:textAppearance="@style/Typography.Body4_R"
             android:textColor="@color/Gray_9"
             app:layout_constraintBottom_toBottomOf="@+id/iv_calendar"
