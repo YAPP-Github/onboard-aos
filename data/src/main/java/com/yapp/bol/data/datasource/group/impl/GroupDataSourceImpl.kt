@@ -1,6 +1,7 @@
 package com.yapp.bol.data.datasource.group.impl
 
 import com.yapp.bol.data.datasource.group.GroupDataSource
+import com.yapp.bol.data.model.group.GetGroupGameListResponse
 import com.yapp.bol.data.model.group.response.GroupSearchApiResponse
 import com.yapp.bol.data.model.group.response.GroupDetailResponse
 import com.yapp.bol.data.model.group.response.JoinedGroupResponse
@@ -39,4 +40,12 @@ class GroupDataSourceImpl @Inject constructor(
                 groupApi.getGroupDetail(groupId)
             }.also { emit(it) }
         }
+
+    override fun getGroupGameList(groupId: Int): Flow<ApiResult<GetGroupGameListResponse>> {
+        return flow {
+            safeApiCall {
+                groupApi.getGroupGame(groupId)
+            }.also { emit(it) }
+        }
+    }
 }

@@ -1,5 +1,7 @@
 package com.yapp.bol.domain.usecase.group
 
+import android.util.Log
+import com.yapp.bol.domain.model.GetGroupGame
 import com.yapp.bol.domain.model.GetGroupJoinedItem
 import com.yapp.bol.domain.model.GroupDetailItem
 import com.yapp.bol.domain.repository.GroupRepository
@@ -18,6 +20,7 @@ class GetGroupJoinedUseCase @Inject constructor(
         var groupDetail: GroupDetailItem? = null
         var myNickname = ""
         var hasJoinedGroup = false
+        var groupGameList: List<GetGroupGame>? = null
 
         groupRepository.getGroupDetail(groupId.toLong()).doWork(
             isSuccess = {
@@ -30,8 +33,11 @@ class GetGroupJoinedUseCase @Inject constructor(
         groupRepository.getJoinedGroup().doWork(
             isSuccess = { hasJoinedGroup = hasJoinedGroup(it.map { it.id.toInt() }, groupId) },
         )
+        groupRepository.getGroupGameList(groupId).doWork(
+            isSuccess = { groupGameList = it.gameList },
+        )
 
-        return@withContext GetGroupJoinedItem(groupDetail!!, myNickname, hasJoinedGroup) // nullable 일 경우 확인 필요
+        return@withContext GetGroupJoinedItem(groupDetail!!, groupGameList!!, myNickname, hasJoinedGroup)
     }
 
     private fun hasJoinedGroup(groupList: List<Int>, groupId: Int) = groupList.find { it == groupId } != null

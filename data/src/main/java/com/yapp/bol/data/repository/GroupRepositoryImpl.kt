@@ -3,8 +3,10 @@ package com.yapp.bol.data.repository
 import com.yapp.bol.data.datasource.group.GroupDataSource
 import com.yapp.bol.data.mapper.GroupMapper.toDetailItem
 import com.yapp.bol.data.mapper.GroupMapper.toDomain
+import com.yapp.bol.data.mapper.GroupMapper.toGameListItem
 import com.yapp.bol.data.mapper.MapperToDomain.toDomain
 import com.yapp.bol.domain.model.ApiResult
+import com.yapp.bol.domain.model.GetGroupGameListItem
 import com.yapp.bol.domain.model.GroupDetailItem
 import com.yapp.bol.domain.model.GroupSearchItem
 import com.yapp.bol.domain.model.JoinedGroupItem
@@ -20,7 +22,7 @@ class GroupRepositoryImpl @Inject constructor(
     override suspend fun searchGroup(
         name: String,
         page: Int,
-        pageSize: Int
+        pageSize: Int,
     ): ApiResult<GroupSearchItem> {
         return groupDataSource.searchGroup(
             name = name,
@@ -34,4 +36,8 @@ class GroupRepositoryImpl @Inject constructor(
 
     override fun getGroupDetail(groupId: Long): Flow<ApiResult<GroupDetailItem>> =
         groupDataSource.getGroupDetail(groupId).map { it.toDetailItem() }
+
+    override fun getGroupGameList(groupId: Int): Flow<ApiResult<GetGroupGameListItem>> {
+        return groupDataSource.getGroupGameList(groupId).map { it.toGameListItem() }
+    }
 }

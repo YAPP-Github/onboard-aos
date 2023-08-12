@@ -1,6 +1,7 @@
 package com.yapp.bol.data.remote
 
 import com.yapp.bol.data.model.base.BaseResponse
+import com.yapp.bol.data.model.group.GetGroupGameListResponse
 import com.yapp.bol.data.model.group.GuestAddApiRequest
 import com.yapp.bol.data.model.group.JoinGroupApiRequest
 import com.yapp.bol.data.model.group.MemberListResponse
@@ -54,7 +55,7 @@ interface GroupApi {
 
     @GET("/v1/group/{groupId}")
     suspend fun getGroupDetail(
-        @Path("groupId") groupId: Long
+        @Path("groupId") groupId: Long,
     ): Response<GroupDetailResponse>
 
     @GET("/v1/group/{groupId}/member")
@@ -68,7 +69,7 @@ interface GroupApi {
     @POST("/v1/group/{groupId}/guest")
     suspend fun postGuestMember(
         @Path("groupId") groupId: Int,
-        @Body guestAddApiRequest: GuestAddApiRequest
+        @Body guestAddApiRequest: GuestAddApiRequest,
     )
 
     @POST("v1/group/{groupId}/accessCode")
@@ -82,4 +83,9 @@ interface GroupApi {
         @Path("groupId") groupId: String,
         @Body request: JoinGroupApiRequest,
     ): Response<BaseResponse>
+
+    @GET("/v1/group/{groupId}/game")
+    suspend fun getGroupGame(
+        @Path("groupId") groupId: Int,
+    ): Response<GetGroupGameListResponse>
 }
