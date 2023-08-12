@@ -1,7 +1,5 @@
-package com.yapp.bol.data.datasource.auth.impl
+package com.yapp.bol.data.datasource.auth
 
-import com.yapp.bol.data.datasource.auth.AuthDataSource
-import com.yapp.bol.data.datasource.auth.impl.datastore.AuthManager
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

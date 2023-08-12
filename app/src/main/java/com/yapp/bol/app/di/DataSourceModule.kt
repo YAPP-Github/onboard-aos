@@ -2,7 +2,7 @@ package com.yapp.bol.app.di
 
 import com.yapp.bol.data.datasource.impl.RemoteDataSource
 import com.yapp.bol.data.datasource.auth.AuthDataSource
-import com.yapp.bol.data.datasource.auth.impl.AuthDataSourceImpl
+import com.yapp.bol.data.datasource.auth.AuthDataSourceImpl
 import com.yapp.bol.data.datasource.group.GroupDataSource
 import com.yapp.bol.data.datasource.group.impl.GroupDataSourceImpl
 import com.yapp.bol.data.datasource.impl.RemoteDataSourceImpl

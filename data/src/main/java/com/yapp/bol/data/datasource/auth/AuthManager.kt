@@ -1,4 +1,4 @@
-package com.yapp.bol.data.datasource.auth.impl.datastore
+package com.yapp.bol.data.datasource.auth
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
