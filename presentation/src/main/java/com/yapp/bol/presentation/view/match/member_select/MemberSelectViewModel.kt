@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yapp.bol.domain.usecase.login.MatchUseCase
-import com.yapp.bol.presentation.mapper.Mapper.toPresentation
+import com.yapp.bol.presentation.mapper.MatchMapper.toPresentation
 import com.yapp.bol.presentation.model.MemberInfo
 import com.yapp.bol.presentation.utils.checkedApiResult
 import dagger.hilt.android.lifecycle.HiltViewModel
