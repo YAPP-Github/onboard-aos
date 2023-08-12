@@ -1,6 +1,5 @@
-package com.yapp.bol.data.datasource.group.impl
+package com.yapp.bol.data.datasource.group
 
-import com.yapp.bol.data.datasource.group.GroupDataSource
 import com.yapp.bol.data.model.group.response.GroupSearchApiResponse
 import com.yapp.bol.data.model.group.response.GroupDetailResponse
 import com.yapp.bol.data.model.group.response.JoinedGroupResponse

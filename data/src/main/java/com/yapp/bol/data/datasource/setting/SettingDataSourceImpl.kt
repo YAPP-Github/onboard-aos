@@ -1,6 +1,5 @@
-package com.yapp.bol.data.datasource.setting.impl
+package com.yapp.bol.data.datasource.setting
 
-import com.yapp.bol.data.datasource.setting.SettingDataSource
 import com.yapp.bol.data.model.setting.SettingTermResponse
 import com.yapp.bol.data.remote.SettingApi
 import com.yapp.bol.domain.handle.BaseRepository

@@ -1,4 +1,4 @@
-package com.yapp.bol.data.datasource.rank.impl
+package com.yapp.bol.data.datasource.rank
 
 import com.yapp.bol.data.datasource.rank.RankDataSource
 import com.yapp.bol.data.model.rank.UserRankApiResponse
