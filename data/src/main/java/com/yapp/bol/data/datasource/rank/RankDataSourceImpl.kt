@@ -1,6 +1,5 @@
 package com.yapp.bol.data.datasource.rank
 
-import com.yapp.bol.data.datasource.rank.RankDataSource
 import com.yapp.bol.data.model.rank.UserRankApiResponse
 import com.yapp.bol.data.remote.RankApi
 import com.yapp.bol.domain.handle.BaseRepository
