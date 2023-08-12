@@ -92,6 +92,7 @@
             android:layout_marginEnd="18dp"
             android:background="@drawable/bg_stroke_gray_radius_8dp"
             android:scaleType="centerInside"
+            tools:ignore="UseAppTint"
             android:tint="@color/Gray_8"
             android:src="@drawable/ic_plus"
             app:layout_constraintEnd_toEndOf="parent"
