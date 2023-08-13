@@ -1,6 +1,6 @@
 package com.yapp.bol.data.remote
 
-import com.yapp.bol.data.model.base.BaseResponse
+import com.yapp.bol.data.model.base.ErrorResponse
 import com.yapp.bol.data.model.group.GuestAddApiRequest
 import com.yapp.bol.data.model.group.JoinGroupApiRequest
 import com.yapp.bol.data.model.group.MemberListResponse
@@ -38,5 +38,5 @@ interface MemberApi {
     suspend fun joinGroup(
         @Path("groupId") groupId: String,
         @Body request: JoinGroupApiRequest,
-    ): Response<BaseResponse>
+    ): Response<ErrorResponse>
 }

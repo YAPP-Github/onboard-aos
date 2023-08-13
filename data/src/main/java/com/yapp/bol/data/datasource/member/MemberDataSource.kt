@@ -1,6 +1,6 @@
 package com.yapp.bol.data.datasource.member
 
-import com.yapp.bol.data.model.base.BaseResponse
+import com.yapp.bol.data.model.base.ErrorResponse
 import com.yapp.bol.data.model.group.MemberListResponse
 import com.yapp.bol.data.model.group.response.MemberValidApiResponse
 import com.yapp.bol.domain.model.ApiResult
@@ -26,5 +26,5 @@ interface MemberDataSource {
         groupId: String,
         accessCode: String,
         nickname: String,
-    ): Flow<ApiResult<BaseResponse>>
+    ): Flow<ApiResult<ErrorResponse>>
 }

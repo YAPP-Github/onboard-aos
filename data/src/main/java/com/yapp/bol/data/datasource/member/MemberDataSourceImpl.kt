@@ -1,6 +1,6 @@
 package com.yapp.bol.data.datasource.member
 
-import com.yapp.bol.data.model.base.BaseResponse
+import com.yapp.bol.data.model.base.ErrorResponse
 import com.yapp.bol.data.model.group.GuestAddApiRequest
 import com.yapp.bol.data.model.group.JoinGroupApiRequest
 import com.yapp.bol.data.model.group.MemberListResponse
@@ -42,7 +42,7 @@ class MemberDataSourceImpl @Inject constructor(
         groupId: String,
         accessCode: String,
         nickname: String,
-    ): Flow<ApiResult<BaseResponse>> = flow {
+    ): Flow<ApiResult<ErrorResponse>> = flow {
         val result = safeApiCall { memberApi.joinGroup(groupId, JoinGroupApiRequest(nickname, accessCode)) }
         emit(result)
     }
