@@ -1,7 +1,7 @@
 package com.yapp.bol.domain.repository
 
 import com.yapp.bol.domain.model.ApiResult
-import com.yapp.bol.domain.model.BaseItem
+import com.yapp.bol.domain.model.ErrorItem
 import com.yapp.bol.domain.model.MemberItems
 import kotlinx.coroutines.flow.Flow
 
@@ -25,5 +25,5 @@ interface MemberRepository {
         groupId: String,
         accessCode: String,
         nickname: String,
-    ): Flow<ApiResult<BaseItem>>
+    ): Flow<ApiResult<ErrorItem>>
 }

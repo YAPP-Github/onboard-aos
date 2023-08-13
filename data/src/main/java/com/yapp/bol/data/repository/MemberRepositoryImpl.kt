@@ -1,11 +1,11 @@
 package com.yapp.bol.data.repository
 
 import com.yapp.bol.data.datasource.member.MemberDataSource
-import com.yapp.bol.data.mapper.MemberMapper.mapperToBaseItem
+import com.yapp.bol.data.mapper.CoreMapper.mapperToBaseItem
 import com.yapp.bol.data.mapper.MemberMapper.memberListToDomain
 import com.yapp.bol.data.mapper.MemberMapper.validToDomain
 import com.yapp.bol.domain.model.ApiResult
-import com.yapp.bol.domain.model.BaseItem
+import com.yapp.bol.domain.model.ErrorItem
 import com.yapp.bol.domain.model.MemberItems
 import com.yapp.bol.domain.repository.MemberRepository
 import kotlinx.coroutines.flow.Flow
@@ -37,7 +37,7 @@ class MemberRepositoryImpl @Inject constructor(
         memberDataSource.postGuestMember(groupId, nickname)
     }
 
-    override fun joinGroup(groupId: String, accessCode: String, nickname: String): Flow<ApiResult<BaseItem>> {
+    override fun joinGroup(groupId: String, accessCode: String, nickname: String): Flow<ApiResult<ErrorItem>> {
         return memberDataSource.joinGroup(groupId, accessCode, nickname).map { it.mapperToBaseItem() }
     }
 }
