@@ -1,6 +1,6 @@
 package com.yapp.bol.data.mapper
 
-import com.yapp.bol.data.model.group.MemberDTO
+import com.yapp.bol.data.model.member.MemberDTO
 import com.yapp.bol.data.model.member.MemberListResponse
 import com.yapp.bol.data.model.member.MemberValidApiResponse
 import com.yapp.bol.domain.model.ApiResult
