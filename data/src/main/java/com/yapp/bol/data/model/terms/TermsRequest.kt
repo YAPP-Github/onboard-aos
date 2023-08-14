@@ -1,4 +1,4 @@
-package com.yapp.bol.data.model.auth
+package com.yapp.bol.data.model.terms
 
 data class TermsRequest(
     val agree: List<String>,

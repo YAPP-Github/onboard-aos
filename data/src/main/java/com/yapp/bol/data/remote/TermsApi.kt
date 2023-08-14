@@ -1,7 +1,7 @@
 package com.yapp.bol.data.remote
 
-import com.yapp.bol.data.model.auth.TermsRequest
-import com.yapp.bol.data.model.auth.TermsResponse
+import com.yapp.bol.data.model.terms.TermsRequest
+import com.yapp.bol.data.model.terms.TermsResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

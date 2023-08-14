@@ -2,7 +2,7 @@ package com.yapp.bol.data.repository
 
 import com.yapp.bol.data.datasource.terms.TermsDataSource
 import com.yapp.bol.data.mapper.TermsMapper.toTermsDomain
-import com.yapp.bol.data.model.auth.TermsRequest
+import com.yapp.bol.data.model.terms.TermsRequest
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.TermsList
 import com.yapp.bol.domain.repository.TermsRepository
