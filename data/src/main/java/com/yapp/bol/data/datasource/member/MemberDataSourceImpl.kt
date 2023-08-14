@@ -1,10 +1,10 @@
 package com.yapp.bol.data.datasource.member
 
 import com.yapp.bol.data.model.base.ErrorResponse
-import com.yapp.bol.data.model.group.GuestAddApiRequest
-import com.yapp.bol.data.model.group.JoinGroupApiRequest
-import com.yapp.bol.data.model.group.MemberListResponse
-import com.yapp.bol.data.model.group.response.MemberValidApiResponse
+import com.yapp.bol.data.model.member.GuestAddApiRequest
+import com.yapp.bol.data.model.member.JoinGroupApiRequest
+import com.yapp.bol.data.model.member.MemberListResponse
+import com.yapp.bol.data.model.member.MemberValidApiResponse
 import com.yapp.bol.data.remote.MemberApi
 import com.yapp.bol.domain.handle.BaseRepository
 import com.yapp.bol.domain.model.ApiResult
