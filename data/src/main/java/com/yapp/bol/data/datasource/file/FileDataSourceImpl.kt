@@ -1,6 +1,6 @@
 package com.yapp.bol.data.datasource.file
 
-import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
+import com.yapp.bol.data.model.file.ImageFileUploadResponse
 import com.yapp.bol.data.remote.FileApi
 import com.yapp.bol.data.utils.Image
 import com.yapp.bol.domain.handle.BaseRepository

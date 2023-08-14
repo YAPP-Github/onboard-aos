@@ -1,6 +1,6 @@
 package com.yapp.bol.data.mapper
 
-import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
+import com.yapp.bol.data.model.file.ImageFileUploadResponse
 import com.yapp.bol.domain.model.ApiResult
 
 object FileMapper {
