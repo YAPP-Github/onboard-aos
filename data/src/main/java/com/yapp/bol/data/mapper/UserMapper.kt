@@ -1,7 +1,7 @@
 package com.yapp.bol.data.mapper
 
-import com.yapp.bol.data.model.group.response.JoinedGroupResponse
-import com.yapp.bol.data.model.auth.OnBoardResponse
+import com.yapp.bol.data.model.user.JoinedGroupResponse
+import com.yapp.bol.data.model.user.OnBoardResponse
 import com.yapp.bol.data.model.user.UserResponse
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.JoinedGroupItem

@@ -1,8 +1,8 @@
 package com.yapp.bol.data.datasource.user
 
-import com.yapp.bol.data.model.group.response.JoinedGroupResponse
-import com.yapp.bol.data.model.auth.OnBoardResponse
-import com.yapp.bol.data.model.auth.UserRequest
+import com.yapp.bol.data.model.user.JoinedGroupResponse
+import com.yapp.bol.data.model.user.OnBoardResponse
+import com.yapp.bol.data.model.user.UserRequest
 import com.yapp.bol.data.model.user.UserResponse
 import com.yapp.bol.data.remote.UserApi
 import com.yapp.bol.domain.handle.BaseRepository

@@ -1,8 +1,4 @@
-package com.yapp.bol.data.model.group.response
-
-data class JoinedGroupResponse(
-    val contents: List<JoinedGroupDTO>
-)
+package com.yapp.bol.data.model.user
 
 data class JoinedGroupDTO(
     val id: Long,
