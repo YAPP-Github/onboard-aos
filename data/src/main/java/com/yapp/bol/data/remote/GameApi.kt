@@ -1,6 +1,6 @@
 package com.yapp.bol.data.remote
 
-import com.yapp.bol.data.model.group.response.GameApiResponse
+import com.yapp.bol.data.model.game.GameApiResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
