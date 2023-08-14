@@ -1,4 +1,4 @@
-package com.yapp.bol.data.model.login
+package com.yapp.bol.data.model.auth
 
 data class TermsDTO(
     val code: String,

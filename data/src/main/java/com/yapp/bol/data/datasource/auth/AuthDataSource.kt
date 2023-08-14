@@ -1,6 +1,6 @@
 package com.yapp.bol.data.datasource.auth
 
-import com.yapp.bol.data.model.login.LoginResponse
+import com.yapp.bol.data.model.auth.LoginResponse
 import kotlinx.coroutines.flow.Flow
 
 interface AuthDataSource {

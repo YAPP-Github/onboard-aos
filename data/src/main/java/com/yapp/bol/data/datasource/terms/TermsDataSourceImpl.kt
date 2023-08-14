@@ -1,7 +1,7 @@
 package com.yapp.bol.data.datasource.terms
 
-import com.yapp.bol.data.model.login.TermsRequest
-import com.yapp.bol.data.model.login.TermsResponse
+import com.yapp.bol.data.model.auth.TermsRequest
+import com.yapp.bol.data.model.auth.TermsResponse
 import com.yapp.bol.data.remote.TermsApi
 import com.yapp.bol.domain.handle.BaseRepository
 import com.yapp.bol.domain.model.ApiResult

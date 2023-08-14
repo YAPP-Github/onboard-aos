@@ -1,8 +1,8 @@
 package com.yapp.bol.data.remote
 
 import com.yapp.bol.data.model.group.response.JoinedGroupResponse
-import com.yapp.bol.data.model.login.OnBoardResponse
-import com.yapp.bol.data.model.login.UserRequest
+import com.yapp.bol.data.model.auth.OnBoardResponse
+import com.yapp.bol.data.model.auth.UserRequest
 import com.yapp.bol.data.model.user.UserResponse
 import retrofit2.Response
 import retrofit2.http.Body

@@ -1,7 +1,7 @@
 package com.yapp.bol.data.mapper
 
-import com.yapp.bol.data.model.login.TermsDTO
-import com.yapp.bol.data.model.login.TermsResponse
+import com.yapp.bol.data.model.auth.TermsDTO
+import com.yapp.bol.data.model.auth.TermsResponse
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.TermsItem
 import com.yapp.bol.domain.model.TermsList

@@ -4,7 +4,7 @@ import com.yapp.bol.data.datasource.user.UserDataSource
 import com.yapp.bol.data.mapper.UserMapper.toBoardDomain
 import com.yapp.bol.data.mapper.UserMapper.toJoinedGroupItem
 import com.yapp.bol.data.mapper.UserMapper.toUserDomain
-import com.yapp.bol.data.model.login.UserRequest
+import com.yapp.bol.data.model.auth.UserRequest
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.JoinedGroupItem
 import com.yapp.bol.domain.model.user.UserItem

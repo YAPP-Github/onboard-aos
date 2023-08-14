@@ -1,6 +1,6 @@
 package com.yapp.bol.data.mapper
 
-import com.yapp.bol.data.model.login.LoginResponse
+import com.yapp.bol.data.model.auth.LoginResponse
 import com.yapp.bol.domain.model.LoginItem
 
 object AuthMapper {
