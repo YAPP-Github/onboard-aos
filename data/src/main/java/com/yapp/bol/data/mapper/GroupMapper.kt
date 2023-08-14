@@ -1,12 +1,12 @@
 package com.yapp.bol.data.mapper
 
-import com.yapp.bol.data.model.group.response.CheckGroupJoinByAccessCodeResponse
-import com.yapp.bol.data.model.group.response.GroupDetailResponse
-import com.yapp.bol.data.model.group.response.GroupSearchApiResponse
-import com.yapp.bol.data.model.group.response.NewGroupApiResponse
-import com.yapp.bol.data.model.group.response.OwnerDTO
-import com.yapp.bol.data.model.group.response.RandomImageResponse
-import com.yapp.bol.data.model.rank.UserRankApiResponse
+import com.yapp.bol.data.model.group.CheckGroupJoinByAccessCodeResponse
+import com.yapp.bol.data.model.group.GroupDetailResponse
+import com.yapp.bol.data.model.group.GroupSearchApiResponse
+import com.yapp.bol.data.model.group.NewGroupApiResponse
+import com.yapp.bol.data.model.group.OwnerDTO
+import com.yapp.bol.data.model.group.RandomImageResponse
+import com.yapp.bol.data.model.group.UserRankApiResponse
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.CheckGroupJoinByAccessCodeItem
 import com.yapp.bol.domain.model.GroupDetailItem
