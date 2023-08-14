@@ -1,6 +1,6 @@
 package com.yapp.bol.data.model.group
 
-data class GroupListItem(
+data class GroupListDTO(
     val id: Int,
     val name: String,
     val description: String,
