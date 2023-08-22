@@ -69,7 +69,9 @@ class GroupJoinFragment : Fragment() {
                     it.dismiss()
                 }
                 .setTitleIcon(
-                    icon = R.drawable.ic_lock,
+                    // todo: 경민님 체크 필요 ic_clock 제거하고 디자인 시스템 쪽 아이콘으로 바꿔주었습니다.
+                    // 문제가 없다면 주석 제거 부탁드립니다.
+                    icon = R.drawable.ic_time_line16,
                     size = context.dpToPx(20),
                     margin = Margin(rightMargin = context.dpToPx(8)),
                 )

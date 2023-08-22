@@ -1,4 +1,4 @@
-package com.yapp.bol.presentation.viewmodel.login
+package com.yapp.bol.presentation.view.login.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

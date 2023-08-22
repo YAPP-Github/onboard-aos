@@ -20,8 +20,8 @@ import com.yapp.bol.presentation.utils.showToast
 import com.yapp.bol.presentation.view.group.GroupActivity
 import com.yapp.bol.presentation.view.login.auth.KakaoTestActivity
 import com.yapp.bol.presentation.view.login.dialog.TermsDialog
-import com.yapp.bol.presentation.viewmodel.login.AuthViewModel
-import com.yapp.bol.presentation.viewmodel.login.LoginType
+import com.yapp.bol.presentation.view.login.auth.AuthViewModel
+import com.yapp.bol.presentation.view.login.auth.LoginType
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,4 +1,4 @@
-package com.yapp.bol.presentation.viewmodel.login
+package com.yapp.bol.presentation.view.login.auth
 
 object LoginType {
     const val KAKAO = "KAKAO"

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.domain.model.GroupItem
 import com.yapp.bol.presentation.R
-import com.yapp.bol.presentation.data.GroupSearchUiModel
+import com.yapp.bol.presentation.model.GroupSearchUiModel
 
 class GroupListAdapter(
     private val showJoinGroupDialog: (GroupItem) -> Unit,
