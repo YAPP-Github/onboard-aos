@@ -2,7 +2,7 @@ package com.yapp.bol.app.di
 
 import com.yapp.bol.app.BuildConfig
 import com.yapp.bol.data.remote.GroupApi
-import com.yapp.bol.data.remote.ImageFileApi
+import com.yapp.bol.data.remote.FileApi
 import com.yapp.bol.data.remote.LoginApi
 import com.yapp.bol.data.remote.MatchApi
 import com.yapp.bol.data.remote.RankApi
@@ -89,8 +89,8 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideImageApiService(retrofit: Retrofit): ImageFileApi {
-        return retrofit.create(ImageFileApi::class.java)
+    fun provideImageApiService(retrofit: Retrofit): FileApi {
+        return retrofit.create(FileApi::class.java)
     }
 
     @Provides

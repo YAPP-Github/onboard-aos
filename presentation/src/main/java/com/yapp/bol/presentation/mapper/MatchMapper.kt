@@ -3,7 +3,7 @@ package com.yapp.bol.presentation.mapper
 import com.yapp.bol.domain.model.MemberItem
 import com.yapp.bol.presentation.model.MemberInfo
 
-object Mapper {
+object MatchMapper {
 
     fun MemberItem.toPresentation(): MemberInfo {
         return MemberInfo(

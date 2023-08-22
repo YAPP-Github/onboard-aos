@@ -1,4 +1,4 @@
-package com.yapp.bol.data.datasource.mock.impl
+package com.yapp.bol.data.datasource.auth
 
 object LoginType {
     private const val NAVER = "NAVER"

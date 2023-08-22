@@ -8,7 +8,8 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 
-interface ImageFileApi {
+interface FileApi {
+
     @Multipart
     @POST("v1/file")
     suspend fun postFileUpload(
