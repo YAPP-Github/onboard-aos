@@ -25,7 +25,7 @@ interface GroupDataSource {
         pageSize: Int,
     ): ApiResult<GroupSearchApiResponse>
 
-    fun getRandomImage(): Flow<ApiResult<RandomImageResponse>>
+    fun getGroupDefaultImage(): Flow<ApiResult<RandomImageResponse>>
 
     fun getGroupDetail(groupId: Long): Flow<ApiResult<GroupDetailResponse>>
 

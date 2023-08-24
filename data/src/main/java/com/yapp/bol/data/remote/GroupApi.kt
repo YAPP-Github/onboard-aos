@@ -29,7 +29,7 @@ interface GroupApi {
     ): Response<UserRankApiResponse>
 
     @GET("/v1/group/default-image")
-    suspend fun getRandomImage(): Response<RandomImageResponse>
+    suspend fun getGroupDefaultImage(): Response<RandomImageResponse>
 
     @GET("/v1/group")
     suspend fun getGroupSearchResult(

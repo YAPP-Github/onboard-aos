@@ -43,8 +43,8 @@ class GroupDataSourceImpl @Inject constructor(
         }
     }
 
-    override fun getRandomImage(): Flow<ApiResult<RandomImageResponse>> = flow {
-        val result = safeApiCall { groupApi.getRandomImage() }
+    override fun getGroupDefaultImage(): Flow<ApiResult<RandomImageResponse>> = flow {
+        val result = safeApiCall { groupApi.getGroupDefaultImage() }
         emit(result)
     }
 

@@ -23,7 +23,7 @@ interface GroupRepository {
         gameId: Int,
     ): Flow<ApiResult<UserRankListItem>>
 
-    fun getRandomImage(): Flow<ApiResult<String>>
+    fun getGroupDefaultImage(): Flow<ApiResult<String>>
 
     suspend fun searchGroup(
         name: String,

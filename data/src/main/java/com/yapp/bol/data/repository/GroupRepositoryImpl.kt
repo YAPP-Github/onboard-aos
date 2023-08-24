@@ -45,8 +45,8 @@ class GroupRepositoryImpl @Inject constructor(
             it.toUserRankItem()
         }
 
-    override fun getRandomImage(): Flow<ApiResult<String>> {
-        return groupDataSource.getRandomImage().map { it.toImageDomain() }
+    override fun getGroupDefaultImage(): Flow<ApiResult<String>> {
+        return groupDataSource.getGroupDefaultImage().map { it.toImageDomain() }
     }
 
     override suspend fun searchGroup(

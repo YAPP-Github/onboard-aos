@@ -28,7 +28,7 @@ class NewGroupUseCase @Inject constructor(
         return groupRepository.postCreateGroup(name, description, organization, imageUrl, nickname)
     }
 
-    fun getRandomImage() = groupRepository.getRandomImage()
+    fun getRandomImage() = groupRepository.getGroupDefaultImage()
 
     fun getUserInfo() = userRepository.getUserInfo()
 }
