@@ -6,11 +6,15 @@ import com.yapp.bol.data.model.auth.LoginResponse
 import com.yapp.bol.data.remote.AuthApi
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import javax.inject.Provider
 
 class AuthDataSourceImpl @Inject constructor(
     private val authManager: AuthManager,
-    private val authApi: AuthApi,
+    private val authApiProvider: Provider<AuthApi>,
 ) : AuthDataSource {
+
+    private val authApi: AuthApi
+        get() = authApiProvider.get()
 
     override val accessToken: Flow<String> = authManager.accessKey
 
