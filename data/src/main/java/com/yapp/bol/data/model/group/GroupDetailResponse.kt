@@ -1,4 +1,4 @@
-package com.yapp.bol.data.model.group.response
+package com.yapp.bol.data.model.group
 
 data class GroupDetailResponse(
     val id: Long,
@@ -9,11 +9,4 @@ data class GroupDetailResponse(
     val accessCode: String,
     val memberCount: Int,
     val owner: OwnerDTO
-)
-
-data class OwnerDTO(
-    val id: Long,
-    val role: String,
-    val nickname: String,
-    val level: Int
 )

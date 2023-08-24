@@ -1,4 +1,4 @@
-package com.yapp.bol.data.model.group.request
+package com.yapp.bol.data.model.group
 
 data class NewGroupApiRequest(
     val name: String,

@@ -1,6 +1,6 @@
 package com.yapp.bol.data.datasource.game
 
-import com.yapp.bol.data.model.group.response.GameApiResponse
+import com.yapp.bol.data.model.game.GameApiResponse
 import com.yapp.bol.data.remote.GameApi
 import com.yapp.bol.domain.handle.BaseRepository
 import com.yapp.bol.domain.model.ApiResult

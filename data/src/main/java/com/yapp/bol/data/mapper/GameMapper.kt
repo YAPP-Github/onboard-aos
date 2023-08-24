@@ -1,7 +1,7 @@
 package com.yapp.bol.data.mapper
 
-import com.yapp.bol.data.model.group.response.GameApiResponse
-import com.yapp.bol.data.model.group.response.GameResponse
+import com.yapp.bol.data.model.game.GameApiResponse
+import com.yapp.bol.data.model.game.GameResponse
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.GameItem
 

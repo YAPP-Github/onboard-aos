@@ -1,4 +1,4 @@
-package com.yapp.bol.data.model.group.response
+package com.yapp.bol.data.model.member
 
 data class MemberValidApiResponse(
     val isAvailable: Boolean,

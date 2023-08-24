@@ -1,10 +1,10 @@
 package com.yapp.bol.data.remote
 
 import com.yapp.bol.data.model.base.ErrorResponse
-import com.yapp.bol.data.model.group.GuestAddApiRequest
-import com.yapp.bol.data.model.group.JoinGroupApiRequest
-import com.yapp.bol.data.model.group.MemberListResponse
-import com.yapp.bol.data.model.group.response.MemberValidApiResponse
+import com.yapp.bol.data.model.member.GuestAddApiRequest
+import com.yapp.bol.data.model.member.JoinGroupApiRequest
+import com.yapp.bol.data.model.member.MemberListResponse
+import com.yapp.bol.data.model.member.MemberValidApiResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

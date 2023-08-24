@@ -1,4 +1,4 @@
-package com.yapp.bol.data.model.group
+package com.yapp.bol.data.model.member
 
 data class MemberDTO(
     val id: Int,

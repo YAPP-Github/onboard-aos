@@ -1,4 +1,4 @@
-package com.yapp.bol.data.model.login
+package com.yapp.bol.data.model.auth
 
 import com.google.gson.annotations.SerializedName
 

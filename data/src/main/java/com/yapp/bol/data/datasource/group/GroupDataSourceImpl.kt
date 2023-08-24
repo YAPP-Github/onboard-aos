@@ -1,13 +1,13 @@
 package com.yapp.bol.data.datasource.group
 
-import com.yapp.bol.data.model.group.request.CheckGroupJonByAccessCodeRequest
-import com.yapp.bol.data.model.group.request.NewGroupApiRequest
-import com.yapp.bol.data.model.group.response.CheckGroupJoinByAccessCodeResponse
-import com.yapp.bol.data.model.group.response.GroupDetailResponse
-import com.yapp.bol.data.model.group.response.GroupSearchApiResponse
-import com.yapp.bol.data.model.group.response.NewGroupApiResponse
-import com.yapp.bol.data.model.group.response.RandomImageResponse
-import com.yapp.bol.data.model.rank.UserRankApiResponse
+import com.yapp.bol.data.model.group.CheckGroupJonByAccessCodeRequest
+import com.yapp.bol.data.model.group.NewGroupApiRequest
+import com.yapp.bol.data.model.group.CheckGroupJoinByAccessCodeResponse
+import com.yapp.bol.data.model.group.GroupDetailResponse
+import com.yapp.bol.data.model.group.GroupSearchApiResponse
+import com.yapp.bol.data.model.group.NewGroupApiResponse
+import com.yapp.bol.data.model.group.RandomImageResponse
+import com.yapp.bol.data.model.group.UserRankApiResponse
 import com.yapp.bol.data.remote.GroupApi
 import com.yapp.bol.domain.handle.BaseRepository
 import com.yapp.bol.domain.model.ApiResult

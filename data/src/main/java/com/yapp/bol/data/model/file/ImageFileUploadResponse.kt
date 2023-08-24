@@ -1,4 +1,4 @@
-package com.yapp.bol.data.model.group.response
+package com.yapp.bol.data.model.file
 
 data class ImageFileUploadResponse(
     val url: String

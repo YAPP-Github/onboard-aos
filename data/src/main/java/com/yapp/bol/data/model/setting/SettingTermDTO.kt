@@ -1,6 +1,6 @@
-package com.yapp.bol.data.model.login
+package com.yapp.bol.data.model.setting
 
-data class TermsDTO(
+data class SettingTermDTO(
     val code: String,
     val title: String,
     val url: String,

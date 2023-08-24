@@ -1,6 +1,6 @@
 package com.yapp.bol.data.remote
 
-import com.yapp.bol.data.model.group.response.ImageFileUploadResponse
+import com.yapp.bol.data.model.file.ImageFileUploadResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response

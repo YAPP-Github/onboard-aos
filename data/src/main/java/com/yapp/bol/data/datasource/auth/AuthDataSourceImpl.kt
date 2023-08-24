@@ -1,10 +1,9 @@
 package com.yapp.bol.data.datasource.auth
 
 import com.yapp.bol.data.datasource.auth.LoginType.toDomain
-import com.yapp.bol.data.model.login.LoginRequest
-import com.yapp.bol.data.model.login.LoginResponse
+import com.yapp.bol.data.model.auth.LoginRequest
+import com.yapp.bol.data.model.auth.LoginResponse
 import com.yapp.bol.data.remote.AuthApi
-import com.yapp.bol.data.remote.MatchApi
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
