@@ -31,7 +31,6 @@ interface GroupRepository {
         pageSize: Int,
     ): ApiResult<GroupSearchItem>
 
-
     fun getGroupDetail(groupId: Long): Flow<ApiResult<GroupDetailItem>>
 
     fun checkGroupJoinAccessCode(
