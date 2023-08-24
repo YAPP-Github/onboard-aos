@@ -1,5 +1,6 @@
 package com.yapp.bol.domain.repository
 
+import com.yapp.bol.domain.model.LoginItem
 import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
@@ -15,4 +16,6 @@ interface AuthRepository {
     suspend fun deleteAccessToken()
 
     suspend fun deleteRefreshToken()
+
+    suspend fun login(type: String, token: String): LoginItem?
 }
