@@ -82,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:src="@drawable/ic_owner"
+            android:src="@drawable/ic_manager"
             app:layout_constraintBottom_toTopOf="@+id/iv_access_code_icon"
             app:layout_constraintStart_toStartOf="@+id/tv_group_description" />
 
@@ -114,7 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:src="@drawable/ic_access_code"
+            android:src="@drawable/ic_code"
             app:layout_constraintBottom_toTopOf="@+id/tv_group_access_guide"
             app:layout_constraintStart_toStartOf="@+id/iv_owner_icon" />
 

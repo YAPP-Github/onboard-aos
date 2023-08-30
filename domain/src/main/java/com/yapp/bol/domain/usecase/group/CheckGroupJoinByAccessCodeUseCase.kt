@@ -1,10 +1,10 @@
 package com.yapp.bol.domain.usecase.group
 
-import com.yapp.bol.domain.repository.Repository
+import com.yapp.bol.domain.repository.GroupRepository
 import javax.inject.Inject
 
 class CheckGroupJoinByAccessCodeUseCase @Inject constructor(
-    private val repository: Repository,
+    private val repository: GroupRepository,
 ) {
     operator fun invoke(
         groupId: String,

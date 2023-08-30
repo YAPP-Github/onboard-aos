@@ -76,7 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
-        android:src="@drawable/ic_empty_dice_small"
+        android:src="@drawable/img_dice_empty"
         app:layout_constraintBottom_toBottomOf="@+id/view_guest_name_container"
         app:layout_constraintStart_toStartOf="@+id/view_guest_name_container"
         app:layout_constraintTop_toTopOf="@+id/view_guest_name_container" />
