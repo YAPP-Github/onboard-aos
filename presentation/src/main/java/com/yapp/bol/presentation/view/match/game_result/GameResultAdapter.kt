@@ -59,7 +59,7 @@ class GameResultAdapter(
         }
 
         private fun setImageView(item: MemberResultItem) {
-            val image = if (item.role == GUEST) R.drawable.img_dice_empty_large else DR.drawable.img_dice
+            val image = if (item.role == GUEST) DR.drawable.img_dice_empty_large else DR.drawable.img_dice
             binding.ivMemberLevelIcon.setImageResource(image)
         }
 

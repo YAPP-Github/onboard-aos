@@ -38,10 +38,12 @@
 
     <ImageView
         android:id="@+id/iv_calendar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:layout_marginTop="9dp"
-        android:src="@drawable/ic_calendar"
+        tools:ignore="UseAppTint"
+        android:tint="@color/Gray_12"
+        android:src="@drawable/ic_calendar_line16"
         app:layout_constraintStart_toStartOf="@+id/tv_game_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_game_name" />
 
@@ -62,7 +64,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:src="@drawable/ic_time"
+        tools:ignore="UseAppTint"
+        android:tint="@color/Gray_12"
+        android:src="@drawable/ic_time_line16"
         app:layout_constraintBottom_toBottomOf="@+id/iv_calendar"
         app:layout_constraintStart_toEndOf="@+id/tv_calendar"
         app:layout_constraintTop_toTopOf="@+id/iv_calendar" />

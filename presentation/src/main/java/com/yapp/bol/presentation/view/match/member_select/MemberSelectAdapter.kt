@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.yapp.bol.presentation.R
+import com.yapp.bol.designsystem.R as DR
 import com.yapp.bol.presentation.databinding.RvMemberSelectItemBinding
 import com.yapp.bol.presentation.model.MemberInfo
 import com.yapp.bol.presentation.view.match.MatchActivity.Companion.GUEST
@@ -44,7 +44,7 @@ class MemberSelectAdapter(
         }
 
         private fun setImageView(item: MemberInfo) {
-            val image = if (item.role == GUEST) R.drawable.img_dice_empty_large else R.drawable.img_dice
+            val image = if (item.role == GUEST) DR.drawable.img_dice_empty_large else DR.drawable.img_dice
             binding.ivMemberLevel.setImageResource(image)
         }
     }

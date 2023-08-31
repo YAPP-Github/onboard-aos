@@ -46,7 +46,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         }
 
         splashViewModel.networkState.observe(this) {
-            if(it.not()) return@observe
+            if (it.not()) return@observe
             startActivity(Intent(this, NetworkErrorActivity::class.java))
         }
 

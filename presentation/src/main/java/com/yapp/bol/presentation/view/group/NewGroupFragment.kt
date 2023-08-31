@@ -1,6 +1,6 @@
 package com.yapp.bol.presentation.view.group
 
-import KeyboardVisibilityUtils
+import com.yapp.bol.presentation.utils.KeyboardVisibilityUtils
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity

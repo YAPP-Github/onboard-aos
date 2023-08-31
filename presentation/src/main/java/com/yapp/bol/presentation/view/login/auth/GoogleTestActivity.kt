@@ -15,8 +15,6 @@ import com.yapp.bol.presentation.base.BaseActivity
 import com.yapp.bol.presentation.databinding.ActivityGoogleTestBinding
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.view.group.GroupActivity
-import com.yapp.bol.presentation.viewmodel.login.AuthViewModel
-import com.yapp.bol.presentation.viewmodel.login.LoginType
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

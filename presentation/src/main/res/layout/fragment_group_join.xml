@@ -106,19 +106,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    app:gameTitle="@{vm.groupItem.getFirstMaxGame().gameName}"
+                    app:gameTitle="@{vm.groupItem.getFirstMaxGame().name}"
                     app:layout_constraintEnd_toStartOf="@id/group_item_game_view_2"
                     app:layout_constraintTop_toTopOf="parent"
-                    bol:imageUrl="@{vm.groupItem.getFirstMaxGame().gameImageUrl}" />
+                    bol:imageUrl="@{vm.groupItem.getFirstMaxGame().img}" />
 
                 <com.yapp.bol.presentation.view.group.join.component.GroupItemGame
                     android:id="@+id/group_item_game_view_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:gameTitle="@{vm.groupItem.getSecondMaxGame().gameName}"
+                    app:gameTitle="@{vm.groupItem.getSecondMaxGame().name}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    bol:imageUrl="@{vm.groupItem.getSecondMaxGame().gameImageUrl}"/>
+                    bol:imageUrl="@{vm.groupItem.getSecondMaxGame().img}"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView

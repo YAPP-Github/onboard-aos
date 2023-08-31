@@ -5,19 +5,25 @@ import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.MatchItem
 import com.yapp.bol.domain.model.MemberItems
 import com.yapp.bol.domain.model.user.UserItem
-import com.yapp.bol.domain.repository.Repository
+import com.yapp.bol.domain.repository.GameRepository
+import com.yapp.bol.domain.repository.MatchRepository
+import com.yapp.bol.domain.repository.MemberRepository
+import com.yapp.bol.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class MatchUseCase @Inject constructor(
-    private val repository: Repository
+    private val gameRepository: GameRepository,
+    private val memberRepository: MemberRepository,
+    private val matchRepository: MatchRepository,
+    private val userRepository: UserRepository,
 ) {
     fun getGameList(groupId: Int): Flow<ApiResult<List<GameItem>>> {
-        return repository.getGameList(groupId)
+        return gameRepository.getGameList(groupId)
     }
 
     fun getValidateNickName(groupId: Int, nickname: String): Flow<ApiResult<Boolean>> {
-        return repository.getValidateNickName(groupId, nickname)
+        return memberRepository.getValidateNickName(groupId, nickname)
     }
 
     fun getMemberList(
@@ -26,14 +32,14 @@ class MatchUseCase @Inject constructor(
         cursor: String?,
         nickname: String?,
     ): Flow<ApiResult<MemberItems>> {
-        return repository.getMemberList(groupId, pageSize, cursor, nickname)
+        return memberRepository.getMemberList(groupId, pageSize, cursor, nickname)
     }
 
     suspend fun postGuestMember(groupId: Int, nickname: String) {
-        repository.postGuestMember(groupId, nickname)
+        memberRepository.postGuestMember(groupId, nickname)
     }
 
-    suspend fun postMatch(matchItem: MatchItem) = repository.postMatch(matchItem)
+    suspend fun postMatch(matchItem: MatchItem) = matchRepository.postMatch(matchItem)
 
-    fun getUserInfo(): Flow<ApiResult<UserItem>> = repository.getUserInfo()
+    fun getUserInfo(): Flow<ApiResult<UserItem>> = userRepository.getUserInfo()
 }
