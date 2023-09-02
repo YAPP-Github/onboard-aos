@@ -83,7 +83,7 @@ class GroupJoinFragment : Fragment() {
                     viewModel.groupResult.collectWithLifecycle(viewLifecycleOwner) { groupResultType ->
                         when (groupResultType) {
                             is GroupResultType.LOADING -> {
-                                showLoading(true, groupResultType.message)
+                                showLoading(true, getString(groupResultType.message))
                             }
 
                             is GroupResultType.SUCCESS -> {
@@ -96,7 +96,7 @@ class GroupJoinFragment : Fragment() {
                             is GroupResultType.ValidationAccessCode -> {
                                 showLoading(false)
 
-                                dialog.showErrorMessage(groupResultType.message)
+                                dialog.showErrorMessage(getString(groupResultType.message))
                             }
 
                             is GroupResultType.UnknownError -> {
@@ -136,7 +136,7 @@ class GroupJoinFragment : Fragment() {
                 viewModel.groupResult.collectWithLifecycle(viewLifecycleOwner) { groupResultType ->
                     when (groupResultType) {
                         is GroupResultType.LOADING -> {
-                            showLoading(true, groupResultType.message)
+                            showLoading(true, getString(groupResultType.message))
                         }
 
                         is GroupResultType.SUCCESS -> {
@@ -159,7 +159,7 @@ class GroupJoinFragment : Fragment() {
                         is GroupResultType.ValidationNickname -> {
                             showLoading(false)
 
-                            dialog.showErrorMessage(groupResultType.message)
+                            dialog.showErrorMessage(getString(groupResultType.message))
                         }
 
                         else -> {}
