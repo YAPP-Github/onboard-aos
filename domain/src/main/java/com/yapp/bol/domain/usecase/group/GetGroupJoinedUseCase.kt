@@ -14,7 +14,7 @@ class GetGroupJoinedUseCase @Inject constructor(
     private val userRepository: UserRepository,
 ) {
 
-    suspend operator fun invoke(groupId: Int) = withContext(IO) {
+    suspend operator fun invoke(groupId: Int): GetGroupJoinedItem? = withContext(IO) {
         var groupDetail: GroupDetailItem? = null
         var myNickname = ""
         var hasJoinedGroup = false
@@ -31,7 +31,9 @@ class GetGroupJoinedUseCase @Inject constructor(
             isSuccess = { hasJoinedGroup = hasJoinedGroup(it.map { it.id.toInt() }, groupId) },
         )
 
-        return@withContext GetGroupJoinedItem(groupDetail!!, myNickname, hasJoinedGroup) // nullable 일 경우 확인 필요
+        return@withContext groupDetail?.let {
+            GetGroupJoinedItem(it, myNickname, hasJoinedGroup)
+        }
     }
 
     private fun hasJoinedGroup(groupList: List<Int>, groupId: Int) = groupList.find { it == groupId } != null
