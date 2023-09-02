@@ -87,8 +87,12 @@
     <string name="member_number">%d명</string>
     <string name="owner">관리자</string>
     <string name="group_join_title">모임 들어가기</string>
+    <string name="group_guest_join_title">\'%s\'로 모임 들어가기</string>
     <string name="group_join_code_input_plz">모임 참여 코드를 입력해주세요</string>
     <string name="group_join_code_input">참여 코드 입력</string>
+    <string name="guest_list_dialog_title">임시 멤버 기록 연동</string>
+    <string name="guest_list_dialog_description">활동헀던 임시 멤버 닉네임을 선택해주세요</string>
+
 
     <string name="home_help_url">https://docs.google.com/forms/d/e/1FAIpQLSfY23k3wSmAMbrkrSrJbgQuE3abWfY1WO0cqiIyN-F1egysJA/viewform?usp=sf_link</string>
     <string name="quit_email_content">탈퇴 신청 전 확인해주세요!
