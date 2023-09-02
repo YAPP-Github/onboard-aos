@@ -1,7 +1,6 @@
 package com.yapp.bol.presentation.utils
 
 import android.app.Activity
-import android.view.View
 import android.view.WindowManager
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat

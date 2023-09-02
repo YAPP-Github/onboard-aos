@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:src="@drawable/ic_owner"
+        android:src="@drawable/ic_manager"
         app:layout_constraintBottom_toBottomOf="@+id/et_profile_name"
         app:layout_constraintStart_toStartOf="@+id/et_profile_name"
         app:layout_constraintTop_toTopOf="@+id/et_profile_name" />

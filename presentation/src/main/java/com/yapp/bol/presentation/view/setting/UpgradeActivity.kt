@@ -17,7 +17,7 @@ class UpgradeActivity : BaseActivity<ActivityUpgradeBinding>(R.layout.activity_u
         binding.btnUpgrade.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse(
-                    "http://play.google.com/store/search?q=온보드&c=apps"
+                    "https://play.google.com/store/apps/details?id=com.yapp.bol.app&hl=en-KR"
                 )
                 setPackage("com.android.vending")
             }
