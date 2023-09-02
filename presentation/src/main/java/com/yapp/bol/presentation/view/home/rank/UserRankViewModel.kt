@@ -46,15 +46,7 @@ class UserRankViewModel @Inject constructor(
     val gameAndGroupUiState: StateFlow<HomeUiState<GameAndGroup>> = _gameAndGroupUiState
 
     var groupId: Long = GAME_USER_ID_TO_BE_SET
-        set(value) {
-            fetchAllFromServer(value)
-            field = value
-        }
     var gameId: Long = GAME_USER_ID_TO_BE_SET
-        set(value) {
-            fetchUserListFromServer(groupId = groupId, gameId = value)
-            field = value
-        }
 
     fun setGameItemSelected(newPosition: Int) {
         val gameUiList: MutableList<HomeGameItemUiModel> =
@@ -81,9 +73,17 @@ class UserRankViewModel @Inject constructor(
         _gameAndGroupUiState.value = HomeUiState.Success(GameAndGroup(gameUiList, groupUiList))
     }
 
-    fun fetchAll() = fetchAllFromServer(groupId)
+    fun fetchAll(initGroupId: Long? = null, initGameId: Long? = null) {
+        initGroupId?.let {
+            groupId = it
+            initGameId?.let { id -> gameId = id }
+            fetchAllFromServer(it, initGameId)
+        } ?: kotlin.run {
+            fetchAllFromServer(groupId)
+        }
+    }
 
-    private fun fetchAllFromServer(groupId: Long) {
+    private fun fetchAllFromServer(groupId: Long, initGameId: Long? = null) {
         viewModelScope.launch {
             _gameAndGroupUiState.value = HomeUiState.Loading
 
@@ -103,8 +103,15 @@ class UserRankViewModel @Inject constructor(
                         success = { data ->
                             game.addAll(data.toHomeGameItemUiModelList())
 
-                            gameIndex = data.size / 2 + startPadding
-                            gameId = data[data.size / 2].id
+                            initGameId?.let {
+                                data.mapIndexed { index, gameItem ->
+                                    if (gameItem.id == initGameId) { gameIndex = index + startPadding }
+                                }
+                                gameId = it
+                            } ?: kotlin.run {
+                                gameIndex = data.size / 2 + startPadding
+                                gameId = data[data.size / 2].id
+                            }
                         },
                         error = { throwable -> throw Exception(throwable.code) }
                     )
@@ -133,7 +140,12 @@ class UserRankViewModel @Inject constructor(
 
     fun getGameItemSelectedPosition(): Int = selectedPosition
 
-    fun fetchUserList() = fetchUserListFromServer(groupId, gameId)
+    fun fetchUserList(initGameId: Long? = null) {
+        initGameId?.let {
+            gameId = it
+        }
+        fetchUserListFromServer(groupId, gameId)
+    }
 
     private fun fetchUserListFromServer(groupId: Long, gameId: Long) {
         _userUiState.value = HomeUiState.Loading
