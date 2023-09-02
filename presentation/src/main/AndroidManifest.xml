@@ -37,9 +37,6 @@
             android:name=".view.group.NewGroupActivity"
             android:exported="false" />
         <activity
-            android:name=".view.login.auth.GoogleTestActivity"
-            android:exported="false" />
-        <activity
             android:name=".view.login.auth.NaverTestActivity"
             android:exported="false" />
         <activity
