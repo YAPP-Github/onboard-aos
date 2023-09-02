@@ -14,6 +14,7 @@ import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.dpToPx
 import com.yapp.bol.presentation.utils.loadImage
 import com.yapp.bol.presentation.utils.setStatusBarColor
+import com.yapp.bol.presentation.view.group.GroupActivity
 import com.yapp.bol.presentation.view.group.join.data.Margin
 import com.yapp.bol.presentation.view.group.join.type.GroupResultType
 import com.yapp.bol.presentation.view.home.HomeActivity

@@ -15,7 +15,7 @@ interface GroupRepository {
         description: String,
         organization: String,
         imageUrl: String,
-        nickname: String
+        nickname: String,
     ): Flow<ApiResult<NewGroupItem>>
 
     fun getUserRank(
