@@ -200,9 +200,13 @@ class InputDialog(
         return this
     }
 
+    fun setGuestOnClicked(click: () -> Unit): InputDialog {
+        binding.llGuestMember.setOnClickListener { click() }
+        return this
+    }
+
     override fun onBackPressed() {
         super.onBackPressed()
-
         onBackPressed?.invoke(this)
     }
 }

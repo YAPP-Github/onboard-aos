@@ -1,22 +1,29 @@
 package com.yapp.bol.presentation.view.group.join
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yapp.bol.domain.model.GroupDetailItem
+import com.yapp.bol.domain.model.Role
 import com.yapp.bol.domain.usecase.group.CheckGroupJoinByAccessCodeUseCase
 import com.yapp.bol.domain.usecase.group.GetGroupDetailUseCase
 import com.yapp.bol.domain.usecase.group.GetJoinedGroupUseCase
 import com.yapp.bol.domain.usecase.group.JoinGroupUseCase
 import com.yapp.bol.domain.usecase.login.GetMyInfoUseCase
 import com.yapp.bol.domain.usecase.login.MatchUseCase
+import com.yapp.bol.presentation.mapper.MatchMapper.toPresentation
+import com.yapp.bol.presentation.model.MemberInfo
 import com.yapp.bol.presentation.utils.checkedApiResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -43,7 +50,15 @@ class GroupJoinViewModel @Inject constructor(
     private val _successJoinGroup = MutableSharedFlow<Pair<Boolean, String?>>()
     val successJoinGroup = _successJoinGroup.asSharedFlow()
 
+    private val _guestList = MutableLiveData<List<MemberInfo>>(listOf())
+    val guestList: LiveData<List<MemberInfo>> = _guestList
+
+    var accessCode = ""
+
     var nickName = ""
+    private var loadingState = false
+    private var cursor: String? = null
+    private var hasNext = true
 
     private var myJoinedGroupList = listOf<Int>()
 
@@ -90,14 +105,14 @@ class GroupJoinViewModel @Inject constructor(
         return myJoinedGroupList.find { it == groupItem.value?.id?.toInt() } != null
     }
 
-    fun joinGroup(accessCode: String, nickName: String) {
+    fun joinGroup(accessCode: String, nickName: String, guestId: Int? = null) {
         viewModelScope.launch {
             _loading.emit(true to "모임에 들어가는 중")
 
             validateNickName(nickName) { isAvailable ->
-                if (isAvailable) {
+                if (isAvailable || guestId != null) {
                     launch {
-                        implementJoinGroup(accessCode, nickName)
+                        implementJoinGroup(accessCode, nickName, guestId)
                     }
                 } else {
                     launch {
@@ -108,8 +123,8 @@ class GroupJoinViewModel @Inject constructor(
         }
     }
 
-    private suspend fun implementJoinGroup(accessCode: String, nickName: String) {
-        joinGroupUseCase(groupId.toString(), accessCode, nickName).collectLatest {
+    private suspend fun implementJoinGroup(accessCode: String, nickName: String, guestId: Int?) {
+        joinGroupUseCase(groupId.toString(), accessCode, nickName, guestId).collectLatest {
             _loading.emit(false to "")
             checkedApiResult(
                 apiResult = it,
@@ -131,7 +146,7 @@ class GroupJoinViewModel @Inject constructor(
         nickName: String,
         successValidateNickname: (Boolean) -> Unit,
     ) {
-        matchUseCase.getValidateNickName(groupId.toInt(), nickName).collectLatest {
+        matchUseCase.getValidateNickName(groupId, nickName).collectLatest {
             checkedApiResult(
                 apiResult = it,
                 success = { isAvailable ->
@@ -163,5 +178,30 @@ class GroupJoinViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    fun getMembers(nickname: String? = null) {
+        if (hasNext.not() || loadingState) return
+        loadingState = true
+        viewModelScope.launch {
+            val memberList = withContext(Dispatchers.IO) { getMemberList(nickname) }
+            val guest = memberList.filter { it.role == Role.GUEST.string } // Role 부분 파일 분리해도 좋을 듯 ?
+            _guestList.value = guest
+        }
+    }
+
+    private suspend fun getMemberList(nickname: String? = null): List<MemberInfo> {
+        var memberList = listOf<MemberInfo>()
+        matchUseCase.getMemberList(groupId, 20, cursor, nickname).collectLatest {
+            checkedApiResult(
+                apiResult = it,
+                success = { data ->
+                    memberList = data.members.map { member -> member.toPresentation() }
+                    cursor = data.cursor
+                    hasNext = data.hasNext
+                },
+            )
+        }
+        return memberList
     }
 }

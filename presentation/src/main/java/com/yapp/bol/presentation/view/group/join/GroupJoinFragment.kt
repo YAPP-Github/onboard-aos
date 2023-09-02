@@ -14,6 +14,7 @@ import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.dpToPx
 import com.yapp.bol.presentation.utils.loadImage
 import com.yapp.bol.presentation.utils.setStatusBarColor
+import com.yapp.bol.presentation.view.group.dialog.guest.GuestListDialog
 import com.yapp.bol.presentation.view.group.join.data.Margin
 import com.yapp.bol.presentation.view.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +25,17 @@ class GroupJoinFragment : Fragment() {
 
     private lateinit var binding: FragmentGroupJoinBinding
     private val viewModel by viewModels<GroupJoinViewModel>()
+
+    private val guestListDialog by lazy {
+        GuestListDialog(
+            context = requireContext(),
+            getNextGuest = { viewModel.getMembers() },
+            joinedGroup = { guestId, nickname ->
+                viewModel.joinGroup(viewModel.accessCode, nickname, guestId)
+                handleSuccessJoinGroup(nickname)
+            }
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +92,7 @@ class GroupJoinFragment : Fragment() {
 
                     viewModel.successCheckGroupAccessCode.collectWithLifecycle(viewLifecycleOwner) { (success, message) -> // ktlint-disable max-line-length
                         if (success) {
+                            viewModel.accessCode = code
                             showProfileSettingDialog(dialog, code)
                             dismiss()
                         } else {
@@ -98,6 +111,13 @@ class GroupJoinFragment : Fragment() {
             .setSingleLine(true)
             .setText(viewModel.nickName)
             .setHintText("닉네임을 입력해주세요.")
+            .setGuestOnClicked {
+                if (viewModel.guestList.value.isNullOrEmpty()) viewModel.getMembers()
+                else {
+                    guestListDialog.show()
+                    guestListDialog.guestListAdapter.submitList(viewModel.guestList.value ?: listOf())
+                }
+            }
             .visibleInputCount(true)
             .visibleSummitButton(true)
             .visibleGuestMember(true)
@@ -123,6 +143,19 @@ class GroupJoinFragment : Fragment() {
             }.show()
     }
 
+    private fun handleSuccessJoinGroup(nickname: String) {
+        viewModel.successJoinGroup.collectWithLifecycle(viewLifecycleOwner) { (success, message) ->
+            if (success) {
+                WelcomeJoinDialog(requireContext(), nickname).apply {
+                    setOnDismissListener {
+                        moveHomeActivity()
+                    }
+                }.show()
+                guestListDialog.dismiss()
+            }
+        }
+    }
+
     private fun moveHomeActivity() {
         HomeActivity.startActivity(binding.root.context, groupId = viewModel.groupItem.value!!.id)
         requireActivity().finish()
@@ -138,6 +171,17 @@ class GroupJoinFragment : Fragment() {
                 binding.groupAdminView.setGroupItemDetailTitle(it.ownerNickname)
                 binding.groupMemberView.setGroupItemDetailTitle("${it.memberCount}명")
                 binding.ivGroupJoinBg.loadImage(it.profileImageUrl, 0)
+            }
+
+            guestList.observe(viewLifecycleOwner) {
+                if (it.isNotEmpty()) {
+                    if (guestListDialog.isShowing) {
+                        guestListDialog.guestListAdapter.submitList(it)
+                    } else {
+                        guestListDialog.show()
+                        guestListDialog.guestListAdapter.submitList(it)
+                    }
+                }
             }
         }
     }
