@@ -37,7 +37,7 @@ class MemberRepositoryImpl @Inject constructor(
         memberDataSource.postGuestMember(groupId, nickname)
     }
 
-    override fun joinGroup(groupId: String, accessCode: String, nickname: String): Flow<ApiResult<ErrorItem>> {
-        return memberDataSource.joinGroup(groupId, accessCode, nickname).map { it.mapperToBaseItem() }
+    override fun joinGroup(groupId: String, accessCode: String, nickname: String, guestId: Int?): Flow<ApiResult<ErrorItem>> {
+        return memberDataSource.joinGroup(groupId, accessCode, nickname, guestId).map { it.mapperToBaseItem() }
     }
 }

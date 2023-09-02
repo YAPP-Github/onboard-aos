@@ -42,8 +42,9 @@ class MemberDataSourceImpl @Inject constructor(
         groupId: String,
         accessCode: String,
         nickname: String,
+        guestId: Int?,
     ): Flow<ApiResult<ErrorResponse>> = flow {
-        val result = safeApiCall { memberApi.joinGroup(groupId, JoinGroupApiRequest(nickname, accessCode)) }
+        val result = safeApiCall { memberApi.joinGroup(groupId, JoinGroupApiRequest(nickname, accessCode, guestId)) }
         emit(result)
     }
 }
