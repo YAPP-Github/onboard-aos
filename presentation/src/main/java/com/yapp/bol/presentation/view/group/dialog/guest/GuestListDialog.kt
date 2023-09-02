@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.GuestListDialogBinding
-import com.yapp.bol.presentation.model.MemberInfo
 import com.yapp.bol.presentation.utils.dialogWidthResize
 
 class GuestListDialog(
