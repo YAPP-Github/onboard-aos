@@ -11,6 +11,7 @@ import com.yapp.bol.presentation.BuildConfig
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseActivity
 import com.yapp.bol.presentation.databinding.ActivityKakaoTestBinding
+import com.yapp.bol.presentation.firebase.GA
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.view.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,6 +42,7 @@ class KakaoTestActivity : BaseActivity<ActivityKakaoTestBinding>(R.layout.activi
         kakaoLogin()
         subscribeObservables()
     }
+
     private fun kakaoLogin() {
         if (isKakaoTalkInstalled) {
             handleKakaoTalkLoginResult()
@@ -62,6 +64,9 @@ class KakaoTestActivity : BaseActivity<ActivityKakaoTestBinding>(R.layout.activi
             startActivity(intent)
         }
     }
+
+    override fun getScreenName(): String = GA.Screen.KAKAO_LOGIn
+
     companion object {
         const val KAKAO_API_KEY = BuildConfig.KAKAO_API_KEY
     }

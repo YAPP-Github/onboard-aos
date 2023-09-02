@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseActivity
 import com.yapp.bol.presentation.databinding.ActivitySplashBinding
+import com.yapp.bol.presentation.firebase.GA
 import com.yapp.bol.presentation.utils.setStatusBarColor
 import com.yapp.bol.presentation.view.home.HomeActivity
 import com.yapp.bol.presentation.view.login.LoginActivity
@@ -23,7 +24,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         setStatusBarColor(
             this@SplashActivity,
             R.color.Gray_15,
-            isIconBlack = false
+            isIconBlack = false,
         )
     }
 
@@ -57,4 +58,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
             }
         }
     }
+
+    override fun getScreenName(): String = GA.Screen.SPLASH
 }

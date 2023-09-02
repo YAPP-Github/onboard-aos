@@ -7,6 +7,7 @@ import androidx.navigation.fragment.findNavController
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentGameSelectBinding
+import com.yapp.bol.presentation.firebase.GA
 import com.yapp.bol.presentation.view.match.MatchActivity.Companion.GAME_SELECT
 import com.yapp.bol.presentation.view.match.MatchViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,6 +43,8 @@ class GameSelectFragment : BaseFragment<FragmentGameSelectBinding>(R.layout.frag
 
         gameSelectViewModel.updateGroupId(matchViewModel.groupId)
     }
+
+    override fun getScreenName(): String = GA.Screen.GAME_SELECT
 
     companion object {
         const val GAME_NAME = "Game Name"

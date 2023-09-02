@@ -14,6 +14,7 @@ import androidx.paging.PagingData
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentHomeExploreBinding
+import com.yapp.bol.presentation.firebase.GA
 import com.yapp.bol.presentation.utils.createSmoothColorAnimator
 import com.yapp.bol.presentation.utils.loseFocusOnAction
 import com.yapp.bol.presentation.utils.navigateFragment
@@ -44,6 +45,7 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
         setBackButton()
         setStatusBarColor(this@HomeExploreFragment.requireActivity(), designsystemR.color.Gray_2, isIconBlack = true)
     }
+
 
     private fun setAdapter() {
         val adapter = GroupListAdapter(
@@ -171,4 +173,6 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
             binding.root.findNavController().popBackStack()
         }
     }
+
+    override fun getScreenName(): String = GA.Screen.HOME_EXPLORE
 }

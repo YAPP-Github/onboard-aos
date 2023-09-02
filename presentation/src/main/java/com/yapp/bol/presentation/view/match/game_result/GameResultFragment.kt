@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentGameResultBinding
+import com.yapp.bol.presentation.firebase.GA
 import com.yapp.bol.presentation.model.MemberInfo
 import com.yapp.bol.presentation.model.ResultRecordItem
 import com.yapp.bol.presentation.utils.KeyboardManager
@@ -186,6 +187,8 @@ class GameResultFragment : BaseFragment<FragmentGameResultBinding>(R.layout.frag
         keyboardVisibilityUtils.detachKeyboardListeners()
         super.onDestroyView()
     }
+
+    override fun getScreenName(): String = GA.Screen.GAME_RESULT
 
     companion object {
         const val GAME_RESULT_TITLE = "결과 기록"

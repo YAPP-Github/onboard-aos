@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentNicknameBinding
+import com.yapp.bol.presentation.firebase.GA
 import com.yapp.bol.presentation.utils.Converter
 import com.yapp.bol.presentation.utils.isNicknameValid
 import com.yapp.bol.presentation.view.group.GroupActivity
@@ -52,4 +53,6 @@ class NicknameFragment : BaseFragment<FragmentNicknameBinding>(R.layout.fragment
         startActivity(intent)
         requireActivity().finish()
     }
+
+    override fun getScreenName(): String = GA.Screen.NICKNAME
 }

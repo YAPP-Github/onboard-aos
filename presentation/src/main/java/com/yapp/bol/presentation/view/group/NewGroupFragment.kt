@@ -11,6 +11,7 @@ import com.yapp.bol.domain.model.NewGroupItem
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentNewGroupBinding
+import com.yapp.bol.presentation.firebase.GA
 import com.yapp.bol.presentation.utils.Constant
 import com.yapp.bol.presentation.utils.Converter
 import com.yapp.bol.presentation.utils.GalleryManager
@@ -152,6 +153,8 @@ class NewGroupFragment : BaseFragment<FragmentNewGroupBinding>(R.layout.fragment
         keyboardVisibilityUtils.detachKeyboardListeners()
         super.onDestroyView()
     }
+
+    override fun getScreenName(): String = GA.Screen.NEW_GROUP
 
     companion object {
         const val NAVE_MAX_LENGTH = 14

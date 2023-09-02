@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentHomeRankBinding
+import com.yapp.bol.presentation.firebase.GA
 import com.yapp.bol.presentation.model.DrawerGroupInfoUiModel
 import com.yapp.bol.presentation.model.UserRankUiModel
 import com.yapp.bol.presentation.utils.collectWithLifecycle
@@ -289,6 +290,8 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
             Intent(Intent.ACTION_VIEW, Uri.parse(url)).also { startActivity(it) }
         }
     }
+
+    override fun getScreenName(): String = GA.Screen.HOME_RANK
 
     companion object {
         const val GROUP_ID = "group id"

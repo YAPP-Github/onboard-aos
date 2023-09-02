@@ -6,6 +6,7 @@ import android.net.Uri
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseActivity
 import com.yapp.bol.presentation.databinding.ActivityUpgradeBinding
+import com.yapp.bol.presentation.firebase.GA
 
 class UpgradeActivity : BaseActivity<ActivityUpgradeBinding>(R.layout.activity_upgrade) {
     override fun onCreateAction() {
@@ -32,4 +33,6 @@ class UpgradeActivity : BaseActivity<ActivityUpgradeBinding>(R.layout.activity_u
             )
         }
     }
+
+    override fun getScreenName(): String = GA.Screen.UPDATE
 }

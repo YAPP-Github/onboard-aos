@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentMemberSelectBinding
+import com.yapp.bol.presentation.firebase.GA
 import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
 import com.yapp.bol.presentation.utils.KeyboardManager
 import com.yapp.bol.presentation.utils.collectWithLifecycle
@@ -59,7 +60,7 @@ class MemberSelectFragment : BaseFragment<FragmentMemberSelectBinding>(R.layout.
             getValidateNickName = { nickname ->
                 memberSelectViewModel.getValidateNickName(
                     matchViewModel.groupId,
-                    nickname
+                    nickname,
                 )
             },
         )
@@ -195,7 +196,7 @@ class MemberSelectFragment : BaseFragment<FragmentMemberSelectBinding>(R.layout.
             }
             findNavController().navigate(
                 R.id.action_memberSelectFragment_to_gameResultFragment,
-                bundle
+                bundle,
             )
         }
     }
@@ -226,6 +227,8 @@ class MemberSelectFragment : BaseFragment<FragmentMemberSelectBinding>(R.layout.
         keyboardVisibilityUtils.detachKeyboardListeners()
         super.onDestroyView()
     }
+
+    override fun getScreenName(): String = GA.Screen.MEMBER_SELECT
 
     companion object {
         const val PLAYERS = "Players"

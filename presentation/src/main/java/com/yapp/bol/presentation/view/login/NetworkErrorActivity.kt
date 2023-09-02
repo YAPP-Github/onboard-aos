@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseActivity
 import com.yapp.bol.presentation.databinding.ActivityNetworkErrorBinding
+import com.yapp.bol.presentation.firebase.GA
 import com.yapp.bol.presentation.view.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,4 +31,6 @@ class NetworkErrorActivity : BaseActivity<ActivityNetworkErrorBinding>(R.layout.
             finish()
         }
     }
+
+    override fun getScreenName(): String = GA.Screen.NETWORK_ERROR
 }

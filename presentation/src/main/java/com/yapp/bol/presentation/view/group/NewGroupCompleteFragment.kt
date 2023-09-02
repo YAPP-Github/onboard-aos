@@ -7,6 +7,7 @@ import com.yapp.bol.domain.model.NewGroupItem
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentNewGroupCompleteBinding
+import com.yapp.bol.presentation.firebase.GA
 import com.yapp.bol.presentation.utils.copyToClipboard
 import com.yapp.bol.presentation.utils.loadImage
 import com.yapp.bol.presentation.utils.showToast
@@ -70,4 +71,6 @@ class NewGroupCompleteFragment : BaseFragment<FragmentNewGroupCompleteBinding>(R
         HomeActivity.startActivity(binding.root.context, newGroup.id.toLong())
         requireActivity().finish()
     }
+
+    override fun getScreenName(): String = GA.Screen.NEW_GROUP_COMPLETE
 }
