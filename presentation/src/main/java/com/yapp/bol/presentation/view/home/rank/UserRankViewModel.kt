@@ -96,6 +96,8 @@ class UserRankViewModel @Inject constructor(
             val group: MutableList<DrawerGroupInfoUiModel> = mutableListOf()
             var gameIndex = -1
 
+            fun <T> List<T>.middleIndex() = this.size / 2
+
             gameItemFlow
                 .combine(currentGroupFlow) { gameItem, currentGroup ->
                     checkedApiResult(
@@ -109,8 +111,8 @@ class UserRankViewModel @Inject constructor(
                                 }
                                 gameId = it
                             } ?: kotlin.run {
-                                gameIndex = data.size / 2 + startPadding
-                                gameId = data[data.size / 2].id
+                                gameIndex = data.middleIndex() + startPadding
+                                gameId = data[data.middleIndex()].id
                             }
                         },
                         error = { throwable -> throw Exception(throwable.code) }
