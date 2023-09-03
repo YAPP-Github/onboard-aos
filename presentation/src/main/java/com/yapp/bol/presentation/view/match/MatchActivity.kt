@@ -6,6 +6,7 @@ import androidx.navigation.findNavController
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseActivity
 import com.yapp.bol.presentation.databinding.ActivityMatchBinding
+import com.yapp.bol.presentation.firebase.GA
 import com.yapp.bol.presentation.utils.createScaleWidthAnimator
 import com.yapp.bol.presentation.utils.dpToPx
 import com.yapp.bol.presentation.view.home.rank.HomeRankFragment.Companion.GROUP_ID
@@ -47,6 +48,8 @@ class MatchActivity : BaseActivity<ActivityMatchBinding>(R.layout.activity_match
             viewModel.updateCurrentPage(it)
         }
     }
+
+    override fun getScreenName(): String = GA.Screen.MAIN
 
     private fun View.startAnimator(isCheck: Boolean?) {
         if (isCheck == null) return

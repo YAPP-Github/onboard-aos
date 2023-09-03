@@ -4,6 +4,7 @@ import android.webkit.WebViewClient
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseActivity
 import com.yapp.bol.presentation.databinding.ActivityTermsWebViewBinding
+import com.yapp.bol.presentation.firebase.GA
 import com.yapp.bol.presentation.view.login.LoginFragment.Companion.WEB_VIEW_KEY
 
 class TermsWebViewActivity : BaseActivity<ActivityTermsWebViewBinding>(R.layout.activity_terms_web_view) {
@@ -25,4 +26,6 @@ class TermsWebViewActivity : BaseActivity<ActivityTermsWebViewBinding>(R.layout.
             }
         }
     }
+
+    override fun getScreenName(): String = GA.Screen.TERMS_WEB_VIEW
 }

@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentTermBinding
+import com.yapp.bol.presentation.firebase.GA
 import com.yapp.bol.presentation.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -62,6 +63,8 @@ class TermFragment : BaseFragment<FragmentTermBinding>(R.layout.fragment_term) {
             return true
         }
     }
+
+    override fun getScreenName(): String = GA.Screen.TERMS
 
     companion object {
         const val TERMS_BUNDLE_KEY = "IS_PRIVACY_TERM"

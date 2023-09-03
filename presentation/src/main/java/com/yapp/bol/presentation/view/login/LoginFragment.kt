@@ -15,6 +15,7 @@ import com.yapp.bol.presentation.BuildConfig
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentMainBinding
+import com.yapp.bol.presentation.firebase.GA
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.showToast
 import com.yapp.bol.presentation.view.group.GroupActivity
@@ -48,8 +49,11 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
                 }
 
                 override fun onClickSignUp() {
-                    if (loginViewModel.onboardState.value?.size == NONE_AGREE) moveSingUp()
-                    else moveGroupSearch()
+                    if (loginViewModel.onboardState.value?.size == NONE_AGREE) {
+                        moveSingUp()
+                    } else {
+                        moveGroupSearch()
+                    }
                 }
 
                 override fun onClickTermsDetail(url: String) {
@@ -63,7 +67,7 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
                 override fun dismissAction(state: Boolean) {
                     loginViewModel.updateDialogState(state)
                 }
-            }
+            },
         )
     }
 
@@ -197,6 +201,9 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
             requireActivity().finish()
         }
     }
+
+    override fun getScreenName(): String = GA.Screen.LOGIN
+
     companion object {
         const val ONBOARD_TERMS = "TERMS"
         const val ONBOARD_NICKNAME = "NICKNAME"

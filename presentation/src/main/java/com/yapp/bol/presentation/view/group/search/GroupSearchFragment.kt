@@ -14,6 +14,7 @@ import androidx.paging.PagingData
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentGroupSearchBinding
+import com.yapp.bol.presentation.firebase.GA
 import com.yapp.bol.presentation.utils.createSmoothColorAnimator
 import com.yapp.bol.presentation.utils.loseFocusOnAction
 import com.yapp.bol.presentation.utils.navigateFragment
@@ -164,4 +165,6 @@ class GroupSearchFragment : BaseFragment<FragmentGroupSearchBinding>(R.layout.fr
                 )
             }
         }
+
+    override fun getScreenName(): String = GA.Screen.GROUP_SEARCH
 }

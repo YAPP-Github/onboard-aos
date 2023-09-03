@@ -14,6 +14,7 @@ import androidx.paging.PagingData
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentHomeExploreBinding
+import com.yapp.bol.presentation.firebase.GA
 import com.yapp.bol.presentation.utils.createSmoothColorAnimator
 import com.yapp.bol.presentation.utils.loseFocusOnAction
 import com.yapp.bol.presentation.utils.navigateFragment
@@ -50,7 +51,7 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
             showJoinGroupDialog = {
                 view?.findNavController()?.navigateFragment(
                     R.id.action_homeExploreFragment_to_groupJoinFragment,
-                    "groupId" to it.id
+                    "groupId" to it.id,
                 )
             },
             changeButtonColor = {
@@ -62,7 +63,7 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
                     beforeBgColor = beforeBgColor,
                     afterBgColor = afterBgColor,
                 )
-            }
+            },
         )
         initPaging(adapter)
         binding.initSearchView(adapter)
@@ -74,7 +75,7 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
     private fun initPaging(adapter: GroupListAdapter) {
         val concatAdapter = adapter.withLoadStateAdapters(
             header = GroupListLoadStateAdapter { adapter.retry() },
-            footer = GroupListLoadStateAdapter { adapter.retry() }
+            footer = GroupListLoadStateAdapter { adapter.retry() },
         )
         binding.rvGroupList.adapter = concatAdapter
     }
@@ -115,7 +116,7 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
                 .onEach {
                     setCreateGroupButtonStyle(
                         textColor = textColor,
-                        backgroundColor = backgroundColor
+                        backgroundColor = backgroundColor,
                     )
                     adapter.searchByKeyword(it.toString())
                 }
@@ -125,7 +126,7 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
 
     private fun setCreateGroupButtonStyle(
         textColor: Int,
-        backgroundColor: Int
+        backgroundColor: Int,
     ) {
         binding.viewGroupSearch.btnCreateGroup.apply {
             setTextColor(textColor)
@@ -136,7 +137,7 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
     private fun setCreateGroupButtonStyleWithAnimation(
         textColor: Int,
         beforeBgColor: Int,
-        afterBgColor: Int
+        afterBgColor: Int,
     ) {
         binding.viewGroupSearch.btnCreateGroup.apply {
             setTextColor(textColor)
@@ -157,11 +158,11 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
         viewLifecycleOwner.lifecycleScope.launch {
             when (isTyping) {
                 true -> setImageDrawable(
-                    AppCompatResources.getDrawable(binding.root.context, designsystemR.drawable.ic_x)
+                    AppCompatResources.getDrawable(binding.root.context, designsystemR.drawable.ic_x),
                 )
 
                 false -> setImageDrawable(
-                    AppCompatResources.getDrawable(binding.root.context, designsystemR.drawable.ic_search)
+                    AppCompatResources.getDrawable(binding.root.context, designsystemR.drawable.ic_search),
                 )
             }
         }
@@ -171,4 +172,6 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
             binding.root.findNavController().popBackStack()
         }
     }
+
+    override fun getScreenName(): String = GA.Screen.HOME_EXPLORE
 }

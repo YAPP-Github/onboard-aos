@@ -8,6 +8,7 @@ import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentSettingBinding
+import com.yapp.bol.presentation.firebase.GA
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.navigateFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -63,4 +64,6 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(R.layout.fragment_s
             binding.root.findNavController().popBackStack()
         }
     }
+
+    override fun getScreenName(): String = GA.Screen.SETTING
 }

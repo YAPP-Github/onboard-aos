@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseActivity
 import com.yapp.bol.presentation.databinding.ActivityHomeBinding
+import com.yapp.bol.presentation.firebase.GA
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,8 +25,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
         fun startActivity(context: Context, groupId: Long) {
             context.startActivity(
                 Intent(context, HomeActivity::class.java)
-                    .putExtra(HOME_GROUP_ID_KEY, groupId)
+                    .putExtra(HOME_GROUP_ID_KEY, groupId),
             )
         }
     }
+
+    override fun getScreenName(): String = GA.Screen.HOME
 }
