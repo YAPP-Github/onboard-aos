@@ -66,7 +66,10 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
     }
 
     private fun initViewModel() {
-        viewModel.groupId = activityViewModel.groupId
+        viewModel.fetchAll(
+            initGroupId = activityViewModel.groupId,
+            initGameId = activityViewModel.gameId
+        )
     }
 
     private fun setHomeRecyclerView() {
@@ -77,7 +80,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
     private fun setGameAdapter() {
         val onClick: (position: Int, gameId: Long) -> Unit = { position, gameId ->
             viewModel.setGameItemSelected(position)
-            viewModel.gameId = gameId
+            viewModel.fetchUserList(gameId)
         }
         val scrollAnimation: () -> Unit = {
             binding.rvGameList.smoothScrollToPosition(viewModel.getGameItemSelectedPosition())
@@ -97,7 +100,30 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
     private fun setUserAdapter() {
         val userRankAdapter = UserRankAdapter()
-        binding.rvUserRank.adapter = userRankAdapter
+        val rvUserRank = binding.rvUserRank
+
+        userRankAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onChanged() {
+                rvUserRank.scrollToPosition(0)
+            }
+            override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
+                rvUserRank.scrollToPosition(0)
+            }
+            override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
+                rvUserRank.scrollToPosition(0)
+            }
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                rvUserRank.scrollToPosition(0)
+            }
+            override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
+                rvUserRank.scrollToPosition(0)
+            }
+            override fun onItemRangeChanged(positionStart: Int, itemCount: Int, payload: Any?) {
+                rvUserRank.scrollToPosition(0)
+            }
+        })
+
+        rvUserRank.adapter = userRankAdapter
         observeUserRankUiState(userRankAdapter)
     }
 
@@ -116,9 +142,10 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
     private fun setDrawerAdapter() {
         val otherGroupOnClick: (Long) -> Unit = { id ->
+            activityViewModel.groupId = id
             viewModel.apply {
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
-                groupId = id
+                fetchAll(initGroupId = id)
             }
         }
 
@@ -185,6 +212,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
                         viewRankLoading.visibility = View.GONE
                         viewRankNotFound.root.visibility = if (isNoRank) { View.VISIBLE } else { View.GONE }
                         rvUserRank.visibility = if (isNoRank) { View.GONE } else { View.VISIBLE }
+                        rvUserRank.smoothScrollToPosition(0)
                     }
                 }
 
