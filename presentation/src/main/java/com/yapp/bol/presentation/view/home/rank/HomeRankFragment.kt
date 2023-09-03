@@ -102,7 +102,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
         val userRankAdapter = UserRankAdapter()
         val rvUserRank = binding.rvUserRank
 
-        userRankAdapter.registerAdapterDataObserver(object: RecyclerView.AdapterDataObserver() {
+        userRankAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onChanged() {
                 rvUserRank.scrollToPosition(0)
             }
