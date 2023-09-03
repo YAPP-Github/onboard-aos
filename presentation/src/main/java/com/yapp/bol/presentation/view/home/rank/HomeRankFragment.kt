@@ -116,6 +116,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
 
     private fun setDrawerAdapter() {
         val otherGroupOnClick: (Long) -> Unit = { id ->
+            activityViewModel.groupId = id
             viewModel.apply {
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
                 groupId = id

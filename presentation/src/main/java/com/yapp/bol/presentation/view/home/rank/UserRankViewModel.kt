@@ -95,7 +95,6 @@ class UserRankViewModel @Inject constructor(
             val game: MutableList<HomeGameItemUiModel> = mutableListOf()
             val group: MutableList<DrawerGroupInfoUiModel> = mutableListOf()
             var gameIndex = -1
-            var gameId = GAME_USER_ID_TO_BE_SET
 
             gameItemFlow
                 .combine(currentGroupFlow) { gameItem, currentGroup ->
