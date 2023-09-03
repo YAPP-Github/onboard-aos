@@ -66,7 +66,10 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
     }
 
     private fun initViewModel() {
-        viewModel.groupId = activityViewModel.groupId
+        viewModel.fetchAll(
+            initGroupId = activityViewModel.groupId,
+            initGameId = activityViewModel.gameId
+        )
     }
 
     private fun setHomeRecyclerView() {
@@ -77,7 +80,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
     private fun setGameAdapter() {
         val onClick: (position: Int, gameId: Long) -> Unit = { position, gameId ->
             viewModel.setGameItemSelected(position)
-            viewModel.gameId = gameId
+            viewModel.fetchUserList(gameId)
         }
         val scrollAnimation: () -> Unit = {
             binding.rvGameList.smoothScrollToPosition(viewModel.getGameItemSelectedPosition())
@@ -119,7 +122,7 @@ class HomeRankFragment : BaseFragment<FragmentHomeRankBinding>(R.layout.fragment
             activityViewModel.groupId = id
             viewModel.apply {
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
-                groupId = id
+                fetchAll(initGroupId = id)
             }
         }
 
