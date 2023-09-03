@@ -14,7 +14,9 @@ import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.dpToPx
 import com.yapp.bol.presentation.utils.loadImage
 import com.yapp.bol.presentation.utils.setStatusBarColor
+import com.yapp.bol.presentation.view.group.GroupActivity
 import com.yapp.bol.presentation.view.group.join.data.Margin
+import com.yapp.bol.presentation.view.group.join.type.GroupResultType
 import com.yapp.bol.presentation.view.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
@@ -78,16 +80,41 @@ class GroupJoinFragment : Fragment() {
                 .setOnLimit { code, dialog ->
                     viewModel.checkGroupJoinByAccessCode(code)
 
-                    viewModel.successCheckGroupAccessCode.collectWithLifecycle(viewLifecycleOwner) { (success, message) -> // ktlint-disable max-line-length
-                        if (success) {
-                            showProfileSettingDialog(dialog, code)
-                            dismiss()
-                        } else {
-                            dialog.showErrorMessage(message.orEmpty())
+                    viewModel.groupResult.collectWithLifecycle(viewLifecycleOwner) { groupResultType ->
+                        when (groupResultType) {
+                            is GroupResultType.LOADING -> {
+                                showLoading(true, getString(groupResultType.message))
+                            }
+
+                            is GroupResultType.SUCCESS -> {
+                                showLoading(false)
+
+                                showProfileSettingDialog(dialog, code)
+                                dismiss()
+                            }
+
+                            is GroupResultType.ValidationAccessCode -> {
+                                showLoading(false)
+
+                                dialog.showErrorMessage(getString(groupResultType.message))
+                            }
+
+                            is GroupResultType.UnknownError -> {
+                                showLoading(false)
+
+                                dialog.showErrorMessage(groupResultType.message)
+                            }
+
+                            else -> {}
                         }
                     }
                 }.show()
         }
+    }
+
+    private fun showLoading(isLoading: Boolean, message: String? = null) {
+        binding.loadingLayout.isVisible = isLoading
+        binding.tvLoadingTitle.text = message
     }
 
     private fun showProfileSettingDialog(dialog: InputDialog, code: String) {
@@ -104,39 +131,62 @@ class GroupJoinFragment : Fragment() {
                 it.dismiss()
                 dialog.dismiss()
             }
-            .setOnSummit { nickname, dialog ->
+            .setOnSummit { nickname, nickNameDialog ->
                 viewModel.joinGroup(code, nickname)
+                viewModel.groupResult.collectWithLifecycle(viewLifecycleOwner) { groupResultType ->
+                    when (groupResultType) {
+                        is GroupResultType.LOADING -> {
+                            showLoading(true, getString(groupResultType.message))
+                        }
 
-                viewModel.successJoinGroup.collectWithLifecycle(viewLifecycleOwner) { (success, message) ->
-                    if (success) {
-                        WelcomeJoinDialog(requireContext(), nickname).apply {
-                            setOnDismissListener {
-                                moveHomeActivity()
-                            }
-                        }.show()
-                        dialog.dismiss()
-                    } else {
-                        dialog.showErrorMessage(message.orEmpty())
+                        is GroupResultType.SUCCESS -> {
+                            dialog.dismiss()
+                            nickNameDialog.dismiss()
+
+                            WelcomeJoinDialog(requireContext(), nickname).apply {
+                                setOnDismissListener {
+                                    moveHomeActivity()
+                                }
+                            }.show()
+                        }
+
+                        is GroupResultType.UnknownError -> {
+                            showLoading(false)
+
+                            dialog.showErrorMessage(groupResultType.message)
+                        }
+
+                        is GroupResultType.ValidationNickname -> {
+                            showLoading(false)
+
+                            dialog.showErrorMessage(getString(groupResultType.message))
+                        }
+
+                        else -> {}
                     }
                 }
             }.show()
     }
 
     private fun moveHomeActivity() {
-        HomeActivity.startActivity(binding.root.context, groupId = viewModel.groupItem.value!!.id)
-        requireActivity().finish()
+        when (activity) {
+            is GroupActivity -> {
+                HomeActivity.startActivity(binding.root.context, groupId = viewModel.groupItem.value!!.groupDetail.id)
+                requireActivity().finish()
+            }
+
+            is HomeActivity -> {
+                findNavController().navigate(R.id.action_groupJoinFragment_to_homeRankFragment)
+            }
+        }
     }
 
     private fun subscribeObservables() {
         with(viewModel) {
-            loading.collectWithLifecycle(viewLifecycleOwner) { (isLoading, message) ->
-                binding.loadingLayout.isVisible = isLoading
-                binding.tvLoadingTitle.text = message
-            }
             groupItem.filterNotNull().collectWithLifecycle(viewLifecycleOwner) {
-                binding.groupAdminView.setGroupItemDetailTitle(it.ownerNickname)
-                binding.groupMemberView.setGroupItemDetailTitle("${it.memberCount}명")
-                binding.ivGroupJoinBg.loadImage(it.profileImageUrl, 0)
+                binding.groupAdminView.setGroupItemDetailTitle(it.groupDetail.ownerNickname)
+                binding.groupMemberView.setGroupItemDetailTitle("${it.groupDetail.memberCount}명")
+                binding.ivGroupJoinBg.loadImage(it.groupDetail.profileImageUrl, 0)
             }
         }
     }
