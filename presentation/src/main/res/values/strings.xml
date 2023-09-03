@@ -52,7 +52,7 @@
     <string name="guest_name_set_tip">Tip :임시 멤버의 닉네임은 기억하기 쉽게 만들어주세요.\n이후 온보드에 가입할 때 기록을 연동할 수 있습니다.</string>
 
     <string name="search_result_nothing">\'%s\'에 대한 검색 결과가 없습니다.</string>
-    <string name="search_result_nothing_guide">함께 보드게임을 플레이한 상대가 온보드에\n 아직 없다면,임시 멤버로 추가해 기록해보세요!</string>
+    <string name="search_result_nothing_guide">함께 보드게임을 플레이한 상대가 온보드에 아직\n 없다면,임시 멤버로 추가해 기록해보세요!</string>
     <string name="guest_add_nothing">임시 멤버 추가</string>
 
     <string name="game_result_rank">%d위</string>
@@ -87,7 +87,10 @@
     <string name="member_number">%d명</string>
     <string name="owner">관리자</string>
     <string name="group_join_title">모임 들어가기</string>
+    <string name="group_join_entering">모임에 들어가는 중</string>
     <string name="group_join_code_input_plz">모임 참여 코드를 입력해주세요</string>
+    <string name="group_join_already_exists_nickname">이미 있는 이름입니다. 다른 이름을 설정해주세요.</string>
+    <string name="group_join_not_correct_code">참여 코드가 맞지 않습니다.</string>
     <string name="group_join_code_input">참여 코드 입력</string>
 
     <string name="home_help_url">https://docs.google.com/forms/d/e/1FAIpQLSfY23k3wSmAMbrkrSrJbgQuE3abWfY1WO0cqiIyN-F1egysJA/viewform?usp=sf_link</string>

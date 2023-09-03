@@ -14,7 +14,7 @@ import javax.inject.Inject
 class GetGroupJoinedUseCase @Inject constructor(
     private val groupRepository: GroupRepository,
     private val userRepository: UserRepository,
-    private val gameRepository: GameRepository
+    private val gameRepository: GameRepository,
 ) {
 
     suspend operator fun invoke(groupId: Int) = withContext(IO) {
@@ -38,7 +38,15 @@ class GetGroupJoinedUseCase @Inject constructor(
             isSuccess = { groupGameList = it },
         )
 
-        return@withContext GetGroupJoinedItem(groupDetail!!, groupGameList!!, myNickname, hasJoinedGroup)
+        gameRepository.getGameList(groupId).doWork(
+            isSuccess = { groupGameList = it },
+        )
+
+        return@withContext if (groupGameList != null && groupGameList.isNullOrEmpty()) {
+            GetGroupJoinedItem(groupDetail!!, groupGameList!!, myNickname, hasJoinedGroup)
+        } else {
+            null
+        }
     }
 
     private fun hasJoinedGroup(groupList: List<Int>, groupId: Int) = groupList.find { it == groupId } != null

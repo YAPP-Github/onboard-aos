@@ -1,9 +1,21 @@
 package com.yapp.bol.presentation.view.group.join.type
 
+import androidx.annotation.StringRes
+import com.yapp.bol.presentation.R
+
 sealed class GroupResultType {
-    data class LOADING(val message: String = "모임에 들어가는 중") : GroupResultType()
+    data class LOADING(
+        @StringRes val message: Int = R.string.group_join_entering,
+    ) : GroupResultType()
+
     object SUCCESS : GroupResultType()
-    data class ValidationNickname(val message: String = "이미 있는 이름입니다. 다른 이름을 설정해주세요.") : GroupResultType()
-    data class ValidationAccessCode(val message: String = "참여 코드가 맞지 않습니다.") : GroupResultType()
+    data class ValidationNickname(
+        @StringRes val message: Int = R.string.group_join_already_exists_nickname,
+    ) : GroupResultType()
+
+    data class ValidationAccessCode(
+        @StringRes val message: Int = R.string.group_join_not_correct_code,
+    ) : GroupResultType()
+
     data class UnknownError(val message: String) : GroupResultType()
 }
