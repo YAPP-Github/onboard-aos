@@ -37,7 +37,6 @@ class GroupJoinFragment : Fragment() {
             getNextGuest = { viewModel.getMembers() },
             joinedGroup = { guestId, nickname ->
                 viewModel.joinGroup(viewModel.accessCode, nickname, guestId)
-                handleSuccessJoinGroup(nickname)
             },
         )
     }
@@ -102,7 +101,9 @@ class GroupJoinFragment : Fragment() {
                             is GroupResultType.SUCCESS -> {
                                 showLoading(false)
 
+                                viewModel.accessCode = code
                                 showProfileSettingDialog(dialog, code)
+
                                 dismiss()
                             }
 
@@ -119,16 +120,6 @@ class GroupJoinFragment : Fragment() {
                             }
 
                             else -> {}
-                        }
-                    }
-
-                    viewModel.successCheckGroupAccessCode.collectWithLifecycle(viewLifecycleOwner) { (success, message) -> // ktlint-disable max-line-length
-                        if (success) {
-                            viewModel.accessCode = code
-                            showProfileSettingDialog(dialog, code)
-                            dismiss()
-                        } else {
-                            dialog.showErrorMessage(message.orEmpty())
                         }
                     }
                 }.show()
@@ -172,15 +163,9 @@ class GroupJoinFragment : Fragment() {
                         }
 
                         is GroupResultType.SUCCESS -> {
-                            dialog.dismiss()
                             nickNameDialog.dismiss()
 
-                            WelcomeJoinDialog(requireContext(), nickname).apply {
-                                setOnDismissListener {
-                                    moveHomeActivity()
-                                }
-                            }.show()
-                            dialog.dismiss()
+                            handleSuccessJoinGroup()
                         }
 
                         is GroupResultType.UnknownError -> {
@@ -201,17 +186,14 @@ class GroupJoinFragment : Fragment() {
             }.show()
     }
 
-    private fun handleSuccessJoinGroup(nickname: String) {
-        viewModel.successJoinGroup.collectWithLifecycle(viewLifecycleOwner) { (success, _) ->
-            if (success) {
-                WelcomeJoinDialog(requireContext(), nickname).apply {
-                    setOnDismissListener {
-                        moveHomeActivity()
-                    }
-                }.show()
-                guestListDialog.dismiss()
+    private fun handleSuccessJoinGroup(nickname: String = viewModel.nickName) {
+        WelcomeJoinDialog(requireContext(), nickname).apply {
+            setOnDismissListener {
+                moveHomeActivity()
             }
-        }
+        }.show()
+
+        guestListDialog.dismiss()
     }
 
     private fun moveHomeActivity() {
@@ -232,10 +214,6 @@ class GroupJoinFragment : Fragment() {
 
     private fun subscribeObservables() {
         with(viewModel) {
-            loading.collectWithLifecycle(viewLifecycleOwner) { (isLoading, message) ->
-                binding.loadingLayout.isVisible = isLoading
-                binding.tvLoadingTitle.text = message
-            }
             groupItem.filterNotNull().collectWithLifecycle(viewLifecycleOwner) {
                 binding.groupAdminView.setGroupItemDetailTitle(it.groupDetail.ownerNickname)
                 binding.groupMemberView.setGroupItemDetailTitle("${it.groupDetail.memberCount}명")

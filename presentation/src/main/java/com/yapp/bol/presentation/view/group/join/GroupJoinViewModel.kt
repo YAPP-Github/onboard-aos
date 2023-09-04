@@ -27,33 +27,24 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GroupJoinViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
     private val joinGroupUseCase: JoinGroupUseCase,
     private val checkGroupAccessCodeUseCase: CheckGroupJoinByAccessCodeUseCase,
     private val matchUseCase: MatchUseCase,
     private val getGroupJoinedUseCase: GetGroupJoinedUseCase,
-    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-
-    private val _successCheckGroupAccessCode = MutableSharedFlow<Pair<Boolean, String?>>()
-    val successCheckGroupAccessCode = _successCheckGroupAccessCode.asSharedFlow()
-
-    private val _loading = MutableSharedFlow<Pair<Boolean, String>>()
-    val loading = _loading.asSharedFlow()
 
     val groupItem = MutableStateFlow<GetGroupJoinedItem?>(null)
 
     private val groupId = savedStateHandle.get<Int>("groupId") ?: 0
 
-    private val _successJoinGroup = MutableSharedFlow<Pair<Boolean, String?>>()
-    val successJoinGroup = _successJoinGroup.asSharedFlow()
+    private val _groupResult = MutableSharedFlow<GroupResultType>()
+    val groupResult = _groupResult.asSharedFlow()
 
     private val _guestList = MutableLiveData<List<MemberInfo>>(listOf())
     val guestList: LiveData<List<MemberInfo>> = _guestList
 
-    private val _groupResult = MutableSharedFlow<GroupResultType>()
-    val groupResult = _groupResult.asSharedFlow()
-
-    var nickName = ""
+    val nickName by lazy { groupItem.value?.nickname.orEmpty() }
     var accessCode = ""
 
     private var loadingState = false
@@ -64,8 +55,6 @@ class GroupJoinViewModel @Inject constructor(
         viewModelScope.launch {
             getGroupJoinedUseCase(groupId).run {
                 groupItem.emit(this)
-
-                nickName = this?.nickname.orEmpty()
             }
         }
     }
@@ -76,8 +65,6 @@ class GroupJoinViewModel @Inject constructor(
 
     fun joinGroup(accessCode: String, nickName: String, guestId: Int? = null) {
         viewModelScope.launch {
-            _loading.emit(true to "모임에 들어가는 중")
-
             validateNickName(nickName) { isAvailable ->
                 if (isAvailable || guestId != null) {
                     launch {
