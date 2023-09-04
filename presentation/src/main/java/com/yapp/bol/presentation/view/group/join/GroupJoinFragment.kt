@@ -170,7 +170,7 @@ class GroupJoinFragment : Fragment() {
     }
 
     private fun moveHomeActivity() {
-        val groupId = viewModel.groupItem.value!!.groupDetail.id
+        val groupId = viewModel.groupId.toLong()
         when (activity) {
             is GroupActivity -> {
                 HomeActivity.startActivity(binding.root.context, groupId = groupId)

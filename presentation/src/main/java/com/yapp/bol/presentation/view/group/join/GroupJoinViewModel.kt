@@ -29,7 +29,7 @@ class GroupJoinViewModel @Inject constructor(
 
     val groupItem = MutableStateFlow<GetGroupJoinedItem?>(null)
 
-    private val groupId = savedStateHandle.get<Int>("groupId") ?: 0
+    val groupId = savedStateHandle.get<Int>("groupId") ?: 0
 
     private val _groupResult = MutableSharedFlow<GroupResultType>()
     val groupResult = _groupResult.asSharedFlow()
