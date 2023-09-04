@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
+            android:src="@{vm.groupItem.groupDetail.profileImageUrl}"
             android:tintMode="src_atop"
             app:tint="#80000000" />
 
@@ -118,7 +119,7 @@
                     app:gameTitle="@{vm.groupItem.getSecondMaxGame().name}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    bol:imageUrl="@{vm.groupItem.getSecondMaxGame().img}"/>
+                    bol:imageUrl="@{vm.groupItem.getSecondMaxGame().img}" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
