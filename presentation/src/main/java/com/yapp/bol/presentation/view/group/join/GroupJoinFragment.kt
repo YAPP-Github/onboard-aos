@@ -16,6 +16,7 @@ import com.yapp.bol.presentation.utils.dpToPx
 import com.yapp.bol.presentation.utils.loadImage
 import com.yapp.bol.presentation.utils.setStatusBarColor
 import com.yapp.bol.presentation.view.group.GroupActivity
+import com.yapp.bol.presentation.view.group.dialog.guest.GuestListDialog
 import com.yapp.bol.presentation.view.group.join.data.Margin
 import com.yapp.bol.presentation.view.group.join.type.GroupResultType
 import com.yapp.bol.presentation.view.home.HomeActivity
@@ -29,6 +30,16 @@ class GroupJoinFragment : Fragment() {
     private lateinit var binding: FragmentGroupJoinBinding
     private val viewModel by viewModels<GroupJoinViewModel>()
     private val homeViewModel: HomeViewModel by activityViewModels()
+
+    private val guestListDialog by lazy {
+        GuestListDialog(
+            context = requireContext(),
+            getNextGuest = { viewModel.getMembers() },
+            joinedGroup = { guestId, nickname ->
+                viewModel.joinGroup(viewModel.accessCode, nickname, guestId)
+            },
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,7 +101,9 @@ class GroupJoinFragment : Fragment() {
                             is GroupResultType.SUCCESS -> {
                                 showLoading(false)
 
+                                viewModel.accessCode = code
                                 showProfileSettingDialog(dialog, code)
+
                                 dismiss()
                             }
 
@@ -127,7 +140,16 @@ class GroupJoinFragment : Fragment() {
             .setText(viewModel.nickName)
             .setHintText("닉네임을 입력해주세요.")
             .visibleInputCount(true)
+            .visibleGuestMember(true)
             .visibleSummitButton(true)
+            .setGuestOnClicked {
+                if (viewModel.guestList.value.isNullOrEmpty()) {
+                    viewModel.getMembers()
+                } else {
+                    guestListDialog.show()
+                    guestListDialog.guestListAdapter.submitList(viewModel.guestList.value ?: listOf())
+                }
+            }
             .onBackPressed {
                 it.dismiss()
                 dialog.dismiss()
@@ -141,14 +163,9 @@ class GroupJoinFragment : Fragment() {
                         }
 
                         is GroupResultType.SUCCESS -> {
-                            dialog.dismiss()
                             nickNameDialog.dismiss()
 
-                            WelcomeJoinDialog(requireContext(), nickname).apply {
-                                setOnDismissListener {
-                                    moveHomeActivity()
-                                }
-                            }.show()
+                            handleSuccessJoinGroup()
                         }
 
                         is GroupResultType.UnknownError -> {
@@ -169,6 +186,16 @@ class GroupJoinFragment : Fragment() {
             }.show()
     }
 
+    private fun handleSuccessJoinGroup(nickname: String = viewModel.nickName) {
+        WelcomeJoinDialog(requireContext(), nickname).apply {
+            setOnDismissListener {
+                moveHomeActivity()
+            }
+        }.show()
+
+        guestListDialog.dismiss()
+    }
+
     private fun moveHomeActivity() {
         val groupId = viewModel.groupItem.value!!.groupDetail.id
         when (activity) {
@@ -180,6 +207,7 @@ class GroupJoinFragment : Fragment() {
             is HomeActivity -> {
                 findNavController().navigate(R.id.action_groupJoinFragment_to_homeRankFragment)
                 homeViewModel.groupId = groupId
+                homeViewModel.gameId = null
             }
         }
     }
@@ -190,6 +218,16 @@ class GroupJoinFragment : Fragment() {
                 binding.groupAdminView.setGroupItemDetailTitle(it.groupDetail.ownerNickname)
                 binding.groupMemberView.setGroupItemDetailTitle("${it.groupDetail.memberCount}명")
                 binding.ivGroupJoinBg.loadImage(it.groupDetail.profileImageUrl, 0)
+            }
+            guestList.observe(viewLifecycleOwner) {
+                if (it.isNotEmpty()) {
+                    if (guestListDialog.isShowing) {
+                        guestListDialog.guestListAdapter.submitList(it)
+                    } else {
+                        guestListDialog.show()
+                        guestListDialog.guestListAdapter.submitList(it)
+                    }
+                }
             }
         }
     }

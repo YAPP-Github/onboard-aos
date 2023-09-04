@@ -26,5 +26,6 @@ interface MemberDataSource {
         groupId: String,
         accessCode: String,
         nickname: String,
+        guestId: Int?,
     ): Flow<ApiResult<ErrorResponse>>
 }

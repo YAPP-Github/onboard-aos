@@ -16,6 +16,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat.getColor
+import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updateMargins
 import androidx.core.view.updatePadding
@@ -140,6 +141,11 @@ class InputDialog(
         return this
     }
 
+    fun visibleGuestMember(visible: Boolean): InputDialog {
+        binding.llGuestMember.isVisible = visible
+        return this
+    }
+
     fun setTitle(@StringRes title: Int?): InputDialog {
         binding.tvTitle.text = context.getString(title ?: return this)
         return this
@@ -194,9 +200,13 @@ class InputDialog(
         return this
     }
 
+    fun setGuestOnClicked(click: () -> Unit): InputDialog {
+        binding.llGuestMember.setOnClickListener { click() }
+        return this
+    }
+
     override fun onBackPressed() {
         super.onBackPressed()
-
         onBackPressed?.invoke(this)
     }
 }

@@ -10,5 +10,6 @@ class JoinGroupUseCase @Inject constructor(
         groupId: String,
         accessCode: String,
         nickName: String,
-    ) = repository.joinGroup(groupId, accessCode, nickName)
+        guestId: Int?,
+    ) = repository.joinGroup(groupId, accessCode, nickName, guestId)
 }
