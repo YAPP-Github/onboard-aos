@@ -52,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="@{vm.groupItem.organization}"
+                android:text="@{vm.groupItem.groupDetail.organization}"
                 android:textColor="@color/Gray_1"
                 app:layout_constraintBottom_toTopOf="@+id/tv_group_title" />
 
@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="@{vm.groupItem.name}"
+                android:text="@{vm.groupItem.groupDetail.name}"
                 android:textColor="@color/Gray_1"
                 app:layout_constraintBottom_toTopOf="@+id/tv_group_description" />
 
@@ -72,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="36dp"
-                android:text="@{vm.groupItem.description}"
+                android:text="@{vm.groupItem.groupDetail.description}"
                 android:textColor="@color/Gray_1"
                 app:layout_constraintBottom_toTopOf="@+id/group_explain_layout" />
 
@@ -106,19 +106,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    app:gameTitle="가이아 프로..."
+                    app:gameTitle="@{vm.groupItem.getFirstMaxGame().name}"
                     app:layout_constraintEnd_toStartOf="@id/group_item_game_view_2"
                     app:layout_constraintTop_toTopOf="parent"
-                    bol:imageUrl="https://media.flaticon.com/dist/min/img/apple-icon-144x144-precomposed.png" />
+                    bol:imageUrl="@{vm.groupItem.getFirstMaxGame().img}" />
 
                 <com.yapp.bol.presentation.view.group.join.component.GroupItemGame
                     android:id="@+id/group_item_game_view_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:gameTitle="스플랜더"
+                    app:gameTitle="@{vm.groupItem.getSecondMaxGame().name}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    bol:imageUrl="https://media.flaticon.com/dist/min/img/apple-icon-144x144-precomposed.png" />
+                    bol:imageUrl="@{vm.groupItem.getSecondMaxGame().img}"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView

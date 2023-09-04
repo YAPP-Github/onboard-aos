@@ -5,17 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yapp.bol.domain.model.GroupDetailItem
+import com.yapp.bol.domain.model.GetGroupJoinedItem
 import com.yapp.bol.domain.model.Role
 import com.yapp.bol.domain.usecase.group.CheckGroupJoinByAccessCodeUseCase
-import com.yapp.bol.domain.usecase.group.GetGroupDetailUseCase
-import com.yapp.bol.domain.usecase.group.GetJoinedGroupUseCase
+import com.yapp.bol.domain.usecase.group.GetGroupJoinedUseCase
 import com.yapp.bol.domain.usecase.group.JoinGroupUseCase
-import com.yapp.bol.domain.usecase.login.GetMyInfoUseCase
 import com.yapp.bol.domain.usecase.login.MatchUseCase
 import com.yapp.bol.presentation.mapper.MatchMapper.toPresentation
 import com.yapp.bol.presentation.model.MemberInfo
 import com.yapp.bol.presentation.utils.checkedApiResult
+import com.yapp.bol.presentation.view.group.join.type.GroupResultType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -31,9 +30,7 @@ class GroupJoinViewModel @Inject constructor(
     private val joinGroupUseCase: JoinGroupUseCase,
     private val checkGroupAccessCodeUseCase: CheckGroupJoinByAccessCodeUseCase,
     private val matchUseCase: MatchUseCase,
-    private val getGroupItemUseCase: GetGroupDetailUseCase,
-    private val GetMyInfoUseCase: GetMyInfoUseCase,
-    private val getJoinedGroupUseCase: GetJoinedGroupUseCase,
+    private val getGroupJoinedUseCase: GetGroupJoinedUseCase,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -43,7 +40,7 @@ class GroupJoinViewModel @Inject constructor(
     private val _loading = MutableSharedFlow<Pair<Boolean, String>>()
     val loading = _loading.asSharedFlow()
 
-    val groupItem = MutableStateFlow<GroupDetailItem?>(null)
+    val groupItem = MutableStateFlow<GetGroupJoinedItem?>(null)
 
     private val groupId = savedStateHandle.get<Int>("groupId") ?: 0
 
@@ -53,56 +50,28 @@ class GroupJoinViewModel @Inject constructor(
     private val _guestList = MutableLiveData<List<MemberInfo>>(listOf())
     val guestList: LiveData<List<MemberInfo>> = _guestList
 
-    var accessCode = ""
+    private val _groupResult = MutableSharedFlow<GroupResultType>()
+    val groupResult = _groupResult.asSharedFlow()
 
     var nickName = ""
+    var accessCode = ""
+
     private var loadingState = false
     private var cursor: String? = null
     private var hasNext = true
 
-    private var myJoinedGroupList = listOf<Int>()
-
     init {
         viewModelScope.launch {
-            getGroupItemUseCase.invoke(groupId.toLong()).collectLatest {
-                checkedApiResult(
-                    apiResult = it,
-                    success = { groupItem ->
-                        viewModelScope.launch {
-                            this@GroupJoinViewModel.groupItem.emit(groupItem)
-                        }
-                    },
-                )
-            }
-        }
-        viewModelScope.launch {
-            GetMyInfoUseCase.invoke().collectLatest {
-                checkedApiResult(
-                    apiResult = it,
-                    success = { user ->
-                        viewModelScope.launch {
-                            nickName = user.nickname
-                        }
-                    },
-                )
-            }
-        }
-        viewModelScope.launch {
-            getJoinedGroupUseCase.invoke().collectLatest {
-                checkedApiResult(
-                    apiResult = it,
-                    success = { groupList ->
-                        viewModelScope.launch {
-                            myJoinedGroupList = groupList.map { it.id.toInt() }
-                        }
-                    },
-                )
+            getGroupJoinedUseCase(groupId).run {
+                groupItem.emit(this)
+
+                nickName = this?.nickname.orEmpty()
             }
         }
     }
 
     fun isAlreadyJoinGroup(): Boolean {
-        return myJoinedGroupList.find { it == groupItem.value?.id?.toInt() } != null
+        return groupItem.value?.hasJoinedGroup == true
     }
 
     fun joinGroup(accessCode: String, nickName: String, guestId: Int? = null) {
@@ -116,7 +85,7 @@ class GroupJoinViewModel @Inject constructor(
                     }
                 } else {
                     launch {
-                        _successJoinGroup.emit(false to "이미 있는 이름입니다. 다른 이름을 설정해주세요.")
+                        setGroupResultType(GroupResultType.ValidationNickname())
                     }
                 }
             }
@@ -125,17 +94,17 @@ class GroupJoinViewModel @Inject constructor(
 
     private suspend fun implementJoinGroup(accessCode: String, nickName: String, guestId: Int?) {
         joinGroupUseCase(groupId.toString(), accessCode, nickName, guestId).collectLatest {
-            _loading.emit(false to "")
+            setGroupResultType(GroupResultType.LOADING())
             checkedApiResult(
                 apiResult = it,
                 success = {
                     viewModelScope.launch {
-                        _successJoinGroup.emit(true to null)
+                        setGroupResultType(GroupResultType.SUCCESS)
                     }
                 },
                 error = {
                     viewModelScope.launch {
-                        _successJoinGroup.emit(false to it.message)
+                        setGroupResultType(GroupResultType.UnknownError(it.message))
                     }
                 },
             )
@@ -162,17 +131,15 @@ class GroupJoinViewModel @Inject constructor(
                 checkedApiResult(
                     apiResult = it,
                     success = {
-                        viewModelScope.launch {
-                            if (it.isNewMember) {
-                                _successCheckGroupAccessCode.emit(true to null)
-                            } else {
-                                _successCheckGroupAccessCode.emit(false to "참여 코드가 맞지 않습니다.")
-                            }
+                        if (it.isNewMember) {
+                            setGroupResultType(GroupResultType.SUCCESS)
+                        } else {
+                            setGroupResultType(GroupResultType.ValidationAccessCode())
                         }
                     },
                     error = {
                         viewModelScope.launch {
-                            _successCheckGroupAccessCode.emit(false to it.message)
+                            setGroupResultType(GroupResultType.UnknownError(it.message))
                         }
                     },
                 )
@@ -203,5 +170,11 @@ class GroupJoinViewModel @Inject constructor(
             )
         }
         return memberList
+    }
+
+    private fun setGroupResultType(groupResultType: GroupResultType) {
+        viewModelScope.launch {
+            _groupResult.emit(groupResultType)
+        }
     }
 }

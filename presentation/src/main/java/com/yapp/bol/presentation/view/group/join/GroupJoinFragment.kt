@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.yapp.bol.presentation.R
@@ -14,9 +15,12 @@ import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.dpToPx
 import com.yapp.bol.presentation.utils.loadImage
 import com.yapp.bol.presentation.utils.setStatusBarColor
+import com.yapp.bol.presentation.view.group.GroupActivity
 import com.yapp.bol.presentation.view.group.dialog.guest.GuestListDialog
 import com.yapp.bol.presentation.view.group.join.data.Margin
+import com.yapp.bol.presentation.view.group.join.type.GroupResultType
 import com.yapp.bol.presentation.view.home.HomeActivity
+import com.yapp.bol.presentation.view.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
 
@@ -25,6 +29,7 @@ class GroupJoinFragment : Fragment() {
 
     private lateinit var binding: FragmentGroupJoinBinding
     private val viewModel by viewModels<GroupJoinViewModel>()
+    private val homeViewModel: HomeViewModel by activityViewModels()
 
     private val guestListDialog by lazy {
         GuestListDialog(
@@ -33,7 +38,7 @@ class GroupJoinFragment : Fragment() {
             joinedGroup = { guestId, nickname ->
                 viewModel.joinGroup(viewModel.accessCode, nickname, guestId)
                 handleSuccessJoinGroup(nickname)
-            }
+            },
         )
     }
 
@@ -81,14 +86,41 @@ class GroupJoinFragment : Fragment() {
                     it.dismiss()
                 }
                 .setTitleIcon(
-                    // todo: 경민님 체크 필요 ic_clock 제거하고 디자인 시스템 쪽 아이콘으로 바꿔주었습니다.
-                    // 문제가 없다면 주석 제거 부탁드립니다.
                     icon = R.drawable.ic_time_line16,
                     size = context.dpToPx(20),
                     margin = Margin(rightMargin = context.dpToPx(8)),
                 )
                 .setOnLimit { code, dialog ->
                     viewModel.checkGroupJoinByAccessCode(code)
+
+                    viewModel.groupResult.collectWithLifecycle(viewLifecycleOwner) { groupResultType ->
+                        when (groupResultType) {
+                            is GroupResultType.LOADING -> {
+                                showLoading(true, getString(groupResultType.message))
+                            }
+
+                            is GroupResultType.SUCCESS -> {
+                                showLoading(false)
+
+                                showProfileSettingDialog(dialog, code)
+                                dismiss()
+                            }
+
+                            is GroupResultType.ValidationAccessCode -> {
+                                showLoading(false)
+
+                                dialog.showErrorMessage(getString(groupResultType.message))
+                            }
+
+                            is GroupResultType.UnknownError -> {
+                                showLoading(false)
+
+                                dialog.showErrorMessage(groupResultType.message)
+                            }
+
+                            else -> {}
+                        }
+                    }
 
                     viewModel.successCheckGroupAccessCode.collectWithLifecycle(viewLifecycleOwner) { (success, message) -> // ktlint-disable max-line-length
                         if (success) {
@@ -103,6 +135,11 @@ class GroupJoinFragment : Fragment() {
         }
     }
 
+    private fun showLoading(isLoading: Boolean, message: String? = null) {
+        binding.loadingLayout.isVisible = isLoading
+        binding.tvLoadingTitle.text = message
+    }
+
     private fun showProfileSettingDialog(dialog: InputDialog, code: String) {
         InputDialog(requireContext())
             .setTitle("프로필 설정")
@@ -111,40 +148,61 @@ class GroupJoinFragment : Fragment() {
             .setSingleLine(true)
             .setText(viewModel.nickName)
             .setHintText("닉네임을 입력해주세요.")
+            .visibleInputCount(true)
+            .visibleGuestMember(true)
+            .visibleSummitButton(true)
             .setGuestOnClicked {
-                if (viewModel.guestList.value.isNullOrEmpty()) viewModel.getMembers()
-                else {
+                if (viewModel.guestList.value.isNullOrEmpty()) {
+                    viewModel.getMembers()
+                } else {
                     guestListDialog.show()
                     guestListDialog.guestListAdapter.submitList(viewModel.guestList.value ?: listOf())
                 }
             }
-            .visibleInputCount(true)
-            .visibleSummitButton(true)
-            .visibleGuestMember(true)
             .onBackPressed {
                 it.dismiss()
                 dialog.dismiss()
             }
-            .setOnSummit { nickname, dialog ->
+            .setOnSummit { nickname, nickNameDialog ->
                 viewModel.joinGroup(code, nickname)
+                viewModel.groupResult.collectWithLifecycle(viewLifecycleOwner) { groupResultType ->
+                    when (groupResultType) {
+                        is GroupResultType.LOADING -> {
+                            showLoading(true, getString(groupResultType.message))
+                        }
 
-                viewModel.successJoinGroup.collectWithLifecycle(viewLifecycleOwner) { (success, message) ->
-                    if (success) {
-                        WelcomeJoinDialog(requireContext(), nickname).apply {
-                            setOnDismissListener {
-                                moveHomeActivity()
-                            }
-                        }.show()
-                        dialog.dismiss()
-                    } else {
-                        dialog.showErrorMessage(message.orEmpty())
+                        is GroupResultType.SUCCESS -> {
+                            dialog.dismiss()
+                            nickNameDialog.dismiss()
+
+                            WelcomeJoinDialog(requireContext(), nickname).apply {
+                                setOnDismissListener {
+                                    moveHomeActivity()
+                                }
+                            }.show()
+                            dialog.dismiss()
+                        }
+
+                        is GroupResultType.UnknownError -> {
+                            showLoading(false)
+
+                            dialog.showErrorMessage(groupResultType.message)
+                        }
+
+                        is GroupResultType.ValidationNickname -> {
+                            showLoading(false)
+
+                            dialog.showErrorMessage(getString(groupResultType.message))
+                        }
+
+                        else -> {}
                     }
                 }
             }.show()
     }
 
     private fun handleSuccessJoinGroup(nickname: String) {
-        viewModel.successJoinGroup.collectWithLifecycle(viewLifecycleOwner) { (success, message) ->
+        viewModel.successJoinGroup.collectWithLifecycle(viewLifecycleOwner) { (success, _) ->
             if (success) {
                 WelcomeJoinDialog(requireContext(), nickname).apply {
                     setOnDismissListener {
@@ -157,8 +215,19 @@ class GroupJoinFragment : Fragment() {
     }
 
     private fun moveHomeActivity() {
-        HomeActivity.startActivity(binding.root.context, groupId = viewModel.groupItem.value!!.id)
-        requireActivity().finish()
+        val groupId = viewModel.groupItem.value!!.groupDetail.id
+        when (activity) {
+            is GroupActivity -> {
+                HomeActivity.startActivity(binding.root.context, groupId = groupId)
+                requireActivity().finish()
+            }
+
+            is HomeActivity -> {
+                findNavController().navigate(R.id.action_groupJoinFragment_to_homeRankFragment)
+                homeViewModel.groupId = groupId
+                homeViewModel.gameId = null
+            }
+        }
     }
 
     private fun subscribeObservables() {
@@ -168,11 +237,10 @@ class GroupJoinFragment : Fragment() {
                 binding.tvLoadingTitle.text = message
             }
             groupItem.filterNotNull().collectWithLifecycle(viewLifecycleOwner) {
-                binding.groupAdminView.setGroupItemDetailTitle(it.ownerNickname)
-                binding.groupMemberView.setGroupItemDetailTitle("${it.memberCount}명")
-                binding.ivGroupJoinBg.loadImage(it.profileImageUrl, 0)
+                binding.groupAdminView.setGroupItemDetailTitle(it.groupDetail.ownerNickname)
+                binding.groupMemberView.setGroupItemDetailTitle("${it.groupDetail.memberCount}명")
+                binding.ivGroupJoinBg.loadImage(it.groupDetail.profileImageUrl, 0)
             }
-
             guestList.observe(viewLifecycleOwner) {
                 if (it.isNotEmpty()) {
                     if (guestListDialog.isShowing) {
