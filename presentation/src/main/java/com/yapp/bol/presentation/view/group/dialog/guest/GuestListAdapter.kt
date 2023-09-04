@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.designsystem.R
 import com.yapp.bol.presentation.databinding.RvMemberItemBinding
 import com.yapp.bol.presentation.model.MemberInfo
-import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
 
 class GuestListAdapter(
     private val isEnableButton: (String) -> Unit
