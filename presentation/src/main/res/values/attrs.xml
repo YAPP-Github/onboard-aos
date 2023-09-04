@@ -7,6 +7,6 @@
 
     <declare-styleable name="GroupItemGame">
         <attr name="imageUrl" format="string" />
-        <attr name="gameTitle" format="reference|string" />
+        <attr name="gameTitle" format="string"  />
     </declare-styleable>
 </resources>

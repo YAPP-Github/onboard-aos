@@ -37,7 +37,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
                         gameId?.let {
                             putExtra(HOME_GAME_ID_KEY, gameId)
                         }
-                    }
+                    },
             )
         }
     }

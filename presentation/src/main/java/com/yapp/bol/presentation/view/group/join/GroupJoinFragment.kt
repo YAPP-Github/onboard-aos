@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.yapp.bol.presentation.R
@@ -18,6 +19,7 @@ import com.yapp.bol.presentation.view.group.GroupActivity
 import com.yapp.bol.presentation.view.group.join.data.Margin
 import com.yapp.bol.presentation.view.group.join.type.GroupResultType
 import com.yapp.bol.presentation.view.home.HomeActivity
+import com.yapp.bol.presentation.view.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filterNotNull
 
@@ -26,6 +28,7 @@ class GroupJoinFragment : Fragment() {
 
     private lateinit var binding: FragmentGroupJoinBinding
     private val viewModel by viewModels<GroupJoinViewModel>()
+    private val homeViewModel: HomeViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,8 +74,6 @@ class GroupJoinFragment : Fragment() {
                     it.dismiss()
                 }
                 .setTitleIcon(
-                    // todo: 경민님 체크 필요 ic_clock 제거하고 디자인 시스템 쪽 아이콘으로 바꿔주었습니다.
-                    // 문제가 없다면 주석 제거 부탁드립니다.
                     icon = R.drawable.ic_time_line16,
                     size = context.dpToPx(20),
                     margin = Margin(rightMargin = context.dpToPx(8)),
@@ -169,14 +170,16 @@ class GroupJoinFragment : Fragment() {
     }
 
     private fun moveHomeActivity() {
+        val groupId = viewModel.groupItem.value!!.groupDetail.id
         when (activity) {
             is GroupActivity -> {
-                HomeActivity.startActivity(binding.root.context, groupId = viewModel.groupItem.value!!.groupDetail.id)
+                HomeActivity.startActivity(binding.root.context, groupId = groupId)
                 requireActivity().finish()
             }
 
             is HomeActivity -> {
                 findNavController().navigate(R.id.action_groupJoinFragment_to_homeRankFragment)
+                homeViewModel.groupId = groupId
             }
         }
     }
