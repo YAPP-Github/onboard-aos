@@ -42,7 +42,7 @@ class GetGroupJoinedUseCase @Inject constructor(
             isSuccess = { groupGameList = it },
         )
 
-        return@withContext if (groupGameList != null && groupGameList.isNullOrEmpty()) {
+        return@withContext if (groupGameList != null && groupGameList?.isNotEmpty() == true) {
             GetGroupJoinedItem(groupDetail!!, groupGameList!!, myNickname, hasJoinedGroup)
         } else {
             null
