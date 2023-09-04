@@ -20,7 +20,9 @@ class GuestListDialog(
     private lateinit var binding: GuestListDialogBinding
 
     val guestListAdapter by lazy {
-        GuestListAdapter { isEnabled, nickname ->
+        GuestListAdapter { nickname ->
+            val isEnabled = nickname.isNotEmpty()
+
             binding.btnJoinedGroup.isEnabled = isEnabled
             val title = if (isEnabled) {
                 String.format(context.resources.getString(R.string.group_guest_join_title), nickname)

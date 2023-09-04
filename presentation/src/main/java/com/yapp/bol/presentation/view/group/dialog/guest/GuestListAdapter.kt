@@ -11,7 +11,7 @@ import com.yapp.bol.presentation.model.MemberInfo
 import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
 
 class GuestListAdapter(
-    private val isEnableButton: (Boolean, String) -> Unit
+    private val isEnableButton: (String) -> Unit
 ) : ListAdapter<MemberInfo, GuestListAdapter.GuestViewHolder>(diff) {
 
     var selectedGuest: Int? = null
@@ -36,10 +36,7 @@ class GuestListAdapter(
             val prev = selectedGuest ?: return
             swipeSelectedGuest(prev, target)
         }
-        isEnableButton(
-            selectedGuest != null,
-            if (selectedGuest == null) EMPTY_STRING else getItem(selectedGuest ?: return).nickname
-        )
+        isEnableButton(selectedGuest?.let { getItem(it).nickname }.orEmpty())
     }
 
     private fun swipeSelectedGuest(prev: Int, target: Int) {
