@@ -41,7 +41,7 @@ class GuestListDialog(
         binding.rvGuestMembers.adapter = guestListAdapter
 
         binding.btnJoinedGroup.setOnClickListener {
-            val selectGuest = guestListAdapter.currentList[guestListAdapter.selectGuest ?: return@setOnClickListener]
+            val selectGuest = guestListAdapter.currentList[guestListAdapter.selectedGuest ?: return@setOnClickListener]
             joinedGroup(selectGuest.id, selectGuest.nickname)
         }
 

@@ -14,7 +14,7 @@ class GuestListAdapter(
     private val isEnableButton: (Boolean, String) -> Unit
 ) : ListAdapter<MemberInfo, GuestListAdapter.GuestViewHolder>(diff) {
 
-    var selectGuest: Int? = null
+    var selectedGuest: Int? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GuestViewHolder {
         val binding =
@@ -27,18 +27,18 @@ class GuestListAdapter(
     }
 
     private fun updateSelectedGuest(target: Int) {
-        if (selectGuest == target || selectGuest == null) {
+        if (selectedGuest == target || selectedGuest == null) {
             val check = getItem(target).isChecked
             getItem(target).isChecked = check.not()
-            selectGuest = if (check) null else target
+            selectedGuest = if (check) null else target
             notifyItemChanged(target)
         } else {
-            val prev = selectGuest ?: return
+            val prev = selectedGuest ?: return
             swipeSelectedGuest(prev, target)
         }
         isEnableButton(
-            selectGuest != null,
-            if (selectGuest == null) EMPTY_STRING else getItem(selectGuest ?: return).nickname
+            selectedGuest != null,
+            if (selectedGuest == null) EMPTY_STRING else getItem(selectedGuest ?: return).nickname
         )
     }
 
@@ -47,7 +47,7 @@ class GuestListAdapter(
         getItem(prev).isChecked = false
         notifyItemChanged(target)
         notifyItemChanged(prev)
-        selectGuest = target
+        selectedGuest = target
     }
 
     class GuestViewHolder(
