@@ -147,7 +147,7 @@ class MemberSelectFragment : BaseFragment<FragmentMemberSelectBinding>(R.layout.
     }
 
     private fun setSearchResultNothing(visible: Boolean, keyword: String) = with(binding) {
-        if(keyword.isEmpty()) return@with
+        if (keyword.isEmpty()) return@with
         val searchResult = String.format(resources.getString(R.string.search_result_nothing), keyword)
         tvSearchResultNothing.apply {
             text = searchResult
