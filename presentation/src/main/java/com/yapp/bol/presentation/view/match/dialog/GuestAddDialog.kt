@@ -12,7 +12,6 @@ import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
-import com.google.android.gms.common.api.Scope
 import com.yapp.bol.designsystem.R
 import com.yapp.bol.presentation.databinding.GuestAddDialogBinding
 import com.yapp.bol.presentation.utils.Converter.convertLengthToString
@@ -59,7 +58,6 @@ class GuestAddDialog(
                 }
                 .launchIn(this)
         }
-
 
         binding.etGuestName.doOnTextChanged { _, start, _, count ->
             val color = if (count == 10) R.color.Red else R.color.Gray_8
