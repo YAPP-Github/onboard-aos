@@ -99,6 +99,7 @@ class HomeExploreFragment : BaseFragment<FragmentHomeExploreBinding>(R.layout.fr
     }
 
     private fun FragmentHomeExploreBinding.initEditText(adapter: GroupListAdapter) {
+        val temp =  viewLifecycleOwner.lifecycleScope
         viewLifecycleOwner.lifecycleScope.launch {
             val editTextFlow = viewGroupSearch.etGroupSearch.textChangesToFlow()
             val debounceDuration = 500L
