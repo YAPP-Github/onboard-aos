@@ -44,14 +44,14 @@ class MemberSelectAdapter(
         }
 
         private fun setImageView(item: MemberInfo) {
-            val image = if (item.role == GUEST) {
+            val imageRes = if (item.role == GUEST) {
                 binding.ivMemberLevel.setPadding(10, 10, 10, 10)
                 DR.drawable.img_dice_empty
             } else {
                 binding.ivMemberLevel.setPadding(0, 0, 0, 0)
                 DR.drawable.img_dice
             }
-            binding.ivMemberLevel.setImageResource(image)
+            binding.ivMemberLevel.setImageResource(imageRes)
         }
     }
 
