@@ -16,11 +16,18 @@ import com.yapp.bol.designsystem.R
 import com.yapp.bol.presentation.databinding.GuestAddDialogBinding
 import com.yapp.bol.presentation.utils.Converter.convertLengthToString
 import com.yapp.bol.presentation.utils.dialogWidthResize
+import com.yapp.bol.presentation.utils.textChangesToFlow
 import com.yapp.bol.presentation.view.match.member_select.ValidateCallBack
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 class GuestAddDialog(
     private val context: Context,
     private val addGuest: (String) -> Unit,
+    private val scope: CoroutineScope,
     private val getValidateNickName: (String) -> Unit,
 ) : Dialog(context), ValidateCallBack {
 
@@ -39,12 +46,25 @@ class GuestAddDialog(
             dismiss()
         }
 
+        scope.launch {
+            val ediTextFlow = binding.etGuestName.textChangesToFlow()
+            val debounceDuration = 300L
+
+            ediTextFlow
+                .debounce(debounceDuration)
+                .onEach {
+                    val keyword = it.toString()
+                    getValidateNickName(keyword)
+                }
+                .launchIn(this)
+        }
+
         binding.etGuestName.doOnTextChanged { _, start, _, count ->
             val color = if (count == 10) R.color.Red else R.color.Gray_8
             binding.tvGuestNameCount.setTextColor(ContextCompat.getColor(context, color))
             binding.tvGuestNameCount.text = convertLengthToString(PROFILE_NAME_MAX_LENGTH, start + count)
-            getValidateNickName(binding.etGuestName.text.toString())
         }
+
         this.window?.setGravity(Gravity.BOTTOM)
     }
 

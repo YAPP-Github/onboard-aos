@@ -1,13 +1,12 @@
 package com.yapp.bol.presentation.view.match.member_select
 
-import com.yapp.bol.presentation.utils.KeyboardVisibilityUtils
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,9 +15,11 @@ import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentMemberSelectBinding
 import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
 import com.yapp.bol.presentation.utils.KeyboardManager
+import com.yapp.bol.presentation.utils.KeyboardVisibilityUtils
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.createScaleHeightAnimator
 import com.yapp.bol.presentation.utils.dpToPx
+import com.yapp.bol.presentation.utils.textChangesToFlow
 import com.yapp.bol.presentation.view.match.MatchActivity.Companion.MEMBER_SELECT
 import com.yapp.bol.presentation.view.match.MatchViewModel
 import com.yapp.bol.presentation.view.match.dialog.GuestAddDialog
@@ -26,6 +27,10 @@ import com.yapp.bol.presentation.view.match.game_select.GameSelectFragment.Compa
 import com.yapp.bol.presentation.view.match.game_select.GameSelectFragment.Companion.MAX_PLAYER
 import com.yapp.bol.presentation.view.match.game_select.GameSelectFragment.Companion.MIN_PLAYER
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import com.yapp.bol.designsystem.R as DR
 
 @AndroidEntryPoint
@@ -56,6 +61,7 @@ class MemberSelectFragment : BaseFragment<FragmentMemberSelectBinding>(R.layout.
         GuestAddDialog(
             context = requireContext(),
             addGuest = { nickname -> memberSelectViewModel.addGuestMember(nickname) },
+            scope = viewLifecycleOwner.lifecycleScope,
             getValidateNickName = { nickname ->
                 memberSelectViewModel.getValidateNickName(
                     matchViewModel.groupId,
@@ -90,10 +96,19 @@ class MemberSelectFragment : BaseFragment<FragmentMemberSelectBinding>(R.layout.
         setPlayerRangeText(minPlayer, maxPlayer)
         setClickListener()
 
-        binding.etSearchMember.doOnTextChanged { text, _, _, _ ->
-            if ((text?.length ?: 0) > 0) binding.etSearchMember.requestFocus()
-            memberSelectViewModel.clearNextPage()
-            memberSelectViewModel.getMembers(getInputTextValue())
+        viewLifecycleOwner.lifecycleScope.launch {
+            val editTextFlow = binding.etSearchMember.textChangesToFlow()
+            val debounceDuration = 300L
+
+            editTextFlow.debounce(debounceDuration)
+                .onEach {
+                    val keyword = it.toString()
+
+                    if (keyword.isNotEmpty()) binding.etSearchMember.requestFocus()
+                    memberSelectViewModel.clearNextPage()
+                    memberSelectViewModel.getMembers(getInputTextValue())
+                }
+                .launchIn(this)
         }
 
         binding.etSearchMember.onFocusChangeListener = setFocusChangeListener()
