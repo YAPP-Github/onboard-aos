@@ -1,19 +1,19 @@
 package com.yapp.bol.presentation.mapper
 
-import com.yapp.bol.domain.model.UserRankItem
 import com.yapp.bol.domain.model.UserRankListItem
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.JoinedGroupItem
 import com.yapp.bol.presentation.model.DrawerGroupInfoUiModel
 import com.yapp.bol.presentation.model.GameItemWithSelected
 import com.yapp.bol.presentation.model.HomeGameItemUiModel
+import com.yapp.bol.presentation.model.HomeUserRankItem
 import com.yapp.bol.presentation.model.UserRankUiModel
 import com.yapp.bol.presentation.utils.config.HomeConfig
 
 object HomeMapper {
 
-    fun UserRankListItem.toUserRankUiModel(): List<UserRankUiModel> {
-        val userRank1To3 = mutableListOf<UserRankItem>()
+    fun UserRankListItem.toUserRankUiModel(myId: Long): List<UserRankUiModel> {
+        val userRank1To3 = mutableListOf<HomeUserRankItem>()
         val userRankAfter4 = mutableListOf<UserRankUiModel>()
         val resultList = mutableListOf<UserRankUiModel>()
 
@@ -21,9 +21,11 @@ object HomeMapper {
 
         userRankItemList.forEachIndexed { index, userRankItem ->
             if (index < HomeConfig.USER_RV_1_TO_3_UI_RANK_THRESHOLD) {
-                userRank1To3.add(userRankItem)
+                userRank1To3.add(HomeUserRankItem(userRankItem, myId == userRankItem.userId))
             } else {
-                userRankAfter4.add(UserRankUiModel.UserRankAfter4(userRankItem))
+                userRankAfter4.add(
+                    UserRankUiModel.UserRankAfter4(HomeUserRankItem(userRankItem, myId == userRankItem.userId))
+                )
             }
         }
 
