@@ -79,6 +79,8 @@ object GroupMapper {
         this.contents.map { userRankDTO ->
             UserRankItem(
                 id = userRankDTO.id,
+                memberId = userRankDTO.memberId,
+                userId = userRankDTO.userId,
                 rank = userRankDTO.rank,
                 name = userRankDTO.name,
                 score = userRankDTO.score,
