@@ -77,6 +77,7 @@ class InputDialog(
 
         binding.etInput.doAfterTextChanged { text ->
             binding.tvInputCount.text = "${text?.length ?: 0}/$onLimit"
+
             binding.tvSummit.isEnabled = !text.isNullOrEmpty()
             binding.tvSummit.setTextColor(
                 if (text.isNullOrEmpty()) {
@@ -85,6 +86,15 @@ class InputDialog(
                     getColor(context, R.color.Gray_1)
                 },
             )
+
+            binding.etInput.setTextAppearance(
+                if (text.isNullOrEmpty()) {
+                    R.style.BOL_Group_Join_Input_Hint
+                } else {
+                    R.style.BOL_Group_Join_Input_Title
+                },
+            )
+
             binding.tvErrorMessage.visibility = View.INVISIBLE
 
             if ((text?.count()) == onLimit) {
@@ -95,6 +105,7 @@ class InputDialog(
             } else {
                 binding.tvInputCount.setTextColor(context.getColor(R.color.Gray_8))
             }
+
             if (text?.matches(Regex(NICKNAME_REGEX)) != true) {
                 binding.tvErrorMessage.visibility = View.VISIBLE
                 binding.tvErrorMessage.text = "한글, 영문, 숫자를 조합하여 사용 가능합니다."
