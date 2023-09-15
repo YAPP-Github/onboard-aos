@@ -92,36 +92,29 @@ class GroupJoinFragment : Fragment() {
                 .setOnLimit { code, dialog ->
                     viewModel.checkGroupJoinByAccessCode(code)
 
-                    viewModel.groupResult.collectWithLifecycle(viewLifecycleOwner) { groupResultType ->
-                        when (groupResultType) {
-                            is GroupResultType.LOADING -> {
-                                showLoading(true, getString(groupResultType.message))
-                            }
+                    subscribeObservableGroupResult(
+                        onLoading = { errorMessageId ->
+                            showLoading(true, getString(errorMessageId))
+                        },
+                        onSuccess = {
+                            showLoading(false)
 
-                            is GroupResultType.SUCCESS -> {
-                                showLoading(false)
+                            viewModel.accessCode = code
+                            showProfileSettingDialog(dialog, code)
 
-                                viewModel.accessCode = code
-                                showProfileSettingDialog(dialog, code)
+                            dismiss()
+                        },
+                        onUnknownError = { errorMessage ->
+                            showLoading(false)
 
-                                dismiss()
-                            }
+                            dialog.showErrorMessage(errorMessage)
+                        },
+                        onValidationAccessCode = { errorMessageId ->
+                            showLoading(false)
 
-                            is GroupResultType.ValidationAccessCode -> {
-                                showLoading(false)
-
-                                dialog.showErrorMessage(getString(groupResultType.message))
-                            }
-
-                            is GroupResultType.UnknownError -> {
-                                showLoading(false)
-
-                                dialog.showErrorMessage(groupResultType.message)
-                            }
-
-                            else -> {}
-                        }
-                    }
+                            dialog.showErrorMessage((getString(errorMessageId)))
+                        },
+                    )
                 }.show()
         }
     }
@@ -154,36 +147,68 @@ class GroupJoinFragment : Fragment() {
                 it.dismiss()
                 dialog.dismiss()
             }
+            .setOnTyping { nickname, dialog ->
+                if (nickname.isNotEmpty()) viewModel.validateNickName(nickname)
+
+                subscribeObservableGroupResult(
+                    onValidationNickname = { errorMessageId ->
+                        showLoading(false)
+
+                        dialog.showErrorMessage(getString(errorMessageId))
+                    },
+                )
+            }
             .setOnSummit { nickname, nickNameDialog ->
                 viewModel.joinGroup(code, nickname)
-                viewModel.groupResult.collectWithLifecycle(viewLifecycleOwner) { groupResultType ->
-                    when (groupResultType) {
-                        is GroupResultType.LOADING -> {
-                            showLoading(true, getString(groupResultType.message))
-                        }
 
-                        is GroupResultType.SUCCESS -> {
-                            nickNameDialog.dismiss()
+                subscribeObservableGroupResult(
+                    onLoading = { errorMessageId ->
+                        showLoading(true, getString(errorMessageId))
+                    },
+                    onSuccess = {
+                        nickNameDialog.dismiss()
 
-                            handleSuccessJoinGroup()
-                        }
+                        handleSuccessJoinGroup()
+                    },
+                    onUnknownError = { errorMessage ->
+                        showLoading(false)
 
-                        is GroupResultType.UnknownError -> {
-                            showLoading(false)
-
-                            dialog.showErrorMessage(groupResultType.message)
-                        }
-
-                        is GroupResultType.ValidationNickname -> {
-                            showLoading(false)
-
-                            dialog.showErrorMessage(getString(groupResultType.message))
-                        }
-
-                        else -> {}
-                    }
-                }
+                        dialog.showErrorMessage(errorMessage)
+                    },
+                )
             }.show()
+    }
+
+    private fun subscribeObservableGroupResult(
+        onLoading: (Int) -> Unit? = {},
+        onSuccess: () -> Unit? = {},
+        onUnknownError: (String) -> Unit? = {},
+        onValidationNickname: (Int) -> Unit? = {},
+        onValidationAccessCode: (Int) -> Unit? = {},
+    ) {
+        viewModel.groupResult.collectWithLifecycle(viewLifecycleOwner) { groupResultType ->
+            when (groupResultType) {
+                is GroupResultType.LOADING -> {
+                    onLoading(groupResultType.message)
+                }
+
+                is GroupResultType.SUCCESS -> {
+                    onSuccess()
+                }
+
+                is GroupResultType.UnknownError -> {
+                    onUnknownError(groupResultType.message)
+                }
+
+                is GroupResultType.ValidationAccessCode -> {
+                    onValidationAccessCode(groupResultType.message)
+                }
+
+                is GroupResultType.ValidationNickname -> {
+                    onValidationNickname(groupResultType.message)
+                }
+            }
+        }
     }
 
     private fun handleSuccessJoinGroup(nickname: String = viewModel.nickName) {
