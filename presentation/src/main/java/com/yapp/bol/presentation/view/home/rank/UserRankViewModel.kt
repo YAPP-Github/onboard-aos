@@ -142,7 +142,6 @@ class UserRankViewModel @Inject constructor(
                         success = { data -> myId = data.id.toLong() },
                         error = { throwable -> throw Exception(throwable.code) }
                     )
-
                 }
                 .catch { _gameAndGroupUiState.value = HomeUiState.Error(it) }
                 .collectLatest {
