@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.presentation.databinding.ItemRankGameListBinding
 import com.yapp.bol.presentation.utils.loadImage
+import com.yapp.bol.presentation.utils.loadRoundImage
 
 class UserRankGameViewHolder(
     private val binding: ItemRankGameListBinding,
@@ -29,7 +30,7 @@ class UserRankGameViewHolder(
     private fun showGameItemData(gameItem: GameItem) {
         binding.apply {
             binding.viewGame.tvGame.text = gameItem.name
-            binding.viewGame.ivGame.loadImage(gameItem.img, 0)
+            binding.viewGame.ivGame.loadImage(gameItem.img)
         }
     }
 

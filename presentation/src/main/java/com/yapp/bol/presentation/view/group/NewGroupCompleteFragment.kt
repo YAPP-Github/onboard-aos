@@ -9,6 +9,7 @@ import com.yapp.bol.presentation.base.BaseFragment
 import com.yapp.bol.presentation.databinding.FragmentNewGroupCompleteBinding
 import com.yapp.bol.presentation.utils.copyToClipboard
 import com.yapp.bol.presentation.utils.loadImage
+import com.yapp.bol.presentation.utils.loadRoundImage
 import com.yapp.bol.presentation.utils.showToast
 import com.yapp.bol.presentation.view.group.NewGroupFragment.Companion.NEW_GROUP
 import com.yapp.bol.presentation.view.home.HomeActivity
@@ -33,7 +34,7 @@ class NewGroupCompleteFragment : BaseFragment<FragmentNewGroupCompleteBinding>(R
     }
 
     private fun FragmentNewGroupCompleteBinding.setImage(newGroup: NewGroupItem) {
-        this.ivGroupImage.loadImage(newGroup.imageUrl, 0)
+        this.ivGroupImage.loadImage(newGroup.imageUrl)
     }
 
     private fun FragmentNewGroupCompleteBinding.setOnClick(newGroup: NewGroupItem) {

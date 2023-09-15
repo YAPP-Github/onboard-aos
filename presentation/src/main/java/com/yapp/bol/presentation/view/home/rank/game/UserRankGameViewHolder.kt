@@ -14,6 +14,7 @@ import com.yapp.bol.presentation.databinding.ItemRankGameListBinding
 import com.yapp.bol.presentation.model.GameItemWithSelected
 import com.yapp.bol.presentation.utils.createScaleAnimator
 import com.yapp.bol.presentation.utils.loadImage
+import com.yapp.bol.presentation.utils.loadRoundImage
 import com.yapp.bol.designsystem.R as designR
 
 class UserRankGameViewHolder(
@@ -35,7 +36,7 @@ class UserRankGameViewHolder(
     private fun showGameItemData(gameItem: GameItem) {
         binding.apply {
             viewGame.tvGame.text = gameItem.name.trim()
-            viewGame.ivGame.loadImage(gameItem.img, 0)
+            viewGame.ivGame.loadImage(gameItem.img)
         }
     }
 
