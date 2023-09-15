@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="group_join_title">모임 들어가기</string>
+    <string name="group_join_entering">모임에 들어가는 중</string>
+
+    <string name="group_join_code_input_plz">모임 참여 코드를 입력해주세요</string>
+    <string name="group_join_code_input">참여 코드 입력</string>
+    <string name="group_join_already_exists_nickname">이미 있는 이름입니다. 다른 이름을 설정해주세요.</string>
+    <string name="group_join_not_correct_code">참여 코드가 맞지 않습니다.</string>
+
+    <string name="group_join_nickname_modal_message">모임에서 사용할 닉네임을 10자 이하로 입력해주세요.</string>
+    <string name="group_join_nickname_modal_title">프로필 설정</string>
+    <string name="group_join_nickname_hint_title">닉네임을 입력해주세요.</string>
+</resources>
