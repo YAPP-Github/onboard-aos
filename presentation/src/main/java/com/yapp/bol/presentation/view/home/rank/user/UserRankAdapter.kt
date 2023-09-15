@@ -23,10 +23,10 @@ class UserRankAdapter : ListAdapter<UserRankUiModel, RecyclerView.ViewHolder>(di
         uiModel?.let {
             when (uiModel) {
                 is UserRankUiModel.UserRank1to3 ->
-                    (holder as UserRankItem1to3ViewHolder).bind(uiModel.userRankItemList)
+                    (holder as UserRankItem1to3ViewHolder).bind(uiModel.itemList)
 
                 is UserRankUiModel.UserRankAfter4 ->
-                    (holder as UserRankItemAfter4ViewHolder).bind(uiModel.userRankItem)
+                    (holder as UserRankItemAfter4ViewHolder).bind(uiModel.item)
 
                 is UserRankUiModel.UserRankPadding ->
                     (holder as UserRankPaddingViewHolder)
@@ -48,15 +48,16 @@ class UserRankAdapter : ListAdapter<UserRankUiModel, RecyclerView.ViewHolder>(di
                 return when (oldItem) {
                     is UserRankUiModel.UserRank1to3 -> {
                         newItem is UserRankUiModel.UserRank1to3 &&
-                            oldItem.userRankItemList.size == newItem.userRankItemList.size &&
-                            oldItem.userRankItemList.indices.all { index ->
-                                oldItem.userRankItemList[index].id == newItem.userRankItemList[index].id
+                            oldItem.itemList.size == newItem.itemList.size &&
+                            oldItem.itemList.indices.all { index ->
+                                oldItem.itemList[index].userRankItem.id ==
+                                    newItem.itemList[index].userRankItem.id
                             }
                     }
 
                     is UserRankUiModel.UserRankAfter4 -> {
                         newItem is UserRankUiModel.UserRankAfter4 &&
-                            oldItem.userRankItem.id == newItem.userRankItem.id
+                            oldItem.item.userRankItem.id == newItem.item.userRankItem.id
                     }
 
                     is UserRankUiModel.UserRankPadding -> true
