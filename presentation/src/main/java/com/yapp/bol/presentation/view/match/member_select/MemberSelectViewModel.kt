@@ -112,7 +112,8 @@ class MemberSelectViewModel @Inject constructor(
     }
 
     fun checkedSelectMembers(memberInfo: MemberInfo) {
-        if (players.value?.contains(memberInfo) ?: return) dynamicPlayers.remove(memberInfo)
+        val selectMember = dynamicPlayers.find { it.id == memberInfo.id }
+        if (dynamicPlayers.contains(selectMember)) dynamicPlayers.remove(selectMember)
         else dynamicPlayers.add(memberInfo)
         _players.value = dynamicPlayers.toList()
         _playerState.value = players.value?.isEmpty()?.not()
@@ -150,6 +151,7 @@ class MemberSelectViewModel @Inject constructor(
     fun checkedMaxPlayers(): Boolean {
         return (players.value?.size ?: 0) < maxPlayers
     }
+
     private fun checkedCompleteButtonEnabled() {
         _isCompleteButtonEnabled.value = (players.value?.size ?: 0) >= minPlayers
     }
