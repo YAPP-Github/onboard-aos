@@ -30,6 +30,7 @@ class GroupJoinFragment : Fragment() {
     private lateinit var binding: FragmentGroupJoinBinding
     private val viewModel by viewModels<GroupJoinViewModel>()
     private val homeViewModel: HomeViewModel by activityViewModels()
+    private val profileSettingDialog by lazy { InputDialog(requireContext()) }
 
     private val guestListDialog by lazy {
         GuestListDialog(
@@ -38,7 +39,11 @@ class GroupJoinFragment : Fragment() {
             joinedGroup = { guestId, nickname ->
                 viewModel.joinGroup(viewModel.accessCode, nickname, guestId)
             },
-        )
+        ).apply {
+            setOnDismissListener {
+                profileSettingDialog.show()
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -132,7 +137,7 @@ class GroupJoinFragment : Fragment() {
     }
 
     private fun showProfileSettingDialog(dialog: InputDialog, code: String) {
-        InputDialog(requireContext()).apply {
+        profileSettingDialog.apply {
             val previousDialogDismiss = {
                 dialog.dismiss()
                 dismiss()
