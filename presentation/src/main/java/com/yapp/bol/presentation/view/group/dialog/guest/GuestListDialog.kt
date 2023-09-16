@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.R
@@ -13,6 +14,7 @@ import com.yapp.bol.presentation.utils.dialogWidthResize
 
 class GuestListDialog(
     private val context: Context,
+    private val clearGuest: () -> Unit,
     private val getNextGuest: () -> Unit,
     private val joinedGroup: (Int, String) -> Unit,
 ) : Dialog(context) {
@@ -40,12 +42,8 @@ class GuestListDialog(
 
         context.dialogWidthResize(this, 0.9f)
 
-        binding.rvGuestMembers.adapter = guestListAdapter
-
-        binding.btnJoinedGroup.setOnClickListener {
-            val selectGuest = guestListAdapter.currentList[guestListAdapter.selectedGuest ?: return@setOnClickListener]
-            joinedGroup(selectGuest.id, selectGuest.nickname)
-        }
+        binding.groupEmptyGuest.isVisible = guestListAdapter.currentList.size == 0
+        if (guestListAdapter.currentList.size > 0) setGuestAdapter()
 
         val scrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -53,6 +51,15 @@ class GuestListDialog(
             }
         }
         binding.rvGuestMembers.addOnScrollListener(scrollListener)
+    }
+
+    private fun setGuestAdapter() = with(binding) {
+        rvGuestMembers.adapter = guestListAdapter
+
+        btnJoinedGroup.setOnClickListener {
+            val selectGuest = guestListAdapter.currentList[guestListAdapter.selectedGuest ?: return@setOnClickListener]
+            joinedGroup(selectGuest.id, selectGuest.nickname)
+        }
     }
 
     private fun getNextMember(recyclerView: RecyclerView) {
@@ -64,5 +71,10 @@ class GuestListDialog(
         if (newPagePointItemVisible == itemTotalCount) {
             getNextGuest()
         }
+    }
+
+    override fun dismiss() {
+        super.dismiss()
+        clearGuest()
     }
 }

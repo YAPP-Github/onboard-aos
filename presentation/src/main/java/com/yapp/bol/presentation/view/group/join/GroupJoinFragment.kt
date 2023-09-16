@@ -34,6 +34,7 @@ class GroupJoinFragment : Fragment() {
     private val guestListDialog by lazy {
         GuestListDialog(
             context = requireContext(),
+            clearGuest = viewModel::cleatGuest,
             getNextGuest = { viewModel.getMembers() },
             joinedGroup = { guestId, nickname ->
                 viewModel.joinGroup(viewModel.accessCode, nickname, guestId)
@@ -143,12 +144,7 @@ class GroupJoinFragment : Fragment() {
             .visibleGuestMember(true)
             .visibleSummitButton(true)
             .setGuestOnClicked {
-                if (viewModel.guestList.value.isNullOrEmpty()) {
-                    viewModel.getMembers()
-                } else {
-                    guestListDialog.show()
-                    guestListDialog.guestListAdapter.submitList(viewModel.guestList.value ?: listOf())
-                }
+                viewModel.getMembers()
             }
             .onBackPressed {
                 it.dismiss()
@@ -220,14 +216,10 @@ class GroupJoinFragment : Fragment() {
                 binding.ivGroupJoinBg.loadImage(it.groupDetail.profileImageUrl, 0)
             }
             guestList.observe(viewLifecycleOwner) {
-                if (it.isNotEmpty()) {
-                    if (guestListDialog.isShowing) {
-                        guestListDialog.guestListAdapter.submitList(it)
-                    } else {
-                        guestListDialog.show()
-                        guestListDialog.guestListAdapter.submitList(it)
-                    }
-                }
+               if(it != null) {
+                   guestListDialog.guestListAdapter.submitList(it)
+                   guestListDialog.show()
+               }
             }
         }
     }
