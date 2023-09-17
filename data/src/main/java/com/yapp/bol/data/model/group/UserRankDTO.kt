@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName
 
 data class UserRankDTO(
     val id: Long,
+    val memberId: Long,
+    val userId: Long,
     val rank: Int?,
     @SerializedName("nickname")
     val name: String,

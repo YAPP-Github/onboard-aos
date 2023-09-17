@@ -11,6 +11,7 @@ import com.yapp.bol.presentation.databinding.ItemRank1To3Binding
 import com.yapp.bol.presentation.databinding.ViewRank1stBinding
 import com.yapp.bol.presentation.databinding.ViewRank2ndBinding
 import com.yapp.bol.presentation.databinding.ViewRank3rdBinding
+import com.yapp.bol.presentation.model.HomeUserRankItem
 import com.yapp.bol.presentation.utils.Converter.convertPlayCount
 import com.yapp.bol.presentation.utils.Converter.convertScore
 
@@ -30,22 +31,22 @@ class UserRankItem1to3ViewHolder(
         }
     }
 
-    fun bind(userRankItemList: List<UserRankItem>) {
+    fun bind(itemList: List<HomeUserRankItem>) {
 
-        if (userRankItemList.size == USER_NOT_FULL) {
-            binding.viewRank3.setItems(null, Second)
+        if (itemList.size == USER_NOT_FULL) {
+            binding.viewRank3.setItems(null, false, Second)
         }
 
-        userRankItemList.forEachIndexed { index, userRankItem ->
+        itemList.forEachIndexed { index, item ->
             when (index) {
-                First.index -> binding.viewRank1.setItems(userRankItem, First)
-                Second.index -> binding.viewRank2.setItems(userRankItem, Second)
-                Third.index -> binding.viewRank3.setItems(userRankItem, Third)
+                First.index -> binding.viewRank1.setItems(item.userRankItem, item.isMe, First)
+                Second.index -> binding.viewRank2.setItems(item.userRankItem, item.isMe, Second)
+                Third.index -> binding.viewRank3.setItems(item.userRankItem, item.isMe, Third)
             }
         }
     }
 
-    private fun ViewRank1stBinding.setItems(userRankItem: UserRankItem, rank: Ordinal) {
+    private fun ViewRank1stBinding.setItems(userRankItem: UserRankItem, isMe: Boolean, rank: Ordinal) {
         userRankItem.apply {
             if (this.rank != null) {
                 tvRank.text = rank.presentData
@@ -64,9 +65,15 @@ class UserRankItem1to3ViewHolder(
                 imgDiceGuest.visibility = View.INVISIBLE
             }
         }
+
+        if (isMe) {
+            viewMe.root.visibility = View.VISIBLE
+        } else {
+            viewMe.root.visibility = View.GONE
+        }
     }
 
-    private fun ViewRank2ndBinding.setItems(userRankItem: UserRankItem, rank: Ordinal) {
+    private fun ViewRank2ndBinding.setItems(userRankItem: UserRankItem, isMe: Boolean, rank: Ordinal) {
         userRankItem.apply {
             if (this.rank != null) {
                 tvRank.text = rank.presentData
@@ -85,9 +92,15 @@ class UserRankItem1to3ViewHolder(
                 imgDiceGuest.visibility = View.INVISIBLE
             }
         }
+
+        if (isMe) {
+            viewMe.root.visibility = View.VISIBLE
+        } else {
+            viewMe.root.visibility = View.GONE
+        }
     }
 
-    private fun ViewRank3rdBinding.setItems(userRankItem: UserRankItem?, rank: Ordinal) {
+    private fun ViewRank3rdBinding.setItems(userRankItem: UserRankItem?, isMe: Boolean = false, rank: Ordinal) {
         userRankItem?.let {
             if (it.rank != null) {
                 tvRank.text = rank.presentData
@@ -111,6 +124,12 @@ class UserRankItem1to3ViewHolder(
             tvPlayCount.text = EMPTY_TEXT
             tvWinRate.text = EMPTY_TEXT
             ivRecentUser.visibility = View.GONE
+        }
+
+        if (isMe) {
+            viewMe.root.visibility = View.VISIBLE
+        } else {
+            viewMe.root.visibility = View.GONE
         }
     }
 
