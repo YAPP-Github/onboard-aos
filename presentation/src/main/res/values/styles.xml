@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="BOL" />
+
+    <style name="BOL.Group" />
+    <style name="BOL.Group.Join"/>
+    <style name="BOL.Group.Join.Input"/>
+
+    <style name="BOL.Group.Join.Input.Hint" parent="Typography.Body2_R">
+        <item name="android:textColor">@color/Gray_15</item>
+        <item name="android:textColorHint">@color/Gray_7</item>
+    </style>
+    <style name="BOL.Group.Join.Input.Title" parent="Typography.Body2_M">
+        <item name="android:textColor">@color/Gray_15</item>
+        <item name="android:textColorHint">@color/Gray_7</item>
+    </style>
+</resources>
