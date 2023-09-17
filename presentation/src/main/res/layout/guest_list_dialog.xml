@@ -48,7 +48,7 @@
         android:layout_marginTop="36dp"
         android:background="@drawable/bg_gary_to_orange_bottom_radius_12dp"
         android:enabled="false"
-        android:text="@string/create_group_text"
+        android:text="@string/group_join_title"
         android:textAppearance="@style/Typography.Label3_M"
         android:textColor="@drawable/tc_white_to_gray"
         app:layout_constraintEnd_toEndOf="parent"
