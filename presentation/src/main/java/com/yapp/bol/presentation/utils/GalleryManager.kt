@@ -55,7 +55,7 @@ class GalleryManager(
             val imageUri = result.data?.data ?: return@registerForActivityResult
             val imageFile = File(getRealPathFromURI(imageUri))
             uploadImageFile(imageFile)
-            imageView.loadImage(imageUri.toString())
+            imageView.loadImage(imageUri.toString(), 8)
         }
     }
 
