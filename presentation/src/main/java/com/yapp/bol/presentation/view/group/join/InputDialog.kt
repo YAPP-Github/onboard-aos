@@ -38,6 +38,7 @@ class InputDialog(
     }
 
     private var onLimitExceeded: ((String, InputDialog) -> Unit)? = null
+    private var onTyping: ((String, InputDialog) -> Unit)? = null
     private var onBackPressed: ((InputDialog) -> Unit)? = null
     private var onLimit: Int = 0
 
@@ -76,6 +77,8 @@ class InputDialog(
         binding.etInput.filters = arrayOf(InputFilter.LengthFilter(onLimit))
 
         binding.etInput.doAfterTextChanged { text ->
+            onTyping?.invoke(text.toString(), this)
+
             binding.tvInputCount.text = "${text?.length ?: 0}/$onLimit"
             binding.tvSummit.isEnabled = !text.isNullOrEmpty()
             binding.tvSummit.setTextColor(
@@ -107,6 +110,11 @@ class InputDialog(
         binding.tvSummit.setOnClickListener {
             onSummit(binding.etInput.text.toString(), this)
         }
+        return this
+    }
+
+    fun setOnTyping(onTyping: (String, InputDialog) -> Unit): InputDialog {
+        this.onTyping = onTyping
         return this
     }
 

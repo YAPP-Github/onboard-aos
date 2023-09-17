@@ -8,6 +8,7 @@ import com.yapp.bol.domain.model.Role
 import com.yapp.bol.domain.model.UserRankItem
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.ItemRankAfter4Binding
+import com.yapp.bol.presentation.model.HomeUserRankItem
 import com.yapp.bol.presentation.utils.Converter.convertPlayCount
 import com.yapp.bol.presentation.utils.Converter.convertScore
 
@@ -21,11 +22,14 @@ class UserRankItemAfter4ViewHolder(
         }
     }
 
-    fun bind(userRankItem: UserRankItem) {
-        binding.setItems(userRankItem)
+    fun bind(item: HomeUserRankItem) {
+        binding.setItems(item.userRankItem, item.isMe)
     }
 
-    private fun ItemRankAfter4Binding.setItems(userRankItem: UserRankItem) {
+    private fun ItemRankAfter4Binding.setItems(
+        userRankItem: UserRankItem,
+        isMe: Boolean,
+    ) {
         userRankItem.apply {
             if (rank != null) {
                 tvRank.text = rank.toString()
@@ -43,6 +47,12 @@ class UserRankItemAfter4ViewHolder(
                 imgDice.visibility = View.VISIBLE
                 imgDiceGuest.visibility = View.INVISIBLE
             }
+        }
+
+        if (isMe) {
+            viewMe.root.visibility = View.VISIBLE
+        } else {
+            viewMe.root.visibility = View.GONE
         }
     }
 

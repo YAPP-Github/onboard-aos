@@ -41,8 +41,8 @@ class GroupJoinViewModel @Inject constructor(
     private val _groupResult = MutableSharedFlow<GroupResultType>()
     val groupResult = _groupResult.asSharedFlow()
 
-    private val _guestList = MutableLiveData<List<MemberInfo>>(listOf())
-    val guestList: LiveData<List<MemberInfo>> = _guestList
+    private val _guestList = MutableLiveData<List<MemberInfo>?>(null)
+    val guestList: LiveData<List<MemberInfo>?> = _guestList
 
     val nickName by lazy { groupItem.value?.nickname.orEmpty() }
     var accessCode = ""
@@ -65,17 +65,7 @@ class GroupJoinViewModel @Inject constructor(
 
     fun joinGroup(accessCode: String, nickName: String, guestId: Int? = null) {
         viewModelScope.launch {
-            validateNickName(nickName) { isAvailable ->
-                if (isAvailable || guestId != null) {
-                    launch {
-                        implementJoinGroup(accessCode, nickName, guestId)
-                    }
-                } else {
-                    launch {
-                        setGroupResultType(GroupResultType.ValidationNickname())
-                    }
-                }
-            }
+            implementJoinGroup(accessCode, nickName, guestId)
         }
     }
 
@@ -98,17 +88,20 @@ class GroupJoinViewModel @Inject constructor(
         }
     }
 
-    private suspend fun validateNickName(
+    fun validateNickName(
         nickName: String,
-        successValidateNickname: (Boolean) -> Unit,
     ) {
-        matchUseCase.getValidateNickName(groupId, nickName).collectLatest {
-            checkedApiResult(
-                apiResult = it,
-                success = { isAvailable ->
-                    successValidateNickname.invoke(isAvailable)
-                },
-            )
+        viewModelScope.launch {
+            matchUseCase.getValidateNickName(groupId, nickName).collectLatest {
+                checkedApiResult(
+                    apiResult = it,
+                    success = { isAvailable ->
+                        if (!isAvailable) {
+                            setGroupResultType(GroupResultType.ValidationNickname())
+                        }
+                    },
+                )
+            }
         }
     }
 
@@ -157,6 +150,13 @@ class GroupJoinViewModel @Inject constructor(
             )
         }
         return memberList
+    }
+
+    fun cleatGuest() {
+        _guestList.value = null
+        loadingState = false
+        cursor = null
+        hasNext = true
     }
 
     private fun setGroupResultType(groupResultType: GroupResultType) {
