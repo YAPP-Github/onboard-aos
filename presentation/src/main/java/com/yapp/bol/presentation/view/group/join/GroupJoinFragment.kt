@@ -40,33 +40,21 @@ class GroupJoinFragment : Fragment() {
             getNextGuest = { viewModel.getMembers() },
             joinedGroup = { guestId, nickname, guestDialog ->
                 viewModel.joinGroup(viewModel.accessCode, nickname, guestId)
-                viewModel.groupResult.collectWithLifecycle(viewLifecycleOwner) { groupResultType ->
-                    when (groupResultType) {
-                        is GroupResultType.LOADING -> {
-                            showLoading(true, getString(groupResultType.message))
-                        }
+                subscribeObservableGroupResult(
+                    onLoading = { errorMessageId ->
+                        showLoading(true, getString(errorMessageId))
+                    },
+                    onSuccess = {
+                        profileSettingDialog.dismiss()
+                        guestDialog.dismiss()
+                        handleSuccessJoinGroup()
+                    },
+                    onUnknownError = { errorMessage ->
+                        showLoading(false)
 
-                        is GroupResultType.SUCCESS -> {
-                            profileSettingDialog.dismiss()
-                            guestDialog.dismiss()
-                            handleSuccessJoinGroup(nickname)
-                        }
-
-                        is GroupResultType.UnknownError -> {
-                            showLoading(false)
-
-                            redeemDialog.showErrorMessage(groupResultType.message)
-                        }
-
-                        is GroupResultType.ValidationNickname -> {
-                            showLoading(false)
-
-                            redeemDialog.showErrorMessage(getString(groupResultType.message))
-                        }
-
-                        else -> {}
-                    }
-                }
+                        redeemDialog.showErrorMessage(errorMessage)
+                    },
+                )
             },
         )
     }
@@ -171,13 +159,7 @@ class GroupJoinFragment : Fragment() {
                     .visibleGuestMember(true)
                     .visibleSummitButton(true)
                     .setGuestOnClicked {
-                        if (viewModel.guestList.value.isNullOrEmpty()) {
-                            viewModel.getMembers()
-                        } else {
-                            guestListDialog.show()
-                            previousDialogDismiss()
-                            guestListDialog.guestListAdapter.submitList(viewModel.guestList.value)
-                        }
+                        viewModel.getMembers()
                     }
                     .onBackPressed {
                         previousDialogDismiss()
