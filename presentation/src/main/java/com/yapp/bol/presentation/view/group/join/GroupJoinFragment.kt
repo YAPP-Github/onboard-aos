@@ -30,13 +30,43 @@ class GroupJoinFragment : Fragment() {
     private lateinit var binding: FragmentGroupJoinBinding
     private val viewModel by viewModels<GroupJoinViewModel>()
     private val homeViewModel: HomeViewModel by activityViewModels()
+    private val profileSettingDialog by lazy { InputDialog(requireContext()) }
+    private val redeemDialog by lazy { InputDialog(requireContext()) }
 
     private val guestListDialog by lazy {
         GuestListDialog(
             context = requireContext(),
+            clearGuest = viewModel::cleatGuest,
             getNextGuest = { viewModel.getMembers() },
-            joinedGroup = { guestId, nickname ->
+            joinedGroup = { guestId, nickname, guestDialog ->
                 viewModel.joinGroup(viewModel.accessCode, nickname, guestId)
+                viewModel.groupResult.collectWithLifecycle(viewLifecycleOwner) { groupResultType ->
+                    when (groupResultType) {
+                        is GroupResultType.LOADING -> {
+                            showLoading(true, getString(groupResultType.message))
+                        }
+
+                        is GroupResultType.SUCCESS -> {
+                            profileSettingDialog.dismiss()
+                            guestDialog.dismiss()
+                            handleSuccessJoinGroup(nickname)
+                        }
+
+                        is GroupResultType.UnknownError -> {
+                            showLoading(false)
+
+                            redeemDialog.showErrorMessage(groupResultType.message)
+                        }
+
+                        is GroupResultType.ValidationNickname -> {
+                            showLoading(false)
+
+                            redeemDialog.showErrorMessage(getString(groupResultType.message))
+                        }
+
+                        else -> {}
+                    }
+                }
             },
         )
     }
@@ -76,7 +106,7 @@ class GroupJoinFragment : Fragment() {
     }
 
     private fun showRedeemInputDialog() {
-        InputDialog(requireContext()).apply {
+        redeemDialog.apply {
             this.setTitle("참여 코드 입력")
                 .setMessage(getString(R.string.group_join_code_input_plz))
                 .setLimitSize(6)
@@ -132,58 +162,63 @@ class GroupJoinFragment : Fragment() {
     }
 
     private fun showProfileSettingDialog(dialog: InputDialog, code: String) {
-        InputDialog(requireContext())
-            .setTitle("프로필 설정")
-            .setMessage("모임에서 사용할 닉네임을 10자 이하로 입력해주세요.")
-            .setLimitSize(10)
-            .setSingleLine(true)
-            .setText(viewModel.nickName)
-            .setHintText("닉네임을 입력해주세요.")
-            .visibleInputCount(true)
-            .visibleGuestMember(true)
-            .visibleSummitButton(true)
-            .setGuestOnClicked {
-                if (viewModel.guestList.value.isNullOrEmpty()) {
-                    viewModel.getMembers()
-                } else {
-                    guestListDialog.show()
-                    guestListDialog.guestListAdapter.submitList(viewModel.guestList.value ?: listOf())
-                }
-            }
-            .onBackPressed {
-                it.dismiss()
+        profileSettingDialog.apply {
+            val previousDialogDismiss = {
                 dialog.dismiss()
+                dismiss()
             }
-            .setOnSummit { nickname, nickNameDialog ->
-                viewModel.joinGroup(code, nickname)
-                viewModel.groupResult.collectWithLifecycle(viewLifecycleOwner) { groupResultType ->
-                    when (groupResultType) {
-                        is GroupResultType.LOADING -> {
-                            showLoading(true, getString(groupResultType.message))
-                        }
-
-                        is GroupResultType.SUCCESS -> {
-                            nickNameDialog.dismiss()
-
-                            handleSuccessJoinGroup()
-                        }
-
-                        is GroupResultType.UnknownError -> {
-                            showLoading(false)
-
-                            dialog.showErrorMessage(groupResultType.message)
-                        }
-
-                        is GroupResultType.ValidationNickname -> {
-                            showLoading(false)
-
-                            dialog.showErrorMessage(getString(groupResultType.message))
-                        }
-
-                        else -> {}
+            setTitle("프로필 설정")
+                .setMessage("모임에서 사용할 닉네임을 10자 이하로 입력해주세요.")
+                .setLimitSize(10)
+                .setSingleLine(true)
+                .setText(viewModel.nickName)
+                .setHintText("닉네임을 입력해주세요.")
+                .visibleInputCount(true)
+                .visibleGuestMember(true)
+                .visibleSummitButton(true)
+                .setGuestOnClicked {
+                    if (viewModel.guestList.value.isNullOrEmpty()) {
+                        viewModel.getMembers()
+                    } else {
+                        guestListDialog.show()
+                        previousDialogDismiss()
+                        guestListDialog.guestListAdapter.submitList(viewModel.guestList.value)
                     }
                 }
-            }.show()
+                .onBackPressed {
+                    previousDialogDismiss()
+                }
+                .setOnSummit { nickname, nickNameDialog ->
+                    viewModel.joinGroup(code, nickname)
+                    viewModel.groupResult.collectWithLifecycle(viewLifecycleOwner) { groupResultType ->
+                        when (groupResultType) {
+                            is GroupResultType.LOADING -> {
+                                showLoading(true, getString(groupResultType.message))
+                            }
+
+                            is GroupResultType.SUCCESS -> {
+                                nickNameDialog.dismiss()
+
+                                handleSuccessJoinGroup()
+                            }
+
+                            is GroupResultType.UnknownError -> {
+                                showLoading(false)
+
+                                dialog.showErrorMessage(groupResultType.message)
+                            }
+
+                            is GroupResultType.ValidationNickname -> {
+                                showLoading(false)
+
+                                dialog.showErrorMessage(getString(groupResultType.message))
+                            }
+
+                            else -> {}
+                        }
+                    }
+                }.show()
+        }
     }
 
     private fun handleSuccessJoinGroup(nickname: String = viewModel.nickName) {
@@ -220,13 +255,9 @@ class GroupJoinFragment : Fragment() {
                 binding.ivGroupJoinBg.loadImage(it.groupDetail.profileImageUrl, 0)
             }
             guestList.observe(viewLifecycleOwner) {
-                if (it.isNotEmpty()) {
-                    if (guestListDialog.isShowing) {
-                        guestListDialog.guestListAdapter.submitList(it)
-                    } else {
-                        guestListDialog.show()
-                        guestListDialog.guestListAdapter.submitList(it)
-                    }
+                if (it != null) {
+                    guestListDialog.guestListAdapter.submitList(it)
+                    guestListDialog.show()
                 }
             }
         }
