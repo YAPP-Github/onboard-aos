@@ -83,7 +83,7 @@
                 android:paddingVertical="14dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="0dp"
-                android:textCursorDrawable="@drawable/bg_group_join_modal_cursor" />
+                android:textCursorDrawable="@drawable/ic_cursor" />
 
             <FrameLayout
                 android:layout_width="match_parent"
