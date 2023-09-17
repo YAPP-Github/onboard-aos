@@ -92,15 +92,15 @@ class GroupJoinFragment : Fragment() {
         subscribeObservables()
     }
 
-    private fun initView() {
-        binding.tvGroupJoin.setOnClickListener {
+    private fun initView() = binding.run {
+        tvGroupJoin.setOnClickListener {
             if (viewModel.isAlreadyJoinGroup()) {
                 moveHomeActivity()
             } else {
                 showRedeemInputDialog()
             }
         }
-        binding.btnBack.setOnClickListener {
+        btnBack.setOnClickListener {
             findNavController().popBackStack()
         }
     }
@@ -277,7 +277,7 @@ class GroupJoinFragment : Fragment() {
             groupItem.filterNotNull().collectWithLifecycle(viewLifecycleOwner) {
                 binding.groupAdminView.setGroupItemDetailTitle(it.groupDetail.ownerNickname)
                 binding.groupMemberView.setGroupItemDetailTitle("${it.groupDetail.memberCount}명")
-                binding.ivGroupJoinBg.loadImage(it.groupDetail.profileImageUrl, 0)
+                binding.ivGroupJoinBg.loadImage(it.groupDetail.profileImageUrl)
             }
             guestList.observe(viewLifecycleOwner) {
                 if (it != null) {

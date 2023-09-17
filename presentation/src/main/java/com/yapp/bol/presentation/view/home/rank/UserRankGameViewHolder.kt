@@ -29,7 +29,7 @@ class UserRankGameViewHolder(
     private fun showGameItemData(gameItem: GameItem) {
         binding.apply {
             binding.viewGame.tvGame.text = gameItem.name
-            binding.viewGame.ivGame.loadImage(gameItem.img, 0)
+            binding.viewGame.ivGame.loadImage(gameItem.img)
         }
     }
 

@@ -14,7 +14,7 @@ import com.yapp.bol.presentation.databinding.FragmentNewGroupBinding
 import com.yapp.bol.presentation.utils.Constant
 import com.yapp.bol.presentation.utils.Converter
 import com.yapp.bol.presentation.utils.GalleryManager
-import com.yapp.bol.presentation.utils.loadImage
+import com.yapp.bol.presentation.utils.loadRoundImage
 import com.yapp.bol.presentation.view.group.dialog.ImageSettingDialog
 import com.yapp.bol.presentation.view.group.dialog.ProfileSettingDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -113,7 +113,7 @@ class NewGroupFragment : BaseFragment<FragmentNewGroupBinding>(R.layout.fragment
         }
 
         groupRandomImage.observe(viewLifecycleOwner) {
-            binding.ivImage.loadImage(it, 8)
+            binding.ivImage.loadRoundImage(it, 8)
         }
     }
 
