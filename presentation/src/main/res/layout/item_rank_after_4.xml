@@ -41,17 +41,30 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="43dp"/>
 
-        <TextView
-            android:id="@+id/tv_name"
+        <LinearLayout
+            android:id="@+id/lv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="SAMPLE NAME"
+            android:gravity="center"
             app:layout_constraintStart_toEndOf="@id/img_dice"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="16dp"
-            android:textAppearance="@style/Typography.Body3_M"
-            android:textColor="@color/Gray_14"/>
+            android:layout_marginTop="16dp">
+
+            <include
+                android:id="@+id/view_me"
+                android:visibility="gone"
+                layout="@layout/view_rank_me"/>
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="SAMPLE NAME"
+                android:textAppearance="@style/Typography.Body3_M"
+                android:textColor="@color/Gray_14"/>
+
+        </LinearLayout>
 
         <View
             android:id="@+id/iv_recent_user"
@@ -59,8 +72,8 @@
             android:layout_height="4dp"
             android:layout_marginStart="2dp"
             android:background="@drawable/ic_is_recent_user"
-            app:layout_constraintTop_toTopOf="@id/tv_name"
-            app:layout_constraintStart_toEndOf="@id/tv_name"
+            app:layout_constraintTop_toTopOf="@id/lv_name"
+            app:layout_constraintStart_toEndOf="@id/lv_name"
             android:visibility="gone"/>
 
         <TextView
@@ -68,8 +81,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/rank_default_play_count"
-            app:layout_constraintStart_toStartOf="@id/tv_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_name"
+            app:layout_constraintStart_toStartOf="@id/lv_name"
+            app:layout_constraintTop_toBottomOf="@id/lv_name"
             android:layout_marginTop="2dp"
             android:textAppearance="@style/Typography.Body5_R"
             android:textColor="@color/Gray_8"/>
@@ -80,7 +93,7 @@
             android:layout_height="wrap_content"
             android:text="@string/rank_default"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_name"
+            app:layout_constraintTop_toTopOf="@id/lv_name"
             android:layout_marginEnd="24dp"
             android:textAppearance="@style/Typography.Body3_M"
             android:textColor="@color/Gray_14"/>

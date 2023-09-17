@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yapp.bol.domain.usecase.group.GetGroupDetailUseCase
 import com.yapp.bol.domain.usecase.group.GetJoinedGroupUseCase
+import com.yapp.bol.domain.usecase.login.GetMyInfoUseCase
 import com.yapp.bol.domain.usecase.rank.GetUserRankGameListUseCase
 import com.yapp.bol.domain.usecase.rank.GetUserRankUseCase
 import com.yapp.bol.presentation.mapper.HomeMapper.toHomeGameItemUiModelList
@@ -32,7 +33,8 @@ class UserRankViewModel @Inject constructor(
     private val getUserRankGameListUseCase: GetUserRankGameListUseCase,
     private val getUserRankUseCase: GetUserRankUseCase,
     private val getJoinedGroupUseCase: GetJoinedGroupUseCase,
-    private val getGroupDetailUseCase: GetGroupDetailUseCase
+    private val getGroupDetailUseCase: GetGroupDetailUseCase,
+    private val getMyInfoUseCase: GetMyInfoUseCase,
 ) : ViewModel() {
 
     private var userListFetchJob: Job? = null
@@ -47,6 +49,7 @@ class UserRankViewModel @Inject constructor(
 
     var groupId: Long = GAME_USER_ID_TO_BE_SET
     var gameId: Long = GAME_USER_ID_TO_BE_SET
+    var myId: Long = GAME_USER_ID_TO_BE_SET
 
     fun setGameItemSelected(newPosition: Int) {
         val gameUiList: MutableList<HomeGameItemUiModel> =
@@ -92,6 +95,8 @@ class UserRankViewModel @Inject constructor(
             val gameItemFlow = getUserRankGameListUseCase(groupId = groupId.toInt())
             val currentGroupFlow = getGroupDetailUseCase(groupId)
             val joinedGroupFlow = getJoinedGroupUseCase()
+            val myInfoFlow = getMyInfoUseCase()
+
             val game: MutableList<HomeGameItemUiModel> = mutableListOf()
             val group: MutableList<DrawerGroupInfoUiModel> = mutableListOf()
             var gameIndex = -1
@@ -131,6 +136,13 @@ class UserRankViewModel @Inject constructor(
                         error = { throwable -> throw Exception(throwable.code) }
                     )
                 }
+                .combine(myInfoFlow) { _, info ->
+                    checkedApiResult(
+                        apiResult = info,
+                        success = { data -> myId = data.id.toLong() },
+                        error = { throwable -> throw Exception(throwable.code) }
+                    )
+                }
                 .catch { _gameAndGroupUiState.value = HomeUiState.Error(it) }
                 .collectLatest {
                     _gameAndGroupUiState.value = HomeUiState.Success(GameAndGroup(game, group))
@@ -159,7 +171,7 @@ class UserRankViewModel @Inject constructor(
             getUserRankUseCase(groupId.toInt(), gameId.toInt()).collectLatest {
                 checkedApiResult(
                     apiResult = it,
-                    success = { data -> _userUiState.value = HomeUiState.Success(data.toUserRankUiModel()) },
+                    success = { data -> _userUiState.value = HomeUiState.Success(data.toUserRankUiModel(myId)) },
                     error = { throwable ->
                         _userUiState.value = HomeUiState.Error(IllegalArgumentException(Exception(throwable.code)))
                     },

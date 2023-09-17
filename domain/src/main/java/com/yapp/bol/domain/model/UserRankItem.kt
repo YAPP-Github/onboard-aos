@@ -6,6 +6,8 @@ data class UserRankListItem(
 
 data class UserRankItem(
     val id: Long,
+    val memberId: Long,
+    val userId: Long,
     val rank: Int?,
     val name: String,
     val score: Int?,

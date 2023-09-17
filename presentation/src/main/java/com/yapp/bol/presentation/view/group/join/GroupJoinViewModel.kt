@@ -41,8 +41,8 @@ class GroupJoinViewModel @Inject constructor(
     private val _groupResult = MutableSharedFlow<GroupResultType>()
     val groupResult = _groupResult.asSharedFlow()
 
-    private val _guestList = MutableLiveData<List<MemberInfo>>(listOf())
-    val guestList: LiveData<List<MemberInfo>> = _guestList
+    private val _guestList = MutableLiveData<List<MemberInfo>?>(null)
+    val guestList: LiveData<List<MemberInfo>?> = _guestList
 
     val nickName by lazy { groupItem.value?.nickname.orEmpty() }
     var accessCode = ""
@@ -150,6 +150,13 @@ class GroupJoinViewModel @Inject constructor(
             )
         }
         return memberList
+    }
+
+    fun cleatGuest() {
+        _guestList.value = null
+        loadingState = false
+        cursor = null
+        hasNext = true
     }
 
     private fun setGroupResultType(groupResultType: GroupResultType) {
