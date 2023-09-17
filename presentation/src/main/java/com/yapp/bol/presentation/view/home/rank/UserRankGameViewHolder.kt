@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.presentation.databinding.ItemRankGameListBinding
 import com.yapp.bol.presentation.utils.loadImage
-import com.yapp.bol.presentation.utils.loadRoundImage
 
 class UserRankGameViewHolder(
     private val binding: ItemRankGameListBinding,

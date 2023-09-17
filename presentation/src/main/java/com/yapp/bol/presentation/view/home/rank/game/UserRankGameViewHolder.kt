@@ -14,7 +14,6 @@ import com.yapp.bol.presentation.databinding.ItemRankGameListBinding
 import com.yapp.bol.presentation.model.GameItemWithSelected
 import com.yapp.bol.presentation.utils.createScaleAnimator
 import com.yapp.bol.presentation.utils.loadImage
-import com.yapp.bol.presentation.utils.loadRoundImage
 import com.yapp.bol.designsystem.R as designR
 
 class UserRankGameViewHolder(
