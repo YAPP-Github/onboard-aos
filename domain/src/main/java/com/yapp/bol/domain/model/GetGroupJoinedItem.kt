@@ -11,6 +11,6 @@ data class GetGroupJoinedItem(
         return gameList.sortedByDescending { it.maxMember }.take(2)
     }
 
-    fun getFirstMaxGame() = getMaxTwoGameList().first()
-    fun getSecondMaxGame() = getMaxTwoGameList()[1]
+    fun getFirstMaxGame() = getMaxTwoGameList().firstOrNull()
+    fun getSecondMaxGame() = getMaxTwoGameList().getOrNull(1)
 }
