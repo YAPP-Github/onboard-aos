@@ -65,17 +65,7 @@ class GroupJoinViewModel @Inject constructor(
 
     fun joinGroup(accessCode: String, nickName: String, guestId: Int? = null) {
         viewModelScope.launch {
-            validateNickName(nickName) { isAvailable ->
-                if (isAvailable || guestId != null) {
-                    launch {
-                        implementJoinGroup(accessCode, nickName, guestId)
-                    }
-                } else {
-                    launch {
-                        setGroupResultType(GroupResultType.ValidationNickname())
-                    }
-                }
-            }
+            implementJoinGroup(accessCode, nickName, guestId)
         }
     }
 
@@ -98,17 +88,20 @@ class GroupJoinViewModel @Inject constructor(
         }
     }
 
-    private suspend fun validateNickName(
+    fun validateNickName(
         nickName: String,
-        successValidateNickname: (Boolean) -> Unit,
     ) {
-        matchUseCase.getValidateNickName(groupId, nickName).collectLatest {
-            checkedApiResult(
-                apiResult = it,
-                success = { isAvailable ->
-                    successValidateNickname.invoke(isAvailable)
-                },
-            )
+        viewModelScope.launch {
+            matchUseCase.getValidateNickName(groupId, nickName).collectLatest {
+                checkedApiResult(
+                    apiResult = it,
+                    success = { isAvailable ->
+                        if (!isAvailable) {
+                            setGroupResultType(GroupResultType.ValidationNickname())
+                        }
+                    },
+                )
+            }
         }
     }
 
