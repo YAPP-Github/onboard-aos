@@ -16,7 +16,7 @@ class GuestListDialog(
     private val context: Context,
     private val clearGuest: () -> Unit,
     private val getNextGuest: () -> Unit,
-    private val joinedGroup: (Int, String) -> Unit,
+    private val joinedGroup: (Int, String, GuestListDialog) -> Unit,
 ) : Dialog(context) {
 
     private lateinit var binding: GuestListDialogBinding
@@ -58,7 +58,7 @@ class GuestListDialog(
 
         btnJoinedGroup.setOnClickListener {
             val selectGuest = guestListAdapter.currentList[guestListAdapter.selectedGuest ?: return@setOnClickListener]
-            joinedGroup(selectGuest.id, selectGuest.nickname)
+            joinedGroup(selectGuest.id, selectGuest.nickname, this@GuestListDialog)
         }
     }
 
