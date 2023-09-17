@@ -145,8 +145,8 @@ class InputDialog(
         return this
     }
 
-    fun setHintText(hint: CharSequence): InputDialog {
-        binding.etInput.hint = hint
+    fun setHintText(@StringRes hintId: Int): InputDialog {
+        binding.etInput.setHint(hintId)
         return this
     }
 
@@ -165,18 +165,8 @@ class InputDialog(
         return this
     }
 
-    fun setTitle(@StringRes title: Int?): InputDialog {
-        binding.tvTitle.text = context.getString(title ?: return this)
-        return this
-    }
-
-    fun setMessage(message: CharSequence): InputDialog {
-        binding.tvMessage.text = message
-        return this
-    }
-
-    fun setMessage(@StringRes message: Int): InputDialog {
-        binding.tvMessage.text = context.getString(message)
+    fun setMessage(@StringRes messageId: Int): InputDialog {
+        binding.tvMessage.text = context.getString(messageId)
         return this
     }
 

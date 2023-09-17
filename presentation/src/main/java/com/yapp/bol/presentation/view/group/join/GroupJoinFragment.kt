@@ -108,14 +108,14 @@ class GroupJoinFragment : Fragment() {
     private fun showRedeemInputDialog() {
         redeemDialog.apply {
             this.setTitle("참여 코드 입력")
-                .setMessage(getString(R.string.group_join_code_input_plz))
+                .setMessage(R.string.group_join_code_input_plz)
                 .setLimitSize(6)
                 .setSingleLine(true)
                 .onBackPressed {
                     it.dismiss()
                 }
                 .setTitleIcon(
-                    icon = R.drawable.ic_time_line16,
+                    icon = R.drawable.ic_lock,
                     size = context.dpToPx(20),
                     margin = Margin(rightMargin = context.dpToPx(8)),
                 )
@@ -160,57 +160,59 @@ class GroupJoinFragment : Fragment() {
                 dialog.dismiss()
                 dismiss()
             }
-            setTitle("프로필 설정")
-                .setMessage("모임에서 사용할 닉네임을 10자 이하로 입력해주세요.")
-                .setLimitSize(10)
-                .setSingleLine(true)
-                .setText(viewModel.nickName)
-                .setHintText("닉네임을 입력해주세요.")
-                .visibleInputCount(true)
-                .visibleGuestMember(true)
-                .visibleSummitButton(true)
-                .setGuestOnClicked {
-                    if (viewModel.guestList.value.isNullOrEmpty()) {
-                        viewModel.getMembers()
-                    } else {
-                        guestListDialog.show()
-                        previousDialogDismiss()
-                        guestListDialog.guestListAdapter.submitList(viewModel.guestList.value)
+            InputDialog(requireContext()).apply {
+                setTitle("프로필 설정")
+                    .setMessage(R.string.group_join_nickname_modal_message)
+                    .setLimitSize(10)
+                    .setSingleLine(true)
+                    .setText(viewModel.nickName)
+                    .setHintText(R.string.group_join_nickname_hint_title)
+                    .visibleInputCount(true)
+                    .visibleGuestMember(true)
+                    .visibleSummitButton(true)
+                    .setGuestOnClicked {
+                        if (viewModel.guestList.value.isNullOrEmpty()) {
+                            viewModel.getMembers()
+                        } else {
+                            guestListDialog.show()
+                            previousDialogDismiss()
+                            guestListDialog.guestListAdapter.submitList(viewModel.guestList.value)
+                        }
                     }
-                }
-                .onBackPressed {
-                    previousDialogDismiss()
-                }
-                .setOnTyping { nickname, dialog ->
-                    if (nickname.isNotEmpty()) viewModel.validateNickName(nickname)
+                    .onBackPressed {
+                        previousDialogDismiss()
+                    }
+                    .setOnTyping { nickname, dialog ->
+                        if (nickname.isNotEmpty()) viewModel.validateNickName(nickname)
 
-                    subscribeObservableGroupResult(
-                        onValidationNickname = { errorMessageId ->
-                            showLoading(false)
+                        subscribeObservableGroupResult(
+                            onValidationNickname = { errorMessageId ->
+                                showLoading(false)
 
-                            dialog.showErrorMessage(getString(errorMessageId))
-                        },
-                    )
-                }
-                .setOnSummit { nickname, nickNameDialog ->
-                    viewModel.joinGroup(code, nickname)
+                                dialog.showErrorMessage(getString(errorMessageId))
+                            },
+                        )
+                    }
+                    .setOnSummit { nickname, nickNameDialog ->
+                        viewModel.joinGroup(code, nickname)
 
-                    subscribeObservableGroupResult(
-                        onLoading = { errorMessageId ->
-                            showLoading(true, getString(errorMessageId))
-                        },
-                        onSuccess = {
-                            nickNameDialog.dismiss()
+                        subscribeObservableGroupResult(
+                            onLoading = { errorMessageId ->
+                                showLoading(true, getString(errorMessageId))
+                            },
+                            onSuccess = {
+                                nickNameDialog.dismiss()
 
-                            handleSuccessJoinGroup()
-                        },
-                        onUnknownError = { errorMessage ->
-                            showLoading(false)
+                                handleSuccessJoinGroup()
+                            },
+                            onUnknownError = { errorMessage ->
+                                showLoading(false)
 
-                            dialog.showErrorMessage(errorMessage)
-                        },
-                    )
-                }.show()
+                                dialog.showErrorMessage(errorMessage)
+                            },
+                        )
+                    }.show()
+            }
         }
     }
 
