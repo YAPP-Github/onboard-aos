@@ -160,36 +160,58 @@ class GroupJoinFragment : Fragment() {
                 dialog.dismiss()
                 dismiss()
             }
-            .setOnTyping { nickname, dialog ->
-                if (nickname.isNotEmpty()) viewModel.validateNickName(nickname)
+            setTitle("프로필 설정")
+                .setMessage("모임에서 사용할 닉네임을 10자 이하로 입력해주세요.")
+                .setLimitSize(10)
+                .setSingleLine(true)
+                .setText(viewModel.nickName)
+                .setHintText("닉네임을 입력해주세요.")
+                .visibleInputCount(true)
+                .visibleGuestMember(true)
+                .visibleSummitButton(true)
+                .setGuestOnClicked {
+                    if (viewModel.guestList.value.isNullOrEmpty()) {
+                        viewModel.getMembers()
+                    } else {
+                        guestListDialog.show()
+                        previousDialogDismiss()
+                        guestListDialog.guestListAdapter.submitList(viewModel.guestList.value)
+                    }
+                }
+                .onBackPressed {
+                    previousDialogDismiss()
+                }
+                .setOnTyping { nickname, dialog ->
+                    if (nickname.isNotEmpty()) viewModel.validateNickName(nickname)
 
-                subscribeObservableGroupResult(
-                    onValidationNickname = { errorMessageId ->
-                        showLoading(false)
+                    subscribeObservableGroupResult(
+                        onValidationNickname = { errorMessageId ->
+                            showLoading(false)
 
-                        dialog.showErrorMessage(getString(errorMessageId))
-                    },
-                )
-            }
-            .setOnSummit { nickname, nickNameDialog ->
-                viewModel.joinGroup(code, nickname)
+                            dialog.showErrorMessage(getString(errorMessageId))
+                        },
+                    )
+                }
+                .setOnSummit { nickname, nickNameDialog ->
+                    viewModel.joinGroup(code, nickname)
 
-                subscribeObservableGroupResult(
-                    onLoading = { errorMessageId ->
-                        showLoading(true, getString(errorMessageId))
-                    },
-                    onSuccess = {
-                        nickNameDialog.dismiss()
+                    subscribeObservableGroupResult(
+                        onLoading = { errorMessageId ->
+                            showLoading(true, getString(errorMessageId))
+                        },
+                        onSuccess = {
+                            nickNameDialog.dismiss()
 
-                        handleSuccessJoinGroup()
-                    },
-                    onUnknownError = { errorMessage ->
-                        showLoading(false)
+                            handleSuccessJoinGroup()
+                        },
+                        onUnknownError = { errorMessage ->
+                            showLoading(false)
 
-                        dialog.showErrorMessage(errorMessage)
-                    },
-                )
-            }.show()
+                            dialog.showErrorMessage(errorMessage)
+                        },
+                    )
+                }.show()
+        }
     }
 
     private fun subscribeObservableGroupResult(
