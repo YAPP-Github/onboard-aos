@@ -46,7 +46,7 @@ class GroupJoinFragment : Fragment() {
                         showLoading(true, getString(errorMessageId))
                     },
                     onSuccess = {
-                        handleSuccessJoinGroup()
+                        handleSuccessJoinGroup(nickname)
                     },
                     onUnknownError = { errorMessage ->
                         showLoading(false)
