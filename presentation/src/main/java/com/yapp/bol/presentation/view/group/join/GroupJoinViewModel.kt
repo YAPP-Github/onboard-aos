@@ -51,6 +51,8 @@ class GroupJoinViewModel @Inject constructor(
     private var cursor: String? = null
     private var hasNext = true
 
+    val completedJoinGroup = MutableStateFlow(false)
+
     init {
         viewModelScope.launch {
             getGroupJoinedUseCase(groupId).run {
@@ -77,6 +79,7 @@ class GroupJoinViewModel @Inject constructor(
                 success = {
                     viewModelScope.launch {
                         setGroupResultType(GroupResultType.SUCCESS)
+                        completedJoinGroup.value = true
                     }
                 },
                 error = {

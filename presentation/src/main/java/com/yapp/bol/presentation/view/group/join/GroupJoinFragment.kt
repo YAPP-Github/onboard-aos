@@ -38,16 +38,15 @@ class GroupJoinFragment : Fragment() {
             context = requireContext(),
             clearGuest = viewModel::cleatGuest,
             getNextGuest = { viewModel.getMembers() },
-            joinedGroup = { guestId, nickname, guestDialog ->
+            joinedGroup = { guestId, nickname, _ ->
                 viewModel.joinGroup(viewModel.accessCode, nickname, guestId)
+
                 subscribeObservableGroupResult(
                     onLoading = { errorMessageId ->
                         showLoading(true, getString(errorMessageId))
                     },
                     onSuccess = {
-                        profileSettingDialog.dismiss()
-                        guestDialog.dismiss()
-                        handleSuccessJoinGroup()
+                        handleSuccessJoinGroup(nickname)
                     },
                     onUnknownError = { errorMessage ->
                         showLoading(false)
@@ -56,7 +55,11 @@ class GroupJoinFragment : Fragment() {
                     },
                 )
             },
-        )
+        ).apply {
+            setOnDismissListener {
+                if (!viewModel.completedJoinGroup.value) showProfileSettingDialog()
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,6 +96,12 @@ class GroupJoinFragment : Fragment() {
         }
     }
 
+    private fun dismissAllDialog() {
+        redeemDialog.dismiss()
+        profileSettingDialog.dismiss()
+        guestListDialog.dismiss()
+    }
+
     private fun showRedeemInputDialog() {
         redeemDialog.apply {
             this.setTitle("참여 코드 입력")
@@ -118,14 +127,14 @@ class GroupJoinFragment : Fragment() {
                             showLoading(false)
 
                             viewModel.accessCode = code
-                            showProfileSettingDialog(dialog, code)
+                            showProfileSettingDialog()
 
                             dismiss()
                         },
                         onUnknownError = { errorMessage ->
                             showLoading(false)
 
-                            dialog.showErrorMessage(errorMessage)
+                            showErrorMessage(errorMessage)
                         },
                         onValidationAccessCode = { errorMessageId ->
                             showLoading(false)
@@ -142,59 +151,53 @@ class GroupJoinFragment : Fragment() {
         binding.tvLoadingTitle.text = message
     }
 
-    private fun showProfileSettingDialog(dialog: InputDialog, code: String) {
+    private fun showProfileSettingDialog() {
         profileSettingDialog.apply {
-            val previousDialogDismiss = {
-                dialog.dismiss()
-                dismiss()
-            }
-            InputDialog(requireContext()).apply {
-                setTitle("프로필 설정")
-                    .setMessage(R.string.group_join_nickname_modal_message)
-                    .setLimitSize(10)
-                    .setSingleLine(true)
-                    .setText(viewModel.nickName)
-                    .setHintText(R.string.group_join_nickname_hint_title)
-                    .visibleInputCount(true)
-                    .visibleGuestMember(true)
-                    .visibleSummitButton(true)
-                    .setGuestOnClicked {
-                        viewModel.getMembers()
-                    }
-                    .onBackPressed {
-                        previousDialogDismiss()
-                    }
-                    .setOnTyping { nickname, dialog ->
-                        if (nickname.isNotEmpty()) viewModel.validateNickName(nickname)
+            setTitle("프로필 설정")
+                .setMessage(R.string.group_join_nickname_modal_message)
+                .setLimitSize(10)
+                .setSingleLine(true)
+                .setText(viewModel.nickName)
+                .setHintText(R.string.group_join_nickname_hint_title)
+                .visibleInputCount(true)
+                .visibleGuestMember(true)
+                .visibleSummitButton(true)
+                .setGuestOnClicked {
+                    dismiss()
 
-                        subscribeObservableGroupResult(
-                            onValidationNickname = { errorMessageId ->
-                                showLoading(false)
+                    viewModel.getMembers()
+                }
+                .onBackPressed {
+                    dismiss()
+                }
+                .setOnTyping { nickname, dialog ->
+                    if (nickname.isNotEmpty()) viewModel.validateNickName(nickname)
 
-                                dialog.showErrorMessage(getString(errorMessageId))
-                            },
-                        )
-                    }
-                    .setOnSummit { nickname, nickNameDialog ->
-                        viewModel.joinGroup(code, nickname)
+                    subscribeObservableGroupResult(
+                        onValidationNickname = { errorMessageId ->
+                            showLoading(false)
 
-                        subscribeObservableGroupResult(
-                            onLoading = { errorMessageId ->
-                                showLoading(true, getString(errorMessageId))
-                            },
-                            onSuccess = {
-                                nickNameDialog.dismiss()
+                            dialog.showErrorMessage(getString(errorMessageId))
+                        },
+                    )
+                }
+                .setOnSummit { nickname, _ ->
+                    viewModel.joinGroup(viewModel.accessCode, nickname)
 
-                                handleSuccessJoinGroup()
-                            },
-                            onUnknownError = { errorMessage ->
-                                showLoading(false)
+                    subscribeObservableGroupResult(
+                        onLoading = { errorMessageId ->
+                            showLoading(true, getString(errorMessageId))
+                        },
+                        onSuccess = {
+                            handleSuccessJoinGroup()
+                        },
+                        onUnknownError = { errorMessage ->
+                            showLoading(false)
 
-                                dialog.showErrorMessage(errorMessage)
-                            },
-                        )
-                    }.show()
-            }
+                            showErrorMessage(errorMessage)
+                        },
+                    )
+                }.show()
         }
     }
 
@@ -231,13 +234,13 @@ class GroupJoinFragment : Fragment() {
     }
 
     private fun handleSuccessJoinGroup(nickname: String = viewModel.nickName) {
+        dismissAllDialog()
+
         WelcomeJoinDialog(requireContext(), nickname).apply {
             setOnDismissListener {
                 moveHomeActivity()
             }
         }.show()
-
-        guestListDialog.dismiss()
     }
 
     private fun moveHomeActivity() {
