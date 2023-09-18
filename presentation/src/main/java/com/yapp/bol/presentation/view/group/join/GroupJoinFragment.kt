@@ -112,7 +112,7 @@ class GroupJoinFragment : Fragment() {
                     it.dismiss()
                 }
                 .setTitleIcon(
-                    icon = R.drawable.ic_lock,
+                    icon = R.drawable.ic_code,
                     size = context.dpToPx(20),
                     margin = Margin(rightMargin = context.dpToPx(8)),
                 )
