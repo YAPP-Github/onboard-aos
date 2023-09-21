@@ -50,7 +50,7 @@
     <string name="guest_description_text">아직 온보드에 가입하지 않은 상대를 모임에\n임시 멤버로 추가하고 게임 기록을 남겨보세요.</string>
     <string name="guest_name_hint">임시 멤버가 사용할 닉네임을 입력해주세요.</string>
     <string name="guest_name_set_tip">Tip :임시 멤버의 닉네임은 기억하기 쉽게 만들어주세요.\n이후 온보드에 가입할 때 기록을 연동할 수 있습니다.</string>
-    <string name="guest_empty">현재 등록된 입시 멤버가 없습니다.</string>
+    <string name="guest_empty">현재 등록된 임시 멤버가 없습니다.</string>
 
     <string name="search_result_nothing">\'%s\'에 대한 검색 결과가 없습니다.</string>
     <string name="search_result_nothing_guide">함께 보드게임을 플레이한 상대가 온보드에 아직\n 없다면,임시 멤버로 추가해 기록해보세요!</string>
