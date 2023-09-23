@@ -1,6 +1,5 @@
 package com.yapp.bol.presentation.utils
 
-import android.animation.Animator
 import android.animation.ValueAnimator
 import android.content.res.ColorStateList
 import android.view.View
@@ -48,73 +47,5 @@ fun TextView.createSmoothTextColorAnimator(
         anim.addUpdateListener {
             this.setTextColor(it.animatedValue as Int)
         }
-    }
-}
-
-/**
- * + startColor: anim 시작 색상
- * + endColor: anim 종료 색상
- * + durationMS: anim 지속 milliseconds
- *
- * 뷰의 background의 tint가 duration 기준으로 animator 시작 시 startColor로 바뀌고
- * animator 종료 시 endColor로 바뀌게 됨. 자연스러운 변경이 아님.
- */
-fun View.createColorAnimator(
-    startColor: Int,
-    endColor: Int,
-    durationMS: Long = 1000L,
-): ValueAnimator {
-    return ValueAnimator.ofArgb(startColor, endColor).also { anim ->
-        anim.duration = durationMS
-        anim.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(p0: Animator?) {
-                backgroundTintList = ColorStateList.valueOf(startColor)
-            }
-
-            override fun onAnimationEnd(p0: Animator?) {
-                backgroundTintList = ColorStateList.valueOf(endColor)
-            }
-
-            override fun onAnimationCancel(p0: Animator?) {
-                backgroundTintList = ColorStateList.valueOf(endColor)
-            }
-
-            override fun onAnimationRepeat(p0: Animator?) {
-            }
-        })
-    }
-}
-
-/**
- * + startColor: anim 시작 색상
- * + endColor: anim 종료 색상
- * + durationMS: anim 지속 milliseconds
- *
- * 텍스트뷰의 text color가 duration 기준으로 animator 시작 시 startColor로 바뀌고
- * animator 종료 시 endColor로 바뀌게 됨. 자연스러운 변경이 아님.
- */
-fun TextView.createTextColorAnimator(
-    startColor: Int,
-    endColor: Int,
-    durationMS: Long = 1000L,
-): ValueAnimator {
-    return ValueAnimator.ofArgb(startColor, endColor).also { anim ->
-        anim.duration = durationMS
-        anim.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(p0: Animator?) {
-                setTextColor(startColor)
-            }
-
-            override fun onAnimationEnd(p0: Animator?) {
-                setTextColor(endColor)
-            }
-
-            override fun onAnimationCancel(p0: Animator?) {
-                setTextColor(endColor)
-            }
-
-            override fun onAnimationRepeat(p0: Animator?) {
-            }
-        })
     }
 }
