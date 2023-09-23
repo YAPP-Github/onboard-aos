@@ -5,8 +5,8 @@ import org.gradle.api.JavaVersion
 object Applications {
     // APP Config
     const val minSdk = 21
-    const val targetSdk = 32
-    const val compileSdk = 32
+    const val targetSdk = 33
+    const val compileSdk = 33
     const val jvmTarget = "1.8"
     const val versionCode = 3
     const val majorVersion = 1
