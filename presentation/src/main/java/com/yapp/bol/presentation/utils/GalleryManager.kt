@@ -52,8 +52,7 @@ class GalleryManager(
             READ_PERMISSION -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     ContextCompat.checkSelfPermission(context, Manifest.permission.READ_MEDIA_IMAGES)
-                }
-                else {
+                } else {
                     ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
                 }
             }
