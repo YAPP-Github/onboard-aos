@@ -8,6 +8,7 @@ data class MemberInfo(
     val role: String,
     val nickname: String,
     val level: Int,
+    val isMe: Boolean = false,
     var isChecked: Boolean = false,
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
