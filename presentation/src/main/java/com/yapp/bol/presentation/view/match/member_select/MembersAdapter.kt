@@ -43,7 +43,7 @@ class MembersAdapter(
 
             setImageView(item)
             setClickListener(item, position)
-            setIsMe(item.isMe)
+            binding.viewMe.root.isVisible = item.isMe
         }
 
         private fun setImageView(item: MemberInfo) {
@@ -72,12 +72,6 @@ class MembersAdapter(
                     memberClickListener(item, position, binding.cbMemberSelect.isChecked)
                 }
             }
-        }
-
-        private fun setIsMe(isMe: Boolean) {
-            binding.viewMe.root.isVisible = isMe
-            val startPadding = binding.tvMemberName.context.dpToPx(if (isMe) 3 else 8)
-            binding.tvMemberName.setPadding(startPadding, 0, 0, 0)
         }
     }
 
