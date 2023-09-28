@@ -24,16 +24,33 @@
         app:layout_constraintEnd_toEndOf="@+id/iv_member_level"
         app:layout_constraintTop_toTopOf="@+id/iv_member_level" />
 
-    <TextView
-        android:id="@+id/tv_member_name"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="씅으니"
-        android:textAppearance="@style/Typography.Label4_B"
-        android:textColor="@color/Gray_14"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_member_level" />
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/iv_member_level">
+
+        <include
+            android:id="@+id/view_me"
+            layout="@layout/view_rank_me"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginEnd="2dp"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tv_member_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="씅으니"
+            android:textAppearance="@style/Typography.Label4_B"
+            android:textColor="@color/Gray_14" />
+
+    </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

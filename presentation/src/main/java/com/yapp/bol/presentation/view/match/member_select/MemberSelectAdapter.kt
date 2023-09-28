@@ -2,6 +2,7 @@ package com.yapp.bol.presentation.view.match.member_select
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -34,6 +35,7 @@ class MemberSelectAdapter(
         fun bind(item: MemberInfo) {
             binding.tvMemberName.text = item.nickname
             setImageView(item)
+            binding.viewMe.root.isVisible = item.isMe
             binding.btnMemberDelete.setOnClickListener {
                 memberDeleteClickListener(item)
             }
