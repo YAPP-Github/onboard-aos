@@ -22,14 +22,21 @@ class GalleryManager(
 ) {
 
     private val isPermission: Boolean
-        get() = getPermission(WRITE_PERMISSION) != PackageManager.PERMISSION_DENIED &&
+        get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             getPermission(READ_PERMISSION) != PackageManager.PERMISSION_DENIED
+        } else {
+            getPermission(WRITE_PERMISSION) != PackageManager.PERMISSION_DENIED &&
+                getPermission(READ_PERMISSION) != PackageManager.PERMISSION_DENIED
+        }
 
     private val imageResult = getResultLauncher()
 
     fun checkedGalleryAccess() {
-        if (isPermission) generateGallery()
-        else ActivityCompat.requestPermissions(context, PERMISSIONS, REQ_GALLERY)
+        if (isPermission) {
+            generateGallery()
+        } else {
+            ActivityCompat.requestPermissions(context, PERMISSIONS, REQ_GALLERY)
+        }
     }
 
     private fun generateGallery() {
@@ -42,20 +49,26 @@ class GalleryManager(
     private fun getPermission(permissionType: Int): Int {
         return when (permissionType) {
             WRITE_PERMISSION -> ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            READ_PERMISSION -> ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
+            READ_PERMISSION -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    ContextCompat.checkSelfPermission(context, Manifest.permission.READ_MEDIA_IMAGES)
+                } else {
+                    ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
+                }
+            }
             else -> throw IllegalArgumentException("잘못된 권한 타입입니다.")
         }
     }
 
     private fun getResultLauncher(): ActivityResultLauncher<Intent> {
         return context.registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
+            ActivityResultContracts.StartActivityForResult(),
         ) { result ->
             if (result.resultCode != AppCompatActivity.RESULT_OK) return@registerForActivityResult
             val imageUri = result.data?.data ?: return@registerForActivityResult
             val imageFile = File(getRealPathFromURI(imageUri))
             uploadImageFile(imageFile)
-            imageView.loadImage(imageUri.toString())
+            imageView.loadRoundImage(imageUri.toString(), 8)
         }
     }
 
@@ -80,7 +93,8 @@ class GalleryManager(
         const val REQ_GALLERY = 1
         val PERMISSIONS = arrayOf(
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.READ_MEDIA_IMAGES,
         )
         const val WRITE_PERMISSION = 1
         const val READ_PERMISSION = 2

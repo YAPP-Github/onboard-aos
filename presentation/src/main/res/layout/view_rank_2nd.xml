@@ -51,25 +51,38 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_rank" />
 
-        <TextView
-            android:id="@+id/tv_name"
+        <LinearLayout
+            android:id="@+id/lv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/rank_default"
-            android:textAppearance="@style/Typography.Title5"
-            android:textColor="@color/Gray_15"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_dice_bottom"
-            android:layout_marginTop="14dp" />
+            android:layout_marginTop="14dp"
+            android:gravity="center">
+
+            <include
+                android:id="@+id/view_me"
+                android:visibility="gone"
+                layout="@layout/view_rank_me"/>
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rank_default"
+                android:textAppearance="@style/Typography.Title3"
+                android:textColor="@color/Gray_15" />
+
+        </LinearLayout>
 
         <View
             android:id="@+id/iv_recent_user"
             android:layout_width="4dp"
             android:layout_height="4dp"
             android:background="@drawable/ic_is_recent_user"
-            app:layout_constraintTop_toTopOf="@id/tv_name"
-            app:layout_constraintStart_toEndOf="@id/tv_name"
+            app:layout_constraintTop_toTopOf="@id/lv_name"
+            app:layout_constraintStart_toEndOf="@id/lv_name"
             android:visibility="gone"/>
 
         <LinearLayout
@@ -78,7 +91,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_name"
+            app:layout_constraintTop_toBottomOf="@+id/lv_name"
             android:gravity="center"
             android:layout_marginTop="2dp"
             android:orientation="horizontal"

@@ -21,7 +21,7 @@ class GetGroupJoinedUseCase @Inject constructor(
         var groupDetail: GroupDetailItem? = null
         var myNickname = ""
         var hasJoinedGroup = false
-        var groupGameList: List<GameItem>? = null
+        var groupGameList: List<GameItem> = emptyList()
 
         groupRepository.getGroupDetail(groupId.toLong()).doWork(
             isSuccess = {
@@ -42,10 +42,8 @@ class GetGroupJoinedUseCase @Inject constructor(
             isSuccess = { groupGameList = it },
         )
 
-        return@withContext if (groupGameList != null && groupGameList?.isNotEmpty() == true) {
-            GetGroupJoinedItem(groupDetail!!, groupGameList!!, myNickname, hasJoinedGroup)
-        } else {
-            null
+        return@withContext groupDetail?.let {
+            GetGroupJoinedItem(it, groupGameList, myNickname, hasJoinedGroup)
         }
     }
 

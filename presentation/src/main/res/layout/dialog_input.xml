@@ -41,26 +41,27 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <LinearLayout
                     android:id="@+id/ll_guest_member"
-                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="top"
                         android:text="@string/guest_member_connect"
                         android:textAppearance="@style/Typography.Body5_R"
-                        android:layout_gravity="top"
                         android:textColor="@color/Gray_9" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.7dp"
-                        android:background="@color/Gray_9"/>
+                        android:background="@color/Gray_9" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -75,7 +76,6 @@
 
             <EditText
                 android:id="@+id/et_input"
-                style="@style/Typography.Body2_M"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -83,12 +83,12 @@
                 android:paddingVertical="14dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="0dp"
-                android:textColor="@color/Gray_15"
-                android:textColorHint="@color/Gray_9" />
+                android:textCursorDrawable="@drawable/ic_cursor" />
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -117,7 +117,7 @@
 
         <TextView
             android:id="@+id/tv_summit"
-            style="@style/Typography.Body3_R"
+            style="@style/Typography.Body3_M"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

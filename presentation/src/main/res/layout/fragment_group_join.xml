@@ -19,8 +19,8 @@
             android:id="@+id/iv_group_join_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@{vm.groupItem.groupDetail.profileImageUrl}"
+            android:adjustViewBounds="false"
+            android:scaleType="fitXY"
             android:tintMode="src_atop"
             app:tint="#80000000" />
 

@@ -9,7 +9,7 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.GameResultRecordDialogBinding
 import com.yapp.bol.presentation.model.ResultRecordItem
 import com.yapp.bol.presentation.utils.dialogWidthResize
-import com.yapp.bol.presentation.utils.loadImage
+import com.yapp.bol.presentation.utils.loadRoundImage
 
 class ResultRecordDialog(
     private val context: Context,
@@ -29,7 +29,7 @@ class ResultRecordDialog(
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         context.dialogWidthResize(this, 0.9f, true)
         binding.rvPlayers.adapter = resultRecordAdapter
-        binding.ivGameImage.loadImage(resultRecordItem.gameImageUrl, 6)
+        binding.ivGameImage.loadRoundImage(resultRecordItem.gameImageUrl, 6)
         resultRecordAdapter.submitList(resultRecordItem.player)
 
         setTextView()
