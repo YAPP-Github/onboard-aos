@@ -14,6 +14,7 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.RvPlayerMatchItemBinding
 import com.yapp.bol.presentation.model.MemberResultItem
 import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
+import com.yapp.bol.presentation.utils.config.setDice
 import com.yapp.bol.presentation.view.match.MatchActivity.Companion.GUEST
 import com.yapp.bol.designsystem.R as DR
 
@@ -53,14 +54,9 @@ class GameResultAdapter(
             setTextView(item)
             setClickListener(position)
             setTextChangeListener(position)
-            setImageView(item)
+            binding.ivMemberLevelIcon.setDice(item.role)
             val color = if (item.score == null) DR.color.Gray_6 else DR.color.Gray_11
             binding.itemLine.setBackgroundColor(ContextCompat.getColor(context, color))
-        }
-
-        private fun setImageView(item: MemberResultItem) {
-            val image = if (item.role == GUEST) DR.drawable.img_dice_empty_large else DR.drawable.img_dice
-            binding.ivMemberLevelIcon.setImageResource(image)
         }
 
         private fun setTextView(item: MemberResultItem) {

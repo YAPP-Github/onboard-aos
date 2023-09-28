@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.designsystem.R as DR
 import com.yapp.bol.presentation.databinding.RvMemberSelectItemBinding
 import com.yapp.bol.presentation.model.MemberInfo
+import com.yapp.bol.presentation.utils.config.setDice
 import com.yapp.bol.presentation.view.match.MatchActivity.Companion.GUEST
 
 class MemberSelectAdapter(
@@ -33,7 +34,7 @@ class MemberSelectAdapter(
 
         fun bind(item: MemberInfo) {
             binding.tvMemberName.text = item.nickname
-            setImageView(item)
+            binding.ivMemberLevel.setDice(item.role)
             binding.btnMemberDelete.setOnClickListener {
                 memberDeleteClickListener(item)
             }
@@ -41,17 +42,6 @@ class MemberSelectAdapter(
             binding.root.setOnClickListener {
                 memberDeleteClickListener(item)
             }
-        }
-
-        private fun setImageView(item: MemberInfo) {
-            val imageRes = if (item.role == GUEST) {
-                binding.ivMemberLevel.setPadding(10, 10, 10, 10)
-                DR.drawable.img_dice_empty
-            } else {
-                binding.ivMemberLevel.setPadding(0, 0, 0, 0)
-                DR.drawable.img_dice
-            }
-            binding.ivMemberLevel.setImageResource(imageRes)
         }
     }
 

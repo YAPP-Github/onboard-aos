@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.RvPlayerRecordItemBinding
+import com.yapp.bol.presentation.model.MemberInfo
 import com.yapp.bol.presentation.model.MemberResultItem
+import com.yapp.bol.presentation.utils.config.setDice
 import com.yapp.bol.presentation.view.match.MatchActivity.Companion.GUEST
 import com.yapp.bol.designsystem.R as DR
 
@@ -33,13 +35,8 @@ class ResultRecordAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: MemberResultItem) {
-            setImageView(item)
+            binding.ivMemberLevelIcon.setDice(item.role)
             setTextView(item)
-        }
-
-        private fun setImageView(item: MemberResultItem) {
-            val image = if (item.role == GUEST) DR.drawable.img_dice_empty else DR.drawable.img_dice
-            binding.ivMemberLevelIcon.setImageResource(image)
         }
 
         private fun setTextView(item: MemberResultItem) {
