@@ -14,8 +14,7 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.RvPlayerMatchItemBinding
 import com.yapp.bol.presentation.model.MemberResultItem
 import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
-import com.yapp.bol.presentation.utils.config.setDice
-import com.yapp.bol.presentation.view.match.MatchActivity.Companion.GUEST
+import com.yapp.bol.presentation.utils.setDice
 import com.yapp.bol.designsystem.R as DR
 
 class GameResultAdapter(
