@@ -2,13 +2,15 @@ package com.yapp.bol.presentation.view.match.member_select
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.yapp.bol.designsystem.R as DR
 import com.yapp.bol.presentation.databinding.RvMemberItemBinding
 import com.yapp.bol.presentation.model.MemberInfo
+import com.yapp.bol.presentation.utils.dpToPx
 import com.yapp.bol.presentation.view.match.MatchActivity.Companion.GUEST
+import com.yapp.bol.designsystem.R as DR
 
 class MembersAdapter(
     private val memberClickListener: (MemberInfo, Int, Boolean) -> Unit,
@@ -38,8 +40,10 @@ class MembersAdapter(
         fun bind(item: MemberInfo, position: Int) {
             binding.tvMemberName.text = item.nickname
             binding.cbMemberSelect.isChecked = item.isChecked
+
             setImageView(item)
             setClickListener(item, position)
+            setIsMe(item.isMe)
         }
 
         private fun setImageView(item: MemberInfo) {
@@ -68,6 +72,12 @@ class MembersAdapter(
                     memberClickListener(item, position, binding.cbMemberSelect.isChecked)
                 }
             }
+        }
+
+        private fun setIsMe(isMe: Boolean) {
+            binding.viewMe.root.isVisible = isMe
+            val startPadding = binding.tvMemberName.context.dpToPx(if (isMe) 3 else 8)
+            binding.tvMemberName.setPadding(startPadding, 0, 0, 0)
         }
     }
 
