@@ -18,8 +18,8 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:gravity="center_vertical"
         android:layout_marginStart="8dp"
+        android:gravity="center_vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/cb_member_select"
         app:layout_constraintStart_toEndOf="@+id/iv_member_level_icon"

@@ -6,10 +6,10 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.yapp.bol.designsystem.R as DR
 import com.yapp.bol.presentation.databinding.RvMemberSelectItemBinding
 import com.yapp.bol.presentation.model.MemberInfo
 import com.yapp.bol.presentation.view.match.MatchActivity.Companion.GUEST
+import com.yapp.bol.designsystem.R as DR
 
 class MemberSelectAdapter(
     private val memberDeleteClickListener: (MemberInfo) -> Unit,
