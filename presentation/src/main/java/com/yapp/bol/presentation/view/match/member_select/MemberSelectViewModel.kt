@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.yapp.bol.domain.usecase.login.GetMyInfoUseCase
 import com.yapp.bol.domain.usecase.login.MatchUseCase
 import com.yapp.bol.presentation.mapper.MatchMapper.toPresentation
 import com.yapp.bol.presentation.model.MemberInfo
@@ -19,7 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MemberSelectViewModel @Inject constructor(
-    private val matchUseCase: MatchUseCase
+    private val matchUseCase: MatchUseCase,
+    private val getMyInfoUseCase: GetMyInfoUseCase,
 ) : ViewModel() {
 
     private val _members = MutableLiveData(listOf<MemberInfo>())
@@ -55,7 +57,10 @@ class MemberSelectViewModel @Inject constructor(
         if (hasNext.not() || loadingState) return
         loadingState = true
         viewModelScope.launch {
-            val memberList = withContext(Dispatchers.IO) { getMemberList(nickname) }
+            val userNickname = withContext(Dispatchers.IO) { getMyInfo() }
+            val memberList = withContext(Dispatchers.IO) { getMemberList(nickname) }.map {
+                if (it.nickname == userNickname) it.copy(isMe = true) else it
+            }
             allMembers = setMemberIsChecked(allMembers + memberList)
             updateMembers()
         }
@@ -76,6 +81,18 @@ class MemberSelectViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    private suspend fun getMyInfo(): String {
+        var nickname = ""
+        matchUseCase.getUserInfo().collect {
+            checkedApiResult(
+                apiResult = it,
+                success = { userItem -> nickname = userItem.nickname }
+            )
+        }
+
+        return nickname
     }
 
     fun setMaxPlayers(count: Int) {
