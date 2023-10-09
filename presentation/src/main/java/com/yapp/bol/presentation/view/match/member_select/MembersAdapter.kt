@@ -2,6 +2,7 @@ package com.yapp.bol.presentation.view.match.member_select
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -38,7 +39,9 @@ class MembersAdapter(
             binding.tvMemberName.text = item.nickname
             binding.cbMemberSelect.isChecked = item.isChecked
             binding.ivMemberLevelIcon.setDiceImageForRole(item.role)
+
             setClickListener(item, position)
+            binding.viewMe.root.isVisible = item.isMe
         }
 
         private fun setClickListener(item: MemberInfo, position: Int) {
