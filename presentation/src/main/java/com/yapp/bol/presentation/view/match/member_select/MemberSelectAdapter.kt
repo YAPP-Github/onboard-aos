@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.databinding.RvMemberSelectItemBinding
 import com.yapp.bol.presentation.model.MemberInfo
-import com.yapp.bol.presentation.utils.setDice
+import com.yapp.bol.presentation.utils.setDiceImageForRole
 
 class MemberSelectAdapter(
     private val memberDeleteClickListener: (MemberInfo) -> Unit,
@@ -32,7 +32,7 @@ class MemberSelectAdapter(
 
         fun bind(item: MemberInfo) {
             binding.tvMemberName.text = item.nickname
-            binding.ivMemberLevel.setDice(item.role)
+            binding.ivMemberLevel.setDiceImageForRole(item.role)
             binding.btnMemberDelete.setOnClickListener {
                 memberDeleteClickListener(item)
             }

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.databinding.RvMemberItemBinding
 import com.yapp.bol.presentation.model.MemberInfo
-import com.yapp.bol.presentation.utils.setDice
+import com.yapp.bol.presentation.utils.setDiceImageForRole
 
 class GuestListAdapter(
     private val isEnableButton: (String) -> Unit
@@ -54,7 +54,7 @@ class GuestListAdapter(
         fun bind(item: MemberInfo, position: Int) {
             binding.tvMemberName.text = item.nickname
             binding.cbMemberSelect.isChecked = item.isChecked
-            binding.ivMemberLevelIcon.setDice(item.role)
+            binding.ivMemberLevelIcon.setDiceImageForRole(item.role)
             setClickListener(position)
         }
 

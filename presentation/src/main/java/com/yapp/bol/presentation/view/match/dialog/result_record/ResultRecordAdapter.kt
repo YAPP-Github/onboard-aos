@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.RvPlayerRecordItemBinding
 import com.yapp.bol.presentation.model.MemberResultItem
-import com.yapp.bol.presentation.utils.setDice
+import com.yapp.bol.presentation.utils.setDiceImageForRole
 
 class ResultRecordAdapter(
     private val context: Context
@@ -32,7 +32,7 @@ class ResultRecordAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: MemberResultItem) {
-            binding.ivMemberLevelIcon.setDice(item.role)
+            binding.ivMemberLevelIcon.setDiceImageForRole(item.role)
             setTextView(item)
         }
 

@@ -14,7 +14,7 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.databinding.RvPlayerMatchItemBinding
 import com.yapp.bol.presentation.model.MemberResultItem
 import com.yapp.bol.presentation.utils.Constant.EMPTY_STRING
-import com.yapp.bol.presentation.utils.setDice
+import com.yapp.bol.presentation.utils.setDiceImageForRole
 import com.yapp.bol.designsystem.R as DR
 
 class GameResultAdapter(
@@ -53,7 +53,7 @@ class GameResultAdapter(
             setTextView(item)
             setClickListener(position)
             setTextChangeListener(position)
-            binding.ivMemberLevelIcon.setDice(item.role)
+            binding.ivMemberLevelIcon.setDiceImageForRole(item.role)
             val color = if (item.score == null) DR.color.Gray_6 else DR.color.Gray_11
             binding.itemLine.setBackgroundColor(ContextCompat.getColor(context, color))
         }

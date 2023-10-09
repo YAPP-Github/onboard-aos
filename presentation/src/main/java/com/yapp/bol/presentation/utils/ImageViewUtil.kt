@@ -4,7 +4,7 @@ import android.widget.ImageView
 import com.yapp.bol.designsystem.R
 import com.yapp.bol.presentation.view.match.MatchActivity
 
-fun ImageView.setDice(role: String) {
+fun ImageView.setDiceImageForRole(role: String) {
     val imageRes = if (role == MatchActivity.GUEST) {
         setPadding(10, 10, 10, 10)
         R.drawable.img_dice_empty
