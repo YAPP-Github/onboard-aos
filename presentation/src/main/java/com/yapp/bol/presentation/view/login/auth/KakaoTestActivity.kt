@@ -60,6 +60,7 @@ class KakaoTestActivity : BaseActivity<ActivityKakaoTestBinding>(R.layout.activi
             if (it.accessToken.isEmpty()) return@collectWithLifecycle
             val intent = Intent(this@KakaoTestActivity, LoginActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
     companion object {

@@ -18,6 +18,7 @@ import com.yapp.bol.presentation.databinding.FragmentMainBinding
 import com.yapp.bol.presentation.utils.collectWithLifecycle
 import com.yapp.bol.presentation.utils.showToast
 import com.yapp.bol.presentation.view.group.GroupActivity
+import com.yapp.bol.presentation.view.home.HomeActivity
 import com.yapp.bol.presentation.view.login.auth.KakaoTestActivity
 import com.yapp.bol.presentation.view.login.dialog.TermsDialog
 import com.yapp.bol.presentation.view.login.auth.AuthViewModel
@@ -48,8 +49,7 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
                 }
 
                 override fun onClickSignUp() {
-                    if (loginViewModel.onboardState.value?.size == NONE_AGREE) moveSingUp()
-                    else moveGroupSearch()
+                    moveSingUp()
                 }
 
                 override fun onClickTermsDetail(url: String) {
@@ -63,14 +63,12 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
                 override fun dismissAction(state: Boolean) {
                     loginViewModel.updateDialogState(state)
                 }
-            }
+            },
         )
     }
 
     override fun onViewCreatedAction() {
         super.onViewCreatedAction()
-
-        loginViewModel.getAccessToken()
         setButtonListener()
         subscribeObservables()
         subscribeGoogleLoginObservables()
@@ -79,10 +77,20 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
     private fun subscribeObservables() = with(loginViewModel) {
         onboardState.observe(viewLifecycleOwner) {
             if (it == null) return@observe
-            when (it.size) {
-                ALL_AGREE -> moveGroupSearch()
-                PARTIAL_AGREE -> checkedBoardPage(it.first())
-                NONE_AGREE -> loginViewModel.getTerms()
+
+            if (it.onBoarding.isEmpty() && it.mainGroupId != null) {
+                HomeActivity.startActivity(binding.root.context, it.mainGroupId.toLong())
+                requireActivity().finish()
+                return@observe
+            }
+
+            when (it.onBoarding.first()) { // TODO : 현재 배열로 되어있어서 첫번째 부분 확인, 추후 서버분들에게 시작 포인트 내려달라고 요청 예정
+                ONBOARD_TERMS -> loginViewModel.getTerms()
+                UPDATE_TERMS -> {
+                    // TODO : 약관 업데이트 UI 로 이동
+                }
+                ONBOARD_NICKNAME -> moveSingUp()
+                JOIN_GROUP -> moveGroupSearch()
             }
         }
 
@@ -100,11 +108,6 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
             if (dialog.isShowing.not()) return@observe
             dialog.updateSignUpEnabled(it)
         }
-
-        accessToken.observe(viewLifecycleOwner) {
-            if (it.isNullOrEmpty()) return@observe
-            loginViewModel.getOnBoard()
-        }
     }
 
     private fun setButtonListener() {
@@ -116,18 +119,12 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
 
         binding.btnKakao.setOnClickListener {
             Intent(requireActivity(), KakaoTestActivity::class.java).also { startActivity(it) }
+            requireActivity().finish()
         }
 
         binding.btnNaver.setOnClickListener {
             // Intent(requireActivity(), NaverTestActivity::class.java).also { startActivity(it) }
             requireContext().showToast("지금 준비중입니다.")
-        }
-    }
-
-    private fun checkedBoardPage(onBoard: String) {
-        when (onBoard) {
-            ONBOARD_TERMS -> loginViewModel.getTerms()
-            ONBOARD_NICKNAME -> moveSingUp()
         }
     }
 
@@ -200,9 +197,8 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
     companion object {
         const val ONBOARD_TERMS = "TERMS"
         const val ONBOARD_NICKNAME = "NICKNAME"
-        const val ALL_AGREE = 0
-        const val PARTIAL_AGREE = 1
-        const val NONE_AGREE = 2
+        const val JOIN_GROUP = "JOIN_GROUP"
+        const val UPDATE_TERMS = "UPDATE_TERMS"
         const val WEB_VIEW_KEY = "web view"
     }
 }
