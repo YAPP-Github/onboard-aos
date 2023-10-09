@@ -7,6 +7,7 @@ import com.yapp.bol.data.mapper.UserMapper.toUserDomain
 import com.yapp.bol.data.model.user.UserRequest
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.JoinedGroupItem
+import com.yapp.bol.domain.model.OnBoardingItem
 import com.yapp.bol.domain.model.user.UserItem
 import com.yapp.bol.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
@@ -24,7 +25,7 @@ class UserRepositoryImpl @Inject constructor(
     override fun getJoinedGroup(): Flow<ApiResult<List<JoinedGroupItem>>> =
         userDataSource.getJoinedGroup().map { it.toJoinedGroupItem() }
 
-    override fun getOnBoard(): Flow<ApiResult<List<String>>> {
+    override fun getOnBoard(): Flow<ApiResult<OnBoardingItem>> {
         return userDataSource.getOnBoard().map { it.toBoardDomain() }
     }
 
