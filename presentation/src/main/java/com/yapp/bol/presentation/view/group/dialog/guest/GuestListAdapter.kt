@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.yapp.bol.designsystem.R
 import com.yapp.bol.presentation.databinding.RvMemberItemBinding
 import com.yapp.bol.presentation.model.MemberInfo
+import com.yapp.bol.presentation.utils.setDiceImageForRole
 
 class GuestListAdapter(
     private val isEnableButton: (String) -> Unit
@@ -54,13 +54,8 @@ class GuestListAdapter(
         fun bind(item: MemberInfo, position: Int) {
             binding.tvMemberName.text = item.nickname
             binding.cbMemberSelect.isChecked = item.isChecked
-            setImageView(item)
+            binding.ivMemberLevelIcon.setDiceImageForRole(item.role)
             setClickListener(position)
-        }
-
-        private fun setImageView(item: MemberInfo) {
-            val image = if (item.isChecked.not()) R.drawable.img_dice_empty_small else R.drawable.img_dice
-            binding.ivMemberLevelIcon.setImageResource(image)
         }
 
         private fun setClickListener(position: Int) = with(binding) {
