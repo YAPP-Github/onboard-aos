@@ -6,12 +6,13 @@ import com.yapp.bol.presentation.R
 import com.yapp.bol.presentation.base.BaseActivity
 import com.yapp.bol.presentation.databinding.ActivitySplashBinding
 import com.yapp.bol.presentation.utils.setStatusBarColor
+import com.yapp.bol.presentation.view.group.GroupActivity
 import com.yapp.bol.presentation.view.home.HomeActivity
 import com.yapp.bol.presentation.view.login.LoginActivity
 import com.yapp.bol.presentation.view.login.NetworkErrorActivity
 import com.yapp.bol.presentation.view.setting.UpgradeActivity
-import com.yapp.bol.designsystem.R as DR
 import dagger.hilt.android.AndroidEntryPoint
+import com.yapp.bol.designsystem.R as DR
 
 @AndroidEntryPoint
 class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {
@@ -23,7 +24,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         setStatusBarColor(
             this@SplashActivity,
             R.color.Gray_15,
-            isIconBlack = false
+            isIconBlack = false,
         )
     }
 
@@ -32,22 +33,40 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
             if (it.not()) return@observe
             splashViewModel.getMyGroupList()
         }
-
-        splashViewModel.myGroupList.observe(this) {
+        splashViewModel.onBoardingState.observe(this) {
             if (it == null) return@observe
-            if (it.isEmpty()) {
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(DR.anim.fadein, DR.anim.fadeout)
-            } else {
-                HomeActivity.startActivity(binding.root.context, it.first().id)
+
+            when {
+                it.onBoarding.isNotEmpty() -> {
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(DR.anim.fadein, DR.anim.fadeout)
+                    finish()
+                }
+                it.mainGroupId == null -> {
+                    val intent = Intent(this, GroupActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                else -> {
+                    HomeActivity.startActivity(binding.root.context, it.mainGroupId.toLong())
+                    finish()
+                }
             }
+        }
+
+        splashViewModel.onBoardingErrorState.observe(this) {
+            if (it.not()) return@observe
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(DR.anim.fadein, DR.anim.fadeout)
             finish()
         }
 
         splashViewModel.networkState.observe(this) {
             if (it.not()) return@observe
             startActivity(Intent(this, NetworkErrorActivity::class.java))
+            finish()
         }
 
         splashViewModel.upgradeState.observe(this) {

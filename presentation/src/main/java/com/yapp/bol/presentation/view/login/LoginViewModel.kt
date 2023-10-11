@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yapp.bol.domain.model.TermsItem
 import com.yapp.bol.domain.model.TermsList
-import com.yapp.bol.domain.usecase.auth.GetAccessTokenUseCase
 import com.yapp.bol.domain.usecase.login.LoginUseCase
+import com.yapp.bol.presentation.model.OnBoardingUiModel
 import com.yapp.bol.presentation.utils.checkedApiResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -17,11 +17,10 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
-    private val getAccessTokenUseCase: GetAccessTokenUseCase,
 ) : ViewModel() {
 
-    private val _onboardState = MutableLiveData<List<String>?>(null)
-    val onboardState: LiveData<List<String>?> = _onboardState
+    private val _onboardState = MutableLiveData<OnBoardingUiModel?>(null)
+    val onboardState: LiveData<OnBoardingUiModel?> = _onboardState
 
     private val _termsList = MutableLiveData<List<TermsItem>?>(null)
     val termsList: LiveData<List<TermsItem>?> = _termsList
@@ -32,13 +31,14 @@ class LoginViewModel @Inject constructor(
     private val _isEnableSignUp = MutableLiveData(false)
     val isEnableSignUp: LiveData<Boolean> = _isEnableSignUp
 
-    private val _accessToken = MutableLiveData<String?>(null)
-    val accessToken: LiveData<String?> = _accessToken
+    init {
+        getOnBoard()
+    }
 
-    fun getOnBoard() {
+    private fun getOnBoard() {
         viewModelScope.launch {
             loginUseCase.getOnBoard().collectLatest {
-                checkedApiResult(apiResult = it, success = ::updateOnBoard)
+                checkedApiResult(apiResult = it, success = { data -> updateOnBoard(data.onBoarding, data.mainGroupId) })
             }
         }
     }
@@ -59,8 +59,11 @@ class LoginViewModel @Inject constructor(
 
     fun updateLike(position: Int, isChecked: Boolean) {
         _termsList.value = termsList.value?.mapIndexed { index, termsItem ->
-            if (index == position) termsItem.copy(isChecked = isChecked)
-            else termsItem
+            if (index == position) {
+                termsItem.copy(isChecked = isChecked)
+            } else {
+                termsItem
+            }
         }
         checkedRequired()
     }
@@ -78,21 +81,13 @@ class LoginViewModel @Inject constructor(
         return termsList.value?.find { it.isChecked != state } == null
     }
 
-    fun getAccessToken() {
-        viewModelScope.launch {
-            getAccessTokenUseCase().collectLatest {
-                _accessToken.value = it
-            }
-        }
-    }
-
     private fun updateTermList(data: TermsList) {
         updateDialogState(true)
         _termsList.value = data.contents
     }
 
-    private fun updateOnBoard(data: List<String>) {
-        _onboardState.value = data
+    private fun updateOnBoard(data: List<String>, mainGroupId: Int?) {
+        _onboardState.value = OnBoardingUiModel(data, mainGroupId)
     }
 
     private fun getAgree(): List<String> {
