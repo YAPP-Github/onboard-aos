@@ -10,7 +10,6 @@ import com.yapp.bol.presentation.databinding.RvMemberSelectItemBinding
 import com.yapp.bol.presentation.model.MemberInfo
 import com.yapp.bol.presentation.utils.setDiceImageForRole
 
-
 class MemberSelectAdapter(
     private val memberDeleteClickListener: (MemberInfo) -> Unit,
 ) : ListAdapter<MemberInfo, MemberSelectAdapter.MemberSelectViewHolder>(diff) {
