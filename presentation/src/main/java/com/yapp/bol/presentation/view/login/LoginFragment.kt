@@ -49,7 +49,7 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
                 }
 
                 override fun onClickSignUp() {
-                    moveSingUp()
+                    moveSignUp()
                 }
 
                 override fun onClickTermsDetail(url: String) {
@@ -89,7 +89,7 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
                 UPDATE_TERMS -> {
                     // TODO : 약관 업데이트 UI 로 이동
                 }
-                ONBOARD_NICKNAME -> moveSingUp()
+                ONBOARD_NICKNAME -> moveSignUp()
                 JOIN_GROUP -> moveGroupSearch()
             }
         }
@@ -128,7 +128,7 @@ class LoginFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) 
         }
     }
 
-    private fun moveSingUp() {
+    private fun moveSignUp() {
         loginViewModel.postTerms()
         findNavController().navigate(R.id.action_mainFragment_to_signUpNicknameFragment)
     }
