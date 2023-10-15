@@ -99,7 +99,7 @@ class GroupJoinViewModel @Inject constructor(
                 checkedApiResult(
                     apiResult = it,
                     success = { isAvailable ->
-                        if (!isAvailable) {
+                        if (!isAvailable.isAvailable) {
                             setGroupResultType(GroupResultType.ValidationNickname())
                         }
                     },

@@ -109,9 +109,9 @@ class GuestAddDialog(
         binding.tvDescription.text = spannableString
     }
 
-    override fun setNicknameValid(value: Boolean) {
+    override fun setNicknameValid(value: Boolean, reason: String?) {
         binding.btnGuestAdd.isEnabled = value
-        if (binding.etGuestName.text.isNotEmpty()) binding.tvDuplicationGuide.isVisible = value.not()
+        if (binding.etGuestName.text.isNotEmpty() && reason == "DUPLICATED_NICKNAME") binding.tvDuplicationGuide.isVisible = value.not()
         else binding.tvDuplicationGuide.isVisible = false
     }
 

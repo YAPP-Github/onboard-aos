@@ -7,6 +7,7 @@ import com.yapp.bol.data.mapper.MemberMapper.validToDomain
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.ErrorItem
 import com.yapp.bol.domain.model.MemberItems
+import com.yapp.bol.domain.model.NicknameValidItem
 import com.yapp.bol.domain.repository.MemberRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -16,7 +17,7 @@ class MemberRepositoryImpl @Inject constructor(
     private val memberDataSource: MemberDataSource,
 ) : MemberRepository {
 
-    override fun getValidateNickName(groupId: Int, nickname: String): Flow<ApiResult<Boolean>> {
+    override fun getValidateNickName(groupId: Int, nickname: String): Flow<ApiResult<NicknameValidItem>> {
         return memberDataSource.getValidateNickName(groupId, nickname).map {
             it.validToDomain()
         }

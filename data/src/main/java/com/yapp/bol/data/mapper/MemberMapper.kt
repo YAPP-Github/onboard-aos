@@ -6,12 +6,13 @@ import com.yapp.bol.data.model.member.MemberValidApiResponse
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.MemberItem
 import com.yapp.bol.domain.model.MemberItems
+import com.yapp.bol.domain.model.NicknameValidItem
 
 object MemberMapper {
 
-    fun ApiResult<MemberValidApiResponse>.validToDomain(): ApiResult<Boolean> {
+    fun ApiResult<MemberValidApiResponse>.validToDomain(): ApiResult<NicknameValidItem> {
         return when (this) {
-            is ApiResult.Success -> ApiResult.Success(data.isAvailable)
+            is ApiResult.Success -> ApiResult.Success(NicknameValidItem(data.isAvailable, data.reason))
             is ApiResult.Error -> ApiResult.Error(exception)
         }
     }

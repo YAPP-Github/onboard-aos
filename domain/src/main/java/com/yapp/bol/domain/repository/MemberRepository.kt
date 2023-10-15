@@ -3,6 +3,7 @@ package com.yapp.bol.domain.repository
 import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.ErrorItem
 import com.yapp.bol.domain.model.MemberItems
+import com.yapp.bol.domain.model.NicknameValidItem
 import kotlinx.coroutines.flow.Flow
 
 interface MemberRepository {
@@ -10,7 +11,7 @@ interface MemberRepository {
     fun getValidateNickName(
         groupId: Int,
         nickname: String,
-    ): Flow<ApiResult<Boolean>>
+    ): Flow<ApiResult<NicknameValidItem>>
 
     fun getMemberList(
         groupId: Int,

@@ -48,6 +48,7 @@ class MemberSelectViewModel @Inject constructor(
     private var groupId = 0
     private var cursor: String? = null
     private var hasNext = true
+    var validReason: String? = null
 
     init {
         getMembers()
@@ -77,7 +78,10 @@ class MemberSelectViewModel @Inject constructor(
             matchUseCase.getValidateNickName(groupId, nickname).collect {
                 checkedApiResult(
                     apiResult = it,
-                    success = { data -> _isNickNameValidate.value = data },
+                    success = { data ->
+                        validReason = data.reason
+                        _isNickNameValidate.value = data.isAvailable
+                    },
                 )
             }
         }
@@ -88,7 +92,7 @@ class MemberSelectViewModel @Inject constructor(
         matchUseCase.getUserInfo().collect {
             checkedApiResult(
                 apiResult = it,
-                success = { userItem -> nickname = userItem.nickname }
+                success = { userItem -> nickname = userItem.nickname },
             )
         }
 
@@ -130,8 +134,11 @@ class MemberSelectViewModel @Inject constructor(
 
     fun checkedSelectMembers(memberInfo: MemberInfo) {
         val selectMember = dynamicPlayers.find { it.id == memberInfo.id }
-        if (dynamicPlayers.contains(selectMember)) dynamicPlayers.remove(selectMember)
-        else dynamicPlayers.add(memberInfo)
+        if (dynamicPlayers.contains(selectMember)) {
+            dynamicPlayers.remove(selectMember)
+        } else {
+            dynamicPlayers.add(memberInfo)
+        }
         _players.value = dynamicPlayers.toList()
         _playerState.value = players.value?.isEmpty()?.not()
         checkedCompleteButtonEnabled()
@@ -160,8 +167,11 @@ class MemberSelectViewModel @Inject constructor(
     private fun setMemberIsChecked(memberList: List<MemberInfo>): List<MemberInfo> {
         return memberList.map { memberInfo ->
             val isChecked = players.value?.any { it.id == memberInfo.id } ?: false
-            if (isChecked) memberInfo.copy(isChecked = true)
-            else memberInfo
+            if (isChecked) {
+                memberInfo.copy(isChecked = true)
+            } else {
+                memberInfo
+            }
         }
     }
 

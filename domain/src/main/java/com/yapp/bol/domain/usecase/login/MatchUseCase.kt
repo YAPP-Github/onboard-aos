@@ -4,6 +4,7 @@ import com.yapp.bol.domain.model.ApiResult
 import com.yapp.bol.domain.model.GameItem
 import com.yapp.bol.domain.model.MatchItem
 import com.yapp.bol.domain.model.MemberItems
+import com.yapp.bol.domain.model.NicknameValidItem
 import com.yapp.bol.domain.model.user.UserItem
 import com.yapp.bol.domain.repository.GameRepository
 import com.yapp.bol.domain.repository.MatchRepository
@@ -22,7 +23,7 @@ class MatchUseCase @Inject constructor(
         return gameRepository.getGameList(groupId)
     }
 
-    fun getValidateNickName(groupId: Int, nickname: String): Flow<ApiResult<Boolean>> {
+    fun getValidateNickName(groupId: Int, nickname: String): Flow<ApiResult<NicknameValidItem>> {
         return memberRepository.getValidateNickName(groupId, nickname)
     }
 

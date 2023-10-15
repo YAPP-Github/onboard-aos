@@ -152,7 +152,7 @@ class MemberSelectFragment : BaseFragment<FragmentMemberSelectBinding>(R.layout.
         }
 
         isNickNameValidate.observe(viewLifecycleOwner) {
-            if (guestAddDialog.isShowing) guestAddDialog.setNicknameValid(it)
+            if (guestAddDialog.isShowing) guestAddDialog.setNicknameValid(it, validReason)
         }
 
         playerState.collectWithLifecycle(viewLifecycleOwner) {
